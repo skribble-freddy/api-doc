@@ -1,0 +1,32 @@
+name: API Docs CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint-and-preview:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install Redocly CLI
+      run: npm install -g @redocly/cli
+
+    - name: Lint Validation API v1
+      run: redocly lint openapi/validation_v1/openapi.yaml
+
+    - name: Lint Sign API v2
+      run: redocly lint openapi/sign_v2/openapi.yaml
+
+    - name: Lint Sign API v3
+      run: redocly lint openapi/sign_v3/openapi.yaml

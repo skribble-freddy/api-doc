@@ -1,0 +1,12 @@
+openapi: 3.0.3
+info:
+  title: Sign API
+  version: 3.0.0
+  description: Upcoming Sign API v3 (placeholder)
+servers:
+- url: https://api.skribble.com/v3
+paths:
+  $ref: ./paths/paths.yaml
+components:
+  $ref: ./components/components.yaml
+tags: []

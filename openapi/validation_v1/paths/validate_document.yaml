@@ -1,0 +1,52 @@
+post:
+  operationId: postValidateDocument
+  tags:
+    - Validation
+  summary: Validate a digitally signed content
+  description: >-
+    Validate signatures in digitally signed content, such as a PDF or XML file.
+    A validation ID {id} is returned that can be used to call additional
+    endpoints. The content to be validated is provided in the request body and
+    is not retained within our service. The maximum request or file size is
+    50MB. Request parameters can be used to set optional parameters to control
+    the validation
+  security:
+    - {}
+    - bearerAuth: []
+  parameters:
+    - $ref: ../components/parameters/quality.yaml
+    - $ref: ../components/parameters/preservation.yaml
+    - $ref: ../components/parameters/legislation.yaml
+    - $ref: ../components/parameters/additionalInfos.yaml
+    - $ref: ../components/parameters/rejectVisualDifferences.yaml
+    - $ref: ../components/parameters/rejectUndefinedChanges.yaml
+  requestBody:
+    $ref: ../components/requestBodies/validationDocument.yaml
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/DocumentValidationResponse.yaml
+          examples:
+            Default:
+              $ref: ../components/examples/DocumentValidation.yaml
+            WithSigners:
+              $ref: ../components/examples/DocumentValidationWithSigner.yaml
+            WithFormatAndDetails:
+              $ref: ../components/examples/DocumentValidationWithFormat.yaml
+            DocumentValidationWithFormat:
+              $ref: ../components/examples/DocumentValidationWithChecks.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '413':
+      $ref: ../components/responses/ContentTooLarge.yaml
+    '429':
+      $ref: ../components/responses/TooManyRequests.yaml
+    '500':
+      $ref: ../components/responses/ServerError.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailble.yaml

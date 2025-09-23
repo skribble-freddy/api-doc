@@ -1,0 +1,47 @@
+post:
+  operationId: postToolingProcessConform
+  tags:
+    - Tooling
+  summary: Conform document
+  description: >-
+    Convert the document to a specific PDF conformance. Can be called multiple
+    times to get current status and results; if relevant changes have been made
+    to the document with other tools, it will process the document again. If the
+    process status is 'pending', '423 Locked' is returned and it can be recalled
+    with some delay.
+  security:
+    - {}
+    - bearerAuth: []
+  parameters:
+    - $ref: ../components/parameters/uploadid.yaml
+    - $ref: ../components/parameters/conformanceConform.yaml
+    - $ref: ../components/parameters/allowDowngrade.yaml
+    - $ref: ../components/parameters/force.yaml
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ToolingConformResponse.yaml
+          examples:
+            Success:
+              $ref: ../components/examples/ToolingSuccessConform.yaml
+            Downgraded:
+              $ref: ../components/examples/ToolingSuccessConformDown.yaml
+            Failed:
+              $ref: ../components/examples/ToolingFailed.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '423':
+      $ref: ../components/responses/Locked.yaml
+    '429':
+      $ref: ../components/responses/TooManyRequests.yaml
+    '500':
+      $ref: ../components/responses/ServerError.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailble.yaml

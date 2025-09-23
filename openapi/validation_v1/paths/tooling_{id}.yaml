@@ -1,0 +1,61 @@
+get:
+  operationId: getToolingID
+  tags:
+    - Tooling
+  summary: Download processed document
+  description: >-
+    Download the processed document with the changes and enhancements made
+    according to the specified processing steps. If the status '423 Locked' is
+    returned it can be recalled with some delay.
+  security:
+    - {}
+    - bearerAuth: []
+  parameters:
+    - $ref: ../components/parameters/uploadid.yaml
+  responses:
+    '200':
+      description: Success
+      content:
+        application/pdf:
+          schema:
+            type: string
+            format: binary
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '423':
+      $ref: ../components/responses/Locked.yaml
+    '429':
+      $ref: ../components/responses/TooManyRequests.yaml
+    '500':
+      $ref: ../components/responses/ServerError.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailble.yaml
+delete:
+  operationId: deleteToolingID
+  tags:
+    - Tooling
+  summary: Delete processed document
+  description: >-
+    Terminates all running processes on the document and deletes all associated
+    content. This action occurs automatically after 10 minutes if not explicitly
+    invoked.
+  security:
+    - {}
+    - bearerAuth: []
+  parameters:
+    - $ref: ../components/parameters/uploadid.yaml
+  responses:
+    '204':
+      $ref: ../components/responses/Success.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '429':
+      $ref: ../components/responses/TooManyRequests.yaml
+    '500':
+      $ref: ../components/responses/ServerError.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailble.yaml

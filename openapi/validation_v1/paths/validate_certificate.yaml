@@ -1,0 +1,33 @@
+post:
+  operationId: postValidateCertificate
+  tags:
+    - Validation
+  summary: Validate a digital certificate [ROADMAP]
+  description: >-
+    Validate a digital certificate outside of its use within signatures. A
+    validation ID {id} is returned that can be used to call additional
+    endpoints. The content to be validated is provided in the request body.
+  security:
+    - {}
+    - bearerAuth: []
+  requestBody:
+    $ref: ../components/requestBodies/validationDocument.yaml
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/CertificateValidationResponse.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '429':
+      $ref: ../components/responses/TooManyRequests.yaml
+    '500':
+      $ref: ../components/responses/ServerError.yaml
+    '501':
+      $ref: ../components/responses/NotImplemented.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailble.yaml

@@ -1,0 +1,39 @@
+get:
+  operationId: getBillingCreditsInvoiced
+  tags:
+    - Billing and Credits
+  summary: Invoiced credit details
+  description: >-
+    Get invoiced credit details for the most recent billing period or a
+    specified time period
+  security:
+    - {}
+    - bearerAuth: []
+  parameters:
+    - in: query
+      name: period
+      schema:
+        type: string
+      description: >-
+        Format YYYY, YYYYMM, YYYYMMDD is supported. If not specified the last
+        invoiced period is used by default
+      required: false
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/BillingCreditUsage.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '429':
+      $ref: ../components/responses/TooManyRequests.yaml
+    '500':
+      $ref: ../components/responses/ServerError.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailble.yaml

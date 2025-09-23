@@ -1,0 +1,31 @@
+get:
+  operationId: getReportsSkribble
+  tags:
+    - Reports
+  summary: Skribble validation report [ROADMAP]
+  description: Get the digitally signed Skribble validation report as PDF
+  security:
+    - {}
+    - bearerAuth: []
+  parameters:
+    - $ref: ../components/parameters/validateid.yaml
+  responses:
+    '200':
+      description: Success
+      content:
+        application/pdf:
+          schema:
+            type: string
+            format: binary
+    '400':
+      description: Bad request
+    '401':
+      description: Unauthorized
+    '429':
+      description: Too many requests
+    '500':
+      description: Internal Server Error
+    '501':
+      description: Not implemented
+    '503':
+      description: Service unavailable

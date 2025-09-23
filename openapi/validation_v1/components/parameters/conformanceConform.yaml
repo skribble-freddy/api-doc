@@ -1,0 +1,17 @@
+name: conform
+in: query
+required: true
+description: PDF Conformance
+schema:
+  type: string
+  enum:
+    - recommendedConformance
+    - pdfa-1b
+    - pdfa-1a
+    - pdfa-2b
+    - pdfa-2u
+    - pdfa-2a
+    - pdfa-3b
+    - pdfa-3u
+    - pdfa-3a
+  default: recommendedConformance

@@ -1,0 +1,11 @@
+summary: Rejected visual differences
+value:
+  id: 9c2d7b48-4e1f-4d37-91e5-7bdfc9a9e3f1
+  valid: false
+  signatures: 1
+  validSignatures: 1
+  quality: SES
+  legislation: CH
+  longTermValidation: true
+  visualDifferences: true
+  undefinedChanges: false

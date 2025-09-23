@@ -1,0 +1,7 @@
+name: allowdowngrade
+in: query
+required: true
+description: Allows conformance downgrade in case of conversion error
+schema:
+  type: boolean
+  default: true

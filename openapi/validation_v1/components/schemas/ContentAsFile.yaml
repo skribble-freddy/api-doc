@@ -1,0 +1,6 @@
+type: object
+description: Content provided as uploaded file
+properties:
+  content:
+    type: string
+    format: binary

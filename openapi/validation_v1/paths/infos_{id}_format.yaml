@@ -1,0 +1,38 @@
+get:
+  operationId: getInfosFormat
+  tags:
+    - Additional Information
+  summary: Get additional information about the document format
+  security:
+    - {}
+    - bearerAuth: []
+  parameters:
+    - $ref: ../components/parameters/validateid.yaml
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/FormatInfosResponse.yaml
+          examples:
+            PDF:
+              $ref: ../components/examples/FormatPDF.yaml
+            XML:
+              $ref: ../components/examples/FormatXML.yaml
+            CMS:
+              $ref: ../components/examples/FormatCMS.yaml
+            PDFA:
+              $ref: ../components/examples/FormatPDFA.yaml
+    '400':
+      $ref: ../components/responses/ServiceUnavailble.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '429':
+      $ref: ../components/responses/TooManyRequests.yaml
+    '500':
+      $ref: ../components/responses/ServerError.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailble.yaml

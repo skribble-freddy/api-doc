@@ -12,6 +12,6 @@
     "preview:validation_v1": "redocly preview --product redoc -p 4000 -d openapi/validation_v1"
 },
   "devDependencies": {
-    "@redocly/cli": "2.1.5"
+    "@redocly/cli": "2.2.0"
   }
 }

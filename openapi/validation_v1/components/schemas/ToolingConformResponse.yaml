@@ -1,0 +1,15 @@
+type: object
+properties:
+  status:
+    $ref: ./ProcessStatus.yaml
+  conformance:
+    type: string
+    description: PDF conformance
+  downgraded:
+    type: boolean
+    description: Has a conformance downgrade
+  claimedConformance:
+    type: string
+    description: Claimed PDF conformance
+  details:
+    $ref: ./ProcessDetails.yaml

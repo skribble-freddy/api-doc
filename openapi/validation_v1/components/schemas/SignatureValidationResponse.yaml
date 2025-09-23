@@ -1,0 +1,31 @@
+type: object
+properties:
+  id:
+    type: string
+    format: uuid
+  valid:
+    type: boolean
+    example: true
+  signatures:
+    type: integer
+    description: Number of signatures found
+    example: 1
+  validSignatures:
+    type: integer
+    description: Number of valid signatures found
+    example: 1
+  quality:
+    type: string
+    description: Highest signature quality found
+    example: QES
+  legislation:
+    type: string
+    description: Identified legislation (CH, EU, CH-EU, WORLD)
+    example: CH
+  longTermValidation:
+    type: boolean
+    description: All signatures are provided with long-term validation information
+    example: true
+  additionalInfos:
+    description: (Optional) Additional information details
+    $ref: ./OptionalValidationInfos.yaml

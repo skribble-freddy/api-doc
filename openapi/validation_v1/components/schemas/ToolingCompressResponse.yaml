@@ -1,0 +1,27 @@
+type: object
+properties:
+  status:
+    $ref: ./ProcessStatus.yaml
+  optimisation:
+    type: string
+    description: PDF Optimisation
+  claimedConformance:
+    type: string
+    description: Claimed PDF conformance
+  pages:
+    type: integer
+    description: Number of pages
+  originalSize:
+    type: integer
+    description: Original size in Bytes
+  newSize:
+    type: integer
+    description: New size in Bytes
+  compressionRatio:
+    type: number
+    description: Compression ratio
+  spaceSaving:
+    type: number
+    description: Space saving
+  details:
+    $ref: ./ProcessDetails.yaml

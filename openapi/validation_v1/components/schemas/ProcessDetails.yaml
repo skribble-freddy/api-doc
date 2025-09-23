@@ -1,0 +1,7 @@
+type: array
+description: Additional details
+items:
+  type: string
+example:
+  - Warnings occured during PDF/A conversion
+  - Cannot convert file to PDF/A

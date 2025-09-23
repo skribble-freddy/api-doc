@@ -1,0 +1,45 @@
+post:
+  operationId: postValidateSignature
+  tags:
+    - Validation
+  summary: Validate a digital signature
+  description: >-
+    Validate digital signatures such as CMS and CAdES without providing the
+    associated signed content. A validation ID {id} is returned that can be used
+    to call additional endpoints. The signature to be validated is provided in
+    the request body. Query parameters can be used to set optional parameters to
+    control the validation.
+  security:
+    - {}
+    - bearerAuth: []
+  parameters:
+    - $ref: ../components/parameters/quality.yaml
+    - $ref: ../components/parameters/preservation.yaml
+    - $ref: ../components/parameters/legislation.yaml
+    - $ref: ../components/parameters/additionalInfos.yaml
+  requestBody:
+    $ref: ../components/requestBodies/validationDocument.yaml
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/SignatureValidationResponse.yaml
+          examples:
+            Default:
+              $ref: ../components/examples/SignatureValidation.yaml
+            WithSigners:
+              $ref: ../components/examples/SignatureValidationWithSigner.yaml
+            WithFormatAndDetails:
+              $ref: ../components/examples/SignatureValidationWithFormat.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '429':
+      $ref: ../components/responses/TooManyRequests.yaml
+    '500':
+      $ref: ../components/responses/ServerError.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailble.yaml

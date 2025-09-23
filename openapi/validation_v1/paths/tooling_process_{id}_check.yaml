@@ -1,0 +1,43 @@
+post:
+  operationId: postToolingProcessCheck
+  tags:
+    - Tooling
+  summary: Check document PDF conformance
+  description: >-
+    Checks the document against a specific set of PDF conformance criteria and
+    guidelines. Can be called multiple times to get current status and results;
+    if relevant changes have been made to the document with other tools, it will
+    process the document again. If the status '423 Locked' is returned it can be
+    recalled with some delay.
+  security:
+    - {}
+    - bearerAuth: []
+  parameters:
+    - $ref: ../components/parameters/uploadid.yaml
+    - $ref: ../components/parameters/conformanceCheck.yaml
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ToolingCheckResponse.yaml
+          examples:
+            Success:
+              $ref: ../components/examples/ToolingSuccessCheck.yaml
+            Failed:
+              $ref: ../components/examples/ToolingFailedCheck.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '423':
+      $ref: ../components/responses/Locked.yaml
+    '429':
+      $ref: ../components/responses/TooManyRequests.yaml
+    '500':
+      $ref: ../components/responses/ServerError.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailble.yaml

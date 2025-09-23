@@ -1,0 +1,5 @@
+summary: Spot has failed
+value:
+  status: failed
+  details:
+    - PDF is password protected

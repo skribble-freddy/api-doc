@@ -1,0 +1,7 @@
+summary: Process has failed
+value:
+  status: failed
+  details:
+    - >-
+      - FONT: The value of the CIDSet[67] of font EAAAAB+OpenSans-Regular is
+      false but must be true

@@ -1,0 +1,15 @@
+type: object
+properties:
+  status:
+    $ref: ./ProcessStatus.yaml
+  conformance:
+    type: string
+    description: PDF conformance
+  claimedConformance:
+    type: string
+    description: Claimed PDF conformance
+  recommendedConformance:
+    type: string
+    description: Recommended (highest possible) conformance for conform endpoint
+  details:
+    $ref: ./ProcessDetails.yaml

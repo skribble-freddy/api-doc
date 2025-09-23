@@ -1,0 +1,14 @@
+type: object
+properties:
+  sku:
+    type: string
+    description: SKU of the API endpoint
+    example: 01-01
+  endpoint:
+    type: string
+    description: API endpoint
+    example: /validate/document
+  credits:
+    type: integer
+    description: Credit usage per successful API endpoint call
+    example: 2

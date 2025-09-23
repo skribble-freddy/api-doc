@@ -1,0 +1,8 @@
+type: string
+description: Process Status
+items:
+  type: string
+  enum:
+    - success
+    - failed
+example: success

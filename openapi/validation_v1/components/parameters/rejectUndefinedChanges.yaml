@@ -1,0 +1,9 @@
+name: rejectUndefinedChanges
+in: query
+required: false
+description: >-
+  Optional flag to specify if undefined changes should be rejected. If 'true',
+  validation will fail due to undefined changes; if 'false' or not provided,
+  undefined changes will not cause validation to fail.
+schema:
+  type: boolean

@@ -1,0 +1,6 @@
+name: force
+in: query
+required: false
+description: Forces process despite canConvert or canCompress state
+schema:
+  type: boolean

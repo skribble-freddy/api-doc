@@ -1,0 +1,25 @@
+get:
+  operationId: getBillingCreditsInfos
+  tags:
+    - Billing and Credits
+  summary: Credits information
+  description: Get the list of credit usage information associated with specific endpoints
+  security:
+    - {}
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/BillingCreditInfos.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '429':
+      $ref: ../components/responses/TooManyRequests.yaml
+    '500':
+      $ref: ../components/responses/ServerError.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailble.yaml

@@ -1,0 +1,8 @@
+summary: Failed
+value:
+  status: failed
+  claimedConformance: pdfa-2b
+  details:
+    - >-
+      - FONT: The value of the CIDSet[67] of font EAAAAB+OpenSans-Regular is
+      false but must be true

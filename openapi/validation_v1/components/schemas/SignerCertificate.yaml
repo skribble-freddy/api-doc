@@ -1,0 +1,13 @@
+type: object
+properties:
+  subject:
+    type: string
+    example: CN=John Doe, C=CH, SerialNumber=RAS64084aeaf178c31a
+  issuer:
+    type: string
+    example: >-
+      CN=Swisscom Diamant CA 4, OU=Digital Certificate Services, O=Swisscom
+      (Schweiz) AG, C=ch
+  serialNumber:
+    type: string
+    example: '160038991315232382650416191585425640265'

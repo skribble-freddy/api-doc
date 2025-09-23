@@ -1,0 +1,6 @@
+summary: Processed
+value:
+  status: success
+  conformance: pdfa-3a
+  downgraded: false
+  claimedConformance: pdfa-2b

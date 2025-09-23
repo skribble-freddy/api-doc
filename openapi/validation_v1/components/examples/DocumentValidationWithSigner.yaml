@@ -1,0 +1,30 @@
+summary: With signer
+value:
+  id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+  valid: true
+  signatures: 1
+  validSignatures: 1
+  quality: QES
+  legislation: CH
+  longTermValidation: true
+  visualDifferences: false
+  undefinedChanges: false
+  additionalInfos:
+    signer:
+      - valid: true
+        signer: John Doe
+        time: '2018-11-28T11:51:58.637Z'
+        quality: QES
+        legislation: CH
+        longTermValidation: true
+        visualDifferences: false
+        undefinedChanges: false
+        certificate:
+          subject: CN=John Doe, C=CH, SerialNumber=RAS64084aeaf178c31a
+          issuer: >-
+            CN=Swisscom Diamant CA 4, OU=Digital Certificate Services,
+            O=Swisscom (Schweiz) AG, C=ch
+          serialNumber: '160038991315232382650416191585425640265'
+        optionalInfos:
+          name: John Doe
+          contact: john.doe@acme.org

@@ -1,0 +1,19 @@
+type: object
+properties:
+  period:
+    type: string
+    description: Billing period in YYYYMM format
+    example: '20240528'
+  usage:
+    type: array
+    description: Array of consumptions, each detailing an endpoint use and its credit usage
+    items:
+      $ref: ./CreditUsage.yaml
+  requests:
+    type: integer
+    description: Total of requests made
+    example: 2
+  credits:
+    type: integer
+    description: Total of credits used
+    example: 4

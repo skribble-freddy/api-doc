@@ -1,0 +1,14 @@
+name: infos
+in: query
+required: false
+description: >-
+  Optional flag to request additional information, such as validation, format,
+  or signer details.
+schema:
+  type: array
+  items:
+    type: string
+    enum:
+      - validation
+      - format
+      - signer

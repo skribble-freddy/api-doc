@@ -1,0 +1,65 @@
+type: object
+properties:
+  status:
+    $ref: ./ProcessStatusSpot.yaml
+  results:
+    type: object
+    properties:
+      quality:
+        type: string
+        description: Spoted signature quality
+      legislation:
+        type: string
+        description: Spoted legislation
+      signers:
+        type: array
+        description: Spoted signers
+        items:
+          type: object
+          properties:
+            signer:
+              type: string
+              description: Signer unique name and id
+            email:
+              type: string
+              description: Signer eMail (optional)
+            sequence:
+              type: integer
+              description: Sequence in signing (optional)
+      signatures:
+        type: array
+        description: Spoted signature fields
+        items:
+          type: object
+          properties:
+            signer:
+              type: string
+              description: Signer unique name and id (optional)
+            positions:
+              type: array
+              description: Signature Positions (optional)
+              items:
+                type: object
+                properties:
+                  page:
+                    type: integer
+                    description: Page number
+                  height:
+                    type: number
+                    description: Height of signature
+                  width:
+                    type: number
+                    description: Width of signature
+                  x:
+                    type: number
+                    description: X coordinate from the bottom of signature
+                  'y':
+                    type: number
+                    description: Y coordinate from the bottom of signature
+      observers:
+        type: array
+        description: Spoted observers
+        items:
+          type: string
+  details:
+    $ref: ./ProcessDetails.yaml

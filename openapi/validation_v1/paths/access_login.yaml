@@ -1,0 +1,33 @@
+post:
+  operationId: postAccessLogin
+  tags:
+    - Access
+  summary: Sign in to receive an access token using JSON to submit credentials
+  security:
+    - {}
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/LoginRequest.yaml
+    required: true
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              accesstoken:
+                type: string
+                format: binary
+                example: eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSld...
+    '401':
+      $ref: ../components/responses/LoginFailed.yaml
+    '429':
+      $ref: ../components/responses/TooManyRequests.yaml
+    '500':
+      $ref: ../components/responses/ServerError.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailble.yaml

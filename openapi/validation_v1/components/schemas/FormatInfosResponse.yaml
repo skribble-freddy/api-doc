@@ -1,0 +1,11 @@
+type: object
+properties:
+  fileType:
+    type: string
+    description: File Type
+  quality:
+    type: string
+    description: (Optional) File Type Quality
+  producer:
+    type: string
+    description: (Optional) File producer

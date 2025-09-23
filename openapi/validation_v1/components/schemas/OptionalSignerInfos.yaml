@@ -1,0 +1,14 @@
+type: object
+properties:
+  name:
+    type: string
+    example: John Doe
+  contact:
+    type: string
+    example: john.doe@acme.org
+  location:
+    type: string
+    example: Zurich, Switzerland
+  reason:
+    type: string
+    example: john.doe@acme.org digitally signed on skribble.com

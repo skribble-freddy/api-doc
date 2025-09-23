@@ -1,0 +1,8 @@
+type: object
+properties:
+  signer:
+    $ref: ./SignerInfosResponse.yaml
+  format:
+    $ref: ./FormatInfosResponse.yaml
+  validation:
+    $ref: ./ValidationInfosResponse.yaml

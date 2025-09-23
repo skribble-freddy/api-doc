@@ -1,0 +1,14 @@
+type: object
+properties:
+  endpoint:
+    type: string
+    description: The API endpoint being consumed
+    example: /validate/document
+  requests:
+    type: integer
+    description: Number of credits consumed by the endpoint call
+    example: 2
+  credits:
+    type: integer
+    description: The number of credits consumed through the corresponding endpoint
+    example: 4

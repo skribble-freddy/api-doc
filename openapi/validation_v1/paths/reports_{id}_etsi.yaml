@@ -1,0 +1,30 @@
+get:
+  operationId: getReportsETSI
+  tags:
+    - Reports
+  summary: ETSI TS 119 102-2 validation report
+  description: Get the ETSI TS 119 102-2 signature validation report as a XML
+  security:
+    - {}
+    - bearerAuth: []
+  parameters:
+    - $ref: ../components/parameters/validateid.yaml
+  responses:
+    '200':
+      description: Success
+      content:
+        application/xml:
+          schema:
+            type: string
+    '400':
+      description: Bad request
+    '401':
+      description: Unauthorized
+    '404':
+      description: Not Found
+    '429':
+      description: Too many requests
+    '500':
+      description: Internal Server Error
+    '503':
+      description: Service unavailable

@@ -1,0 +1,6 @@
+type: object
+description: Content provided as public URL
+properties:
+  contentUrl:
+    type: string
+    format: url

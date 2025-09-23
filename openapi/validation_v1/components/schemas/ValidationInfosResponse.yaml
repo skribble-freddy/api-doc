@@ -1,0 +1,18 @@
+type: object
+properties:
+  indication:
+    type: string
+    example: TOTAL-FAILED
+  subIndication:
+    type: string
+    example: HASH_FAILURE
+  details:
+    type: array
+    items:
+      type: string
+    example:
+      - The certificate validation is not conclusive!
+      - >-
+        The current time is not in the validity range of the signer's
+        certificate!
+      - The signature is not intact!

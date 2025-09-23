@@ -1,0 +1,12 @@
+name: optimise
+in: query
+required: true
+description: PDF Optimisation
+schema:
+  type: string
+  enum:
+    - archive
+    - print
+    - size
+    - web
+  default: size

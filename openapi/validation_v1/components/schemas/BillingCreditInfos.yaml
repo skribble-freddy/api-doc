@@ -1,0 +1,12 @@
+type: object
+properties:
+  validFrom:
+    type: string
+    format: timestamp
+    description: ISO Date with time in UTC
+    example: '2024-05-30T13:45:00Z'
+  consumptions:
+    type: array
+    description: Array of consumptions, each with endpoint details and its credit cost
+    items:
+      $ref: ./CreditInfo.yaml

@@ -1,0 +1,10 @@
+summary: Processed
+value:
+  status: success
+  optimisation: size
+  claimedConformance: pdf-1.5
+  pages: 12
+  originalSize: 907128
+  newSize: 228161
+  compressionRatio: 3.975824
+  spaceSaving: 0.7484798176

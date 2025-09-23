@@ -1,0 +1,29 @@
+delete:
+  operationId: deleteValidation
+  tags:
+    - Validation
+  summary: Deletes the validation
+  description: >-
+    Deletes the corresponding resource identified by {id}, universal for all
+    validation resources. Any resource that is not manually deleted will be
+    automatically deleted after 10 minutes.
+  security:
+    - {}
+    - bearerAuth: []
+  parameters:
+    - $ref: ../components/parameters/validateid.yaml
+  responses:
+    '204':
+      $ref: ../components/responses/Success.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '429':
+      $ref: ../components/responses/TooManyRequests.yaml
+    '500':
+      $ref: ../components/responses/ServerError.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailble.yaml

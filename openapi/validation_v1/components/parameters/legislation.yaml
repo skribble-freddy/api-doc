@@ -1,0 +1,13 @@
+name: legislation
+in: query
+required: false
+description: >-
+  Optional flag specifying the legislation to comply with (WORLD, CH, EU,
+  CH_EU).
+schema:
+  type: string
+  enum:
+    - WORLD
+    - CH
+    - EU
+    - CH_EU

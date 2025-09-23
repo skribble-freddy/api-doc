@@ -1,0 +1,6 @@
+summary: Downgraded
+value:
+  status: success
+  conformance: pdfa-1b
+  downgraded: true
+  claimedConformance: pdfa-2b

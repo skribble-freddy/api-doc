@@ -1,0 +1,6 @@
+name: longTermValidation
+in: query
+required: false
+description: Optional flag indicating whether the signature must be long-term valid.
+schema:
+  type: boolean

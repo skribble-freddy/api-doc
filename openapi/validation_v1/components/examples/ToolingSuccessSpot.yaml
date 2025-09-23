@@ -1,0 +1,30 @@
+summary: Processed
+value:
+  status: success
+  results:
+    quality: QES
+    legislation: CH
+    signers:
+      - signer: John Doe
+        email: john.doe@acme.org
+        sequence: 1
+      - signer: Jane Doe
+        email: jane.doe@acme.org
+        sequence: 2
+    signatures:
+      - signer: John Doe
+        positions:
+          - page: 0
+            height: 70
+            width: 150
+            x: 350
+            'y': 240
+      - signer: Jane Doe
+        positions:
+          - page: 0
+            height: 70
+            width: 150
+            x: 500
+            'y': 240
+    observers:
+      - backoffice@acme.org

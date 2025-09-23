@@ -1,0 +1,38 @@
+post:
+  operationId: postToolingUpload
+  tags:
+    - Tooling
+  summary: Upload document for processing
+  description: >-
+    Upload a document to be used in the tooling process. A process ID {id} is
+    returned which can be used to call additional endpoints. If not already a
+    PDF, the uploaded document will be converted into one. The maximum request
+    or file size is 50MB.
+  security:
+    - {}
+    - bearerAuth: []
+  requestBody:
+    $ref: ../components/requestBodies/toolingDocument.yaml
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ToolingUploadResponse.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '413':
+      $ref: ../components/responses/ContentTooLarge.yaml
+    '415':
+      $ref: ../components/responses/UnsupportedMediaType.yaml
+    '429':
+      $ref: ../components/responses/TooManyRequests.yaml
+    '500':
+      $ref: ../components/responses/ServerError.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailble.yaml

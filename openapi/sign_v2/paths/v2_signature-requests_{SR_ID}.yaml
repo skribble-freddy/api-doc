@@ -1,0 +1,201 @@
+get:
+  tags:
+    - 3. Download the signed PDF document
+  summary: Get the document ID from the signature request
+  description: >-
+    We distinguish between the signature request ID and document ID. To read and
+    download the PDF document, the document ID is retrieved from the 
+    `SignatureRequest` with the ID `{{SR_ID}}`
+  operationId: GetthedocumentIDfromthesignaturerequest
+  parameters:
+    - name: SR_ID
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+  responses:
+    '404':
+      description: Not Found
+      headers:
+        Expires:
+          content:
+            text/plain:
+              schema:
+                type: string
+                contentMediaType: text/plain
+              example: '0'
+        Connection:
+          content:
+            text/plain:
+              schema:
+                type: string
+                contentMediaType: text/plain
+              example: close
+        Cache-Control:
+          content:
+            text/plain:
+              schema:
+                type: string
+                contentMediaType: text/plain
+              example: no-cache, no-store, max-age=0, must-revalidate
+        X-XSS-Protection:
+          content:
+            text/plain:
+              schema:
+                type: string
+                contentMediaType: text/plain
+              example: 1; mode=block
+        X-Content-Type-Options:
+          content:
+            text/plain:
+              schema:
+                type: string
+                contentMediaType: text/plain
+              example: nosniff
+        Pragma:
+          content:
+            text/plain:
+              schema:
+                type: string
+                contentMediaType: text/plain
+              example: no-cache
+        Date:
+          content:
+            text/plain:
+              schema:
+                type: string
+                contentMediaType: text/plain
+              example: Thu, 05 Nov 2020 14:52:08 GMT
+      content:
+        application/json;charset=UTF-8:
+          schema:
+            allOf:
+              - $ref: >-
+                  ../components/schemas/GetthedocumentIDfromamissingsignaturerequest4041.yaml
+              - examples:
+                  - type: https://api.skribble.com/problem/entity-not-found
+                    status: 404
+                    message: SignatureRequest not found
+                    method: GET
+                    path: /v2/signature-requests/000000-2423-2323-cccc-00000000000
+            contentMediaType: application/json;charset=UTF-8
+          example:
+            type: https://api.skribble.com/problem/entity-not-found
+            status: 404
+            message: SignatureRequest not found
+            method: GET
+            path: /v2/signature-requests/000000-2423-2323-cccc-00000000000
+    default:
+      description: ''
+      headers: {}
+      content:
+        text/plain:
+          schema:
+            type: string
+            examples:
+              - |-
+                {
+
+                  "id": "cccccccc-4a6a-a958-a42e-6ea4172a378b",
+
+                  "title": "Example contract",
+
+                  "message": "Please sign this document!",
+
+                  "document_id": "d98ae06a-3ae4-5cc5-c0a3-62b05901b84f",
+
+                  ...
+
+                }
+            contentMediaType: text/plain
+          example: |-
+            {
+
+              "id": "cccccccc-4a6a-a958-a42e-6ea4172a378b",
+
+              "title": "Example contract",
+
+              "message": "Please sign this document!",
+
+              "document_id": "d98ae06a-3ae4-5cc5-c0a3-62b05901b84f",
+
+              ...
+
+            }
+  deprecated: false
+  security:
+    - bearer: []
+  servers:
+    - url: https://api.skribble.com
+      variables: {}
+delete:
+  tags:
+    - Modify
+  summary: Delete a signature request
+  description: >-
+    By using the signature request ID you can delete a `SignatureRequest`.  
+     
+    **Important:** A `SignatureRequest` can only be deleted using the API, if:
+
+    1. the `SignatureRequest` is in the `status_overall=OPEN` and
+
+    2. the API user has sufficient rights on the `SignatureRequest`, eg. when it
+    was created by the API user. 
+      
+    Deleting a `SignatureRequest` does not necessarily remove the
+    `SignatureRequest` from the system. 
+     
+    **WITHDRAWN**  
+
+    When the API user is the **owner** of the `SignatureRequest` and the
+    `SignatureRequest` is still in the `status_overall=OPEN` then the
+    `SignatureRequest` will be **WITHDRAWN**.  
+
+    This means that the `SignatureRequest` will get `status_overall=WITHDRAWN`
+    and all the invited signatures will be marked with `status_code=WITHDRAWN`.
+    Sign and read rights for the signers will be removed from the
+    `SignatureRequest`, so that the invited signers can neither read nor sign
+    the `SignatureRequest` any more. 
+
+
+    **REMOVE AS PARTICIPANT**  
+
+    When the API user is NOT the owner of the document but a participant of the
+    `SignatureRequest`, then the `DELETE` request will only remove the current
+    API user as participant from the signature request. 
+
+    In this case the system will remove the objects the `SignatureRequest` and
+    the related `document` as soon as the last remaining user deletes the
+    `SignatureRequest` using the [Skribble web
+    application](https://my.skribble.com) 
+
+
+    **DELETING**  
+
+    When the API user is the last user with access rights to the
+    `SignatureRequest` e.g. after a **WITHDRAW** request, then the
+    `SignatureRequest` and the related `document` will be completely removed
+    from the system.
+  operationId: Deleteasignaturerequest
+  parameters:
+    - name: SR_ID
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+  responses:
+    default:
+      description: ''
+      headers: {}
+      content: {}
+  deprecated: false
+  security:
+    - bearer: []
+  servers:
+    - url: https://api.skribble.com
+      variables: {}
+parameters: []

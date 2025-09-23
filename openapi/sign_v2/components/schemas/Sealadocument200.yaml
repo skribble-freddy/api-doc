@@ -1,0 +1,9 @@
+title: Sealadocument200
+required:
+  - document_id
+type: object
+properties:
+  document_id:
+    type: string
+examples:
+  - document_id: e4cde459-6e63-0095-10b8-55b39ec39f46

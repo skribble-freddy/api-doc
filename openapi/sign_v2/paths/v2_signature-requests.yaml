@@ -1,0 +1,384 @@
+post:
+  tags:
+    - 1. Create a SignatureRequest
+  summary: Create a simple  signature request for a PDF document
+  description: >-
+    In this example we have three signers. One of the signers is you and the
+    other two are external signers. Of course, it is also possible to create
+    signature requests in which you are the only signer or where you are not a
+    signer yourself. In the second case, you as creator of the
+    `SignatureRequest` get read-only rights on this data object.
+  operationId: CreateasimplesignaturerequestforaPDFdocument
+  parameters: []
+  requestBody:
+    description: ''
+    content:
+      application/json:
+        schema:
+          allOf:
+            - $ref: >-
+                ../components/schemas/CreateasimplesignaturerequestforaPDFdocument.yaml
+            - examples:
+                - title: Example contract
+                  message: Please sign this document!
+                  content: '{{BASE64_PDF}}'
+                  signatures:
+                    - account_email: you@example.info
+                    - account_email: personOneToSign@external.net
+                    - account_email: personTwoToSign@external.net
+          contentMediaType: application/json
+        example:
+          title: Example contract
+          message: Please sign this document!
+          content: '{{BASE64_PDF}}'
+          signatures:
+            - account_email: you@example.info
+            - account_email: personOneToSign@external.net
+            - account_email: personTwoToSign@external.net
+    required: true
+  responses:
+    default:
+      description: ''
+      headers: {}
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: >-
+                  ../components/schemas/Createasignaturerequestforthreesigners200.yaml
+              - examples:
+                  - id: cccccccc-4a6a-a958-a42e-6ea4172a378b
+                    title: Example contract
+                    message: Please sign this document!
+                    document_id: d98ae06a-3ae4-5cc5-c0a3-62b05901b84f
+                    quality: DEMO
+                    signing_url: >-
+                      https://my.skribble.com/view/cccccccc-4a6a-a958-a42e-6ea4172a378b
+                    status_overall: OPEN
+                    signatures:
+                      - sid: eeeeeeee-cdab-938a-aed9-ebabbc92a013
+                        account_email: you@example.info
+                        order: -1
+                        status_code: OPEN
+                        notify: true
+                      - sid: fffffff-abce-3e34-6e47-48b3624f6cd3
+                        account_email: persononetosign@external.net
+                        order: -1
+                        status_code: OPEN
+                        notify: true
+                      - sid: 33333333-8408-28c1-90fc-63b4767fd7b2
+                        account_email: persontwotosign@external.net
+                        order: -1
+                        status_code: OPEN
+                        notify: true
+                    cc_email_addresses: []
+                    owner: api_demo_your_name
+                    read_access:
+                      - api_demo_your_name
+                      - persononetosign@external.net
+                      - persontwotosign@external.net
+                      - you@example.info
+                    write_access:
+                      - api_demo_your_name
+                    created_at: '2099-12-12T12:12:12.000Z'
+                    updated_at: '2099-12-12T12:12:12.000Z'
+            contentMediaType: application/json
+          example:
+            id: cccccccc-4a6a-a958-a42e-6ea4172a378b
+            title: Example contract
+            message: Please sign this document!
+            document_id: d98ae06a-3ae4-5cc5-c0a3-62b05901b84f
+            quality: DEMO
+            signing_url: https://my.skribble.com/view/cccccccc-4a6a-a958-a42e-6ea4172a378b
+            status_overall: OPEN
+            signatures:
+              - sid: eeeeeeee-cdab-938a-aed9-ebabbc92a013
+                account_email: you@example.info
+                order: -1
+                status_code: OPEN
+                notify: true
+              - sid: fffffff-abce-3e34-6e47-48b3624f6cd3
+                account_email: persononetosign@external.net
+                order: -1
+                status_code: OPEN
+                notify: true
+              - sid: 33333333-8408-28c1-90fc-63b4767fd7b2
+                account_email: persontwotosign@external.net
+                order: -1
+                status_code: OPEN
+                notify: true
+            cc_email_addresses: []
+            owner: api_demo_your_name
+            read_access:
+              - api_demo_your_name
+              - persononetosign@external.net
+              - persontwotosign@external.net
+              - you@example.info
+            write_access:
+              - api_demo_your_name
+            created_at: '2099-12-12T12:12:12.000Z'
+            updated_at: '2099-12-12T12:12:12.000Z'
+  deprecated: false
+  security:
+    - bearer: []
+  servers:
+    - url: https://api.skribble.com
+      variables: {}
+get:
+  tags:
+    - Find
+  summary: List and find SignatureRequests
+  description: >-
+    Using this `GET` request, you can list all the `SignatureRequests` provided
+    that the current user has sufficient access rights to.
+
+
+    You can optionally filter these `SignatureRequests` using one or more of the
+    following criteria.
+
+
+    | Parameter | Description | Mandatory |
+
+    | --- | --- | --- |
+
+    | **account_email** | Filter on the field `signatures[].account_email` | no
+    |
+
+    | **search** | Filter on the field `title` to search for documents
+    _**containing**_ the serach term. | no |
+
+    | **signature_status** | Filter on the field `signatures[].status_code` with
+    one of the valid **Signature states** | no |
+
+    | **status_overall** | Filter on the field `status_overall` with one of the
+    valid **Signature states** | no |
+
+
+    > **Note**  
+
+    The filter searches for an exact match of the corresponding field content.
+    This means that the filter is case sensitive and won&apos;t find objects
+    that only _contain_ the parameter. For example
+    _account_email=john.doe@skribble.com_ will only find a `SignatureRequests`
+    where the field `account_email` is exactly
+    [&lt;em&gt;john.doe@skribble.com&lt;/em&gt;](https://mailto:john.doe@skribble.com).
+    It won&apos;t find
+    [&lt;em&gt;another.john.doe@skribble.com&lt;/em&gt;](https://mailto:another.john.doe@skribble.com)  
+
+    Exception: The search parameter searches for document titles that contain
+    the search term. 
+      
+
+    **Pagination**
+
+
+    Furthermore, the result set can be controlled using the optional pagination
+    parameters `page_number` and `page_size`, which helps prevent excessively
+    large result sets.
+
+
+    | Parameter | Description | Mandatory |
+
+    | --- | --- | --- |
+
+    | `page_number` | Page number must be greater than or equal to 0 
+    <br>Default: Pagination is disabled | no |
+
+    | `page_size` | Page size must be greater than or equal to 0  <br>Default:
+    50 | no |
+  operationId: ListandfindSignatureRequests
+  parameters: []
+  responses:
+    default:
+      description: ''
+      headers: {}
+      content:
+        text/plain:
+          schema:
+            type: string
+            examples:
+              - |-
+                [
+
+                    {
+
+                        "id": "56c40808-ab69-4b50-c174-a0d59d59c48d",
+
+                        "title": "First example contract",
+
+                        ...
+
+                    },
+
+                    {
+
+                        "id": "c9cce9be-4a6a-a958-a42e-6ea4172a378b",
+
+                        "title": "Second example contract"
+
+                        ...
+
+                    },
+
+                    {
+
+                        "id": "c9cce9be-4a6a-a958-a42e-6ea4172a378b",
+
+                        "title": "Third example contract"
+
+                        ...
+
+                    },
+
+                    ...
+
+                }
+            contentMediaType: text/plain
+          example: |-
+            [
+
+                {
+
+                    "id": "56c40808-ab69-4b50-c174-a0d59d59c48d",
+
+                    "title": "First example contract",
+
+                    ...
+
+                },
+
+                {
+
+                    "id": "c9cce9be-4a6a-a958-a42e-6ea4172a378b",
+
+                    "title": "Second example contract"
+
+                    ...
+
+                },
+
+                {
+
+                    "id": "c9cce9be-4a6a-a958-a42e-6ea4172a378b",
+
+                    "title": "Third example contract"
+
+                    ...
+
+                },
+
+                ...
+
+            }
+  deprecated: false
+  security:
+    - bearer: []
+  servers:
+    - url: https://api.skribble.com
+      variables: {}
+put:
+  tags:
+    - Add or remove signers
+  summary: Add or remove multiple signers simultaneously
+  description: >-
+    To add or remove multiple signers at once, you need to update the
+    `signatures` array according to your needs.
+
+
+    - To add a signer to the `SignatureRequest`, simply add a new entry to the
+    signatures array.
+        
+    - To remove a signer from the `SignatureRequest`, simply remove the
+    corresponding entry from the `signatures` array.
+        
+
+    > ⚠️ **IMPORTANT NOTE** 
+      
+
+    - Please be aware that if you want to add one or more new signers, you MUST
+    include the existing signers in the update request. Any signers not present
+    in the `signatures` array will be removed!
+        
+    - Changes to the signatures can only be made as long as none of the signers
+    have already completed the signature.
+  operationId: Addorremovemultiplesignerssimultaneously
+  parameters: []
+  requestBody:
+    description: ''
+    content:
+      application/json:
+        schema:
+          allOf:
+            - $ref: >-
+                ../components/schemas/AddorremovemultiplesignerssimultaneouslyRequest.yaml
+            - examples:
+                - id: '{{SR_ID}}'
+                  title: NewTitleTest
+                  signatures:
+                    - account_email: john.doe@skribble.com
+                    - account_email: new.signer@skribble.com.org
+          contentMediaType: application/json
+        example:
+          id: '{{SR_ID}}'
+          title: NewTitleTest
+          signatures:
+            - account_email: john.doe@skribble.com
+            - account_email: new.signer@skribble.com.org
+    required: true
+  responses:
+    default:
+      description: ''
+      headers: {}
+      content:
+        text/plain:
+          schema:
+            type: string
+            examples:
+              - |-
+                {
+
+                    "id": "{{SR_ID}}",
+
+                    "title": "NewTitleTest",
+
+                    "signatures": [
+
+                        {
+
+                            "account_email": "john.doe@skribble.com"
+
+                        }
+
+                    ],
+
+                    ...
+
+                }
+            contentMediaType: text/plain
+          example: |-
+            {
+
+                "id": "{{SR_ID}}",
+
+                "title": "NewTitleTest",
+
+                "signatures": [
+
+                    {
+
+                        "account_email": "john.doe@skribble.com"
+
+                    }
+
+                ],
+
+                ...
+
+            }
+  deprecated: false
+  security:
+    - bearer: []
+  servers:
+    - url: https://api.skribble.com
+      variables: {}
+parameters: []

@@ -1,0 +1,22 @@
+get:
+  tags:
+    - Appendix
+  summary: Example PDF (Base64)
+  description: >-
+    This is a base64 encoded one page PDF, ready to be used in the **Skribble
+    API Quickstart** examples.  
+
+    Please copy this directly into your requests or add an environment variable
+    for this.
+  operationId: ExamplePDF(Base64)
+  parameters: []
+  responses:
+    default:
+      description: ''
+      headers: {}
+      content: {}
+  deprecated: false
+  servers:
+    - url: http://No request
+      variables: {}
+parameters: []

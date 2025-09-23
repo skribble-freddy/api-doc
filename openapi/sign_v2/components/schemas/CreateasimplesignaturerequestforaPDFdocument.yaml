@@ -1,0 +1,27 @@
+title: CreateasimplesignaturerequestforaPDFdocument
+required:
+  - title
+  - message
+  - content
+  - signatures
+type: object
+properties:
+  title:
+    type: string
+  message:
+    type: string
+  content:
+    type: string
+  signatures:
+    type: array
+    items:
+      $ref: ./Signature.yaml
+    description: ''
+examples:
+  - title: Example contract
+    message: Please sign this document!
+    content: '{{BASE64_PDF}}'
+    signatures:
+      - account_email: you@example.info
+      - account_email: personOneToSign@external.net
+      - account_email: personTwoToSign@external.net

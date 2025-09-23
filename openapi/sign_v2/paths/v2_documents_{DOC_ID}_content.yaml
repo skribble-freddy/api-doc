@@ -1,0 +1,47 @@
+get:
+  tags:
+    - 3. Download the signed PDF document
+  summary: Download the PDF document
+  description: >-
+    Now you can download the document content that contains the PDF document
+    with the document ID `{{DOC_ID}}`. 
+  operationId: DownloadthePDFdocument
+  parameters:
+    - name: DOC_ID
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+  responses:
+    default:
+      description: ''
+      headers: {}
+      content:
+        text/plain:
+          schema:
+            type: string
+            examples:
+              - |-
+                %PDF-1
+                %äüöß
+                2 0 ob
+                <</Len
+                stream
+                ...
+            contentMediaType: text/plain
+          example: |-
+            %PDF-1
+            %äüöß
+            2 0 ob
+            <</Len
+            stream
+            ...
+  deprecated: false
+  security:
+    - bearer: []
+  servers:
+    - url: https://api.skribble.com
+      variables: {}
+parameters: []

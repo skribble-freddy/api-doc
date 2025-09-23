@@ -1,0 +1,16 @@
+title: Signature5
+required:
+  - account_email
+  - visual_signature
+type: object
+properties:
+  account_email:
+    type: string
+  visual_signature:
+    allOf:
+      - $ref: ./VisualSignature1.yaml
+      - {}
+examples:
+  - account_email: john.doe@skribble.com
+    visual_signature:
+      form_field: Person_1

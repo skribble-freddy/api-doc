@@ -1,0 +1,21 @@
+title: CreateasignaturerequestusingadocumentreferenceRequest
+required:
+  - title
+  - signatures
+  - file_url
+type: object
+properties:
+  title:
+    type: string
+  signatures:
+    type: array
+    items:
+      $ref: ./Signature.yaml
+    description: ''
+  file_url:
+    type: string
+examples:
+  - title: Example contract
+    signatures:
+      - account_email: john.doe@skribble.com
+    file_url: https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf

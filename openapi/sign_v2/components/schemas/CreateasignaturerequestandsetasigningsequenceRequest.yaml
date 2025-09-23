@@ -1,0 +1,44 @@
+title: CreateasignaturerequestandsetasigningsequenceRequest
+required:
+  - title
+  - message
+  - content
+  - content_type
+  - quality
+  - signatures
+type: object
+properties:
+  title:
+    type: string
+  message:
+    type: string
+  content:
+    type: string
+  content_type:
+    type: string
+  quality:
+    type: string
+  signatures:
+    type: array
+    items:
+      $ref: ./Signature15.yaml
+    description: ''
+examples:
+  - title: Example contract
+    message: Please sign this document
+    content: '{{BASE64_PDF}}'
+    content_type: application/pdf
+    quality: SES
+    signatures:
+      - account_email: first@example.com
+        sequence: 1
+      - account_email: secondA@example.com
+        sequence: 2
+      - account_email: secondB@example.com
+        sequence: 2
+      - account_email: thirdA@example.com
+        sequence: 3
+      - account_email: thirdB@example.com
+        sequence: 3
+      - account_email: fourth@skribble.com
+        sequence: 4

@@ -1,0 +1,29 @@
+title: Position
+required:
+  - page
+  - height
+  - width
+  - x
+  - 'y'
+type: object
+properties:
+  page:
+    type: string
+  height:
+    type: integer
+    contentEncoding: int32
+  width:
+    type: integer
+    contentEncoding: int32
+  x:
+    type: integer
+    contentEncoding: int32
+  'y':
+    type: integer
+    contentEncoding: int32
+examples:
+  - page: '0'
+    height: 70
+    width: 150
+    x: 350
+    'y': 240

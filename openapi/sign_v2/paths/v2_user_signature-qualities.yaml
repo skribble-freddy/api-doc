@@ -1,0 +1,61 @@
+get:
+  tags:
+    - User
+  summary: Get a user's signature qualities (simple)
+  description: >-
+    We recommend using the `signature-qualities-details` endpoint to request
+    detailed signature quality information for a user. This endpoint provides
+    comprehensive data about the quality of the signature. However, for
+    compatibility reasons, we continue to offer the previous endpoint, which
+    delivers a simplified result set. This ensures that users of the older
+    version of our API can still access essential signature quality information
+    without needing to upgrade immediately.
+  operationId: Getauser'ssignaturequalities(simple)
+  parameters:
+    - name: username
+      in: query
+      description: ''
+      required: true
+      style: form
+      explode: true
+      schema:
+        type: string
+        examples:
+          - john.doe@skribble.com
+  responses:
+    '200':
+      description: OK
+      headers: {}
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: ../components/schemas/Getauserssignaturequalities.yaml
+              - examples:
+                  - qes:
+                      zertes: QES
+                      eidas: QES
+                    aes_minimal:
+                      zertes: QES
+                      eidas: QES
+                    aes:
+                      any: AES
+                    ses:
+                      any: SES
+            contentMediaType: application/json
+          example:
+            qes:
+              zertes: QES
+              eidas: QES
+            aes_minimal:
+              zertes: QES
+              eidas: QES
+            aes:
+              any: AES
+            ses:
+              any: SES
+  deprecated: false
+  servers:
+    - url: https://api.skribble.com
+      variables: {}
+parameters: []

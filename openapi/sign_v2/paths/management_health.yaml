@@ -1,0 +1,25 @@
+get:
+  tags:
+    - System health
+  summary: System health
+  operationId: Systemhealth
+  parameters: []
+  responses:
+    default:
+      description: ''
+      headers: {}
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: ../components/schemas/Systemhealth200.yaml
+              - examples:
+                  - status: UP
+            contentMediaType: application/json
+          example:
+            status: UP
+  deprecated: false
+  servers:
+    - url: https://api.skribble.com
+      variables: {}
+parameters: []

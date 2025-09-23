@@ -1,0 +1,32 @@
+get:
+  tags:
+    - Add or remove attachments
+  summary: Download a specific attached file from a signature request
+  description: >-
+    Downloads the attachment content with the `ATTACHMENT_ID` for the
+    `SignatureRequest` with the ID `SR_ID`
+  operationId: Downloadaspecificattachedfilefromasignaturerequest
+  parameters:
+    - name: SR_ID
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+    - name: ATTACHMENT_ID
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+  responses:
+    '200':
+      description: ''
+      headers: {}
+  deprecated: false
+  servers:
+    - url: https://api.skribble.com
+      variables: {}
+parameters: []

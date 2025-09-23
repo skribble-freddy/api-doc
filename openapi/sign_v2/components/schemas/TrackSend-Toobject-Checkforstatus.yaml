@@ -1,0 +1,21 @@
+title: TrackSend-Toobject-Checkforstatus
+required:
+  - status
+  - signers
+  - creator
+type: object
+properties:
+  status:
+    type: string
+  signers:
+    type:
+      - string
+      - 'null'
+  creator:
+    type:
+      - string
+      - 'null'
+examples:
+  - status: UNCLAIMED
+    signers: null
+    creator: null

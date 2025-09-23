@@ -1,0 +1,24 @@
+title: SealadocumentRequest
+required:
+  - content
+  - visual_signature
+type: object
+properties:
+  content:
+    type: string
+  visual_signature:
+    allOf:
+      - $ref: ./VisualSignature2.yaml
+      - {}
+examples:
+  - content: '{{BASE64_PDF}}'
+    visual_signature:
+      position:
+        x: 20
+        'y': 20
+        width: 260
+        height: 120
+        page: '0'
+      image:
+        content_type: image/png
+        content: '{{BASE64_PNG}}'

@@ -1,0 +1,9 @@
+title: Systemhealth200
+required:
+  - status
+type: object
+properties:
+  status:
+    type: string
+examples:
+  - status: UP

@@ -1,0 +1,29 @@
+title: CreateasignaturerequestwithqualityandlegislationRequest
+required:
+  - title
+  - signatures
+  - content
+  - quality
+  - legislation
+type: object
+properties:
+  title:
+    type: string
+  signatures:
+    type: array
+    items:
+      $ref: ./Signature.yaml
+    description: ''
+  content:
+    type: string
+  quality:
+    type: string
+  legislation:
+    type: string
+examples:
+  - title: Create test SigntureRequest
+    signatures:
+      - account_email: john.doe@skribble.com
+    content: '{{BASE64_PDF}}'
+    quality: AES
+    legislation: ZERTES

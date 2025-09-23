@@ -1,0 +1,14 @@
+title: Signature15
+required:
+  - account_email
+  - sequence
+type: object
+properties:
+  account_email:
+    type: string
+  sequence:
+    type: integer
+    contentEncoding: int32
+examples:
+  - account_email: first@example.com
+    sequence: 1

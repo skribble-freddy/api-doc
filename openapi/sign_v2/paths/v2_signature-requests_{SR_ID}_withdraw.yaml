@@ -1,0 +1,64 @@
+post:
+  tags:
+    - Modify
+  summary: Withdraw a signature request
+  description: >-
+    Sometimes, signing a document may become unnecessary, or errors might occur
+    during the invitation process. As the inviter of such a `SignatureRequest`,
+    you can _explicitely_ `withdraw` the `SignatureRequest`. Withdraw removes
+    all signatories and observers from the document as participants and notifies
+    them with a specified `message.`
+
+
+    Similar to `deletion`, the `withdraw` action can only be executed if:
+
+
+    - The SignatureRequest status is `status_overall=OPEN`
+
+    - The API user has sufficient rights on the `SignatureRequest`, such as when
+    it was created by the API user.
+        
+
+    > **Note**  
+
+    We recommend using the `delete` endpoint. By default, it checks for other
+    options. For example, if the API user does not have withdrawal rights, the
+    user could be removed from the `SignatureRequest` directly, or the document
+    might be deleted directly.  
+
+    Nevertheless, there may be situations in which you need to withdraw the
+    document and keep it in Skribble. In this case you should of course use the
+    `withdraw` functionality.
+  operationId: Withdrawasignaturerequest
+  parameters:
+    - name: SR_ID
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+  requestBody:
+    description: ''
+    content:
+      application/json:
+        schema:
+          allOf:
+            - $ref: ../components/schemas/WithdrawasignaturerequestRequest.yaml
+            - examples:
+                - message: Withdrawel for good reasons.
+          contentMediaType: application/json
+        example:
+          message: Withdrawel for good reasons.
+    required: true
+  responses:
+    '200':
+      description: ''
+      headers: {}
+  deprecated: false
+  security:
+    - bearer: []
+  servers:
+    - url: https://api.skribble.com
+      variables: {}
+parameters: []

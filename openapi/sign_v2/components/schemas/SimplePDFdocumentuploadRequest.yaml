@@ -1,0 +1,13 @@
+title: SimplePDFdocumentuploadRequest
+required:
+  - title
+  - content
+type: object
+properties:
+  title:
+    type: string
+  content:
+    type: string
+examples:
+  - title: Example contract PDF
+    content: '{{BASE64_PDF}}'

@@ -1,0 +1,34 @@
+delete:
+  tags:
+    - Add or remove signers
+  summary: Remove an individual signer
+  description: >-
+    To remove an individual signer, provide the SignatureRequest ID `{{SR_ID}}`
+    and the Signature ID `{{SID}}` of the signer you want to remove.
+  operationId: Removeanindividualsigner
+  parameters:
+    - name: SR_ID
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+    - name: SID
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+  responses:
+    '200':
+      description: ''
+      headers: {}
+  deprecated: false
+  security:
+    - bearer: []
+  servers:
+    - url: https://api.skribble.com
+      variables: {}
+parameters: []

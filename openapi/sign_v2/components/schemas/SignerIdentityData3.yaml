@@ -1,0 +1,9 @@
+title: SignerIdentityData3
+required:
+  - email_address
+type: object
+properties:
+  email_address:
+    type: string
+examples:
+  - email_address: single-signer@skribble.com

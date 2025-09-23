@@ -1,0 +1,16 @@
+title: AddanindividualsignerRequest
+required:
+  - account_email
+  - signer_identity_data
+type: object
+properties:
+  account_email:
+    type: string
+  signer_identity_data:
+    allOf:
+      - $ref: ./SignerIdentityData3.yaml
+      - {}
+examples:
+  - account_email: single-signer@skribble.com
+    signer_identity_data:
+      email_address: single-signer@skribble.com

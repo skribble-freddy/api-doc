@@ -1,0 +1,32 @@
+title: CreateasignaturerequestforaNo-Account-SignerRequest
+required:
+  - title
+  - signatures
+  - content
+  - quality
+  - legislation
+type: object
+properties:
+  title:
+    type: string
+  signatures:
+    type: array
+    items:
+      $ref: ./Signature10.yaml
+    description: ''
+  content:
+    type: string
+  quality:
+    type: string
+  legislation:
+    type: string
+examples:
+  - title: Create test SignatureRequest for a no account signer
+    signatures:
+      - signer_identity_data:
+          first_name: Noah
+          last_name: Count
+          mobile_number: '41799885566'
+    content: '{{BASE64_PDF}}'
+    quality: AES
+    legislation: ZERTES

@@ -1,0 +1,282 @@
+get:
+  tags:
+    - Report
+  summary: Get signature activities by business
+  description: >-
+    This endpoint provides detailled signature `activities` information for your
+    business and your members within a specified date range.
+
+
+    Use these parameters to filter for a specific time range.
+
+
+    | **Parameter** | **Description** | **Mandatory** |
+
+    | --- | --- | --- |
+
+    | `start_date` | The start date of the range to fetch the signature
+    `activities`.  <br>Format: `yyyy-MM-dd.` | yes |
+
+    | `end_date` | The end date of the range to fetch the signature
+    `activities`.  <br>Format: `yyyy-MM-dd.` | yes |
+
+
+    ### **Pagination**
+
+
+    The result set can be controlled using the optional pagination parameters
+    `page` and `size`
+
+
+    | **Parameter** | **Description** | **Mandatory** |
+
+    | --- | --- | --- |
+
+    | `page` | The page number to fetch the signature `activities`.  <br>Must be
+    a positive integer.  <br>Default: 1 | no |
+
+    | `size` | The size of the page to fetch the signature activities.  <br>Must
+    be a positive integer.  <br>Default: 25  <br>Maximum: 100 | no |
+
+    | `sort` | The sort order of the signature activities. Can be `asc` or
+    `desc`.  <br>Default is `desc`. | yes |
+
+
+    ### **Response**
+
+
+    The response contains the following information.
+
+
+    **General**
+
+
+    | **Field** | **Description** |
+
+    | --- | --- |
+
+    | `activities` | Array of `activities`. See the following subchapter
+    _Activities_. |
+
+    | `total_items` | Total items to fetch when paginating through all the
+    pages. |
+
+    | `total_pages` | Total pages to fetch when paginating through all the
+    pages. |
+
+    | `current_page` | Current page number. |
+
+    | `size` | Size of the page. |
+
+
+    **Activities**
+
+
+    | **Field** | **Description** |
+
+    | --- | --- |
+
+    | `id` | The ID of the signature `activity`. |
+
+    | `action` | The action type of a signature activity. |
+
+    | Can be `signed` or `sealed`. |  |
+
+    | `timestamp` | The timestamp of the signature activity. |
+
+    | `signature_request_id` | The signature request ID. |
+
+    | `business_id_paid_by` | The ID of the business that paid for the signature
+    activity. |
+
+    | `cost_center` | The cost center of the signature paying party. |
+
+    | This information might not necessarily be present. |  |
+
+    | `initiator` | The initiator `user` of the signature `activity`. See the
+    following subchapter _User_. |
+
+    | `signer` | The signer `user` of the signature `activity`. See the
+    following subchapter _User_. |
+
+
+    **User**
+
+
+    | **Field** | **Description** |
+
+    | --- | --- |
+
+    | `user_id` | The ID of the `user`. |
+
+    | `email` | The email of the `user`. |
+
+    | `first_name` | The first name of the `user`. |
+
+    | `last_name` | The last name of the `user`. |
+
+    | `type` | The membership status of the `user` in relation to the business.
+    Can be `api`, `external`, `member` or `unknown`. |
+
+    | `mobile` | The mobile number of the user. |
+  operationId: Getsignatureactivitiesbybusiness
+  parameters:
+    - name: start_date
+      in: query
+      description: ''
+      required: true
+      style: form
+      explode: true
+      schema:
+        type: string
+        examples:
+          - '2024-01-01'
+    - name: end_date
+      in: query
+      description: ''
+      required: true
+      style: form
+      explode: true
+      schema:
+        type: string
+        examples:
+          - '2024-01-31'
+    - name: page
+      in: query
+      description: ''
+      required: true
+      style: form
+      explode: true
+      schema:
+        type: integer
+        contentEncoding: int32
+        examples:
+          - 1
+    - name: size
+      in: query
+      description: ''
+      required: true
+      style: form
+      explode: true
+      schema:
+        type: integer
+        contentEncoding: int32
+        examples:
+          - 50
+  responses:
+    '200':
+      description: OK
+      headers: {}
+      content:
+        application/json:
+          schema:
+            type: string
+            examples:
+              - |-
+                {
+                    "total_pages": 1,
+                    "total_items": 2,
+                    "current_page": 1,
+                    "size": 50,
+                    "activities": [
+                        {
+                            "_id": "9988554433221100aabbccdd",
+                            "action": "SIGNED",
+                            "timestamp": "2024-01-10T10:10:10.000Z",
+                            "signature_request_id": "88552233-0123-1234-1234-0123456789ab",
+                            "cost_center": "Department A",
+                            "initiator": {
+                                "email": "johnny@skribble.com",
+                                "first_name": "Johnny",
+                                "last_name": "Doe",
+                                "type": "member",
+                                "mobile": "419988776655"
+                            },
+                            "signer": {
+                                "email": "johnny.doe@skribble.com",
+                                "first_name": "Johnny",
+                                "last_name": "Doe",
+                                "type": "member",
+                                "mobile": "419988776655"
+                            }
+                        },
+                        {
+                            "_id": "aa88554433221100aabbccee",
+                            "action": "SIGNED",
+                            "timestamp": "2024-10-01T10:10:10.000Z",
+                            "signature_request_id": "33221144-1234-1234-1234-aabbccddeeff",
+                            "cost_center": "Department B",
+                            "initiator": {
+                                "email": "jane.doe@skribble.com",
+                                "first_name": "Jane",
+                                "last_name": "Doe",
+                                "type": "member",
+                                "mobile": "49112233445566"
+                            },
+                            "signer": {
+                                "email": "johnny.doe@skribble.com",
+                                "first_name": "Johnny",
+                                "last_name": "Doe",
+                                "type": "member",
+                                "mobile": "419988776655"
+                            }
+                        }
+                }
+            contentMediaType: application/json
+          example: |-
+            {
+                "total_pages": 1,
+                "total_items": 2,
+                "current_page": 1,
+                "size": 50,
+                "activities": [
+                    {
+                        "_id": "9988554433221100aabbccdd",
+                        "action": "SIGNED",
+                        "timestamp": "2024-01-10T10:10:10.000Z",
+                        "signature_request_id": "88552233-0123-1234-1234-0123456789ab",
+                        "cost_center": "Department A",
+                        "initiator": {
+                            "email": "johnny@skribble.com",
+                            "first_name": "Johnny",
+                            "last_name": "Doe",
+                            "type": "member",
+                            "mobile": "419988776655"
+                        },
+                        "signer": {
+                            "email": "johnny.doe@skribble.com",
+                            "first_name": "Johnny",
+                            "last_name": "Doe",
+                            "type": "member",
+                            "mobile": "419988776655"
+                        }
+                    },
+                    {
+                        "_id": "aa88554433221100aabbccee",
+                        "action": "SIGNED",
+                        "timestamp": "2024-10-01T10:10:10.000Z",
+                        "signature_request_id": "33221144-1234-1234-1234-aabbccddeeff",
+                        "cost_center": "Department B",
+                        "initiator": {
+                            "email": "jane.doe@skribble.com",
+                            "first_name": "Jane",
+                            "last_name": "Doe",
+                            "type": "member",
+                            "mobile": "49112233445566"
+                        },
+                        "signer": {
+                            "email": "johnny.doe@skribble.com",
+                            "first_name": "Johnny",
+                            "last_name": "Doe",
+                            "type": "member",
+                            "mobile": "419988776655"
+                        }
+                    }
+            }
+  deprecated: false
+  security:
+    - bearer: []
+  servers:
+    - url: https://api.skribble.com
+      variables: {}
+parameters: []

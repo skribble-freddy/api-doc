@@ -1,0 +1,9 @@
+title: Ses
+required:
+  - any
+type: object
+properties:
+  any:
+    type: string
+examples:
+  - any: SES

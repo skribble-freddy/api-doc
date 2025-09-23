@@ -1,0 +1,13 @@
+title: CreateSend-ToobjectRequest
+required:
+  - title
+  - content
+type: object
+properties:
+  title:
+    type: string
+  content:
+    type: string
+examples:
+  - title: Skribble Demo Send-To
+    content: '{{BASE64_PDF}}'

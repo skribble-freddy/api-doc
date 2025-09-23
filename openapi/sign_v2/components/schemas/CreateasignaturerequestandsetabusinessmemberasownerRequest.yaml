@@ -1,0 +1,25 @@
+title: CreateasignaturerequestandsetabusinessmemberasownerRequest
+required:
+  - title
+  - content
+  - creator
+  - signatures
+type: object
+properties:
+  title:
+    type: string
+  content:
+    type: string
+  creator:
+    type: string
+  signatures:
+    type: array
+    items:
+      $ref: ./Signature.yaml
+    description: ''
+examples:
+  - title: Example contract
+    content: '{{BASE64_PDF}}'
+    creator: some-member-of@your-buiness.com
+    signatures:
+      - account_email: john.doe@skribble.com

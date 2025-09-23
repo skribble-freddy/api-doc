@@ -1,0 +1,17 @@
+title: CreateSend-Toobject
+required:
+  - url
+  - id
+  - access_code
+type: object
+properties:
+  url:
+    type: string
+  id:
+    type: string
+  access_code:
+    type: string
+examples:
+  - url: https://my.skribble.com/sendto/1d2e74c7-92d6-d552-66c6-dd9e640000c9
+    id: 1d2e74c7-92d6-d552-66c6-dd9e640000c9
+    access_code: fc175e6a-e9c7-73c7-8821-d6033de29999

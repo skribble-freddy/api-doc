@@ -1,0 +1,32 @@
+delete:
+  tags:
+    - Add or remove attachments
+  summary: Remove an attachment from a signature request
+  description: >-
+    Delete the attachment with the `ATTACHMENT_ID` from the `SignatureRequest`
+    with the ID `SR_ID`
+  operationId: Removeanattachmentfromasignaturerequest
+  parameters:
+    - name: SR_ID
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+    - name: ATTACHMENT_ID
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+  responses:
+    '200':
+      description: ''
+      headers: {}
+  deprecated: false
+  servers:
+    - url: https://api.skribble.com
+      variables: {}
+parameters: []

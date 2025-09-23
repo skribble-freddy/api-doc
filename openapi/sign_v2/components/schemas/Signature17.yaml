@@ -1,0 +1,34 @@
+title: Signature17
+required:
+  - sid
+  - account_email
+  - order
+  - status_code
+  - notify
+type: object
+properties:
+  sid:
+    type: string
+  account_email:
+    type: string
+  order:
+    type: integer
+    contentEncoding: int32
+  status_code:
+    type: string
+  notify:
+    type: boolean
+  signer_identity_data:
+    allOf:
+      - $ref: ./SignerIdentityData2.yaml
+      - {}
+  signed_at:
+    type: string
+  signed_quality:
+    type: string
+examples:
+  - sid: eeeeeeee-cdab-938a-aed9-ebabbc92a013
+    account_email: you@example.info
+    order: -1
+    status_code: OPEN
+    notify: true

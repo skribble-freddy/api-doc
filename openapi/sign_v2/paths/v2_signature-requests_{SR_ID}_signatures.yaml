@@ -1,0 +1,61 @@
+post:
+  tags:
+    - Add or remove signers
+  summary: Add an individual signer
+  description: >-
+    To add an individual signer, use the same parameters as when creating a
+    SignatureRequest. The process is the same. By using `account_email`, you can
+    add a signer who has a Skribble account. By using `signer_identity_data`,
+    you can invite a No-Account-Signer to the SignatureRequest with the ID
+    `{{SR_ID}}`.
+
+
+    > 💡 Good to know  
+
+    We recommend this approach of combining `signer_idendity_data` and
+    `account_email` if you are unsure whether the user has a Skribble account.
+    The benefit is that an existing Skribble user will afterwards find the
+    SignatureRequest in the **To sign** section of their account on
+    my.skribble.com.  
+
+    Conversely, if you invite them using only `signer_identity_data`, the
+    document will not appear in their Skribble account, even if they have an
+    existing Skribble account. Instead, they will have to access the document
+    using the specific link provided in their signature invitation email.
+  operationId: Addanindividualsigner
+  parameters:
+    - name: SR_ID
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+  requestBody:
+    description: ''
+    content:
+      application/json:
+        schema:
+          allOf:
+            - $ref: ../components/schemas/AddanindividualsignerRequest.yaml
+            - examples:
+                - account_email: single-signer@skribble.com
+                  signer_identity_data:
+                    email_address: single-signer@skribble.com
+          contentMediaType: application/json
+        example:
+          account_email: single-signer@skribble.com
+          signer_identity_data:
+            email_address: single-signer@skribble.com
+    required: true
+  responses:
+    '200':
+      description: ''
+      headers: {}
+  deprecated: false
+  security:
+    - bearer: []
+  servers:
+    - url: https://api.skribble.com
+      variables: {}
+parameters: []

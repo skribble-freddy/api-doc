@@ -1,0 +1,9 @@
+title: Signature
+required:
+  - account_email
+type: object
+properties:
+  account_email:
+    type: string
+examples:
+  - account_email: you@example.info

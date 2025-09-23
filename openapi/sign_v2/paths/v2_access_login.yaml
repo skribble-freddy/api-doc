@@ -1,0 +1,121 @@
+post:
+  tags:
+    - 🔑 Authentication
+  summary: Login as user "api_demo_your_name"
+  description: >-
+    To obtain an access token, log in using the `/access/login` resource.
+
+
+    You can pass your login data using raw JSON or alternatively as
+    `x-www-form-urlencoded` `key:value` pairs(see example requests).
+
+
+    Upon a successful login, a JSON Web Token (JWT) will be returned (see
+    `{{AUTH_ACCESS_TOKEN}}`).  
+
+    The JWT MUST be included in nearly every request made to the API.
+
+
+    The access token is transported in an HTTP header called `Authorization`.
+
+
+    The content of the header starts with `Bearer` followed by the JWT string.
+
+
+    Example: `Authorization: {{vault:bearer-token}}`
+
+
+    #### Token Life Cycle
+
+
+    * * *
+
+
+    ##### API-Key
+
+
+    The API key has a long, but not an unlimited lifetime.
+
+
+    The validity period should depend on the volume of API calls and will be
+    discussed individually for each customer as part of the shared secret
+    agreement.
+
+
+    ##### Access Token
+
+
+    The access token has a lifetime of about **20 minutes**.  
+
+    Currently, we do not renew the access token automatically. But this is
+    planned for future releases.
+
+
+    ##### Logout
+
+
+    There is **no logout**. The access token will expire after the defined time.
+  operationId: LoginAsUser
+  parameters: []
+  requestBody:
+    description: ''
+    content:
+      application/json:
+        schema:
+          allOf:
+            - $ref: ../components/schemas/Loginasuserapi_demo_your_nameRequest.yaml
+            - examples:
+                - username: add_your_api_name_here
+                  api-key: please_enter_your_password_here
+          contentMediaType: application/json
+        example:
+          username: add_your_api_name_here
+          api-key: please_enter_your_password_here
+    required: true
+  responses:
+    '200':
+      description: OK
+      headers: {}
+      content:
+        text/plain:
+          schema:
+            type: string
+            examples:
+              - >-
+                eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJJWlMxY0pXQXlXVFdZeDR6dXRGNzJlYWVILTA0MUprTDF5N2Z3aXA1T3UwIn0Ei3Hm3rhjOAq5dWo6Z0l6bzvyGCXd87oRoOWDM2sW4KErCKYmcQ6ks8FVj3Fn8wXNIVAnp5ClZvWNw9Uks1zM9P2IXBbBPn7DIQGvM
+                ...
+            contentMediaType: text/plain
+          example: >-
+            eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJJWlMxY0pXQXlXVFdZeDR6dXRGNzJlYWVILTA0MUprTDF5N2Z3aXA1T3UwIn0Ei3Hm3rhjOAq5dWo6Z0l6bzvyGCXd87oRoOWDM2sW4KErCKYmcQ6ks8FVj3Fn8wXNIVAnp5ClZvWNw9Uks1zM9P2IXBbBPn7DIQGvM
+            ...
+    '400':
+      description: Bad request
+      headers: {}
+      content:
+        text/plain:
+          schema:
+            type: string
+            examples:
+              - Please ensure your username and api-key are correct!
+            contentMediaType: text/plain
+          example: Please ensure your username and api-key are correct!
+    default:
+      description: ''
+      headers: {}
+      content:
+        text/plain:
+          schema:
+            type: string
+            examples:
+              - >-
+                eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJJWlMxY0pXQXlXVFdZeDR6dXRGNzJlYWVILTA0MUprTDF5N2Z3aXA1T3UwIn0Ei3Hm3rhjOAq5dWo6Z0l6bzvyGCXd87oRoOWDM2sW4KErCKYmcQ6ks8FVj3Fn8wXNIVAnp5ClZvWNw9Uks1zM9P2IXBbBPn7DIQGvM
+                ...
+            contentMediaType: text/plain
+          example: >-
+            eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJJWlMxY0pXQXlXVFdZeDR6dXRGNzJlYWVILTA0MUprTDF5N2Z3aXA1T3UwIn0Ei3Hm3rhjOAq5dWo6Z0l6bzvyGCXd87oRoOWDM2sW4KErCKYmcQ6ks8FVj3Fn8wXNIVAnp5ClZvWNw9Uks1zM9P2IXBbBPn7DIQGvM
+            ...
+  deprecated: false
+  servers:
+    - url: https://api.skribble.com
+      variables: {}
+parameters: []

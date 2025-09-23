@@ -1,0 +1,104 @@
+get:
+  tags:
+    - Callbacks
+  summary: Get the list of callbacks for a signature request
+  description: >-
+    In certain scenarios, it is beneficial to view and verify the status of
+    callbacks for a `SignatureRequest`. For example, you might want to confirm
+    whether a callback has already been executed or to identify any errors that
+    occurred during the callback process.
+
+
+    This endpoint provides the capability to obtain detailed information about
+    the callbacks associated with a `SignatureRequest`, enabling comprehensive
+    monitoring and troubleshooting. By using this endpoint, you can ensure the
+    reliability and accuracy of your callback operations and quickly address any
+    issues that may arise.
+
+
+    **Result**
+
+
+    If no callback has been called yet, the response will be an empty array.
+    Otherwise it will contain an array of `callback` objects that were already
+    executed.
+
+
+    The fields description of the single callback object:
+
+
+    | **Fieldname** | **Description** |
+
+    | --- | --- |
+
+    | `signature_request_id` | The ID of the parent `SignatureRequest` object. |
+
+    | `url` | The given URL to which the callback request will be sent. |
+
+    | `type` | The type of the event the callback is executed on. This field can
+    have the value `SUCCESS`, `UPDATE` or `ERROR` based on the given
+    `SignatureRequest` fields `callback_success_url`, `callback_update_url` and
+    `callback_error_url` |
+
+    | `state` | The state of the callback. This field can be:  <br>`OPEN` - The
+    callback request will be executed in the next execution cycle. 
+    <br>`COMPLETED` - The callback request was executed successfully. The API
+    received an HTTP 2xx success code in response.  <br>`RESIGNATED` - The
+    callback request has been attempted `attempts` times but was unsuccessful.
+    The API did not receive a valid HTTP 2xx response. |
+
+    | `attempts` | The amount of times the callback request was executed. |
+
+    | `messages` | An array of messages containing the HTTP response message in
+    case that the API did not receive a HTTP 2xx success code. |
+  operationId: Getthelistofcallbacksforasignaturerequest
+  parameters:
+    - name: SR_ID
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+  responses:
+    '200':
+      description: OK
+      headers: {}
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: >-
+                ../components/schemas/Getthelistofcallbacksforasignaturerequest.yaml
+            description: ''
+            examples:
+              - - signature_request_id: cccccccc-5555-8888-abab-123456789012
+                  type: UPDATE
+                  state: OPEN
+                  url: >-
+                    https://myapp.com/some/path/SKRIBBLE_SIGNATURE_REQUEST_ID/update?document_id=123654789_ID&token=12345678
+                  attempts: 1
+                  messages:
+                    - 'Failed: 404 - 404 Not Found: token not found'
+                  created_at: '2049-01-01T10:00:00.000Z'
+                  updated_at: '2049-01-01T10:00:30.000Z'
+            contentMediaType: application/json
+          example:
+            - signature_request_id: cccccccc-5555-8888-abab-123456789012
+              type: UPDATE
+              state: OPEN
+              url: >-
+                https://myapp.com/some/path/SKRIBBLE_SIGNATURE_REQUEST_ID/update?document_id=123654789_ID&token=12345678
+              attempts: 1
+              messages:
+                - 'Failed: 404 - 404 Not Found: token not found'
+              created_at: '2049-01-01T10:00:00.000Z'
+              updated_at: '2049-01-01T10:00:30.000Z'
+  deprecated: false
+  security:
+    - bearer: []
+  servers:
+    - url: https://api.skribble.com
+      variables: {}
+parameters: []

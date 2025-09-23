@@ -114,7 +114,7 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/CreateasimplesignaturerequestforaPDFdocumentRequest"
+                - $ref: "#/components/schemas/CreateasimplesignaturerequestforaPDFdocument"
                 - examples:
                     - title: Example contract
                       message: Please sign this document!
@@ -1193,7 +1193,7 @@ paths:
         - Add or remove attachments
       summary: Download a specific attached file from a signature request
       description: Downloads the attachment content with the `ATTACHMENT_ID` for the `SignatureRequest` with the ID `SR_ID`
-      operationId: Downloadaspecificattachedfilefromasignaturerequest
+      operationId: Downloadaspecificattachedfilefromsignaturerequest
       parameters:
         - name: SR_ID
           in: path
@@ -2044,8 +2044,8 @@ components:
       examples:
         - username: add_your_api_name_here
           api-key: please_enter_your_password_here
-    CreateasimplesignaturerequestforaPDFdocumentRequest:
-      title: CreateasimplesignaturerequestforaPDFdocumentRequest
+    CreateasimplesignaturerequestforaPDFdocument:
+      title: CreateasimplesignaturerequestforaPDFdocument
       required:
         - title
         - message

@@ -1,0 +1,26 @@
+title: Createasignaturerequestwithmissingfields400
+required:
+  - type
+  - status
+  - message
+  - method
+  - path
+type: object
+properties:
+  type:
+    type: string
+  status:
+    type: integer
+    contentEncoding: int32
+  message:
+    type: string
+  method:
+    type: string
+  path:
+    type: string
+examples:
+  - type: https://api.skribble.com/problem/problem-with-message
+    status: 400
+    message: Validation failed for JSON object
+    method: POST
+    path: /v2/signature-requests

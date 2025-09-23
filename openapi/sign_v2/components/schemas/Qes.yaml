@@ -1,0 +1,13 @@
+title: Qes
+required:
+  - zertes
+  - eidas
+type: object
+properties:
+  zertes:
+    type: string
+  eidas:
+    type: string
+examples:
+  - zertes: QES
+    eidas: QES

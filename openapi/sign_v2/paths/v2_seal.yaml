@@ -1,0 +1,63 @@
+post:
+  tags:
+    - Create
+  summary: Seal a document
+  description: >-
+    In this example  we seal the document with a visual signature including an
+    image. This represents the visual seal of the company.
+  operationId: Sealadocument
+  parameters: []
+  requestBody:
+    description: ''
+    content:
+      application/json:
+        schema:
+          allOf:
+            - $ref: ../components/schemas/SealadocumentRequest.yaml
+            - examples:
+                - content: '{{BASE64_PDF}}'
+                  visual_signature:
+                    position:
+                      x: 20
+                      'y': 20
+                      width: 260
+                      height: 120
+                      page: '0'
+                    image:
+                      content_type: image/png
+                      content: '{{BASE64_PNG}}'
+          contentMediaType: application/json
+        example:
+          content: '{{BASE64_PDF}}'
+          visual_signature:
+            position:
+              x: 20
+              'y': 20
+              width: 260
+              height: 120
+              page: '0'
+            image:
+              content_type: image/png
+              content: '{{BASE64_PNG}}'
+    required: true
+  responses:
+    default:
+      description: ''
+      headers: {}
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: ../components/schemas/Sealadocument200.yaml
+              - examples:
+                  - document_id: e4cde459-6e63-0095-10b8-55b39ec39f46
+            contentMediaType: application/json
+          example:
+            document_id: e4cde459-6e63-0095-10b8-55b39ec39f46
+  deprecated: false
+  security:
+    - bearer: []
+  servers:
+    - url: https://api.skribble.com
+      variables: {}
+parameters: []

@@ -23,3 +23,7 @@ npx @redocly/cli lint openapi/validation_v1/openapi.yaml
 ### Folder structure
 - `openapi/<api_version>` → Split OpenAPI spec (`openapi.yaml` imports from `paths/` + `components/`)
 - `docs/` → Markdown docs (overview, auth, errors, changelog, etc.)
+
+# Tools
+
+OpenAPI Validation https://oas-validation.com/

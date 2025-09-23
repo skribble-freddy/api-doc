@@ -1,0 +1,13 @@
+title: SealadocumentwithaspecificsealRequest
+required:
+  - content
+  - account_name
+type: object
+properties:
+  content:
+    type: string
+  account_name:
+    type: string
+examples:
+  - content: '{{BASE64_PDF}}'
+    account_name: ais_company_seal_some_department

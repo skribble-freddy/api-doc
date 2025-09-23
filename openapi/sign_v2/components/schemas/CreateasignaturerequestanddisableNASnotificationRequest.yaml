@@ -1,0 +1,36 @@
+title: CreateasignaturerequestanddisableNASnotificationRequest
+required:
+  - title
+  - message
+  - content
+  - content_type
+  - quality
+  - signatures
+type: object
+properties:
+  title:
+    type: string
+  message:
+    type: string
+  content:
+    type: string
+  content_type:
+    type: string
+  quality:
+    type: string
+  signatures:
+    type: array
+    items:
+      $ref: ./Signature16.yaml
+    description: ''
+examples:
+  - title: Example contract
+    message: Please sign this document
+    content: '{{BASE64_PDF}}'
+    content_type: application/pdf
+    quality: SES
+    signatures:
+      - notify: false
+        signer_identity_data:
+          email_address: nas@example.com
+          identity_reference: Internal-ID-012345

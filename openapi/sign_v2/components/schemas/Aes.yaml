@@ -1,0 +1,9 @@
+title: Aes
+required:
+  - any
+type: object
+properties:
+  any:
+    type: string
+examples:
+  - any: AES

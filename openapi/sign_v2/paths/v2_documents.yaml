@@ -1,0 +1,141 @@
+get:
+  tags:
+    - Find
+  summary: List all accessible documents
+  description: This request returns an array of all accessible `Documents` objects.
+  operationId: Listallaccessibledocuments
+  parameters: []
+  responses:
+    default:
+      description: ''
+      headers: {}
+      content:
+        text/plain:
+          schema:
+            type: string
+            examples:
+              - |-
+                [
+                    {
+                        "id": "dddddddd-7777-caca-be12-121212121212",
+                        "title": "First example contract",
+                        "content_type": "application/pdf",
+                        "size": 29094,
+                        "page_count": 1,
+                        "page_width": 595,
+                        "page_height": 841,
+                        "owner": "api_demo_your_company",
+                        ...
+                    },
+                    {
+                        "id": "7777777-9999-28c4-caca-131313131313",
+                        "title": "Second example contract",
+                        "content_type": "application/pdf",
+                        ....
+                        
+                    }
+                ]    
+            contentMediaType: text/plain
+          example: |-
+            [
+                {
+                    "id": "dddddddd-7777-caca-be12-121212121212",
+                    "title": "First example contract",
+                    "content_type": "application/pdf",
+                    "size": 29094,
+                    "page_count": 1,
+                    "page_width": 595,
+                    "page_height": 841,
+                    "owner": "api_demo_your_company",
+                    ...
+                },
+                {
+                    "id": "7777777-9999-28c4-caca-131313131313",
+                    "title": "Second example contract",
+                    "content_type": "application/pdf",
+                    ....
+                    
+                }
+            ]    
+  deprecated: false
+  security:
+    - bearer: []
+  servers:
+    - url: https://api.skribble.com
+      variables: {}
+post:
+  tags:
+    - Create
+  summary: Simple PDF document upload
+  description: A simple PDF document upload using a **Base64 encoded** file as `content`.
+  operationId: SimplePDFdocumentupload
+  parameters: []
+  requestBody:
+    description: ''
+    content:
+      application/json:
+        schema:
+          allOf:
+            - $ref: ../components/schemas/SimplePDFdocumentuploadRequest.yaml
+            - examples:
+                - title: Example contract PDF
+                  content: '{{BASE64_PDF}}'
+          contentMediaType: application/json
+        example:
+          title: Example contract PDF
+          content: '{{BASE64_PDF}}'
+    required: true
+  responses:
+    default:
+      description: ''
+      headers: {}
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: ../components/schemas/SimplePDFdocumentupload200.yaml
+              - examples:
+                  - id: 00000000-1212-9546-6542-323232323232
+                    title: Example contract PDF
+                    content_type: application/pdf
+                    size: 29010
+                    page_count: 1
+                    page_width: 600
+                    page_height: 840
+                    owner: api_demo_example
+                    read_access:
+                      - api_demo_example
+                    write_access:
+                      - api_demo_example
+                    created_at: '2099-12-12T12:12:12.000Z'
+                    updated_at: '2099-12-12T12:12:12.000Z'
+            contentMediaType: application/json
+          example:
+            id: 00000000-1212-9546-6542-323232323232
+            title: Example contract PDF
+            content_type: application/pdf
+            size: 29010
+            page_count: 1
+            page_width: 600
+            page_height: 840
+            owner: api_demo_example
+            read_access:
+              - api_demo_example
+            write_access:
+              - api_demo_example
+            created_at: '2099-12-12T12:12:12.000Z'
+            updated_at: '2099-12-12T12:12:12.000Z'
+        text/plain:
+          schema:
+            type: string
+            examples:
+              - Neither 'content' nor 'file_url' provided
+            contentMediaType: text/plain
+          example: Neither 'content' nor 'file_url' provided
+  deprecated: false
+  security:
+    - bearer: []
+  servers:
+    - url: https://api.skribble.com
+      variables: {}
+parameters: []

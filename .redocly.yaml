@@ -6,6 +6,8 @@ lint:
   rules:
     no-unused-components: warn
     operation-2xx-response: error
+    max-length: warn
+    description: warn
 referenceDocs:
   validation_v1:
     markdown:

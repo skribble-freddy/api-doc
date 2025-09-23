@@ -27,12 +27,12 @@ properties:
         example: 3
       creation:
         type: string
-        format: timestamp
+        format: date-time
         description: File creation date
         example: '2024-05-30T13:45:00Z'
       modification:
         type: string
-        format: timestamp
+        format: date-time
         description: File modification date
         example: '2024-06-08T15:47:00Z'
       claimedConformance:

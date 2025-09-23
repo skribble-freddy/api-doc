@@ -8,7 +8,7 @@ properties:
     example: john.doe@acme.org
   time:
     type: string
-    format: timestamp
+    format: date-time
     example: '2018-11-28T11:51:58.637Z'
   quality:
     type: string

@@ -28,16 +28,15 @@ info:
     name: Skribble Engineering
     url: https://skribble.com
     email: info@skribble.com
-jsonSchemaDialect: https://json-schema.org/draft/2020-12/schema
 servers:
-  - url: https://my.skribble.com/view
-    variables: {}
   - url: https://api.skribble.com
-    variables: {}
-  - url: http://example.com/v2/user
-    variables: {}
-  - url: http://No request
-    variables: {}
+    description: Production - Switzerland
+  - url: https://api.skribble.de
+    description: Production - Germany
+  - url: https://api.scribital.com
+    description: Staging - Switzerland
+  - url: https://api.scribital.de
+    description: Staging - Germany
 paths:
   /v2/access/login:
     post:

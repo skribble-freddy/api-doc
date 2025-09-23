@@ -7,9 +7,9 @@
     "lint:sign_v3": "redocly lint openapi/sign_v3/openapi.yaml",
     "lint:validation_v1": "redocly lint openapi/validation_v1/openapi.yaml",
     "lint": "npm run lint:sign_v2 && npm run lint:sign_v3 && npm run lint:validation_v1",
-    "preview:sign_v2": "redocly preview --product redoc -p 4001 -d openapi/sign_v2",
-    "preview:sign_v3": "redocly preview --product redoc -p 4002 -d openapi/sign_v3",
-    "preview:validation_v1": "redocly preview --product redoc -p 4000 -d openapi/validation_v1"
+    "preview:sign_v2": "redocly preview --product redoc -p 4000 -d openapi/sign_v2",
+    "preview:sign_v3": "redocly preview --product redoc -p 4001 -d openapi/sign_v3",
+    "preview:validation_v1": "redocly preview --product redoc -p 4002 -d openapi/validation_v1"
 },
   "devDependencies": {
     "@redocly/cli": "2.2.0"

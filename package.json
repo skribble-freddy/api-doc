@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Skribble API documentation",
   "scripts": {
-    "check": "redocly check-config",  
+    "check": "redocly check-config",
     "lint:sign_v2": "redocly lint sign@v2",
     "lint:sign_v3": "redocly lint sign@v3",
     "lint:validation_v1": "redocly lint validation@v1",
@@ -12,8 +12,11 @@
     "preview:sign_v3": "redocly preview --product redoc -p 4001 -d openapi/sign_v3",
     "preview:validation_v1": "redocly preview --product redoc -p 4002 -d openapi/validation_v1",
     "build:validation_v1": "redocly build-docs validation@v1 -o dist/validation-api.html"
-},
+  },
   "devDependencies": {
     "@redocly/cli": "2.2.0"
+  },
+  "dependencies": {
+    "@redocly/redoc": "0.125.3"
   }
 }

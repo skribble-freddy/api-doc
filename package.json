@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "description": "Skribble API documentation",
   "scripts": {
-    "lint:sign_v2": "redocly lint openapi/sign_v2/openapi.yaml",
-    "lint:sign_v3": "redocly lint openapi/sign_v3/openapi.yaml",
-    "lint:validation_v1": "redocly lint openapi/validation_v1/openapi.yaml",
+    "check": "redocly check-config",  
+    "lint:sign_v2": "redocly lint sign@v2",
+    "lint:sign_v3": "redocly lint sign@v3",
+    "lint:validation_v1": "redocly lint validation@v1",
     "lint": "npm run lint:sign_v2 && npm run lint:sign_v3 && npm run lint:validation_v1",
     "preview:sign_v2": "redocly preview --product redoc -p 4000 -d openapi/sign_v2",
     "preview:sign_v3": "redocly preview --product redoc -p 4001 -d openapi/sign_v3",
-    "preview:validation_v1": "redocly preview --product redoc -p 4002 -d openapi/validation_v1"
+    "preview:validation_v1": "redocly preview --product redoc -p 4002 -d openapi/validation_v1",
+    "build:validation_v1": "redocly build-docs validation@v1 -o dist/validation-api.html"
 },
   "devDependencies": {
     "@redocly/cli": "2.2.0"

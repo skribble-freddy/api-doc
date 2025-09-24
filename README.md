@@ -27,3 +27,8 @@ npx @redocly/cli lint openapi/validation_v1/openapi.yaml
 # Tools
 
 OpenAPI Validation https://oas-validation.com/
+
+https://github.com/Redocly/redocly-cli-cookbook
+
+https://redocusaurus.vercel.app/docs/getting-started/Installation
+

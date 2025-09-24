@@ -1,0 +1,14 @@
+apis:
+  sign@v2:
+    root: openapi/sign_v2/openapi.yaml
+  sign@v3:
+    root: openapi/sign_v3/openapi.yaml
+  validation@v1:
+    root: openapi/validation_v1/openapi.yaml
+
+extends:
+  - recommended
+
+openapi:
+  schemasExpansionLevel: 2
+  showExtensions: true

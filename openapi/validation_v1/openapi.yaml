@@ -15,13 +15,13 @@ info:
     url: https://skribble.com
     email: info@skribble.com
 servers:
-  - url: https://document-validation.skribble.com
+  - url: https://document-validation.skribble.com/v1
     description: Production - Switzerland
-  - url: https://document-validation.skribble.de
+  - url: https://document-validation.skribble.de/v1
     description: Production - Germany
-  - url: https://document-validation.scribital.com
+  - url: https://document-validation.scribital.com/v1
     description: Staging - Switzerland
-  - url: https://document-validation.scribital.de
+  - url: https://document-validation.scribital.de/v1
     description: Staging - Germany
 tags:
   - name: Access
@@ -37,43 +37,43 @@ tags:
   - name: Billing and Credits
     description: Endpoints for managing account credits, billing information, and payment operations.
 paths:
-  /v1/access/login:
+  /access/login:
     $ref: paths/access_login.yaml
-  /v1/validate/document:
+  /validate/document:
     $ref: paths/validate_document.yaml
-  /v1/validate/signature:
+  /validate/signature:
     $ref: paths/validate_signature.yaml
-  /v1/validate/certificate:
+  /validate/certificate:
     $ref: paths/validate_certificate.yaml
-  /v1/validate/{id}:
+  /validate/{id}:
     $ref: paths/validate_{id}.yaml
-  /v1/infos/{id}/validation:
+  /infos/{id}/validation:
     $ref: paths/infos_{id}_validation.yaml
-  /v1/infos/{id}/signers:
+  /infos/{id}/signers:
     $ref: paths/infos_{id}_signers.yaml
-  /v1/infos/{id}/format:
+  /infos/{id}/format:
     $ref: paths/infos_{id}_format.yaml
-  /v1/reports/{id}/skribble:
+  /reports/{id}/skribble:
     $ref: paths/reports_{id}_skribble.yaml
-  /v1/reports/{id}/etsi:
+  /reports/{id}/etsi:
     $ref: paths/reports_{id}_etsi.yaml
-  /v1/tooling/upload:
+  /tooling/upload:
     $ref: paths/tooling_upload.yaml
-  /v1/tooling/process/{id}/check:
+  /tooling/process/{id}/check:
     $ref: paths/tooling_process_{id}_check.yaml
-  /v1/tooling/process/{id}/conform:
+  /tooling/process/{id}/conform:
     $ref: paths/tooling_process_{id}_conform.yaml
-  /v1/tooling/process/{id}/compress:
+  /tooling/process/{id}/compress:
     $ref: paths/tooling_process_{id}_compress.yaml
-  /v1/tooling/process/{id}/spotsigners:
+  /tooling/process/{id}/spotsigners:
     $ref: paths/tooling_process_{id}_spotsigners.yaml
-  /v1/tooling/{id}:
+  /tooling/{id}:
     $ref: paths/tooling_{id}.yaml
-  /v1/billing/credits/infos:
+  /billing/credits/infos:
     $ref: paths/billing_credits_infos.yaml
-  /v1/billing/credits/usage:
+  /billing/credits/usage:
     $ref: paths/billing_credits_usage.yaml
-  /v1/billing/credits/invoiced:
+  /billing/credits/invoiced:
     $ref: paths/billing_credits_invoiced.yaml
 components:
   securitySchemes:
@@ -81,3 +81,13 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
+x-redoc:
+  hide-hostname: false
+  expand-responses: all
+  tryIt:
+    enabled: false
+  theme:
+    colors:
+      primary: "#1a73e8"
+    typography:
+      fontFamily: "Arial, sans-serif"

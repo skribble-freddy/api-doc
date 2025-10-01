@@ -7,7 +7,6 @@ get:
     Additional information about the people who signed the document. The query
     parameter is the id from the validation endpoint.
   security:
-    - {}
     - bearerAuth: []
   parameters:
     - $ref: ../components/parameters/validateid.yaml

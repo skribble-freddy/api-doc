@@ -8,7 +8,6 @@ delete:
     validation resources. Any resource that is not manually deleted will be
     automatically deleted after 10 minutes.
   security:
-    - {}
     - bearerAuth: []
   parameters:
     - $ref: ../components/parameters/validateid.yaml

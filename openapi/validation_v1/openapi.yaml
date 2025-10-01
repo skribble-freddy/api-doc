@@ -81,13 +81,3 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-x-redoc:
-  hide-hostname: false
-  expand-responses: all
-  tryIt:
-    enabled: false
-  theme:
-    colors:
-      primary: "#1a73e8"
-    typography:
-      fontFamily: "Arial, sans-serif"

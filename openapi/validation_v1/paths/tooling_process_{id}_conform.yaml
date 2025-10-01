@@ -10,7 +10,6 @@ post:
     process status is 'pending', '423 Locked' is returned and it can be recalled
     with some delay.
   security:
-    - {}
     - bearerAuth: []
   parameters:
     - $ref: ../components/parameters/uploadid.yaml

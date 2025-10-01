@@ -10,7 +10,6 @@ post:
     the request body. Query parameters can be used to set optional parameters to
     control the validation.
   security:
-    - {}
     - bearerAuth: []
   parameters:
     - $ref: ../components/parameters/quality.yaml

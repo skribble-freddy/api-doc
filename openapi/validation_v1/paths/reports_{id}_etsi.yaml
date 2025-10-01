@@ -5,7 +5,6 @@ get:
   summary: ETSI TS 119 102-2 validation report
   description: Get the ETSI TS 119 102-2 signature validation report as a XML
   security:
-    - {}
     - bearerAuth: []
   parameters:
     - $ref: ../components/parameters/validateid.yaml

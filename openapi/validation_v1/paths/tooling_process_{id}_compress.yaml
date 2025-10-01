@@ -10,7 +10,6 @@ post:
     document with other tools, it will process the document again. If '423
     Locked' is returned it can be recalled with some delay.
   security:
-    - {}
     - bearerAuth: []
   parameters:
     - $ref: ../components/parameters/uploadid.yaml

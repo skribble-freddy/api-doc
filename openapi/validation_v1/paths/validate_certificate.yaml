@@ -8,7 +8,6 @@ post:
     validation ID {id} is returned that can be used to call additional
     endpoints. The content to be validated is provided in the request body.
   security:
-    - {}
     - bearerAuth: []
   requestBody:
     description: Content can be sent directly as a file or base64-encoded in a JSON object

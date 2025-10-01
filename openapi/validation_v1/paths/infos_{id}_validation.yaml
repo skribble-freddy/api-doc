@@ -6,7 +6,6 @@ get:
     Get additional information about the validation itself. Refer to ETSI EN 319
     102-1 for the indications and sub-indications that may be encountered.
   security:
-    - {}
     - bearerAuth: []
   parameters:
     - $ref: ../components/parameters/validateid.yaml

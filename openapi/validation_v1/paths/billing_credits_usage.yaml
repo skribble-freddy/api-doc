@@ -5,7 +5,6 @@ get:
   summary: Current credit usage
   description: Get credit usage list and details for current billing period
   security:
-    - {}
     - bearerAuth: []
   responses:
     '200':

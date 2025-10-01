@@ -7,7 +7,6 @@ get:
     Get invoiced credit details for the most recent billing period or a
     specified time period
   security:
-    - {}
     - bearerAuth: []
   parameters:
     - in: query

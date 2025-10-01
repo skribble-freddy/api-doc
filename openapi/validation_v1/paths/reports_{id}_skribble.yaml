@@ -5,7 +5,6 @@ get:
   summary: Skribble validation report [ROADMAP]
   description: Get the digitally signed Skribble validation report as PDF
   security:
-    - {}
     - bearerAuth: []
   parameters:
     - $ref: ../components/parameters/validateid.yaml

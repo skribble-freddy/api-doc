@@ -9,7 +9,6 @@ post:
     PDF, the uploaded document will be converted into one. The maximum request
     or file size is 50MB.
   security:
-    - {}
     - bearerAuth: []
   requestBody:
     description: Content can be sent directly as a file or base64-encoded in a JSON object

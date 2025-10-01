@@ -4,7 +4,6 @@ get:
     - Additional Information
   summary: Get additional information about the document format
   security:
-    - {}
     - bearerAuth: []
   parameters:
     - $ref: ../components/parameters/validateid.yaml

@@ -11,7 +11,10 @@
     "preview:sign_v2": "redocly preview --product redoc -p 4000 -d openapi/sign_v2",
     "preview:sign_v3": "redocly preview --product redoc -p 4001 -d openapi/sign_v3",
     "preview:validation_v1": "redocly preview --product redoc -p 4002 -d openapi/validation_v1",
-    "build:validation_v1": "redocly build-docs validation@v1 --output=dist/validation-api.html --theme.openapi.disableSearch"
+    "build:sign_v2": "redocly build-docs sign@v2 --output=dist/sign_api_v2.html --theme.openapi.disableSearch",
+    "build:sign_v3": "redocly build-docs sign@v3 --output=dist/sing_api_v3.html --theme.openapi.disableSearch",
+    "build:validation_v1": "redocly build-docs validation@v1 --output=dist/validation_api_v1.html --theme.openapi.disableSearch",
+    "build": "npm run build:sign_v2 && npm run build:sign_v3 && npm run build:validation_v1"
   },
   "devDependencies": {
     "@redocly/cli": "2.2.2"

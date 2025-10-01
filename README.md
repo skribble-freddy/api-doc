@@ -36,4 +36,5 @@ https://redocusaurus.vercel.app/docs/getting-started/Installation
 ## Solutions
 
 https://docs.stoplight.io/
-
+https://readme.com/documentation
+https://www.mintlify.com/

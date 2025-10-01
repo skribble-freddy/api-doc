@@ -33,3 +33,7 @@ https://www.npmjs.com/package/openapi-to-postmanv2/v/4.20.1
 
 https://redocusaurus.vercel.app/docs/getting-started/Installation
 
+## Solutions
+
+https://docs.stoplight.io/
+

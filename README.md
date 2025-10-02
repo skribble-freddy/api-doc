@@ -32,6 +32,8 @@ https://github.com/Redocly/redocly-cli-cookbook
 https://www.npmjs.com/package/openapi-to-postmanv2/v/4.20.1
 
 https://redocusaurus.vercel.app/docs/getting-started/Installation
+https://github.com/PaloAltoNetworks/docusaurus-openapi-docs
+  https://github.com/facebook/docusaurus/issues/10556
 
 ## Solutions
 

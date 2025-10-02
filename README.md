@@ -38,6 +38,8 @@ https://redocusaurus.vercel.app/docs/getting-started/Installation
 https://docs.stoplight.io/
 https://readme.com/documentation
 https://www.mintlify.com/
+https://scalar.com/
+
 
 ## References
 

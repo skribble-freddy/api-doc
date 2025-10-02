@@ -38,3 +38,8 @@ https://redocusaurus.vercel.app/docs/getting-started/Installation
 https://docs.stoplight.io/
 https://readme.com/documentation
 https://www.mintlify.com/
+
+## References
+
+https://docs.stripe.com/api
+https://developer.paypal.com/api/rest/

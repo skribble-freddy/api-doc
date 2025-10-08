@@ -47,12 +47,12 @@ paths:
     $ref: paths/signature-requests_{SR_ID}.yaml
   /sendto:
     $ref: paths/sendto.yaml
-  /sendto/{SEND_TO_ID}:
-    $ref: paths/sendto_{SEND_TO_ID}.yaml
   /sendto/{SEND_TO_ID}/track:
     $ref: paths/sendto_{SEND_TO_ID}_track.yaml
   /sendto/{SEND_TO_ID}/download:
     $ref: paths/sendto_{SEND_TO_ID}_download.yaml
+  /sendto/{SEND_TO_ID}:
+    $ref: paths/sendto_{SEND_TO_ID}.yaml
 components:
   securitySchemes:
     bearer:

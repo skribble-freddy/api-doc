@@ -1,0 +1,9 @@
+description: Request body to create a Send-To object
+required: true
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/CreateSendToRequest.yaml
+    example:
+      title: Skribble Demo Send-To
+      content: '{{BASE64_PDF}}'

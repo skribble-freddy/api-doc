@@ -1,0 +1,13 @@
+type: object
+required:
+  - username
+  - api-key
+properties:
+  username:
+    type: string
+    description: The username of the users credentials to login
+    example: add_your_api_name_here
+  api-key:
+    type: string
+    description: The API key of the users credentials to login
+    example: please_enter_your_password_here

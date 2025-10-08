@@ -1,16 +1,6 @@
 paths:
-  /access/login:
-    $ref: paths/access_login.yaml
-  /v2/signature-requests:
-    $ref: paths/v2_signature-requests.yaml
-  /v2/signature-requests/{SR_ID}:
-    $ref: paths/v2_signature-requests_{SR_ID}.yaml
   /v2/documents/{DOC_ID}/content:
     $ref: paths/v2_documents_{DOC_ID}_content.yaml
-  /v2/sendto/{SEND_TO_ID}/track:
-    $ref: paths/v2_sendto_{SEND_TO_ID}_track.yaml
-  /sendto/{SEND_TO_ID}/download:
-    $ref: paths/sendto_{SEND_TO_ID}_download.yaml
   /v2/documents:
     $ref: paths/v2_documents.yaml
   /v2/documents/{DOC_ID}:
@@ -30,14 +20,10 @@ paths:
     $ref: paths/v2_signature-requests_{SR_ID}_attachments_{ATTACHMENT_ID}.yaml
   /v2/signature-requests/{SR_ID}/withdraw:
     $ref: paths/v2_signature-requests_{SR_ID}_withdraw.yaml
-  /v2/sendto/{SEND_TO_ID}:
-    $ref: paths/v2_sendto_{SEND_TO_ID}.yaml
   /v2/signature-requests/{SR_ID}/remind:
     $ref: paths/v2_signature-requests_{SR_ID}_remind.yaml
   /v2/seal:
     $ref: paths/v2_seal.yaml
-  /v2/sendto:
-    $ref: paths/v2_sendto.yaml
   /signature-qualities-detail:
     $ref: paths/signature-qualities-detail.yaml
   /v2/user/signature-qualities:

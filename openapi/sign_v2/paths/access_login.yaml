@@ -2,10 +2,57 @@ post:
   operationId: postAccessLogin
   tags:
     - Access
-  summary: Login as user "api_demo_your_name"
-  security:
-    - {}
+  summary: 🔑 Authentication
   description: >-
+    In order to use the API of Skribble, you first need to obtain an API key
+    with an API user. Both can be accessed inside the API key page inside your
+    business profile. From here, you can create and manage your API keys.
+    Consult our
+    [guide](https://docs.skribble.com/business-admin/api/apicreate.html) for
+    help.
+
+
+    Skribble offers two types of API keys:
+
+
+    **Demo API keys**  
+
+    Demo API keys are for testing and development purposes.  
+
+    You can recognize these keys by their name, which start with
+    **api_demo**.  
+
+    Signatures requested by such keys don't have any legal weight and are free
+    of charge.
+
+
+    **Production API keys**  
+
+    Production API keys are used for live systems.  
+
+    Signatures requested by such keys will be invoiced.  
+
+    You can recognize these keys by their name, which usually starts with
+    **api_production** or in some rare cases just with **api_prod**.
+
+
+    > **⚠ Note**  
+
+    All costs of signature requests created with your API keys will be
+    **charged to your business**! 
+        
+
+    We recommend you to **start with a demo API key for development and
+    testing** and switch to the production API key as soon as you are finished
+    with testing.
+
+
+    If you have problems setting up Skribble Business, just drop us an e-mail
+    at  
+
+    [info@skribble.com](https://mailto:info@skribble.com)
+
+
     To obtain an access token, log in using the `/access/login` resource.
 
 
@@ -58,17 +105,16 @@ post:
 
 
     There is **no logout**. The access token will expire after the defined time.
+  security:
+    - {}
   requestBody:
-    description: ''
     content:
       application/json:
         schema:
-          allOf:
-            - $ref: ../components/schemas/Loginasuserapi_demo_your_nameRequest.yaml
-            - examples:
-                - username: add_your_api_name_here
-                  api-key: please_enter_your_password_here
-          contentMediaType: application/json
+          $ref: ../components/schemas/LoginRequest.yaml
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/LoginRequest.yaml
         example:
           username: add_your_api_name_here
           api-key: please_enter_your_password_here
@@ -76,29 +122,16 @@ post:
   responses:
     '200':
       description: OK
-      headers: {}
       content:
         text/plain:
           schema:
             type: string
-            examples:
-              - >-
-                eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJJWlMxY0pXQXlXVFdZeDR6dXRGNzJlYWVILTA0MUprTDF5N2Z3aXA1T3UwIn0Ei3Hm3rhjOAq5dWo6Z0l6bzvyGCXd87oRoOWDM2sW4KErCKYmcQ6ks8FVj3Fn8wXNIVAnp5ClZvWNw9Uks1zM9P2IXBbBPn7DIQGvM
-                ...
             contentMediaType: text/plain
           example: >-
             eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJJWlMxY0pXQXlXVFdZeDR6dXRGNzJlYWVILTA0MUprTDF5N2Z3aXA1T3UwIn0Ei3Hm3rhjOAq5dWo6Z0l6bzvyGCXd87oRoOWDM2sW4KErCKYmcQ6ks8FVj3Fn8wXNIVAnp5ClZvWNw9Uks1zM9P2IXBbBPn7DIQGvM
             ...
     '400':
       $ref: ../components/responses/BadRequest.yaml
-      content:
-        text/plain:
-          schema:
-            type: string
-            examples:
-              - Please ensure your username and api-key are correct!
-            contentMediaType: text/plain
-          example: Please ensure your username and api-key are correct!
     '401':
       $ref: ../components/responses/Unauthorized.yaml
     '429':
@@ -107,18 +140,3 @@ post:
       $ref: ../components/responses/ServerError.yaml
     '503':
       $ref: ../components/responses/ServiceUnavailble.yaml
-    default:
-      description: ''
-      headers: {}
-      content:
-        text/plain:
-          schema:
-            type: string
-            examples:
-              - >-
-                eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJJWlMxY0pXQXlXVFdZeDR6dXRGNzJlYWVILTA0MUprTDF5N2Z3aXA1T3UwIn0Ei3Hm3rhjOAq5dWo6Z0l6bzvyGCXd87oRoOWDM2sW4KErCKYmcQ6ks8FVj3Fn8wXNIVAnp5ClZvWNw9Uks1zM9P2IXBbBPn7DIQGvM
-                ...
-            contentMediaType: text/plain
-          example: >-
-            eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJJWlMxY0pXQXlXVFdZeDR6dXRGNzJlYWVILTA0MUprTDF5N2Z3aXA1T3UwIn0Ei3Hm3rhjOAq5dWo6Z0l6bzvyGCXd87oRoOWDM2sW4KErCKYmcQ6ks8FVj3Fn8wXNIVAnp5ClZvWNw9Uks1zM9P2IXBbBPn7DIQGvM
-            ...

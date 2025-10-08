@@ -8,7 +8,7 @@ required:
 properties:
   type:
     type: string
-    description: "A URI identifying the problem type."
+    description: "A URI identifying the problem type"
     example: "https://api.skribble.com/problem/problem-with-message"
   method:
     type: string

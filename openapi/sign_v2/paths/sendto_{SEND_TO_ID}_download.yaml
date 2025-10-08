@@ -1,5 +1,4 @@
 get:
-  operationId: getSendToDownload
   tags:
     - SendTo
   summary: Download Send-To based document
@@ -11,45 +10,44 @@ get:
     As response you will get the initially provided PDF document in its current
     state. This might be signed, declined or withdrawn or still open for
     signing. The status can be obtained using the `track` endpoind.
+  operationId: getSendToDownload
   security:
     - bearer: []
   parameters:
     - name: X-Accesscode
       in: header
-      description: ''
+      description: Access code received when creating the Send-To object
       required: true
       style: simple
       schema:
         type: string
-        examples:
-          - '{{SEND_TO_ACCESS_CODE}}'
+        format: uuid
+      example: "3fa85f64-5717-4562-b3fc-2c963f66afa6"
     - name: SEND_TO_ID
       in: path
-      description: ''
+      description: Unique ID received when creating the Send-To object
       required: true
       style: simple
       schema:
         type: string
+      example: "d98ae06a-3ae4-5cc5-c0a3-62b05901b84f"
   responses:
-    '200':
+    "200":
       description: OK
       content:
         application/pdf:
           schema:
             type: string
             format: binary
-            examples:
-              - The file as raw PDF data.
-          example: The file as raw PDF data.
-    '400':
+    "400":
       $ref: ../components/responses/BadRequest.yaml
-    '401':
+    "401":
       $ref: ../components/responses/Unauthorized.yaml
-    '404':
+    "404":
       $ref: ../components/responses/NotFound.yaml
-    '429':
+    "429":
       $ref: ../components/responses/TooManyRequests.yaml
-    '500':
+    "500":
       $ref: ../components/responses/ServerError.yaml
-    '503':
+    "503":
       $ref: ../components/responses/ServiceUnavailable.yaml

@@ -1,7 +1,7 @@
 {
   "name": "skribble-api-docs",
   "version": "1.0.0",
-  "description": "Skribble API documentation",
+  "description": "Skribble API's",
   "scripts": {
     "check": "redocly check-config",
     "lint:sign_v2": "redocly lint sign@v2",

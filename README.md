@@ -1,4 +1,4 @@
-# Skribble APIs – Documentation Repo
+# Skribble APIs
 
 This repository hosts the Skribble APIs as OpenAPI specs,
 prepared for use with [Redocly](https://redocly.com/).
@@ -10,20 +10,39 @@ prepared for use with [Redocly](https://redocly.com/).
 
 ## How to use
 
-### Preview API docs
+### Redocly command line tool
+
 ```bash
-npx @redocly/cli preview-docs openapi/validation_v1/openapi.yaml
-npx @redocly/cli preview-docs openapi/sign_v2/openapi.yaml
+npx @redocly/cli --help
 ```
 
 ### Lint API specs
+
 ```bash
-npx @redocly/cli lint openapi/validation_v1/openapi.yaml
+npm run lint
+```
+
+### Bundle API specs
+
+Output will be in `dist/`
+
+```bash
+npm run bundle
+```
+
+### Preview or Build (HTLM) API docs
+
+```bash
+npm run build 
+npm run build:validation_v1
+
+npm run preview:validation_v1
 ```
 
 ### Folder structure
 - `openapi/<api_version>` → Split OpenAPI spec (`openapi.yaml` imports from `paths/` + `components/`)
 - `docs/` → Markdown docs (overview, auth, errors, changelog, etc.)
+
 
 # Tools
 

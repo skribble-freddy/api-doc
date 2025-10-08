@@ -126,9 +126,8 @@ post:
         text/plain:
           schema:
             type: string
-          example: >-
-            eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJJWlMxY0pXQXlXVFdZeDR6dXRGNzJlYWVILTA0MUprTDF5N2Z3aXA1T3UwIn0Ei3Hm3rhjOAq5dWo6Z0l6bzvyGCXd87oRoOWDM2sW4KErCKYmcQ6ks8FVj3Fn8wXNIVAnp5ClZvWNw9Uks1zM9P2IXBbBPn7DIQGvM
-            ...
+            description: "JSON Web Token (JWT)"
+          example: "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJJWlMxY0pXQXlXVFdZeDR6dXRGNzJlYWVILT..."
     '400':
       $ref: ../components/responses/BadRequest.yaml
       content:

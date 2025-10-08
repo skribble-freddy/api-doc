@@ -1,47 +1,33 @@
 delete:
-  operationId: deleteSendTo
   tags:
     - SendTo
   summary: Delete Send-To object
   description: >-
-    To `delete` a `Sent-To` object based on its `ID` you must include the value
-    of the `access_code` field—received when creating the `Send-To` object—in
-    the request header `X-Accesscode`.
+    To call the `delete` endpoint, you must include the value of the
+    `access_code` field—received when creating the `Send-To` object—in the
+    request header `X-Accesscode`.
 
-
-    This call deletes the involved `Send-To,` `Document` and `SignatureRequest`
-    objects regardeless the current `Send-To` state.
+    This call deletes the involved `Send-To`, `Document`, and `SignatureRequest`
+    objects regardless of the current `Send-To` state.
+  operationId: deleteSendTo
   security:
     - bearer: []
   parameters:
-    - name: X-Accesscode
-      in: header
-      description: ''
-      required: true
-      style: simple
-      schema:
-        type: string
-        examples:
-          - '{{SEND_TO_ACCESS_CODE}}'
-    - name: SEND_TO_ID
-      in: path
-      description: ''
-      required: true
-      style: simple
-      schema:
-        type: string
+    - $ref: '../components/parameters/XAccesscodeHeader.yaml'
+    - $ref: '../components/parameters/SendToIdPath.yaml'
   responses:
-    '200':
+    200:
       description: OK
-    '400':
+    400:
       $ref: ../components/responses/BadRequest.yaml
-    '401':
+      # TODO
+    401:
       $ref: ../components/responses/Unauthorized.yaml
-    '404':
+    404:
       $ref: ../components/responses/NotFound.yaml
-    '429':
+    429:
       $ref: ../components/responses/TooManyRequests.yaml
-    '500':
+    500:
       $ref: ../components/responses/ServerError.yaml
-    '503':
+    503:
       $ref: ../components/responses/ServiceUnavailable.yaml

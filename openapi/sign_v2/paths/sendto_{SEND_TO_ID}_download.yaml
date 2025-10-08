@@ -26,6 +26,7 @@ get:
             format: binary
     400:
       $ref: ../components/responses/BadRequest.yaml
+      # TODO
     401:
       $ref: ../components/responses/Unauthorized.yaml
     404:

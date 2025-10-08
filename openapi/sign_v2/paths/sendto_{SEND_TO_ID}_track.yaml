@@ -35,6 +35,13 @@ get:
         application/json:
           schema:
             $ref: '../components/schemas/TrackSendToResponse.yaml'
+          examples:
+            unclaimed:
+              $ref: '../components/examples/TrackSendToResponse.yaml#/SendToUnclaimed'
+            claimed:
+              $ref: '../components/examples/TrackSendToResponse.yaml#/SendToClaimed'
+            signed:
+              $ref: '../components/examples/TrackSendToResponse.yaml#/SendToSigned'
     400:
       $ref: ../components/responses/BadRequest.yaml
     401:

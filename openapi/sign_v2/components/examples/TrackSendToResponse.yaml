@@ -1,0 +1,22 @@
+SendToUnclaimed:
+  summary: Send-To not yet claimed
+  value:
+    status: UNCLAIMED
+    creator: ""
+    signers: []
+
+SendToClaimed:
+  summary: Send-To claimed by a user
+  value:
+    status: CLAIMED
+    creator: user@example.com
+    signers: []
+
+SendToSigned:
+  summary: Send-To fully signed
+  value:
+    status: SIGNED
+    creator: user@example.com
+    signers:
+      - signer1@example.com
+      - signer2@example.com

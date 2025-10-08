@@ -1,7 +1,10 @@
 post:
+  operationId: postAccessLogin
   tags:
-    - 🔑 Authentication
+    - Access
   summary: Login as user "api_demo_your_name"
+  security:
+    - {}
   description: >-
     To obtain an access token, log in using the `/access/login` resource.
 
@@ -55,8 +58,6 @@ post:
 
 
     There is **no logout**. The access token will expire after the defined time.
-  operationId: LoginAsUser
-  parameters: []
   requestBody:
     description: ''
     content:
@@ -89,8 +90,7 @@ post:
             eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJJWlMxY0pXQXlXVFdZeDR6dXRGNzJlYWVILTA0MUprTDF5N2Z3aXA1T3UwIn0Ei3Hm3rhjOAq5dWo6Z0l6bzvyGCXd87oRoOWDM2sW4KErCKYmcQ6ks8FVj3Fn8wXNIVAnp5ClZvWNw9Uks1zM9P2IXBbBPn7DIQGvM
             ...
     '400':
-      description: Bad request
-      headers: {}
+      $ref: ../components/responses/BadRequest.yaml
       content:
         text/plain:
           schema:
@@ -99,6 +99,14 @@ post:
               - Please ensure your username and api-key are correct!
             contentMediaType: text/plain
           example: Please ensure your username and api-key are correct!
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '429':
+      $ref: ../components/responses/TooManyRequests.yaml
+    '500':
+      $ref: ../components/responses/ServerError.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailble.yaml
     default:
       description: ''
       headers: {}
@@ -114,8 +122,3 @@ post:
           example: >-
             eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJJWlMxY0pXQXlXVFdZeDR6dXRGNzJlYWVILTA0MUprTDF5N2Z3aXA1T3UwIn0Ei3Hm3rhjOAq5dWo6Z0l6bzvyGCXd87oRoOWDM2sW4KErCKYmcQ6ks8FVj3Fn8wXNIVAnp5ClZvWNw9Uks1zM9P2IXBbBPn7DIQGvM
             ...
-  deprecated: false
-  servers:
-    - url: https://api.skribble.com
-      variables: {}
-parameters: []

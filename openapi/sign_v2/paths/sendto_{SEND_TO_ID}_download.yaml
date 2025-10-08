@@ -1,17 +1,18 @@
 get:
+  operationId: getSendToDownload
   tags:
-    - Find
+    - SendTo
   summary: Download Send-To based document
   description: >-
     To call the `download` endpoint, you must include the value of the
     `access_code` field—received when creating the `Send-To` object—in the
     request header `X-Accesscode`.
 
-
     As response you will get the initially provided PDF document in its current
     state. This might be signed, declined or withdrawn or still open for
     signing. The status can be obtained using the `track` endpoind.
-  operationId: DownloadSend-Tobaseddocument
+  security:
+    - bearer: []
   parameters:
     - name: X-Accesscode
       in: header
@@ -32,17 +33,21 @@ get:
   responses:
     '200':
       description: OK
-      headers: {}
       content:
-        text/plain:
+        application/pdf:
           schema:
             type: string
+            format: binary
             examples:
-              - The file as raw data.
-            contentMediaType: text/plain
-          example: The file as raw data.
-  deprecated: false
-  servers:
-    - url: https://api.skribble.com
-      variables: {}
-parameters: []
+              - The file as raw PDF data.
+          example: The file as raw PDF data.
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '429':
+      $ref: ../components/responses/TooManyRequests.yaml
+    '500':
+      $ref: ../components/responses/ServerError.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailble.yaml

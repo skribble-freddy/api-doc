@@ -1,6 +1,7 @@
 post:
+  operationId: postSignatureRequest
   tags:
-    - 1. Create a SignatureRequest
+    - Signature
   summary: Create a simple  signature request for a PDF document
   description: >-
     In this example we have three signers. One of the signers is you and the
@@ -8,8 +9,8 @@ post:
     signature requests in which you are the only signer or where you are not a
     signer yourself. In the second case, you as creator of the
     `SignatureRequest` get read-only rights on this data object.
-  operationId: CreateasimplesignaturerequestforaPDFdocument
-  parameters: []
+  security:
+    - bearer: []
   requestBody:
     description: ''
     content:
@@ -118,15 +119,9 @@ post:
               - api_demo_your_name
             created_at: '2099-12-12T12:12:12.000Z'
             updated_at: '2099-12-12T12:12:12.000Z'
-  deprecated: false
-  security:
-    - bearer: []
-  servers:
-    - url: https://api.skribble.com
-      variables: {}
 get:
   tags:
-    - Find
+    - Signature
   summary: List and find SignatureRequests
   description: >-
     Using this `GET` request, you can list all the `SignatureRequests` provided
@@ -278,7 +273,7 @@ get:
       variables: {}
 put:
   tags:
-    - Add or remove signers
+    - Signature
   summary: Add or remove multiple signers simultaneously
   description: >-
     To add or remove multiple signers at once, you need to update the
@@ -375,10 +370,5 @@ put:
                 ...
 
             }
-  deprecated: false
   security:
     - bearer: []
-  servers:
-    - url: https://api.skribble.com
-      variables: {}
-parameters: []

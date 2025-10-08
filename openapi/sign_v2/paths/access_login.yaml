@@ -131,6 +131,12 @@ post:
             ...
     '400':
       $ref: ../components/responses/BadRequest.yaml
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/BadRequest.yaml'
+          example:
+            $ref: '../components/examples/BadRequestAccessLogin.yaml'
     '401':
       $ref: ../components/responses/Unauthorized.yaml
     '429':

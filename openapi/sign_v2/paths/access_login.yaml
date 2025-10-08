@@ -83,7 +83,7 @@ post:
           username: add_your_api_name_here
           api-key: please_enter_your_password_here
   responses:
-    "200":
+    200:
       description: OK
       content:
         text/plain:
@@ -91,7 +91,7 @@ post:
             type: string
             description: "JSON Web Token (JWT)"
           example: "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJJWlMxY0pXQXlXVFdZeDR6dXRGNzJlYWVILT..."
-    "400":
+    400:
       $ref: ../components/responses/BadRequest.yaml
       content:
         application/json:
@@ -103,9 +103,9 @@ post:
             path: "/v2/access/login"
             status: 400
             message: "Invalid input for 'username' or 'api-key'. No credentials provided. Please ensure 'username' and 'api-key' are correctly transmitted"
-    "429":
+    429:
       $ref: ../components/responses/TooManyRequests.yaml
-    "500":
+    500:
       $ref: ../components/responses/ServerError.yaml
-    "503":
+    503:
       $ref: ../components/responses/ServiceUnavailable.yaml

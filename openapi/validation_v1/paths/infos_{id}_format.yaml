@@ -24,7 +24,7 @@ get:
             PDFA:
               $ref: ../components/examples/FormatPDFA.yaml
     '400':
-      $ref: ../components/responses/ServiceUnavailble.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml
     '401':
       $ref: ../components/responses/Unauthorized.yaml
     '404':
@@ -34,4 +34,4 @@ get:
     '500':
       $ref: ../components/responses/ServerError.yaml
     '503':
-      $ref: ../components/responses/ServiceUnavailble.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml

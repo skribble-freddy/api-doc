@@ -2,7 +2,7 @@ post:
   operationId: postAccessLogin
   tags:
     - Access
-  summary: 🔑 Authentication
+  summary: Authentication
   description: >-
     In order to use the API of Skribble, you first need to obtain an API key
     with an API user. Both can be accessed inside the API key page inside your
@@ -72,7 +72,7 @@ post:
     The content of the header starts with `Bearer` followed by the JWT string.
 
 
-    Example: `Authorization: {{vault:bearer-token}}`
+    Example: `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI...`
 
 
     #### Token Life Cycle
@@ -126,7 +126,6 @@ post:
         text/plain:
           schema:
             type: string
-            contentMediaType: text/plain
           example: >-
             eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJJWlMxY0pXQXlXVFdZeDR6dXRGNzJlYWVILTA0MUprTDF5N2Z3aXA1T3UwIn0Ei3Hm3rhjOAq5dWo6Z0l6bzvyGCXd87oRoOWDM2sW4KErCKYmcQ6ks8FVj3Fn8wXNIVAnp5ClZvWNw9Uks1zM9P2IXBbBPn7DIQGvM
             ...
@@ -139,4 +138,4 @@ post:
     '500':
       $ref: ../components/responses/ServerError.yaml
     '503':
-      $ref: ../components/responses/ServiceUnavailble.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml

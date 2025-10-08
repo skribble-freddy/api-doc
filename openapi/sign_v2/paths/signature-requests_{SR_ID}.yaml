@@ -65,7 +65,7 @@ get:
     '500':
       $ref: ../components/responses/ServerError.yaml
     '503':
-      $ref: ../components/responses/ServiceUnavailble.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml
 delete:
   operationId: deleteSignatureRequest
   tags:
@@ -139,4 +139,4 @@ delete:
     '500':
       $ref: ../components/responses/ServerError.yaml
     '503':
-      $ref: ../components/responses/ServiceUnavailble.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml

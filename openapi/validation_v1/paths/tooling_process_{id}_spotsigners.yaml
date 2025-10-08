@@ -44,4 +44,4 @@ post:
     '501':
       $ref: ../components/responses/NotImplemented.yaml
     '503':
-      $ref: ../components/responses/ServiceUnavailble.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml

@@ -128,7 +128,7 @@ post:
     '500':
       $ref: ../components/responses/ServerError.yaml
     '503':
-      $ref: ../components/responses/ServiceUnavailble.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml
 get:
   operationId: getSignatureRequest
   tags:
@@ -284,7 +284,7 @@ get:
     '500':
       $ref: ../components/responses/ServerError.yaml
     '503':
-      $ref: ../components/responses/ServiceUnavailble.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml
 put:
   operationId: putSignatureRequest
   tags:
@@ -393,4 +393,4 @@ put:
     '500':
       $ref: ../components/responses/ServerError.yaml
     '503':
-      $ref: ../components/responses/ServiceUnavailble.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml

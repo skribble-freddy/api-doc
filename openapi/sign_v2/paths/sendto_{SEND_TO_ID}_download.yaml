@@ -1,7 +1,7 @@
 get:
   tags:
     - SendTo
-  summary: Download Send-To based document
+  summary: Download Send-To document
   description: >-
     To call the `download` endpoint, you must include the value of the
     `access_code` field—received when creating the `Send-To` object—in the

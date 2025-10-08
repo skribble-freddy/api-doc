@@ -2,21 +2,21 @@ post:
   operationId: postSendTo
   tags:
     - SendTo
-  summary: Create Send-To object
+  summary: Create Send-To
   description: >-
     Start the signing process by uploading the PDF document `content` and
     assigning it a `title`.
 
     # Limited lifetime
 
-    > Sign-To objects and its related Documents and SignatureRequests are only
+    > Send-To objects and its related Documents and SignatureRequests are only
     guaranteed for a **limited lifetime.** 
       
-    - Sign-To request that dont get claimed by a user, so where a user does not
+    - Send-To request that dont get claimed by a user, so where a user does not
     add the document to the list of his documents to sign, will be deleted
     automatically after one day.
         
-    - Sign-To objects and its related Documents and SignatureRequest objects in
+    - Send-To objects and its related Documents and SignatureRequest objects in
     general, independant of its status, will be deleted automatically after 90
     days.
   security:
@@ -30,10 +30,6 @@ post:
         application/json:
           schema:
             $ref: ../components/schemas/CreateSendToResponse.yaml
-          example:
-            url: https://my.skribble.com/sendto/1d2e74c7-92d6-d552-66c6-dd9e640000c9
-            id: 1d2e74c7-92d6-d552-66c6-dd9e640000c9
-            access_code: fc175e6a-e9c7-73c7-8821-d6033de29999
     400:
       $ref: ../components/responses/BadRequest.yaml
     401:

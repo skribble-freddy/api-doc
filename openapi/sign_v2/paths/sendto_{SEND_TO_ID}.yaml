@@ -1,7 +1,7 @@
 delete:
   tags:
     - SendTo
-  summary: Delete Send-To object
+  summary: Delete Send-To
   description: >-
     To call the `delete` endpoint, you must include the value of the
     `access_code` field—received when creating the `Send-To` object—in the

@@ -1,0 +1,47 @@
+title: TrackSendToResponse
+type: object
+required:
+  - status
+  - signers
+  - creator
+properties:
+  status:
+    type: string
+    description: Status of the Send-To request
+    enum:
+      - UNCLAIMED
+      - EXPIRED
+      - CLAIMED
+      - SIGNING
+      - SIGNED
+      - WITHDRAWN
+      - DECLINED
+  creator:
+    type: string
+    description: User who claimed the Send-To request
+    anyOf:
+      - type: "string"
+      - type: "null"
+  signers:
+    type: array
+    description: List of signers for the Send-To request
+    items:
+      type: string
+    anyOf:
+      - type: "array"
+      - type: "null"
+examples:
+  - summary: Send-To not yet claimed
+    value:
+      status: UNCLAIMED
+  - summary: Send-To claimed by a user
+    value:
+      status: CLAIMED
+      creator: user@example.com
+  - summary: Send-To fully signed
+    value:
+      status: SIGNED
+      creator: user@example.com
+      signers:
+        - signer1@example.com
+        - signer2@example.com

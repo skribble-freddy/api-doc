@@ -23,19 +23,6 @@ servers:
     description: Staging - Switzerland
   - url: https://document-validation.scribital.de/v1
     description: Staging - Germany
-tags:
-  - name: Access
-    description: Endpoints for authentication, authorization, and user access management.
-  - name: Validation
-    description: Endpoints to validate documents, data formats, and signatures.
-  - name: Additional Information
-    description: Endpoints providing extra metadata or supplementary details for documents.
-  - name: Reports
-    description: Endpoints for generating, retrieving, and managing reports related to document processing.
-  - name: Tooling
-    description: Utility endpoints and tools that assist with document handling or integration.
-  - name: Billing and Credits
-    description: Endpoints for managing account credits, billing information, and payment operations.
 paths:
   /access/login:
     $ref: paths/access_login.yaml
@@ -81,3 +68,17 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
+security: []
+tags:
+  - name: Access
+    description: Endpoints for authentication, authorization, and user access management.
+  - name: Validation
+    description: Endpoints to validate documents, data formats, and signatures.
+  - name: Additional Information
+    description: Endpoints providing extra metadata or supplementary details for documents.
+  - name: Reports
+    description: Endpoints for generating, retrieving, and managing reports related to document processing.
+  - name: Tooling
+    description: Utility endpoints and tools that assist with document handling or integration.
+  - name: Billing and Credits
+    description: Endpoints for managing account credits, billing information, and payment operations.

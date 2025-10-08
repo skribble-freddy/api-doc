@@ -1,5 +1,4 @@
 post:
-  operationId: postAccessLogin
   tags:
     - Access
   summary: Authentication
@@ -7,24 +6,18 @@ post:
     In order to use the API of Skribble, you first need to obtain an API key
     with an API user. Both can be accessed inside the API key page inside your
     business profile. From here, you can create and manage your API keys.
-    Consult our
-    [guide](https://docs.skribble.com/business-admin/api/apicreate.html) for
-    help.
-
+    Consult our [guide](https://docs.skribble.com/business-admin/api/apicreate.html) for help.
 
     Skribble offers two types of API keys:
-
 
     **Demo API keys**  
 
     Demo API keys are for testing and development purposes.  
 
-    You can recognize these keys by their name, which start with
-    **api_demo**.  
+    You can recognize these keys by their name, which start with **api_demo**.  
 
     Signatures requested by such keys don't have any legal weight and are free
     of charge.
-
 
     **Production API keys**  
 
@@ -35,79 +28,51 @@ post:
     You can recognize these keys by their name, which usually starts with
     **api_production** or in some rare cases just with **api_prod**.
 
-
     > **⚠ Note**  
-
     All costs of signature requests created with your API keys will be
     **charged to your business**! 
-        
-
+          
     We recommend you to **start with a demo API key for development and
     testing** and switch to the production API key as soon as you are finished
     with testing.
 
-
     If you have problems setting up Skribble Business, just drop us an e-mail
-    at  
-
-    [info@skribble.com](https://mailto:info@skribble.com)
-
+    at [info@skribble.com](mailto:info@skribble.com).
 
     To obtain an access token, log in using the `/access/login` resource.
 
-
     You can pass your login data using raw JSON or alternatively as
-    `x-www-form-urlencoded` `key:value` pairs(see example requests).
-
+    `x-www-form-urlencoded` `key:value` pairs (see example requests).
 
     Upon a successful login, a JSON Web Token (JWT) will be returned (see
     `{{AUTH_ACCESS_TOKEN}}`).  
 
     The JWT MUST be included in nearly every request made to the API.
 
-
     The access token is transported in an HTTP header called `Authorization`.
-
 
     The content of the header starts with `Bearer` followed by the JWT string.
 
-
     Example: `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI...`
-
 
     #### Token Life Cycle
 
-
-    * * *
-
-
     ##### API-Key
-
-
-    The API key has a long, but not an unlimited lifetime.
-
-
-    The validity period should depend on the volume of API calls and will be
-    discussed individually for each customer as part of the shared secret
-    agreement.
-
+    The API key has a long, but not an unlimited lifetime.  
+    The validity period depends on the volume of API calls and is discussed individually as part of the shared secret agreement.
 
     ##### Access Token
-
-
     The access token has a lifetime of about **20 minutes**.  
-
-    Currently, we do not renew the access token automatically. But this is
-    planned for future releases.
-
+    Currently, we do not renew the access token automatically. Planned for future releases.
 
     ##### Logout
-
-
     There is **no logout**. The access token will expire after the defined time.
+
+  operationId: postAccessLogin
   security:
     - {}
   requestBody:
+    required: true
     content:
       application/json:
         schema:
@@ -118,7 +83,6 @@ post:
         example:
           username: add_your_api_name_here
           api-key: please_enter_your_password_here
-    required: true
   responses:
     '200':
       description: OK

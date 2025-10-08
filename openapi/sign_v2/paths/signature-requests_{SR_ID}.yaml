@@ -1,12 +1,14 @@
 get:
+  operationId: getSignatureRequestDetails
   tags:
-    - 3. Download the signed PDF document
+    - Signature
   summary: Get the document ID from the signature request
   description: >-
     We distinguish between the signature request ID and document ID. To read and
     download the PDF document, the document ID is retrieved from the 
     `SignatureRequest` with the ID `{{SR_ID}}`
-  operationId: GetthedocumentIDfromthesignaturerequest
+  security:
+    - bearer: []
   parameters:
     - name: SR_ID
       in: path
@@ -16,80 +18,8 @@ get:
       schema:
         type: string
   responses:
-    '404':
-      description: Not Found
-      headers:
-        Expires:
-          content:
-            text/plain:
-              schema:
-                type: string
-                contentMediaType: text/plain
-              example: '0'
-        Connection:
-          content:
-            text/plain:
-              schema:
-                type: string
-                contentMediaType: text/plain
-              example: close
-        Cache-Control:
-          content:
-            text/plain:
-              schema:
-                type: string
-                contentMediaType: text/plain
-              example: no-cache, no-store, max-age=0, must-revalidate
-        X-XSS-Protection:
-          content:
-            text/plain:
-              schema:
-                type: string
-                contentMediaType: text/plain
-              example: 1; mode=block
-        X-Content-Type-Options:
-          content:
-            text/plain:
-              schema:
-                type: string
-                contentMediaType: text/plain
-              example: nosniff
-        Pragma:
-          content:
-            text/plain:
-              schema:
-                type: string
-                contentMediaType: text/plain
-              example: no-cache
-        Date:
-          content:
-            text/plain:
-              schema:
-                type: string
-                contentMediaType: text/plain
-              example: Thu, 05 Nov 2020 14:52:08 GMT
-      content:
-        application/json;charset=UTF-8:
-          schema:
-            allOf:
-              - $ref: >-
-                  ../components/schemas/GetthedocumentIDfromamissingsignaturerequest4041.yaml
-              - examples:
-                  - type: https://api.skribble.com/problem/entity-not-found
-                    status: 404
-                    message: SignatureRequest not found
-                    method: GET
-                    path: /v2/signature-requests/000000-2423-2323-cccc-00000000000
-            contentMediaType: application/json;charset=UTF-8
-          example:
-            type: https://api.skribble.com/problem/entity-not-found
-            status: 404
-            message: SignatureRequest not found
-            method: GET
-            path: /v2/signature-requests/000000-2423-2323-cccc-00000000000
-    default:
-      description: ''
-      headers: {}
+    '200':
+      description: 'OK'
       content:
         text/plain:
           schema:
@@ -124,15 +54,22 @@ get:
               ...
 
             }
-  deprecated: false
-  security:
-    - bearer: []
-  servers:
-    - url: https://api.skribble.com
-      variables: {}
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '429':
+      $ref: ../components/responses/TooManyRequests.yaml
+    '500':
+      $ref: ../components/responses/ServerError.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailble.yaml
 delete:
+  operationId: deleteSignatureRequest
   tags:
-    - Modify
+    - Signature
   summary: Delete a signature request
   description: >-
     By using the signature request ID you can delete a `SignatureRequest`.  
@@ -178,7 +115,8 @@ delete:
     `SignatureRequest` e.g. after a **WITHDRAW** request, then the
     `SignatureRequest` and the related `document` will be completely removed
     from the system.
-  operationId: Deleteasignaturerequest
+  security:
+    - bearer: []
   parameters:
     - name: SR_ID
       in: path
@@ -188,14 +126,17 @@ delete:
       schema:
         type: string
   responses:
-    default:
-      description: ''
-      headers: {}
-      content: {}
-  deprecated: false
-  security:
-    - bearer: []
-  servers:
-    - url: https://api.skribble.com
-      variables: {}
-parameters: []
+    '200':
+      description: OK
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '429':
+      $ref: ../components/responses/TooManyRequests.yaml
+    '500':
+      $ref: ../components/responses/ServerError.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailble.yaml

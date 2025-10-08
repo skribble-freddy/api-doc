@@ -1,4 +1,10 @@
 type: object
+required:
+  - type
+  - method
+  - path
+  - status
+  - message
 properties:
   type:
     type: string
@@ -15,9 +21,3 @@ properties:
   message:
     type: string
     example: "Invalid input"
-required:
-  - type
-  - method
-  - path
-  - status
-  - message

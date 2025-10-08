@@ -136,9 +136,11 @@ post:
           schema:
             $ref: '../components/schemas/BadRequest.yaml'
           example:
-            $ref: '../components/examples/BadRequestAccessLogin.yaml'
-    '401':
-      $ref: ../components/responses/Unauthorized.yaml
+            type: "https://api.skribble.com/problem/problem-with-message"
+            method: "POST"
+            path: "/v2/access/login"
+            status: 400
+            message: "Invalid input for 'username' or 'api-key'. No credentials provided. Please ensure 'username' and 'api-key' are correctly transmitted"
     '429':
       $ref: ../components/responses/TooManyRequests.yaml
     '500':

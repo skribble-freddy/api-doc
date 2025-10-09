@@ -6,22 +6,6 @@ get:
     To call the `track` endpoint, you must include the value of the
     `access_code` field—received when creating the `Send-To` object—in the
     request header `X-Accesscode`.
-
-    # Track (Response)
-
-    | Name | Description | Example |
-
-    | --- | --- | --- |
-
-    | `status` | Describes the status of the `Send-To` request.  <br>Possible
-    status values are:  <br>\- `UNCLAIMED`  <br>\- `EXPIRED`  <br>\- `CLAIMED` 
-    <br>\- `SIGNING`  <br>\- `SIGNED`  <br>\- `WITHDRAWN`  <br>\- `DECLINED` |
-    `CLAIMED` |
-
-    | `signers` | List of signers. | signer@skribble.com |
-
-    | `creator` | User who claimed the Send-To request. |  |
-
   operationId: getSendToTrack
   security:
     - bearer: []
@@ -44,6 +28,7 @@ get:
               $ref: '../components/examples/TrackSendToResponse.yaml#/SendToSigned'
     400:
       $ref: ../components/responses/BadRequest.yaml
+      # TODO
     401:
       $ref: ../components/responses/Unauthorized.yaml
     404:

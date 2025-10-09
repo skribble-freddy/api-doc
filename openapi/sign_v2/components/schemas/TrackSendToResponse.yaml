@@ -17,16 +17,14 @@ properties:
       - WITHDRAWN
       - DECLINED
   creator:
-    type: string
     description: User who claimed the Send-To request
-    anyOf:
-      - type: "string"
+    oneOf:
+      - type: string
       - type: "null"
   signers:
-    type: array
     description: List of signers for the Send-To request
-    items:
-      type: string
-    anyOf:
-      - type: "array"
+    oneOf:
+      - type: array
+        items:
+          type: string
       - type: "null"

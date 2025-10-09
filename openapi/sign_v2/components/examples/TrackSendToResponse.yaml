@@ -2,15 +2,15 @@ SendToUnclaimed:
   summary: Send-To not yet claimed
   value:
     status: UNCLAIMED
-    creator: ""
-    signers: []
+    creator: null
+    signers: null
 
 SendToClaimed:
   summary: Send-To claimed by a user
   value:
     status: CLAIMED
     creator: user@example.com
-    signers: []
+    signers: null
 
 SendToSigned:
   summary: Send-To fully signed

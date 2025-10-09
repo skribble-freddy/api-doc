@@ -8,21 +8,22 @@ post:
     business profile. From here, you can create and manage your API keys.
     Consult our [guide](https://docs.skribble.com/business-admin/api/apicreate.html) for help.
 
+
     Skribble offers two types of API keys:
+
 
     **Demo API keys**  
 
-    Demo API keys are for testing and development purposes.  
-
-    You can recognize these keys by their name, which start with **api_demo**.  
-
+    Demo API keys are for testing and development purposes.
     Signatures requested by such keys don't have any legal weight and are free
     of charge.
 
+    You can recognize these keys by their name, which start with **api_demo**.  
+    
+    
     **Production API keys**  
 
-    Production API keys are used for live systems.  
-
+    Production API keys are used for live systems.
     Signatures requested by such keys will be invoiced.  
 
     You can recognize these keys by their name, which usually starts with
@@ -39,33 +40,35 @@ post:
     If you have problems setting up Skribble Business, just drop us an e-mail
     at [info@skribble.com](mailto:info@skribble.com).
 
+
     To obtain an access token, log in using the `/access/login` resource.
 
     You can pass your login data using raw JSON or alternatively as
     `x-www-form-urlencoded` `key:value` pairs (see example requests).
 
-    Upon a successful login, a JSON Web Token (JWT) will be returned (see
-    `{{AUTH_ACCESS_TOKEN}}`).  
-
+    Upon a successful login, a JSON Web Token (JWT) will be returned.  
     The JWT MUST be included in nearly every request made to the API.
+
 
     The access token is transported in an HTTP header called `Authorization`.
 
     The content of the header starts with `Bearer` followed by the JWT string.
-
     Example: `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI...`
 
-    #### Token Life Cycle
+    ### Token Life Cycle
 
-    ##### API-Key
+    #### API-Key
+
     The API key has a long, but not an unlimited lifetime.  
     The validity period depends on the volume of API calls and is discussed individually as part of the shared secret agreement.
 
-    ##### Access Token
+    #### Access Token
+
     The access token has a lifetime of about **20 minutes**.  
     Currently, we do not renew the access token automatically. Planned for future releases.
 
-    ##### Logout
+    #### Logout
+
     There is **no logout**. The access token will expire after the defined time.
   operationId: postAccessLogin
   security:

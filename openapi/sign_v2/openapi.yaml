@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: Skribble API v2
-  version: 2.0.1
+  version: 2.1.0
   description: >-
     The Skribble API v2 documentation describes the publicly available Skribble
     API version 2. The API allows businesses and teams of any size to integrate

@@ -40,7 +40,8 @@ servers:
     description: Staging - Germany
 paths:
   /access/login:
-    $ref: paths/access_login.yaml
+    post: 
+      $ref: paths/access_login/post.yaml
   /signature-requests:
     $ref: paths/signature-requests.yaml
   /signature-requests/{SR_ID}:

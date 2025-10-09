@@ -1,4 +1,4 @@
-title: CreateSendToRequest
+title: Create Send-To Request
 required:
   - title
   - content

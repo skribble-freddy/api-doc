@@ -1,0 +1,6 @@
+description: Request body to create a SignatureRequest object
+required: true
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/CreateSignatureRequest.yaml

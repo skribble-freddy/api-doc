@@ -10,22 +10,22 @@ get:
   security:
     - bearer: []
   parameters:
-    - $ref: '../components/parameters/XAccesscodeHeader.yaml'
-    - $ref: '../components/parameters/SendToIdPath.yaml'
+    - $ref: ../components/parameters/XAccesscodeHeader.yaml
+    - $ref: ../components/parameters/SendToIdPath.yaml
   responses:
     200:
       description: OK
       content:
         application/json:
           schema:
-            $ref: '../components/schemas/TrackSendToResponse.yaml'
+            $ref: ../components/schemas/TrackSendToResponse.yaml
           examples:
             unclaimed:
-              $ref: '../components/examples/TrackSendToResponse.yaml#/SendToUnclaimed'
+              $ref: ../components/examples/TrackSendToResponse.yaml#/SendToUnclaimed
             claimed:
-              $ref: '../components/examples/TrackSendToResponse.yaml#/SendToClaimed'
+              $ref: ../components/examples/TrackSendToResponse.yaml#/SendToClaimed
             signed:
-              $ref: '../components/examples/TrackSendToResponse.yaml#/SendToSigned'
+              $ref: ../components/examples/TrackSendToResponse.yaml#/SendToSigned
     400:
       $ref: ../components/responses/BadRequest.yaml
       # TODO

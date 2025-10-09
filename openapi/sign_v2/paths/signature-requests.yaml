@@ -1,133 +1,51 @@
 post:
-  operationId: postSignatureRequest
   tags:
     - Signature
-  summary: Create a simple  signature request for a PDF document
+  summary: Create a new signature request
   description: >-
     In this example we have three signers. One of the signers is you and the
     other two are external signers. Of course, it is also possible to create
     signature requests in which you are the only signer or where you are not a
     signer yourself. In the second case, you as creator of the
     `SignatureRequest` get read-only rights on this data object.
+  operationId: postSignatureRequest
   security:
     - bearer: []
   requestBody:
-    description: ''
-    content:
-      application/json:
-        schema:
-          allOf:
-            - $ref: >-
-                ../components/schemas/CreateasimplesignaturerequestforaPDFdocument.yaml
-            - examples:
-                - title: Example contract
-                  message: Please sign this document!
-                  content: '{{BASE64_PDF}}'
-                  signatures:
-                    - account_email: you@example.info
-                    - account_email: personOneToSign@external.net
-                    - account_email: personTwoToSign@external.net
-          contentMediaType: application/json
-        example:
-          title: Example contract
-          message: Please sign this document!
-          content: '{{BASE64_PDF}}'
-          signatures:
-            - account_email: you@example.info
-            - account_email: personOneToSign@external.net
-            - account_email: personTwoToSign@external.net
-    required: true
+    $ref: ../components/requestBodies/CreateSignatureRequest.yaml
   responses:
-    '200':
-      description: 'OK'
-      headers: {}
+    200:
+      description: OK
       content:
         application/json:
           schema:
-            allOf:
-              - $ref: >-
-                  ../components/schemas/Createasignaturerequestforthreesigners200.yaml
-              - examples:
-                  - id: cccccccc-4a6a-a958-a42e-6ea4172a378b
-                    title: Example contract
-                    message: Please sign this document!
-                    document_id: d98ae06a-3ae4-5cc5-c0a3-62b05901b84f
-                    quality: DEMO
-                    signing_url: >-
-                      https://my.skribble.com/view/cccccccc-4a6a-a958-a42e-6ea4172a378b
-                    status_overall: OPEN
-                    signatures:
-                      - sid: eeeeeeee-cdab-938a-aed9-ebabbc92a013
-                        account_email: you@example.info
-                        order: -1
-                        status_code: OPEN
-                        notify: true
-                      - sid: fffffff-abce-3e34-6e47-48b3624f6cd3
-                        account_email: persononetosign@external.net
-                        order: -1
-                        status_code: OPEN
-                        notify: true
-                      - sid: 33333333-8408-28c1-90fc-63b4767fd7b2
-                        account_email: persontwotosign@external.net
-                        order: -1
-                        status_code: OPEN
-                        notify: true
-                    cc_email_addresses: []
-                    owner: api_demo_your_name
-                    read_access:
-                      - api_demo_your_name
-                      - persononetosign@external.net
-                      - persontwotosign@external.net
-                      - you@example.info
-                    write_access:
-                      - api_demo_your_name
-                    created_at: '2099-12-12T12:12:12.000Z'
-                    updated_at: '2099-12-12T12:12:12.000Z'
-            contentMediaType: application/json
-          example:
-            id: cccccccc-4a6a-a958-a42e-6ea4172a378b
-            title: Example contract
-            message: Please sign this document!
-            document_id: d98ae06a-3ae4-5cc5-c0a3-62b05901b84f
-            quality: DEMO
-            signing_url: https://my.skribble.com/view/cccccccc-4a6a-a958-a42e-6ea4172a378b
-            status_overall: OPEN
-            signatures:
-              - sid: eeeeeeee-cdab-938a-aed9-ebabbc92a013
-                account_email: you@example.info
-                order: -1
-                status_code: OPEN
-                notify: true
-              - sid: fffffff-abce-3e34-6e47-48b3624f6cd3
-                account_email: persononetosign@external.net
-                order: -1
-                status_code: OPEN
-                notify: true
-              - sid: 33333333-8408-28c1-90fc-63b4767fd7b2
-                account_email: persontwotosign@external.net
-                order: -1
-                status_code: OPEN
-                notify: true
-            cc_email_addresses: []
-            owner: api_demo_your_name
-            read_access:
-              - api_demo_your_name
-              - persononetosign@external.net
-              - persontwotosign@external.net
-              - you@example.info
-            write_access:
-              - api_demo_your_name
-            created_at: '2099-12-12T12:12:12.000Z'
-            updated_at: '2099-12-12T12:12:12.000Z'
-    '400':
+            $ref: ../components/schemas/TrackSendToResponse.yaml
+          examples:
+            unclaimed:
+              $ref: ../components/examples/TrackSendToResponse.yaml#/SendToUnclaimed
+            claimed:
+              $ref: ../components/examples/TrackSendToResponse.yaml#/SendToClaimed
+            signed:
+              $ref: ../components/examples/TrackSendToResponse.yaml#/SendToSigned
+    400:
       $ref: ../components/responses/BadRequest.yaml
-    '401':
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/BadRequestResponse.yaml
+          example:
+            type: "https://api.skribble.com/problem/problem-with-message"
+            method: "POST"
+            path: "/v2/signature-requests"
+            status: 400
+            message: "position.page references a non existing page in the document"
+    401:
       $ref: ../components/responses/Unauthorized.yaml
-    '429':
+    429:
       $ref: ../components/responses/TooManyRequests.yaml
-    '500':
+    500:
       $ref: ../components/responses/ServerError.yaml
-    '503':
+    503:
       $ref: ../components/responses/ServiceUnavailable.yaml
 get:
   operationId: getSignatureRequest
@@ -314,83 +232,21 @@ put:
   security:
     - bearer: []
   requestBody:
-    description: ''
-    content:
-      application/json:
-        schema:
-          allOf:
-            - $ref: >-
-                ../components/schemas/AddorremovemultiplesignerssimultaneouslyRequest.yaml
-            - examples:
-                - id: '{{SR_ID}}'
-                  title: NewTitleTest
-                  signatures:
-                    - account_email: john.doe@skribble.com
-                    - account_email: new.signer@skribble.com.org
-          contentMediaType: application/json
-        example:
-          id: '{{SR_ID}}'
-          title: NewTitleTest
-          signatures:
-            - account_email: john.doe@skribble.com
-            - account_email: new.signer@skribble.com.org
-    required: true
+    $ref: ../components/requestBodies/CreateSignatureRequest.yaml
   responses:
-    '200':
-      description: 'OK'
-      content:
-        text/plain:
-          schema:
-            type: string
-            examples:
-              - |-
-                {
-
-                    "id": "{{SR_ID}}",
-
-                    "title": "NewTitleTest",
-
-                    "signatures": [
-
-                        {
-
-                            "account_email": "john.doe@skribble.com"
-
-                        }
-
-                    ],
-
-                    ...
-
-                }
-            contentMediaType: text/plain
-          example: |-
-            {
-
-                "id": "{{SR_ID}}",
-
-                "title": "NewTitleTest",
-
-                "signatures": [
-
-                    {
-
-                        "account_email": "john.doe@skribble.com"
-
-                    }
-
-                ],
-
-                ...
-
-            }
-    '400':
+    200:
+      description: OK
+#      content:
+#        application/json:
+#          schema:
+#            $ref: ../components/schemas/CreateSignatureResponse.yaml
+    400:
       $ref: ../components/responses/BadRequest.yaml
-    '401':
+    401:
       $ref: ../components/responses/Unauthorized.yaml
-    '429':
+    429:
       $ref: ../components/responses/TooManyRequests.yaml
-    '500':
+    500:
       $ref: ../components/responses/ServerError.yaml
-    '503':
+    503:
       $ref: ../components/responses/ServiceUnavailable.yaml

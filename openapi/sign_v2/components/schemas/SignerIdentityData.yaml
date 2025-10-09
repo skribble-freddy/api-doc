@@ -1,0 +1,13 @@
+title: Signer Identity Data
+type: object
+description: Optional (no-account) signer identity information.
+properties:
+  email_address:
+    type: string
+    description: Optional no-account eMail
+    format: email
+    example: nas@example.com
+  identity_reference:
+    type: string
+    description: Optional identification referece (TODO)
+    example: Internal-ID-012345

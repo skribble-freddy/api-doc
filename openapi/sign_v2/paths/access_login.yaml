@@ -99,7 +99,7 @@ post:
       content:
         application/json:
           schema:
-            $ref: "../components/schemas/BadRequest.yaml"
+            $ref: ../components/schemas/BadRequestResponse.yaml
           example:
             type: "https://api.skribble.com/problem/problem-with-message"
             method: "POST"

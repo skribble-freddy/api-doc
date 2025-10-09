@@ -1,0 +1,23 @@
+title: Signature Receipient
+type: object
+properties:
+  account_email:
+    type: string
+    description: Optional signer account eMail.
+    format: email
+    example: you@example.info
+  sequence:
+    type: number
+    description: Optional signer sequence.
+    format: int32
+    default: -1
+    example: 1
+  notify:
+    type: boolean
+    description: Whether to send a notification to this signer.
+    default: false
+    example: true
+  signer_identity_data:
+    $ref: ./SignerIdentityData.yaml
+  visual_signature:
+    $ref: ./VisualSignature.yaml

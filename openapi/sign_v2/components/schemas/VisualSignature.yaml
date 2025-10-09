@@ -1,0 +1,9 @@
+title: Visual Signature
+type: object
+description: Visual signature placement information.
+properties:
+  positions:
+    type: array
+    description: List of positions where the signature should appear.
+    items:
+      $ref: ./SignaturePosition.yaml

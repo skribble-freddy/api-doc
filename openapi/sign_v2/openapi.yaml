@@ -63,7 +63,7 @@ tags:
   - name: Access
     description: Endpoints for authentication, authorization, and user access management.
   - name: Signature
-    description: Endpoints for Signatures
+    description: Endpoints related to creating and managing signature requests.
   - name: SendTo
     description: Endpoints for Send-To
   - name: Seal

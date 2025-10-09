@@ -1,4 +1,4 @@
-title: CreateSendToResponse
+title: Create Send-To Response
 type: object
 required:
   - url

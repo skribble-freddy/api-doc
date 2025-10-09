@@ -14,8 +14,8 @@ get:
   security:
     - bearer: []
   parameters:
-    - $ref: '../components/parameters/XAccesscodeHeader.yaml'
-    - $ref: '../components/parameters/SendToIdPath.yaml'
+    - $ref: ../components/parameters/XAccesscodeHeader.yaml
+    - $ref: ../components/parameters/SendToIdPath.yaml
   responses:
     200:
       description: OK

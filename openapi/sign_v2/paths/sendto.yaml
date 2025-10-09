@@ -22,7 +22,7 @@ post:
   security:
     - bearer: []
   requestBody:
-    $ref: '../components/requestBodies/CreateSendToRequest.yaml'
+    $ref: ../components/requestBodies/CreateSendToRequest.yaml
   responses:
     200:
       description: OK

@@ -1,0 +1,27 @@
+title: Create Signature Request
+type: object
+required:
+  - title
+  - content
+properties:
+  title:
+    type: string
+    description: Title of Signature Request
+    example: Example contract
+  message:
+    type: string
+    description: Message provided with the Signature Request
+    example: Please sign this document!
+  content:
+    type: string
+    description: Base64-encoded PDF content.
+    format: byte
+    example: "{{BASE64_PDF}}"
+  signatures:
+    type: array
+    description: List of recipients required to sign the document.
+    oneOf:
+      - type: array
+        items:
+          $ref: ./SignatureRecipient.yaml
+      - type: "null"

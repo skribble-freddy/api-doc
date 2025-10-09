@@ -1,0 +1,10 @@
+title: Signature Quality
+type: string
+description: Minimal quality of the signatures for this signature request. 
+enum:
+  - SES
+  - AES
+  - AES_MINIMAL
+  - QES
+  - DEMO
+example: AES

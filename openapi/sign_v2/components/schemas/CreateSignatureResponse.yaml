@@ -1,0 +1,74 @@
+type: object
+properties:
+  id:
+    type: string
+    format: uuid
+    example: "4f43614a-de50-bfe1-2df3-4c881fc7840e"
+  title:
+    type: string
+    example: "Example contract"
+  message:
+    type: string
+    example: "Please sign this document!"
+  document_id:
+    type: string
+    format: uuid
+    example: "29eae6aa-5558-2ada-2870-d4e654c0da5c"
+  legislation:
+    $ref: ./SignatureLegislation.yaml
+  quality:
+    $ref: ./SignatureQuality.yaml
+  signing_url:
+    type: string
+    format: uri
+    example: "https://my.skribble.com/view/4f43614a-de50-bfe1-2df3-4c881fc7840e"
+  status_overall:
+    type: string
+    example: "OPEN"
+  business:
+    type: string
+    example: "biz-42b4c2fb9ee947778ba70bc0698c78f7"
+  signatures:
+    type: array
+    oneOf:
+      - type: array
+        items:
+          $ref: ./SignatureRecipientResponse.yaml
+      - type: "null"
+  cc_email_addresses:
+    type: array
+    items:
+      type: string
+      format: email
+    example: []
+  attachments:
+    type: array
+    items:
+      type: object
+    example: []
+  owner:
+    type: string
+    example: "api_production_skribbleag_42b4_9"
+  read_access:
+    type: array
+    items:
+      type: string
+    example:
+      - "persononetosign@external.net"
+      - "api_production_skribbleag_42b4_9"
+      - "you@example.info"
+      - "persontwotosign@external.net"
+  write_access:
+    type: array
+    items:
+      type: string
+    example:
+      - "api_production_skribbleag_42b4_9"
+  created_at:
+    type: string
+    format: date-time
+    example: "2025-10-08T17:37:03.569Z"
+  updated_at:
+    type: string
+    format: date-time
+    example: "2025-10-08T17:37:03.569Z"

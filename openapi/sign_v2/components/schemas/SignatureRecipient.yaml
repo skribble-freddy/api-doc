@@ -17,6 +17,16 @@ properties:
     description: Whether to send a notification to this signer.
     default: false
     example: true
+  language:
+    # TODO Move into dedicated
+    type: string
+    description: Determines in which language e-mails are sent to the user, if the user has not set their language preference yet.
+    enum:
+      - en
+      - de
+      - fr
+      - it
+    default: en
   signer_identity_data:
     $ref: ./SignerIdentityData.yaml
   visual_signature:

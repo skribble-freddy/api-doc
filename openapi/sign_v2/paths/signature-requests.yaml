@@ -19,14 +19,10 @@ post:
       content:
         application/json:
           schema:
-            $ref: ../components/schemas/TrackSendToResponse.yaml
+            $ref: ../components/schemas/CreateSignatureResponse.yaml
           examples:
-            unclaimed:
-              $ref: ../components/examples/TrackSendToResponse.yaml#/SendToUnclaimed
-            claimed:
-              $ref: ../components/examples/TrackSendToResponse.yaml#/SendToClaimed
-            signed:
-              $ref: ../components/examples/TrackSendToResponse.yaml#/SendToSigned
+            default:
+              $ref: ../components/examples/CreateSignatureResponse.yaml#/Default
     400:
       $ref: ../components/responses/BadRequest.yaml
       content:

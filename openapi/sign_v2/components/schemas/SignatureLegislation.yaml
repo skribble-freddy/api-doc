@@ -1,0 +1,7 @@
+title: Signature Legislation
+type: string
+description: Legislation of the signatures for this signature request. Only important for QES signatures.
+enum:
+  - ZERTES
+  - EIDAS
+example: ZERTES

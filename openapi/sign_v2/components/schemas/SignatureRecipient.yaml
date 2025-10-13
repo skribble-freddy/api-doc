@@ -15,8 +15,8 @@ properties:
   notify:
     type: boolean
     description: Whether to send a notification to this signer.
-    default: false
-    example: true
+    default: true
+    example: false
   language:
     # TODO: Check if this is present here in addition to signer_identity_data
     $ref: ./SignatureLanguage.yaml

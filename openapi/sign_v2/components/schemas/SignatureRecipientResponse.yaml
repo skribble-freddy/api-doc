@@ -10,7 +10,6 @@ properties:
     format: email
     example: "you@example.info"
   signer_identity_data:
-    type: array
     oneOf:
       - type: array
         items:

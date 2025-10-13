@@ -22,6 +22,8 @@ properties:
       $ref: ./SignatureRecipient.yaml
   cc_email_addresses:
     oneOf:
+      - type: "null"
+        title: No observers
       - type: array
         title: Observers
         # TODO: Check if the given observers need to have a valid Skribble account
@@ -34,8 +36,40 @@ properties:
         example:
           - backoffice@company_a.com
           - info@company_b.com
+  callback_success_url:
+    type: string
+    description: Callback-URL which is called on overall success.
+    format: url
+    example: https://mybiz.com/call/success
+  callback_error_url:
+    type: string
+    description: Callback-URL which is called in case of an error.
+    format: url
+    example: https://mybiz.com/call/success
+  callback_update_url:
+    type: string
+    description: Callback-URL which is called in case of an update.
+    format: url
+    example: https://mybiz.com/call/success
+  custom:
+    type: string
+    description: Custom field where own/customer settings related to this signature request can be stored for future actions.
+    example: MyCustomvalue1,MyVal2
+  write_access:
+    oneOf:
       - type: "null"
-        title: "No observers"
+        title: No other writer
+      - type: array
+        title: Additional writer
+        description: >-
+          Give existing users full write access to this signature request. 
+          The given observers need to have a valid Skribble account. Otherwise the email address will not be accepted as valid observer.
+        items:
+          type: string
+          format: email
+        example:
+          - john.doe@skriobble.com
+          - jane.doe@skribble.com
 oneOf:
   - type: object
     title: Base64 Content

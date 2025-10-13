@@ -30,11 +30,8 @@ properties:
     example: "biz-42b4c2fb9ee947778ba70bc0698c78f7"
   signatures:
     type: array
-    oneOf:
-      - type: array
-        items:
-          $ref: ./SignatureRecipientResponse.yaml
-      - type: "null"
+    items:
+      $ref: ./SignatureRecipientResponse.yaml
   cc_email_addresses:
     type: array
     items:

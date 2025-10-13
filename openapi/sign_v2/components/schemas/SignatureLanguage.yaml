@@ -1,0 +1,9 @@
+title: Signature Language
+type: string
+description: Determines in which language e-mails are sent to the user, if the user has not set their language preference yet.
+enum:
+      - en
+      - de
+      - fr
+      - it
+default: en

@@ -11,20 +11,6 @@ properties:
     type: string
     description: Message sent to the other participants along with this signature request.
     example: Please sign this document!
-  content:
-    type: string
-    description: Base64 encoded bytes of document.
-    format: byte
-    example: "{{BASE64_PDF}}"
-  file_url:
-    type: string
-    description: Publicly accessible URL for document download.
-    format: uri
-    example: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-  document_id:
-    type: string
-    description: Document ID of an existing document on Skribble.
-    example: "{{DOC_ID}}"
   legislation:
     $ref: ./SignatureLegislation.yaml
   quality:
@@ -32,29 +18,32 @@ properties:
   signatures:
     type: array
     description: List of recipients required to sign the document.
-    oneOf:
-      - type: array
-        items:
-          $ref: ./SignatureRecipient.yaml
-      - type: "null"
+    items:
+      $ref: ./SignatureRecipient.yaml
 oneOf:
-  - properties:
+  - type: object
+    required:
+      - content
+    properties:
       content:
         type: string
-        description: Base64-encoded PDF content
+        description: Base64 encoded bytes of the document.
         format: byte
-        example: "{{BASE64_PDF}}"
-    required: ["content"]
-  - properties:
+        example: "JVBERi0xLjQKJcfs..."
+  - type: object
+    required:
+      - file_url
+    properties:
       file_url:
         type: string
-        description: Public URL of the PDF file
+        description: Publicly accessible URL for document download.
         format: uri
         example: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-    required: ["file_url"]
-  - properties:
+  - type: object
+    required:
+      - document_id
+    properties:
       document_id:
         type: string
-        description: Existing uploaded document ID
-        example: "{{DOC_ID}}"
-    required: ["document_id"]
+        description: Document ID of an existing document on Skribble.
+        example: "3648f61d-4194-455c-a0bc-1c438d2cd11b"

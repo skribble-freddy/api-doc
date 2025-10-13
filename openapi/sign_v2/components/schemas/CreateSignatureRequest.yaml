@@ -24,6 +24,7 @@ properties:
     oneOf:
       - type: array
         title: Observers
+        # TODO: Check if the given observers need to have a valid Skribble account
         description: >-
           Observer email addresses of users who are granted read access and to whom notifications are sent.
           The given observers need to have a valid Skribble account. Otherwise the email address will not be accepted as valid observer.

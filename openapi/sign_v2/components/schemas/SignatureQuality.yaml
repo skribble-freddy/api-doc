@@ -7,4 +7,4 @@ enum:
   - AES_MINIMAL
   - QES
   - DEMO
-example: AES
+example: QES

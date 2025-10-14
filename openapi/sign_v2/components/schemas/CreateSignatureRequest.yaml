@@ -16,10 +16,47 @@ properties:
   quality:
     $ref: ./SignatureQuality.yaml
   signatures:
-    type: array
-    description: List of recipients required to sign the document.
-    items:
-      $ref: ./SignatureRecipient.yaml
+    oneOf:
+      - type: "null"
+        title: No signers
+      - type: array
+        title: Signers
+        # TODO Check description
+        description: >-
+          List of recipients required to sign the document.
+    
+          It is possible to create a SignatureRequest where one or more invited participants won't need a 
+          Skribble account to sign the SignatureRequest. Those signers are called No-Account-Signers (NAS).
+ 
+          To create a SignatureRequest for a user without an account, omit the signatures array entry for
+          this user and provide the necessary data using the `signer_identity_data` element instead.
+
+          Each entry in the signatures array will be treated as a distinct identity. This means two entries 
+          with the same `signer_identity_data` are treated as two different identities and require that this 
+          person signs the document twice.
+
+          Optionally you can combine `signer_identity_data` and account_email in your requests. In this case, 
+          the system checks first if there is a Skribble account with the specified e-mail address. 
+          If one is found the existing Skribble user will be invited to sign the document. Otherwise, the 
+          specified user in `signer_identity_data` will be invited to sign.
+
+          > Good to know
+          We recommend this approach of combining `signer_identity_data` and `account_email` if you are unsure 
+          whether the user has a Skribble account.
+          The benefit is that an existing Skribble user will afterwards find the SignatureRequest in the 
+          To sign section of their account on my.skribble.com.
+          Conversely, if you invite them using only signer_identity_data, the document will not appear in
+          their Skribble account, even if they have an existing Skribble account. Instead, they will have to
+          access the document using the specific link provided in their signature invitation email. 
+
+          When the user visits the URL provided in the field `signing_url` inside the signature element, he
+          will be forwarded to a special preview page of the PDF document and can start the signature process
+          as usual.
+
+          Missing fields like first name and last name can easily be adjusted by the signer through the
+          Skribble web client.
+        items:
+          $ref: ./SignatureRecipient.yaml
   cc_email_addresses:
     oneOf:
       - type: "null"

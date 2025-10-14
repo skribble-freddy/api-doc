@@ -9,6 +9,7 @@ properties:
     type: string
     description: Base64 encoded bytes of content.
     format: byte
+    example: "JVBERi0xLjMKJcTl8uX..."
   content_type:
     type: string
     description: Content type of bytes sent in content. At the moment this MUST be image/png

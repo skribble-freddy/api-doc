@@ -43,7 +43,6 @@ npm run preview:validation_v1
 
 Visual Studio Code Add'in https://marketplace.visualstudio.com/items?itemName=Redocly.openapi-vs-code
 
-https://github.com/Redocly/redocly-cli-cookbook
 https://www.npmjs.com/package/openapi-to-postmanv2/v/4.20.1
 
 https://redocusaurus.vercel.app/docs/getting-started/Installation
@@ -52,14 +51,13 @@ https://github.com/PaloAltoNetworks/docusaurus-openapi-docs
 
 ## Solutions
 
+https://scalar.com/
+https://www.mintlify.com/
 https://docs.stoplight.io/
 https://readme.com/documentation
-https://www.mintlify.com/
-https://scalar.com/
 https://fumadocs.dev/docs/ui/comparisons
 
-
-## References
+## References to other docs
 
 https://docs.stripe.com/api
 https://developer.paypal.com/api/rest/

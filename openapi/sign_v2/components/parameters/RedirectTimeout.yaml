@@ -1,0 +1,8 @@
+name: redirectTimeout
+in: query
+required: false
+description: >-
+  Optional timeout for the redirect.
+schema:
+  type: integer
+  example: 20

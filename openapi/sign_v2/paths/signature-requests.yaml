@@ -11,6 +11,10 @@ post:
   operationId: postSignatureRequest
   security:
     - bearer: []
+  parameters:
+    - $ref: ../components/parameters/ExitURL.yaml
+    - $ref: ../components/parameters/ErrorURL.yaml
+    - $ref: ../components/parameters/RedirectTimeout.yaml
   requestBody:
     $ref: ../components/requestBodies/CreateSignatureRequest.yaml
   responses:

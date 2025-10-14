@@ -15,6 +15,7 @@ post:
     - $ref: ../components/parameters/ExitURL.yaml
     - $ref: ../components/parameters/ErrorURL.yaml
     - $ref: ../components/parameters/RedirectTimeout.yaml
+    - $ref: ../components/parameters/HideDownload.yaml
   requestBody:
     $ref: ../components/requestBodies/CreateSignatureRequest.yaml
   responses:
@@ -113,86 +114,18 @@ get:
   security:
     - bearer: []
   responses:
-    '200':
-      description: 'OK'
+    200:
+      description: OK
       content:
-        text/plain:
+        application/json:
           schema:
-            type: string
-            examples:
-              - |-
-                [
-
-                    {
-
-                        "id": "56c40808-ab69-4b50-c174-a0d59d59c48d",
-
-                        "title": "First example contract",
-
-                        ...
-
-                    },
-
-                    {
-
-                        "id": "c9cce9be-4a6a-a958-a42e-6ea4172a378b",
-
-                        "title": "Second example contract"
-
-                        ...
-
-                    },
-
-                    {
-
-                        "id": "c9cce9be-4a6a-a958-a42e-6ea4172a378b",
-
-                        "title": "Third example contract"
-
-                        ...
-
-                    },
-
-                    ...
-
-                }
-            contentMediaType: text/plain
-          example: |-
-            [
-
-                {
-
-                    "id": "56c40808-ab69-4b50-c174-a0d59d59c48d",
-
-                    "title": "First example contract",
-
-                    ...
-
-                },
-
-                {
-
-                    "id": "c9cce9be-4a6a-a958-a42e-6ea4172a378b",
-
-                    "title": "Second example contract"
-
-                    ...
-
-                },
-
-                {
-
-                    "id": "c9cce9be-4a6a-a958-a42e-6ea4172a378b",
-
-                    "title": "Third example contract"
-
-                    ...
-
-                },
-
-                ...
-
-            }
+            type: array
+            description: List of Signature Requests.
+            items:
+              $ref: ../components/schemas/CreateSignatureResponse.yaml
+          examples:
+            default:
+              $ref: ../components/examples/CreateSignatureResponse.yaml#/Default
     '400':
       $ref: ../components/responses/BadRequest.yaml
     '401':

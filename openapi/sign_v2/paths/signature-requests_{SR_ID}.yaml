@@ -10,61 +10,38 @@ get:
   security:
     - bearer: []
   parameters:
-    - name: SR_ID
-      in: path
-      description: ''
-      required: true
-      style: simple
-      schema:
-        type: string
+    - $ref: ../components/parameters/SignatureIDPath.yaml
   responses:
-    '200':
-      description: 'OK'
+    200:
+      description: OK
       content:
-        text/plain:
+        application/json:
           schema:
-            type: string
-            examples:
-              - |-
-                {
-
-                  "id": "cccccccc-4a6a-a958-a42e-6ea4172a378b",
-
-                  "title": "Example contract",
-
-                  "message": "Please sign this document!",
-
-                  "document_id": "d98ae06a-3ae4-5cc5-c0a3-62b05901b84f",
-
-                  ...
-
-                }
-            contentMediaType: text/plain
-          example: |-
-            {
-
-              "id": "cccccccc-4a6a-a958-a42e-6ea4172a378b",
-
-              "title": "Example contract",
-
-              "message": "Please sign this document!",
-
-              "document_id": "d98ae06a-3ae4-5cc5-c0a3-62b05901b84f",
-
-              ...
-
-            }
-    '400':
+            $ref: ../components/schemas/CreateSignatureResponse.yaml
+          examples:
+            default:
+              # TDDO verify if different from Create and any default?
+              $ref: ../components/examples/CreateSignatureResponse.yaml#/Default
+    400:
       $ref: ../components/responses/BadRequest.yaml
-    '401':
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/BadRequestResponse.yaml
+          example:
+            # TDDO adjust answer
+            type: "https://api.skribble.com/problem/problem-with-message"
+            method: "POST"
+            path: "/v2/signature-requests"
+            status: 400
+            message: "No document source found! Please use document_id, content or file_url to provide a document source"
+    401:
       $ref: ../components/responses/Unauthorized.yaml
-    '404':
-      $ref: ../components/responses/NotFound.yaml
-    '429':
+    429:
       $ref: ../components/responses/TooManyRequests.yaml
-    '500':
+    500:
       $ref: ../components/responses/ServerError.yaml
-    '503':
+    503:
       $ref: ../components/responses/ServiceUnavailable.yaml
 delete:
   operationId: deleteSignatureRequest
@@ -118,17 +95,12 @@ delete:
   security:
     - bearer: []
   parameters:
-    - name: SR_ID
-      in: path
-      description: ''
-      required: true
-      style: simple
-      schema:
-        type: string
+    - $ref: ../components/parameters/SignatureIDPath.yaml
   responses:
     '200':
       description: OK
     '400':
+      # TDDO adjust answer
       $ref: ../components/responses/BadRequest.yaml
     '401':
       $ref: ../components/responses/Unauthorized.yaml

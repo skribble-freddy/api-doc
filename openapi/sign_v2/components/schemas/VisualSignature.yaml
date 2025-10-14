@@ -11,5 +11,29 @@ properties:
       $ref: ./VisualSignaturePosition.yaml
   form_field:
     type: string
-    description: Name of the form field in which the signature is placed. If multiple fields of this name are present in the document all will be used. 
+    description: >
+      Name of the form field in which the signature is placed.
+      If multiple fields of this name are present in the document, all will be used.
+      Takes precedence before positions.
     example: Signature1
+oneOf:
+  - type: object
+    title: Positions
+    description: Use explicit positions only.
+    required: ["positions"]
+    properties:
+      positions:
+        type: array
+      form_field:
+        description: Must not be provided when positions is used.
+        readOnly: true
+  - type: object
+    title: Form Field
+    description: Use form_field only.
+    required: ["form_field"]
+    properties:
+      form_field:
+        type: string
+      positions:
+        description: Must not be provided when form_field is used.
+        readOnly: true

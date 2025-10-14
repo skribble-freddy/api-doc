@@ -1,0 +1,31 @@
+PDFBase64:
+  summary: Document - With Base64 document
+  value:
+    title: Example contract
+    message: Please sign this document!
+    content: "SGVsbG8gd29ybGQh"
+    content_type: application/pdf
+    signatures:
+      - account_email: you@example.info
+
+PDFFileURL:
+  summary: Document - From a public file URL
+  value:
+    title: Example contract
+    message: Please sign this document!
+    file_url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+    signatures:
+      - account_email: you@example.info
+      - account_email: personOneToSign@external.net
+
+
+PDFExistingDoc:
+  summary: Document - Referencing an uploaded document
+  value:
+    title: Example contract
+    message: Please sign this document!
+    document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+    signatures:
+      - account_email: you@example.info
+      - account_email: personOneToSign@external.net
+      - account_email: personTwoToSign@external.net

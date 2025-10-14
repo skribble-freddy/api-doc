@@ -86,6 +86,9 @@ oneOf:
         type: string
         description: Content type of bytes sent in content. Currently, only application/pdf is supported.
         example: "application/pdf"
+    example: 
+      # TODO: Alternative for examples
+      $ref: ../examples/CreateSignatureBasic.yaml#/PDFBase64
   - type: object
     title: File URL
     description: Provide a publicly accessible URL for the document.
@@ -97,6 +100,9 @@ oneOf:
         format: uri
         description: Publicly accessible URL for document download.
         example: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+    example: 
+      # TODO: Alternative for examples
+      $ref: ../examples/CreateSignatureBasic.yaml#/PDFFileURL
   - type: object
     title: Document ID
     description: Reference an existing document already uploaded to Skribble.
@@ -107,3 +113,6 @@ oneOf:
         type: string
         description: Document ID of an existing document on Skribble.
         example: "3648f61d-4194-455c-a0bc-1c438d2cd11b"
+    example: 
+      # TODO: Alternative for examples
+      $ref: ../examples/CreateSignatureBasic.yaml#/PDFExistingDoc

@@ -117,6 +117,16 @@ properties:
         example:
           - SIGNED_DOCUMENT
           - SIGNATURE_PROTOCOL
+  creator:
+    oneOf:
+      - type: "null"
+        title: No owner
+      - type: string
+        title: Specific owner
+        description: >-
+          Set a business member as owner of this signature request in addition to the API User. 
+        format: email
+        example: some-member-of@your-buiness.com
   write_access:
     oneOf:
       - type: "null"

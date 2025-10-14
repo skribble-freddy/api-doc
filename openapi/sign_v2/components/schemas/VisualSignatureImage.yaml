@@ -1,0 +1,15 @@
+title: Visual Signature Image
+type: object
+description: Visual signature image.
+required:
+  - content
+  - content_type
+properties:
+  content:
+    type: string
+    description: Base64 encoded bytes of content.
+    format: byte
+  content_type:
+    type: string
+    description: Content type of bytes sent in content. At the moment this MUST be image/png
+    example: image/png

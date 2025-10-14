@@ -19,9 +19,10 @@ get:
           schema:
             $ref: ../components/schemas/CreateSignatureResponse.yaml
           examples:
-            default:
-              # TDDO verify if different from Create and any default?
-              $ref: ../components/examples/CreateSignatureResponse.yaml#/Default
+            Sample1:
+              $ref: ../components/examples/CreateSignatureResponse.yaml#/Sample1
+            Sample2:
+              $ref: ../components/examples/CreateSignatureResponse.yaml#/Sample2
     400:
       $ref: ../components/responses/BadRequest.yaml
       content:

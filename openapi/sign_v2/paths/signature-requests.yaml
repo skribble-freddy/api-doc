@@ -27,7 +27,7 @@ post:
             $ref: ../components/schemas/CreateSignatureResponse.yaml
           examples:
             default:
-              $ref: ../components/examples/CreateSignatureResponse.yaml#/Default
+              $ref: ../components/examples/CreateSignatureResponse.yaml#/Sample1
     400:
       $ref: ../components/responses/BadRequest.yaml
       content:
@@ -125,7 +125,7 @@ get:
               $ref: ../components/schemas/CreateSignatureResponse.yaml
           examples:
             default:
-              $ref: ../components/examples/CreateSignatureResponse.yaml#/Default
+              $ref: ../components/examples/CreateSignatureResponse.yaml#/SampleArray            
     '400':
       $ref: ../components/responses/BadRequest.yaml
     '401':

@@ -2,6 +2,7 @@ title: Visual Signature Position
 type: object
 properties:
   page:
+    # TODO: In the other it's a String ?
     type: number
     description: Page number (0-indexed) where the signature appears.
     example: 0

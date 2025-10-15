@@ -30,14 +30,25 @@ get:
           schema:
             $ref: ../components/schemas/BadRequestResponse.yaml
           example:
-            # TDDO adjust answer
             type: "https://api.skribble.com/problem/problem-with-message"
-            method: "POST"
-            path: "/v2/signature-requests"
+            method: "GET"
+            path: "/v2/signature-requests/"
             status: 400
-            message: "No document source found! Please use document_id, content or file_url to provide a document source"
+            message: "Request method not supported"
     401:
       $ref: ../components/responses/Unauthorized.yaml
+    404:
+      $ref: ../components/responses/NotFound.yaml
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/BadRequestResponse.yaml
+          example:
+            type: https://api.scribital.de/problem/entity-not-found"
+            method: "GET"
+            path: "/v2/signature-requests/3648f61d-4194-455c-a0bc-1c438d2cd11b"
+            status: 404
+            message: "SignatureRequest not found"
     429:
       $ref: ../components/responses/TooManyRequests.yaml
     500:
@@ -98,18 +109,25 @@ delete:
   parameters:
     - $ref: ../components/parameters/SignatureIDPath.yaml
   responses:
-    '200':
+    200:
       description: OK
-    '400':
-      # TDDO adjust answer
+    400:
       $ref: ../components/responses/BadRequest.yaml
-    '401':
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/BadRequestResponse.yaml
+          example:
+            type: "https://api.skribble.com/problem/problem-with-message"
+            method: "DELETE"
+            path: "/v2/signature-requests/a557bd30-2709-b371-0595-8a4970953083123"
+            status: 400
+            message: UUID string too large"
+    401:
       $ref: ../components/responses/Unauthorized.yaml
-    '404':
-      $ref: ../components/responses/NotFound.yaml
-    '429':
+    429:
       $ref: ../components/responses/TooManyRequests.yaml
-    '500':
+    500:
       $ref: ../components/responses/ServerError.yaml
-    '503':
+    503:
       $ref: ../components/responses/ServiceUnavailable.yaml

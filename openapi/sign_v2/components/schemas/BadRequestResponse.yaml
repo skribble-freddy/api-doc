@@ -8,19 +8,19 @@ required:
 properties:
   type:
     type: string
-    description: "A URI identifying the problem type"
-    example: "https://api.skribble.com/problem/problem-with-message"
+    description: A URI identifying the problem type
+    example: https://api.skribble.com/problem/problem-with-message
   method:
     type: string
     enum: [GET, POST, PUT, DELETE, PATCH, OPTIONS, HEAD]
     example: "POST"
   path:
     type: string
-    example: "/api/path"
+    example: /api/path
   status:
     type: integer
     format: int32
     example: 400
   message:
     type: string
-    example: "Invalid input"
+    example: Invalid input

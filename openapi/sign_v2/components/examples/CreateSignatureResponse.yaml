@@ -1,5 +1,5 @@
 Sample1:
-  summary: Response
+  summary: Sample one signer waiting for signature
   value:
     id: 4f43614a-de50-bfe1-2df3-4c881fc7840e
     title: Sample document
@@ -13,28 +13,9 @@ Sample1:
     signatures:
       - sid: e5ab7fba-e815-0f65-f437-7c78953a0b7d
         account_email: you@example.info
-        signer_identity_data:
-          first_name: John
-          last_name: Doe
-          email_address: you@example.info
         sequence: -1
         status_code: OPEN
         notify: true
-        visual_signature:
-          position:
-            x: 100.0
-            y: 546.0
-            width: 155.0
-            height: 72.0
-            page: "1"
-            rotation: 0
-          positions:
-            - x: 100.0
-              y: 546.0
-              width: 155.0
-              height: 72.0
-              page: "1"
-              rotation: 0
     cc_email_addresses: []
     attachments: []
     owner: api_production_skribbleag_5a2a_0
@@ -47,48 +28,112 @@ Sample1:
     updated_at: 2025-10-15T07:47:01.223Z
 
 Sample2:
-  summary: Response
+  summary: Sample multiple signers with visual signatures where one has signed
   value:
-    id: 4f43614a-de50-bfe1-2df3-4c881fc7840e
-    title: Sample document
+    id: 8c73215f-bf33-d8a9-90e5-1a5cd0b9273a
+    title: Employment Contract
+    message: Please review and sign your employment contract.
+    document_id: 2aa9b2e7-3c21-4d7a-bf9c-6a1f6f5fcb98
+    legislation: EIDAS
+    quality: AES
+    signing_url: https://my.scribital.de/view/8c73215f-bf33-d8a9-90e5-1a5cd0b9273a
+    status_overall: OPEN
+    business: biz-87c4d39afc6d471da7bcbf4f2e8ef931
+    signatures:
+      - sid: 5ad9f2c1-6a81-42af-9a6a-7c5adcb54e23
+        account_email: alice@example.com
+        sequence: 1
+        status_code: SIGNED
+        notify: true
+        visual_signature:
+          position:
+            x: 120.0
+            y: 490.0
+            width: 150.0
+            height: 70.0
+            page: "2"
+            rotation: 0
+          positions:
+            - x: 120.0
+              y: 490.0
+              width: 150.0
+              height: 70.0
+              page: "2"
+              rotation: 0
+      - sid: 19de3b41-9d65-4cb7-90ff-239b7a0eac12
+        account_email: hr@examplecorp.com
+        sequence: 2
+        status_code: OPEN
+        notify: true
+        visual_signature:
+          position:
+            x: 130.0
+            y: 420.0
+            width: 155.0
+            height: 72.0
+            page: "2"
+            rotation: 0
+          positions:
+            - x: 130.0
+              y: 420.0
+              width: 155.0
+              height: 72.0
+              page: "2"
+              rotation: 0
+    cc_email_addresses:
+      - legal@examplecorp.com
+    owner: api_production_skribbleag_7b4b_1
+    read_access:
+      - alice@example.com
+      - hr@examplecorp.com
+      - legal@examplecorp.com
+      - api_production_skribbleag_7b4b_1
+    write_access:
+      - api_production_skribbleag_7b4b_1
+    created_at: 2025-10-15T08:15:22.115Z
+    updated_at: 2025-10-15T08:15:22.115Z
 
 SampleArray:
   value:
-    - id: "4f43614a-de50-bfe1-2df3-4c881fc7840e"
-      title: "Example contract"
-      message: "Please sign this document!"
-      document_id: "29eae6aa-5558-2ada-2870-d4e654c0da5c"
+    - id: 4f43614a-de50-bfe1-2df3-4c881fc7840e
+      title: Example contract
+      message: Please sign this document!
+      document_id: 29eae6aa-5558-2ada-2870-d4e654c0da5c
       legislation: ZERTES
       quality: QES
-      signing_url: "https://my.skribble.com/view/4f43614a-de50-bfe1-2df3-4c881fc7840e"
-      status_overall: "OPEN"
-      business: "biz-42b4c2fb9ee947778ba70bc0698c78f7"
-      signatures: []
+      signing_url: https://my.skribble.com/view/4f43614a-de50-bfe1-2df3-4c881fc7840e
+      status_overall: OPEN
+      business: biz-42b4c2fb9ee947778ba70bc0698c78f7
+      signatures: [
+        # TODO
+      ]
       cc_email_addresses: []
       attachments: []
-      owner: "api_production_skribbleag_42b4_9"
+      owner: api_production_skribbleag_42b4_9
       read_access:
-        - "persononetosign@external.net"
+        - persononetosign@external.net
       write_access:
-        - "api_production_skribbleag_42b4_9"
-      created_at: "2025-10-08T17:37:03.569Z"
-      updated_at: "2025-10-08T17:37:03.569Z"
-    - id: "f47ac10b-58cc-4372-a567-0e02b2c3d479"
-      title: "Second contract"
-      message: "Please sign this as well!"
-      document_id: "a1b2c3d4-e5f6-4789-a1b2-c3d4e5f6a1b2"
+        - api_production_skribbleag_42b4_9
+      created_at: 2025-10-08T17:37:03.569Z
+      updated_at: 2025-10-08T17:37:03.569Z
+    - id: f47ac10b-58cc-4372-a567-0e02b2c3d479
+      title: Second contract
+      message: Please sign this as well!
+      document_id: a1b2c3d4-e5f6-4789-a1b2-c3d4e5f6a1b2
       legislation: EIDAS
       quality: QES
-      signing_url: "https://my.skribble.com/view/another-uuid-example"
-      status_overall: "OPEN"
-      business: "biz-123"
-      signatures: []
+      signing_url: https://my.skribble.com/view/another-uuid-example
+      status_overall: OPEN
+      business: biz-123
+      signatures: [
+        # TODO
+      ]
       cc_email_addresses: []
       attachments: []
-      owner: "api_production_skribbleag_42b4_9"
+      owner: api_production_skribbleag_42b4_9
       read_access:
-        - "you@example.info"
+        - you@example.info
       write_access:
-        - "api_production_skribbleag_42b4_9"
-      created_at: "2025-10-08T18:00:00.000Z"
-      updated_at: "2025-10-08T18:00:00.000Z"
+        - api_production_skribbleag_42b4_9
+      created_at: 2025-10-08T18:00:00.000Z
+      updated_at: 2025-10-08T18:00:00.000Z

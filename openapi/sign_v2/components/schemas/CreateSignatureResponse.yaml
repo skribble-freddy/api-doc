@@ -47,7 +47,7 @@ properties:
     $ref: ./AttachOnSuccess.yaml
   owner:
     type: string
-    example: "api_production_skribbleag_42b4_9"
+    example: api_production_skribbleag_42b4_9
   read_access:
     type: array
     items:

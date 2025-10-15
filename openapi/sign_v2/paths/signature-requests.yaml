@@ -21,8 +21,10 @@ post:
           schema:
             $ref: ../components/schemas/CreateSignatureResponse.yaml
           examples:
-            default:
+            Sample1:
               $ref: ../components/examples/CreateSignatureResponse.yaml#/Sample1
+            Sample2:
+              $ref: ../components/examples/CreateSignatureResponse.yaml#/Sample2
     400:
       $ref: ../components/responses/BadRequest.yaml
       content:

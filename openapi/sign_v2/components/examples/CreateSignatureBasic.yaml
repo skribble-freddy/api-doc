@@ -13,7 +13,7 @@ PDFFileURL:
   value:
     title: Example contract
     message: Please sign this document!
-    file_url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+    file_url: https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
     signatures:
       - account_email: you@example.info
       - account_email: personOneToSign@external.net

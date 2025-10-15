@@ -8,6 +8,6 @@ properties:
     type: string
   content:
     type: string
+    format: byte
 example:
-  title: Skribble Demo Send-To
-  content: '{{BASE64_PDF}}'
+  content: "JVBERi0xLjQKJcfs..."

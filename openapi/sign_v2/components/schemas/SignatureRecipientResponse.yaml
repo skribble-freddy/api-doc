@@ -5,23 +5,20 @@ properties:
     type: string
     format: uuid
     example: "894a0240-e01a-2307-4376-0267c6a8d105"
+  status_code:
+    $ref: ./SignatureStatusCode.yaml
   account_email:
     type: string
     format: email
     example: "you@example.info"
   signer_identity_data:
-    oneOf:
-      - type: array
-        items:
-          $ref: ./SignerIdentityDataResponse.yaml
-      - type: "null"
+    $ref: ./SignerIdentityDataResponse.yaml
   sequence:
     type: integer
     format: int32
     example: -1
-  status_code:
-    type: string
-    example: "OPEN"
   notify:
     type: boolean
     example: true
+  visual_signature:
+    $ref: ./VisualSignatureResponse.yaml

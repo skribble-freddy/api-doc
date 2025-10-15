@@ -3,17 +3,17 @@ properties:
   id:
     type: string
     format: uuid
-    example: "4f43614a-de50-bfe1-2df3-4c881fc7840e"
+    example: 4f43614a-de50-bfe1-2df3-4c881fc7840e
   title:
     type: string
     example: "Example contract"
   message:
     type: string
-    example: "Please sign this document!"
+    example: Please sign this document!
   document_id:
     type: string
     format: uuid
-    example: "29eae6aa-5558-2ada-2870-d4e654c0da5c"
+    example: 29eae6aa-5558-2ada-2870-d4e654c0da5c
   legislation:
     $ref: ./SignatureLegislation.yaml
   quality:
@@ -21,13 +21,12 @@ properties:
   signing_url:
     type: string
     format: uri
-    example: "https://my.skribble.com/view/4f43614a-de50-bfe1-2df3-4c881fc7840e"
+    example: https://my.skribble.com/view/4f43614a-de50-bfe1-2df3-4c881fc7840e
   status_overall:
-    type: string
-    example: "OPEN"
+    $ref: ./SignatureStatusOverall.yaml
   business:
     type: string
-    example: "biz-42b4c2fb9ee947778ba70bc0698c78f7"
+    example: biz-42b4c2fb9ee947778ba70bc0698c78f7
   signatures:
     type: array
     items:
@@ -41,8 +40,11 @@ properties:
   attachments:
     type: array
     items:
+      # TODO Definition
       type: object
     example: []
+  attach_on_success:
+    $ref: ./AttachOnSuccess.yaml
   owner:
     type: string
     example: "api_production_skribbleag_42b4_9"

@@ -1,0 +1,18 @@
+title: Signature Status Code
+type: string
+description: >-
+  The state of a signature.
+
+  Possible values:
+    - **OPEN** Waiting for the user to sign a signature.
+    - **DECLINED** The user declined to sign.
+    - **WITHDRAWN** The owner has withdrawn the signature request.
+    - **SIGNED** The user signed the document.
+    - **ERROR** A technical error occurred.
+enum:
+  - OPEN
+  - DECLINED
+  - WITHDRAWN
+  - SIGNED
+  - ERROR
+example: SIGNED

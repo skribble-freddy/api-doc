@@ -9,6 +9,29 @@ properties:
     example: nas@example.com
   identity_reference:
     type: string
-    description: Optional identification referece (TODO)
+    description: Optional identification reference (TODO)
     example: Internal-ID-012345
-
+  mobile_number:
+    type: string
+    description: Optional mobile number of no-account-signer
+    example: 41791234567
+  first_name:
+    type: string
+    description: Optional first name of no-account-signer
+    example: John
+  last_name:
+    type: string
+    description: Optional last name of no-account-signer
+    example: Doe
+  language:
+    $ref: ./SignatureLanguage.yaml
+  identification_require_evidence:
+    type: boolean
+    description: |
+      Optional. If set, even if the signer is already identified, a new identification process is started to get fresh evidence records.
+      If the business hasn't enabled Express QES, the request is rejected.
+    example: true
+  evidence_id:
+    type: string
+    description: Optional ID of the evidence records created during identification.
+  

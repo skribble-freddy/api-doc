@@ -1,0 +1,21 @@
+title: Visual Signature Response
+type: object
+description: Visual signature placement information.
+properties:
+  image:
+    $ref: ./VisualSignatureImage.yaml
+  position:
+      description: Position where the signature should appear.
+      $ref: ./VisualSignaturePosition.yaml
+  positions:
+    type: array
+    description: List of additional positions where the signature should appear.
+    items:
+      $ref: ./VisualSignaturePosition.yaml
+  form_field:
+    type: string
+    description: >
+      Name of the form field in which the signature is placed.
+      If multiple fields of this name are present in the document, all will be used.
+      Takes precedence before positions.
+    example: Signature1

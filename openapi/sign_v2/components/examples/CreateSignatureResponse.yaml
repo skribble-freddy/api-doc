@@ -3,6 +3,48 @@ Sample1:
   value:
     id: 4f43614a-de50-bfe1-2df3-4c881fc7840e
     title: Sample document
+    message: Please sign this document.
+    document_id: 1ff0cf91-6b54-f3bd-bffb-8fcd5e799764
+    legislation: ZERTES
+    quality: QES
+    signing_url: https://my.scribital.de/view/4f43614a-de50-bfe1-2df3-4c881fc7840e
+    status_overall: OPEN
+    business: biz-5a2aea44ddea4f0531ebcdcbcedf873c
+    signatures:
+      - sid: e5ab7fba-e815-0f65-f437-7c78953a0b7d
+        account_email: you@example.info
+        signer_identity_data:
+          first_name: John
+          last_name: Doe
+          email_address: you@example.info
+        sequence: -1
+        status_code: OPEN
+        notify: true
+        visual_signature:
+          position:
+            x: 100.0
+            y: 546.0
+            width: 155.0
+            height: 72.0
+            page: "1"
+            rotation: 0
+          positions:
+            - x: 100.0
+              y: 546.0
+              width: 155.0
+              height: 72.0
+              page: "1"
+              rotation: 0
+    cc_email_addresses: []
+    attachments: []
+    owner: api_production_skribbleag_5a2a_0
+    read_access:
+      - freddy@skribble.com
+      - api_production_skribbleag_5a2a_0
+    write_access:
+      - api_production_skribbleag_5a2a_0
+    created_at: 2025-10-15T07:47:01.223Z
+    updated_at: 2025-10-15T07:47:01.223Z
 
 Sample2:
   summary: Response

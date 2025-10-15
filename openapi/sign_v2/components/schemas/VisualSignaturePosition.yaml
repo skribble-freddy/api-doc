@@ -2,10 +2,11 @@ title: Visual Signature Position
 type: object
 properties:
   page:
-    # TODO: In the other it's a String ?
-    type: number
-    description: Page number (0-indexed) where the signature appears.
-    example: 0
+    type: string
+    description: |
+      Page number (0-indexed) where the signature appears.
+      This is a String and not a number!	
+    example: "0"
   height:
     type: number
     description: Height of the signature in pixels.
@@ -22,3 +23,10 @@ properties:
     type: number
     description: Y-coordinate (pixels from top) of signature.
     example: 240
+  rotation:
+    type: number
+    description: |
+      Defines a rotation of the field content. 
+      If used in context with a form field, then only the values 0, 90, 180, 270 are legal.
+      Otherwise every value is legal. The rotation is applied counter clockwise.
+    example: 0

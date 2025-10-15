@@ -1,0 +1,20 @@
+title: Attachment when signed
+type: array
+description: >-
+  When a SignatureRequest has been signed by all signers, all signers and all observers are notified by email.
+  Skribble provides the option to attach two types of attachments automatically to this email:
+    - the signed document and
+    - the signature protocol.
+
+  This can be configured via the business settings, which can be used to define that these documents should generally
+  be attached for all SignatureRequests created by business members.
+
+  Alternatively it is possible to define the attachments on demand per SignatureRequest by using this field.
+items:
+  type: string
+  enum:
+    - SIGNED_DOCUMENT
+    - SIGNATURE_PROTOCOL
+example:
+  - SIGNED_DOCUMENT
+  - SIGNATURE_PROTOCOL

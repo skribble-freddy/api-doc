@@ -1,0 +1,3969 @@
+openapi: 3.1.0
+info:
+  title: Skribble API v2
+  version: 2.0.0
+  description: >-
+    The Skribble API v2 documentation describes the publicly available Skribble
+    API version 2. The API allows businesses and teams of any size to integrate
+    the e-signing solution of Skribble with internal systems, software, or SaaS
+    solutions. It provides a simple interface to create and manage signature
+    requests programmatically. Signature requests define who signs what and
+    describe the document flow between participants. Actual signing occurs in
+    the Skribble web application.
+
+    To get started, set up Skribble Business. Feedback and questions can be sent
+    to the Google Group public-api-users@skribble.com.
+
+    API v2 provides enhanced features including creating, finding, and
+    triggering signature requests, user and monitoring details, and reporting
+    activities. It maintains backward compatibility with API v1 but upgrading is
+    recommended to access the latest features. Migration from API v1 involves
+    updating base URLs, renaming fields, and adjusting visual signature
+    positions.
+  license:
+    name: Apache 2.0
+    identifier: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://www.skribble.com/en-eu/terms-of-use/
+  contact:
+    name: Skribble Engineering
+    url: https://skribble.com
+    email: info@skribble.com
+servers:
+  - url: https://api.skribble.com
+    description: Production - Switzerland
+  - url: https://api.skribble.de
+    description: Production - Germany
+  - url: https://api.scribital.com
+    description: Staging - Switzerland
+  - url: https://api.scribital.de
+    description: Staging - Germany
+paths:
+  /v2/access/login:
+    post:
+      tags:
+        - 🔑 Authentication
+      summary: Login as user "api_demo_your_name"
+      description: >-
+        To obtain an access token, log in using the `/access/login` resource.
+
+
+        You can pass your login data using raw JSON or alternatively as
+        `x-www-form-urlencoded` `key:value` pairs(see example requests).
+
+
+        Upon a successful login, a JSON Web Token (JWT) will be returned (see
+        `{{AUTH_ACCESS_TOKEN}}`).  
+
+        The JWT MUST be included in nearly every request made to the API.
+
+
+        The access token is transported in an HTTP header called
+        `Authorization`.
+
+
+        The content of the header starts with `Bearer` followed by the JWT
+        string.
+
+
+        Example: `Authorization: {{vault:bearer-token}}`
+
+
+        #### Token Life Cycle
+
+
+        * * *
+
+
+        ##### API-Key
+
+
+        The API key has a long, but not an unlimited lifetime.
+
+
+        The validity period should depend on the volume of API calls and will be
+        discussed individually for each customer as part of the shared secret
+        agreement.
+
+
+        ##### Access Token
+
+
+        The access token has a lifetime of about **20 minutes**.  
+
+        Currently, we do not renew the access token automatically. But this is
+        planned for future releases.
+
+
+        ##### Logout
+
+
+        There is **no logout**. The access token will expire after the defined
+        time.
+      operationId: LoginAsUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/Loginasuserapi_demo_your_nameRequest'
+                - examples:
+                    - username: add_your_api_name_here
+                      api-key: please_enter_your_password_here
+              contentMediaType: application/json
+            example:
+              username: add_your_api_name_here
+              api-key: please_enter_your_password_here
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: string
+                examples:
+                  - >-
+                    eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJJWlMxY0pXQXlXVFdZeDR6dXRGNzJlYWVILTA0MUprTDF5N2Z3aXA1T3UwIn0Ei3Hm3rhjOAq5dWo6Z0l6bzvyGCXd87oRoOWDM2sW4KErCKYmcQ6ks8FVj3Fn8wXNIVAnp5ClZvWNw9Uks1zM9P2IXBbBPn7DIQGvM
+                    ...
+                contentMediaType: text/plain
+              example: >-
+                eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJJWlMxY0pXQXlXVFdZeDR6dXRGNzJlYWVILTA0MUprTDF5N2Z3aXA1T3UwIn0Ei3Hm3rhjOAq5dWo6Z0l6bzvyGCXd87oRoOWDM2sW4KErCKYmcQ6ks8FVj3Fn8wXNIVAnp5ClZvWNw9Uks1zM9P2IXBbBPn7DIQGvM
+                ...
+        '400':
+          description: Bad request
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: string
+                examples:
+                  - Please ensure your username and api-key are correct!
+                contentMediaType: text/plain
+              example: Please ensure your username and api-key are correct!
+        default:
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: string
+                examples:
+                  - >-
+                    eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJJWlMxY0pXQXlXVFdZeDR6dXRGNzJlYWVILTA0MUprTDF5N2Z3aXA1T3UwIn0Ei3Hm3rhjOAq5dWo6Z0l6bzvyGCXd87oRoOWDM2sW4KErCKYmcQ6ks8FVj3Fn8wXNIVAnp5ClZvWNw9Uks1zM9P2IXBbBPn7DIQGvM
+                    ...
+                contentMediaType: text/plain
+              example: >-
+                eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJJWlMxY0pXQXlXVFdZeDR6dXRGNzJlYWVILTA0MUprTDF5N2Z3aXA1T3UwIn0Ei3Hm3rhjOAq5dWo6Z0l6bzvyGCXd87oRoOWDM2sW4KErCKYmcQ6ks8FVj3Fn8wXNIVAnp5ClZvWNw9Uks1zM9P2IXBbBPn7DIQGvM
+                ...
+      deprecated: false
+      servers:
+        - url: https://api.skribble.com
+          variables: {}
+    parameters: []
+  /v2/signature-requests:
+    post:
+      tags:
+        - 1. Create a SignatureRequest
+      summary: Create a simple  signature request for a PDF document
+      description: >-
+        In this example we have three signers. One of the signers is you and the
+        other two are external signers. Of course, it is also possible to create
+        signature requests in which you are the only signer or where you are not
+        a signer yourself. In the second case, you as creator of the
+        `SignatureRequest` get read-only rights on this data object.
+      operationId: CreateasimplesignaturerequestforaPDFdocument
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: >-
+                    #/components/schemas/CreateasimplesignaturerequestforaPDFdocument
+                - examples:
+                    - title: Example contract
+                      message: Please sign this document!
+                      content: '{{BASE64_PDF}}'
+                      signatures:
+                        - account_email: you@example.info
+                        - account_email: personOneToSign@external.net
+                        - account_email: personTwoToSign@external.net
+              contentMediaType: application/json
+            example:
+              title: Example contract
+              message: Please sign this document!
+              content: '{{BASE64_PDF}}'
+              signatures:
+                - account_email: you@example.info
+                - account_email: personOneToSign@external.net
+                - account_email: personTwoToSign@external.net
+        required: true
+      responses:
+        default:
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: >-
+                      #/components/schemas/Createasignaturerequestforthreesigners200
+                  - examples:
+                      - id: cccccccc-4a6a-a958-a42e-6ea4172a378b
+                        title: Example contract
+                        message: Please sign this document!
+                        document_id: d98ae06a-3ae4-5cc5-c0a3-62b05901b84f
+                        quality: DEMO
+                        signing_url: >-
+                          https://my.skribble.com/view/cccccccc-4a6a-a958-a42e-6ea4172a378b
+                        status_overall: OPEN
+                        signatures:
+                          - sid: eeeeeeee-cdab-938a-aed9-ebabbc92a013
+                            account_email: you@example.info
+                            order: -1
+                            status_code: OPEN
+                            notify: true
+                          - sid: fffffff-abce-3e34-6e47-48b3624f6cd3
+                            account_email: persononetosign@external.net
+                            order: -1
+                            status_code: OPEN
+                            notify: true
+                          - sid: 33333333-8408-28c1-90fc-63b4767fd7b2
+                            account_email: persontwotosign@external.net
+                            order: -1
+                            status_code: OPEN
+                            notify: true
+                        cc_email_addresses: []
+                        owner: api_demo_your_name
+                        read_access:
+                          - api_demo_your_name
+                          - persononetosign@external.net
+                          - persontwotosign@external.net
+                          - you@example.info
+                        write_access:
+                          - api_demo_your_name
+                        created_at: '2099-12-12T12:12:12.000Z'
+                        updated_at: '2099-12-12T12:12:12.000Z'
+                contentMediaType: application/json
+              example:
+                id: cccccccc-4a6a-a958-a42e-6ea4172a378b
+                title: Example contract
+                message: Please sign this document!
+                document_id: d98ae06a-3ae4-5cc5-c0a3-62b05901b84f
+                quality: DEMO
+                signing_url: >-
+                  https://my.skribble.com/view/cccccccc-4a6a-a958-a42e-6ea4172a378b
+                status_overall: OPEN
+                signatures:
+                  - sid: eeeeeeee-cdab-938a-aed9-ebabbc92a013
+                    account_email: you@example.info
+                    order: -1
+                    status_code: OPEN
+                    notify: true
+                  - sid: fffffff-abce-3e34-6e47-48b3624f6cd3
+                    account_email: persononetosign@external.net
+                    order: -1
+                    status_code: OPEN
+                    notify: true
+                  - sid: 33333333-8408-28c1-90fc-63b4767fd7b2
+                    account_email: persontwotosign@external.net
+                    order: -1
+                    status_code: OPEN
+                    notify: true
+                cc_email_addresses: []
+                owner: api_demo_your_name
+                read_access:
+                  - api_demo_your_name
+                  - persononetosign@external.net
+                  - persontwotosign@external.net
+                  - you@example.info
+                write_access:
+                  - api_demo_your_name
+                created_at: '2099-12-12T12:12:12.000Z'
+                updated_at: '2099-12-12T12:12:12.000Z'
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://api.skribble.com
+          variables: {}
+    get:
+      tags:
+        - Find
+      summary: List and find SignatureRequests
+      description: >-
+        Using this `GET` request, you can list all the `SignatureRequests`
+        provided that the current user has sufficient access rights to.
+
+
+        You can optionally filter these `SignatureRequests` using one or more of
+        the following criteria.
+
+
+        | Parameter | Description | Mandatory |
+
+        | --- | --- | --- |
+
+        | **account_email** | Filter on the field `signatures[].account_email` |
+        no |
+
+        | **search** | Filter on the field `title` to search for documents
+        _**containing**_ the serach term. | no |
+
+        | **signature_status** | Filter on the field `signatures[].status_code`
+        with one of the valid **Signature states** | no |
+
+        | **status_overall** | Filter on the field `status_overall` with one of
+        the valid **Signature states** | no |
+
+
+        > **Note**  
+
+        The filter searches for an exact match of the corresponding field
+        content. This means that the filter is case sensitive and won&apos;t
+        find objects that only _contain_ the parameter. For example
+        _account_email=john.doe@skribble.com_ will only find a
+        `SignatureRequests` where the field `account_email` is exactly
+        [&lt;em&gt;john.doe@skribble.com&lt;/em&gt;](https://mailto:john.doe@skribble.com).
+        It won&apos;t find
+        [&lt;em&gt;another.john.doe@skribble.com&lt;/em&gt;](https://mailto:another.john.doe@skribble.com)  
+
+        Exception: The search parameter searches for document titles that
+        contain the search term. 
+          
+
+        **Pagination**
+
+
+        Furthermore, the result set can be controlled using the optional
+        pagination parameters `page_number` and `page_size`, which helps prevent
+        excessively large result sets.
+
+
+        | Parameter | Description | Mandatory |
+
+        | --- | --- | --- |
+
+        | `page_number` | Page number must be greater than or equal to 0 
+        <br>Default: Pagination is disabled | no |
+
+        | `page_size` | Page size must be greater than or equal to 0 
+        <br>Default: 50 | no |
+      operationId: ListandfindSignatureRequests
+      parameters: []
+      responses:
+        default:
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: string
+                examples:
+                  - |-
+                    [
+
+                        {
+
+                            "id": "56c40808-ab69-4b50-c174-a0d59d59c48d",
+
+                            "title": "First example contract",
+
+                            ...
+
+                        },
+
+                        {
+
+                            "id": "c9cce9be-4a6a-a958-a42e-6ea4172a378b",
+
+                            "title": "Second example contract"
+
+                            ...
+
+                        },
+
+                        {
+
+                            "id": "c9cce9be-4a6a-a958-a42e-6ea4172a378b",
+
+                            "title": "Third example contract"
+
+                            ...
+
+                        },
+
+                        ...
+
+                    }
+                contentMediaType: text/plain
+              example: |-
+                [
+
+                    {
+
+                        "id": "56c40808-ab69-4b50-c174-a0d59d59c48d",
+
+                        "title": "First example contract",
+
+                        ...
+
+                    },
+
+                    {
+
+                        "id": "c9cce9be-4a6a-a958-a42e-6ea4172a378b",
+
+                        "title": "Second example contract"
+
+                        ...
+
+                    },
+
+                    {
+
+                        "id": "c9cce9be-4a6a-a958-a42e-6ea4172a378b",
+
+                        "title": "Third example contract"
+
+                        ...
+
+                    },
+
+                    ...
+
+                }
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://api.skribble.com
+          variables: {}
+    put:
+      tags:
+        - Add or remove signers
+      summary: Add or remove multiple signers simultaneously
+      description: >-
+        To add or remove multiple signers at once, you need to update the
+        `signatures` array according to your needs.
+
+
+        - To add a signer to the `SignatureRequest`, simply add a new entry to
+        the signatures array.
+            
+        - To remove a signer from the `SignatureRequest`, simply remove the
+        corresponding entry from the `signatures` array.
+            
+
+        > ⚠️ **IMPORTANT NOTE** 
+          
+
+        - Please be aware that if you want to add one or more new signers, you
+        MUST include the existing signers in the update request. Any signers not
+        present in the `signatures` array will be removed!
+            
+        - Changes to the signatures can only be made as long as none of the
+        signers have already completed the signature.
+      operationId: Addorremovemultiplesignerssimultaneously
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: >-
+                    #/components/schemas/AddorremovemultiplesignerssimultaneouslyRequest
+                - examples:
+                    - id: '{{SR_ID}}'
+                      title: NewTitleTest
+                      signatures:
+                        - account_email: john.doe@skribble.com
+                        - account_email: new.signer@skribble.com.org
+              contentMediaType: application/json
+            example:
+              id: '{{SR_ID}}'
+              title: NewTitleTest
+              signatures:
+                - account_email: john.doe@skribble.com
+                - account_email: new.signer@skribble.com.org
+        required: true
+      responses:
+        default:
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: string
+                examples:
+                  - |-
+                    {
+
+                        "id": "{{SR_ID}}",
+
+                        "title": "NewTitleTest",
+
+                        "signatures": [
+
+                            {
+
+                                "account_email": "john.doe@skribble.com"
+
+                            }
+
+                        ],
+
+                        ...
+
+                    }
+                contentMediaType: text/plain
+              example: |-
+                {
+
+                    "id": "{{SR_ID}}",
+
+                    "title": "NewTitleTest",
+
+                    "signatures": [
+
+                        {
+
+                            "account_email": "john.doe@skribble.com"
+
+                        }
+
+                    ],
+
+                    ...
+
+                }
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://api.skribble.com
+          variables: {}
+    parameters: []
+  /0000...2222:
+    get:
+      tags:
+        - 2. Redirect the user to the Skribble web application
+      summary: Exit point example
+      description: >-
+        In this example we redirect the user to *https://www.google.com* and
+        wait for max. 20 seconds to fullfil this request.
+      operationId: Exitpointexample
+      parameters:
+        - name: exitURL
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            examples:
+              - https://google.com
+        - name: redirectTimeout
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            contentEncoding: int32
+            examples:
+              - 20
+        - name: hidedownload
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: boolean
+            examples:
+              - true
+      responses:
+        default:
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: string
+                examples:
+                  - 'No response: You will be redirected to http://www.google.com'
+                contentMediaType: text/plain
+              example: 'No response: You will be redirected to http://www.google.com'
+      deprecated: false
+      servers:
+        - url: https://my.skribble.com/view
+          variables: {}
+    parameters: []
+  /v2/signature-requests/{SR_ID}:
+    get:
+      tags:
+        - 3. Download the signed PDF document
+      summary: Get the document ID from the signature request
+      description: >-
+        We distinguish between the signature request ID and document ID. To read
+        and download the PDF document, the document ID is retrieved from the 
+        `SignatureRequest` with the ID `{{SR_ID}}`
+      operationId: GetthedocumentIDfromthesignaturerequest
+      parameters:
+        - name: SR_ID
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '404':
+          description: Not Found
+          headers:
+            Expires:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '0'
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: close
+            Cache-Control:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: no-cache, no-store, max-age=0, must-revalidate
+            X-XSS-Protection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1; mode=block
+            X-Content-Type-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: nosniff
+            Pragma:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: no-cache
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Thu, 05 Nov 2020 14:52:08 GMT
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                allOf:
+                  - $ref: >-
+                      #/components/schemas/GetthedocumentIDfromamissingsignaturerequest4041
+                  - examples:
+                      - type: https://api.skribble.com/problem/entity-not-found
+                        status: 404
+                        message: SignatureRequest not found
+                        method: GET
+                        path: >-
+                          /v2/signature-requests/000000-2423-2323-cccc-00000000000
+                contentMediaType: application/json;charset=UTF-8
+              example:
+                type: https://api.skribble.com/problem/entity-not-found
+                status: 404
+                message: SignatureRequest not found
+                method: GET
+                path: /v2/signature-requests/000000-2423-2323-cccc-00000000000
+        default:
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: string
+                examples:
+                  - |-
+                    {
+
+                      "id": "cccccccc-4a6a-a958-a42e-6ea4172a378b",
+
+                      "title": "Example contract",
+
+                      "message": "Please sign this document!",
+
+                      "document_id": "d98ae06a-3ae4-5cc5-c0a3-62b05901b84f",
+
+                      ...
+
+                    }
+                contentMediaType: text/plain
+              example: |-
+                {
+
+                  "id": "cccccccc-4a6a-a958-a42e-6ea4172a378b",
+
+                  "title": "Example contract",
+
+                  "message": "Please sign this document!",
+
+                  "document_id": "d98ae06a-3ae4-5cc5-c0a3-62b05901b84f",
+
+                  ...
+
+                }
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://api.skribble.com
+          variables: {}
+    delete:
+      tags:
+        - Modify
+      summary: Delete a signature request
+      description: >-
+        By using the signature request ID you can delete a `SignatureRequest`.  
+         
+        **Important:** A `SignatureRequest` can only be deleted using the API,
+        if:
+
+        1. the `SignatureRequest` is in the `status_overall=OPEN` and
+
+        2. the API user has sufficient rights on the `SignatureRequest`, eg.
+        when it was created by the API user. 
+          
+        Deleting a `SignatureRequest` does not necessarily remove the
+        `SignatureRequest` from the system. 
+         
+        **WITHDRAWN**  
+
+        When the API user is the **owner** of the `SignatureRequest` and the
+        `SignatureRequest` is still in the `status_overall=OPEN` then the
+        `SignatureRequest` will be **WITHDRAWN**.  
+
+        This means that the `SignatureRequest` will get
+        `status_overall=WITHDRAWN` and all the invited signatures will be marked
+        with `status_code=WITHDRAWN`. Sign and read rights for the signers will
+        be removed from the `SignatureRequest`, so that the invited signers can
+        neither read nor sign the `SignatureRequest` any more. 
+
+
+        **REMOVE AS PARTICIPANT**  
+
+        When the API user is NOT the owner of the document but a participant of
+        the `SignatureRequest`, then the `DELETE` request will only remove the
+        current API user as participant from the signature request. 
+
+        In this case the system will remove the objects the `SignatureRequest`
+        and the related `document` as soon as the last remaining user deletes
+        the `SignatureRequest` using the [Skribble web
+        application](https://my.skribble.com) 
+
+
+        **DELETING**  
+
+        When the API user is the last user with access rights to the
+        `SignatureRequest` e.g. after a **WITHDRAW** request, then the
+        `SignatureRequest` and the related `document` will be completely removed
+        from the system.
+      operationId: Deleteasignaturerequest
+      parameters:
+        - name: SR_ID
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        default:
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://api.skribble.com
+          variables: {}
+    parameters: []
+  /v2/documents/{DOC_ID}/content:
+    get:
+      tags:
+        - 3. Download the signed PDF document
+      summary: Download the PDF document
+      description: >-
+        Now you can download the document content that contains the PDF document
+        with the document ID `{{DOC_ID}}`. 
+      operationId: DownloadthePDFdocument
+      parameters:
+        - name: DOC_ID
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        default:
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: string
+                examples:
+                  - |-
+                    %PDF-1
+                    %äüöß
+                    2 0 ob
+                    <</Len
+                    stream
+                    ...
+                contentMediaType: text/plain
+              example: |-
+                %PDF-1
+                %äüöß
+                2 0 ob
+                <</Len
+                stream
+                ...
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://api.skribble.com
+          variables: {}
+    parameters: []
+  /v2/sendto/{SEND_TO_ID}/track:
+    get:
+      tags:
+        - Find
+      summary: Track Send-To object - Check for status
+      description: >-
+        To call the `track` endpoint, you must include the value of the
+        `access_code` field—received when creating the `Send-To` object—in the
+        request header `X-Accesscode`.
+
+
+        # Track (Response)
+
+
+        | Name | Description | Example |
+
+        | --- | --- | --- |
+
+        | `status` | Describes the status of the `Send-To` request. 
+        <br>Possible status values are:  <br>\- `UNCLAIMED`  <br>\- `EXPIRED` 
+        <br>\- `CLAIMED`  <br>\- `SIGNING`  <br>\- `SIGNED`  <br>\- `WITHDRAWN` 
+        <br>\- `DECLINED` | `CLAIMED` |
+
+        | `signers` | List of signers. | signer@skribble.com |
+
+        | `creator` | User who claimed the Send-To request. |  |
+      operationId: TrackSend-Toobject-Checkforstatus
+      parameters:
+        - name: X-Accesscode
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            examples:
+              - '{{SEND_TO_ACCESS_CODE}}'
+        - name: SEND_TO_ID
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/TrackSend-Toobject-Checkforstatus'
+                  - examples:
+                      - status: UNCLAIMED
+                        signers: null
+                        creator: null
+                contentMediaType: application/json
+              example:
+                status: UNCLAIMED
+                signers: null
+                creator: null
+      deprecated: false
+      servers:
+        - url: https://api.skribble.com
+          variables: {}
+    parameters: []
+  /sendto/{SEND_TO_ID}/download:
+    get:
+      tags:
+        - Find
+      summary: Download Send-To based document
+      description: >-
+        To call the `download` endpoint, you must include the value of the
+        `access_code` field—received when creating the `Send-To` object—in the
+        request header `X-Accesscode`.
+
+
+        As response you will get the initially provided PDF document in its
+        current state. This might be signed, declined or withdrawn or still open
+        for signing. The status can be obtained using the `track` endpoind.
+      operationId: DownloadSend-Tobaseddocument
+      parameters:
+        - name: X-Accesscode
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            examples:
+              - '{{SEND_TO_ACCESS_CODE}}'
+        - name: SEND_TO_ID
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: string
+                examples:
+                  - The file as raw data.
+                contentMediaType: text/plain
+              example: The file as raw data.
+      deprecated: false
+      servers:
+        - url: https://api.skribble.com
+          variables: {}
+    parameters: []
+  /v2/documents:
+    get:
+      tags:
+        - Find
+      summary: List all accessible documents
+      description: This request returns an array of all accessible `Documents` objects.
+      operationId: Listallaccessibledocuments
+      parameters: []
+      responses:
+        default:
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: string
+                examples:
+                  - |-
+                    [
+                        {
+                            "id": "dddddddd-7777-caca-be12-121212121212",
+                            "title": "First example contract",
+                            "content_type": "application/pdf",
+                            "size": 29094,
+                            "page_count": 1,
+                            "page_width": 595,
+                            "page_height": 841,
+                            "owner": "api_demo_your_company",
+                            ...
+                        },
+                        {
+                            "id": "7777777-9999-28c4-caca-131313131313",
+                            "title": "Second example contract",
+                            "content_type": "application/pdf",
+                            ....
+                            
+                        }
+                    ]    
+                contentMediaType: text/plain
+              example: |-
+                [
+                    {
+                        "id": "dddddddd-7777-caca-be12-121212121212",
+                        "title": "First example contract",
+                        "content_type": "application/pdf",
+                        "size": 29094,
+                        "page_count": 1,
+                        "page_width": 595,
+                        "page_height": 841,
+                        "owner": "api_demo_your_company",
+                        ...
+                    },
+                    {
+                        "id": "7777777-9999-28c4-caca-131313131313",
+                        "title": "Second example contract",
+                        "content_type": "application/pdf",
+                        ....
+                        
+                    }
+                ]    
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://api.skribble.com
+          variables: {}
+    post:
+      tags:
+        - Create
+      summary: Simple PDF document upload
+      description: >-
+        A simple PDF document upload using a **Base64 encoded** file as
+        `content`.
+      operationId: SimplePDFdocumentupload
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/SimplePDFdocumentuploadRequest'
+                - examples:
+                    - title: Example contract PDF
+                      content: '{{BASE64_PDF}}'
+              contentMediaType: application/json
+            example:
+              title: Example contract PDF
+              content: '{{BASE64_PDF}}'
+        required: true
+      responses:
+        default:
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SimplePDFdocumentupload200'
+                  - examples:
+                      - id: 00000000-1212-9546-6542-323232323232
+                        title: Example contract PDF
+                        content_type: application/pdf
+                        size: 29010
+                        page_count: 1
+                        page_width: 600
+                        page_height: 840
+                        owner: api_demo_example
+                        read_access:
+                          - api_demo_example
+                        write_access:
+                          - api_demo_example
+                        created_at: '2099-12-12T12:12:12.000Z'
+                        updated_at: '2099-12-12T12:12:12.000Z'
+                contentMediaType: application/json
+              example:
+                id: 00000000-1212-9546-6542-323232323232
+                title: Example contract PDF
+                content_type: application/pdf
+                size: 29010
+                page_count: 1
+                page_width: 600
+                page_height: 840
+                owner: api_demo_example
+                read_access:
+                  - api_demo_example
+                write_access:
+                  - api_demo_example
+                created_at: '2099-12-12T12:12:12.000Z'
+                updated_at: '2099-12-12T12:12:12.000Z'
+            text/plain:
+              schema:
+                type: string
+                examples:
+                  - Neither 'content' nor 'file_url' provided
+                contentMediaType: text/plain
+              example: Neither 'content' nor 'file_url' provided
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://api.skribble.com
+          variables: {}
+    parameters: []
+  /v2/documents/{DOC_ID}:
+    get:
+      tags:
+        - Find
+      summary: Get the document metadata
+      description: >-
+        To query one single `Documents` object, you can pass the document ID
+        `{{DOC_ID}}` with this request. The `Documents` object contains document
+        metadata such as `title`, `owner`, `size` and useful page information.
+      operationId: Getthedocumentmetadata
+      parameters:
+        - name: DOC_ID
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        default:
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: string
+                examples:
+                  - |2-
+                      {
+
+                          "id": "dddddddd-7777-caca-be12-121212121212",
+
+                          "title": "First example contract",
+
+                          "content_type": "application/pdf",
+
+                          "size": 29094,
+
+                          "page_count": 1,
+
+                          "page_width": 595,
+
+                          "page_height": 841,
+
+                          "owner": "api_demo_your_company",
+
+                          ...
+
+                      }
+                contentMediaType: text/plain
+              example: |2-
+                    {
+
+                        "id": "dddddddd-7777-caca-be12-121212121212",
+
+                        "title": "First example contract",
+
+                        "content_type": "application/pdf",
+
+                        "size": 29094,
+
+                        "page_count": 1,
+
+                        "page_width": 595,
+
+                        "page_height": 841,
+
+                        "owner": "api_demo_your_company",
+
+                        ...
+
+                    }
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://api.skribble.com
+          variables: {}
+    delete:
+      tags:
+        - Modify
+      summary: Delete the document
+      description: >-
+        Deleting a `Document` is similar to deleting a `SignatureRequest`.  
+
+        That means, deleting a `Document`  does not necessarily remove the a
+        `Document` from the system.  
+
+
+        If there is MORE than one participant involved, then the DELETE request
+        will only remove the current user from the `Document`.   
+
+
+        Only when the lat user deletes the `Document` using the Skribble web
+        application, the system  will finally remove the object.
+      operationId: Deletethedocument
+      parameters:
+        - name: DOC_ID
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        default:
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://api.skribble.com
+          variables: {}
+    parameters: []
+  /v2/documents/{DOC_ID}/pages/{PAGE_ID}:
+    get:
+      tags:
+        - Find
+      summary: Get the document page preview
+      description: >-
+        When uploading a PDF document to Skribble, the system generates some
+        preview images for the PDF pages. These preview images can be requested
+        by passing the page `{{PAGE_ID}}` you want to get a preview for,
+        starting at **0** for page number 1.  
+
+
+        > By using the optional parameter `scale` you can choose between a
+        preview in real size using `scale=100` or a thumbnail preview using
+        `scale=20`.   
+      operationId: Getthedocumentpagepreview
+      parameters:
+        - name: DOC_ID
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: PAGE_ID
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            'image/webp or image/png ':
+              schema:
+                type: string
+                examples:
+                  - >-
+                    Image as raw bytes in WEBP format or PNG for older
+                    documemnts. See Content-Type.
+                contentMediaType: 'image/webp or image/png '
+              example: >-
+                Image as raw bytes in WEBP format or PNG for older documemnts.
+                See Content-Type.
+        default:
+          description: ''
+          headers: {}
+          content:
+            image/webp or image/png:
+              schema:
+                type: string
+                examples:
+                  - >-
+                    Image as raw bytes in WEBP format or PNG for older
+                    documemnts. See Content-Type.
+                contentMediaType: image/webp or image/png
+              example: >-
+                Image as raw bytes in WEBP format or PNG for older documemnts.
+                See Content-Type.
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://api.skribble.com
+          variables: {}
+    parameters: []
+  /v2/signature-requests/{SR_ID}/signatures:
+    post:
+      tags:
+        - Add or remove signers
+      summary: Add an individual signer
+      description: >-
+        To add an individual signer, use the same parameters as when creating a
+        SignatureRequest. The process is the same. By using `account_email`, you
+        can add a signer who has a Skribble account. By using
+        `signer_identity_data`, you can invite a No-Account-Signer to the
+        SignatureRequest with the ID `{{SR_ID}}`.
+
+
+        > 💡 Good to know  
+
+        We recommend this approach of combining `signer_idendity_data` and
+        `account_email` if you are unsure whether the user has a Skribble
+        account. The benefit is that an existing Skribble user will afterwards
+        find the SignatureRequest in the **To sign** section of their account on
+        my.skribble.com.  
+
+        Conversely, if you invite them using only `signer_identity_data`, the
+        document will not appear in their Skribble account, even if they have an
+        existing Skribble account. Instead, they will have to access the
+        document using the specific link provided in their signature invitation
+        email.
+      operationId: Addanindividualsigner
+      parameters:
+        - name: SR_ID
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/AddanindividualsignerRequest'
+                - examples:
+                    - account_email: single-signer@skribble.com
+                      signer_identity_data:
+                        email_address: single-signer@skribble.com
+              contentMediaType: application/json
+            example:
+              account_email: single-signer@skribble.com
+              signer_identity_data:
+                email_address: single-signer@skribble.com
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://api.skribble.com
+          variables: {}
+    parameters: []
+  /v2/signature-requests/{SR_ID}/signatures/{SID}:
+    delete:
+      tags:
+        - Add or remove signers
+      summary: Remove an individual signer
+      description: >-
+        To remove an individual signer, provide the SignatureRequest ID
+        `{{SR_ID}}` and the Signature ID `{{SID}}` of the signer you want to
+        remove.
+      operationId: Removeanindividualsigner
+      parameters:
+        - name: SR_ID
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: SID
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://api.skribble.com
+          variables: {}
+    parameters: []
+  /v2/signature-requests/{SR_ID}/attachments:
+    post:
+      tags:
+        - Add or remove attachments
+      summary: Add an attachment to a signature request
+      description: >-
+        The following request uploads a PDF file and attaches it to the
+        `SignatureRequest` with the ID `{{SR_ID}}`
+
+
+        The field `content_type` defines one of the allowed content-types
+        `application/pdf` of the uploaded file
+
+
+        The `filename` field specifies the name under which the file will be
+        displayed to the participants of the `SignatureRequest`.
+      operationId: Addanattachmenttoasignaturerequest
+      parameters:
+        - name: SR_ID
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: >-
+                    #/components/schemas/AddanattachmenttoasignaturerequestRequest
+                - examples:
+                    - filename: some_attachment_with_somename.pdf
+                      content_type: application/pdf
+                      content: '{{BASE64_PDF}}'
+              contentMediaType: application/json
+            example:
+              filename: some_attachment_with_somename.pdf
+              content_type: application/pdf
+              content: '{{BASE64_PDF}}'
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: string
+                examples:
+                  - |-
+                    {
+                        "id": "{{SR_ID}}",
+                        "title": "NewTitleTest",
+                        "attachments":
+                         [
+                                {
+                                    "attachment_id": "cccccccc-dddd-2222-5555-ddbc139a28d6",
+                                    "filename": "some_attachment_name.pdf"
+                                },
+                                ...
+                        ]
+                        ...
+                    }        
+                contentMediaType: application/json
+              example: |-
+                {
+                    "id": "{{SR_ID}}",
+                    "title": "NewTitleTest",
+                    "attachments":
+                     [
+                            {
+                                "attachment_id": "cccccccc-dddd-2222-5555-ddbc139a28d6",
+                                "filename": "some_attachment_name.pdf"
+                            },
+                            ...
+                    ]
+                    ...
+                }        
+        default:
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Addaunsupportedattachmenttype'
+                  - examples:
+                      - type: https://api.skribble.com/problem/problem-with-message
+                        status: 400
+                        message: Attachment type is not supported
+                        method: POST
+                        path: /v2/signature-requests/attachments
+                contentMediaType: application/json
+              example:
+                type: https://api.skribble.com/problem/problem-with-message
+                status: 400
+                message: Attachment type is not supported
+                method: POST
+                path: /v2/signature-requests/attachments
+      deprecated: false
+      servers:
+        - url: https://api.skribble.com
+          variables: {}
+    parameters: []
+  /v2/signature-requests/{SR_ID}/attachments/{ATTACHMENT_ID}/content:
+    get:
+      tags:
+        - Add or remove attachments
+      summary: Download a specific attached file from a signature request
+      description: >-
+        Downloads the attachment content with the `ATTACHMENT_ID` for the
+        `SignatureRequest` with the ID `SR_ID`
+      operationId: Downloadaspecificattachedfilefromsignaturerequest
+      parameters:
+        - name: SR_ID
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: ATTACHMENT_ID
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+        - url: https://api.skribble.com
+          variables: {}
+    parameters: []
+  /v2/signature-requests/{SR_ID}/attachments/{ATTACHMENT_ID}:
+    delete:
+      tags:
+        - Add or remove attachments
+      summary: Remove an attachment from a signature request
+      description: >-
+        Delete the attachment with the `ATTACHMENT_ID` from the
+        `SignatureRequest` with the ID `SR_ID`
+      operationId: Removeanattachmentfromasignaturerequest
+      parameters:
+        - name: SR_ID
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: ATTACHMENT_ID
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+        - url: https://api.skribble.com
+          variables: {}
+    parameters: []
+  /v2/signature-requests/{SR_ID}/withdraw:
+    post:
+      tags:
+        - Modify
+      summary: Withdraw a signature request
+      description: >-
+        Sometimes, signing a document may become unnecessary, or errors might
+        occur during the invitation process. As the inviter of such a
+        `SignatureRequest`, you can _explicitely_ `withdraw` the
+        `SignatureRequest`. Withdraw removes all signatories and observers from
+        the document as participants and notifies them with a specified
+        `message.`
+
+
+        Similar to `deletion`, the `withdraw` action can only be executed if:
+
+
+        - The SignatureRequest status is `status_overall=OPEN`
+
+        - The API user has sufficient rights on the `SignatureRequest`, such as
+        when it was created by the API user.
+            
+
+        > **Note**  
+
+        We recommend using the `delete` endpoint. By default, it checks for
+        other options. For example, if the API user does not have withdrawal
+        rights, the user could be removed from the `SignatureRequest` directly,
+        or the document might be deleted directly.  
+
+        Nevertheless, there may be situations in which you need to withdraw the
+        document and keep it in Skribble. In this case you should of course use
+        the `withdraw` functionality.
+      operationId: Withdrawasignaturerequest
+      parameters:
+        - name: SR_ID
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/WithdrawasignaturerequestRequest'
+                - examples:
+                    - message: Withdrawel for good reasons.
+              contentMediaType: application/json
+            example:
+              message: Withdrawel for good reasons.
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://api.skribble.com
+          variables: {}
+    parameters: []
+  /v2/sendto/{SEND_TO_ID}:
+    delete:
+      tags:
+        - Modify
+      summary: Delete Send-To object
+      description: >-
+        To `delete` a `Sent-To` object based on its `ID` you must include the
+        value of the `access_code` field—received when creating the `Send-To`
+        object—in the request header `X-Accesscode`.
+
+
+        This call deletes the involved `Send-To,` `Document` and
+        `SignatureRequest` objects regardeless the current `Send-To` state.
+      operationId: DeleteSend-Toobject
+      parameters:
+        - name: X-Accesscode
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            examples:
+              - '{{SEND_TO_ACCESS_CODE}}'
+        - name: SEND_TO_ID
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content: {}
+      deprecated: false
+      servers:
+        - url: https://api.skribble.com
+          variables: {}
+    parameters: []
+  /v2/signature-requests/{SR_ID}/remind:
+    post:
+      tags:
+        - Triggers
+      summary: Remind open signers of a signature request
+      description: >-
+        In addition to the automatic signature reminders, manual reminders can
+        also be initiated via the Skribble web application and also via the API.
+
+
+        This allows for greater flexibility in managing signature requests,
+        ensuring that important documents are signed promptly. By using both
+        automatic and manual reminders, you can tailor your approach to suit the
+        specific needs of your users or customers.
+
+
+        **Limits**
+
+
+        There is an hourly limit on the number of signature reminders that can
+        be sent. This limit ensures that reminders are used responsibly and
+        prevents excessive notifications. Generally, this restriction should not
+        affect you if you use this feature appropriately. By adhering to this
+        limit, you can effectively manage your signature requests without
+        overwhelming your users or customers with frequent reminders.
+      operationId: Remindopensignersofasignaturerequest
+      parameters:
+        - name: SR_ID
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://api.skribble.com
+          variables: {}
+    parameters: []
+  /v2/seal:
+    post:
+      tags:
+        - Create
+      summary: Seal a document
+      description: >-
+        In this example  we seal the document with a visual signature including
+        an image. This represents the visual seal of the company.
+      operationId: Sealadocument
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/SealadocumentRequest'
+                - examples:
+                    - content: '{{BASE64_PDF}}'
+                      visual_signature:
+                        position:
+                          x: 20
+                          'y': 20
+                          width: 260
+                          height: 120
+                          page: '0'
+                        image:
+                          content_type: image/png
+                          content: '{{BASE64_PNG}}'
+              contentMediaType: application/json
+            example:
+              content: '{{BASE64_PDF}}'
+              visual_signature:
+                position:
+                  x: 20
+                  'y': 20
+                  width: 260
+                  height: 120
+                  page: '0'
+                image:
+                  content_type: image/png
+                  content: '{{BASE64_PNG}}'
+        required: true
+      responses:
+        default:
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Sealadocument200'
+                  - examples:
+                      - document_id: e4cde459-6e63-0095-10b8-55b39ec39f46
+                contentMediaType: application/json
+              example:
+                document_id: e4cde459-6e63-0095-10b8-55b39ec39f46
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://api.skribble.com
+          variables: {}
+    parameters: []
+  /v2/sendto:
+    post:
+      tags:
+        - Create
+      summary: Create Send-To object
+      description: >-
+        Start the signing process by uploading the PDF document `content` and
+        assigning it a `title`.
+
+
+        # Limited lifetime
+
+
+        > Sign-To objects and its related Documents and SignatureRequests are
+        only guaranteed for a **limited lifetime.** 
+          
+
+        - Sign-To request that dont get claimed by a user, so where a user does
+        not add the document to the list of his documents to sign, will be
+        deleted automatically after one day.
+            
+        - Sign-To objects and its related Documents and SignatureRequest objects
+        in general, independant of its status, will be deleted automatically
+        after 90 days.
+      operationId: CreateSend-Toobject
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/CreateSend-ToobjectRequest'
+                - examples:
+                    - title: Skribble Demo Send-To
+                      content: '{{BASE64_PDF}}'
+              contentMediaType: application/json
+            example:
+              title: Skribble Demo Send-To
+              content: '{{BASE64_PDF}}'
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Tue, 04 Mar 2025 08:27:30 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Origin
+            X-Content-Type-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: nosniff
+            X-XSS-Protection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '0'
+            Cache-Control:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: no-cache, no-store, max-age=0, must-revalidate
+            Pragma:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: no-cache
+            Expires:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '0'
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=31536000; includeSubDomains
+            X-Frame-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DENY
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/CreateSend-Toobject'
+                  - examples:
+                      - url: >-
+                          https://my.skribble.com/sendto/1d2e74c7-92d6-d552-66c6-dd9e640000c9
+                        id: 1d2e74c7-92d6-d552-66c6-dd9e640000c9
+                        access_code: fc175e6a-e9c7-73c7-8821-d6033de29999
+                contentMediaType: application/json;charset=UTF-8
+              example:
+                url: >-
+                  https://my.skribble.com/sendto/1d2e74c7-92d6-d552-66c6-dd9e640000c9
+                id: 1d2e74c7-92d6-d552-66c6-dd9e640000c9
+                access_code: fc175e6a-e9c7-73c7-8821-d6033de29999
+      deprecated: false
+      servers:
+        - url: https://api.skribble.com
+          variables: {}
+    parameters: []
+  /signature-qualities-detail:
+    get:
+      tags:
+        - User
+      summary: Get signature qualities details for a user
+      description: >-
+        The result of this query will tell you what final signature quality will
+        be used for the given user username to sign a document.  
+
+        The resulting signature quality is determined in combination of the
+        requested quality and legislation, whereas any stands for any
+        legislation.  
+
+        Description for the example request:  
+
+        If you create a SignatureRequest with quality=AES_MINIMAL and the
+        legislation=ZERTES the user in this example would finally sign the
+        document with the signature quality QES.  
+
+        As described in the previous chapter AES_MINIMAL will use QES as long as
+        the user settings allow this.
+      operationId: Getsignaturequalitiesdetailsforauser
+      parameters:
+        - name: username
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            examples:
+              - john.doe@skribble.com
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: http://example.com/v2/user
+          variables: {}
+    parameters: []
+  /v2/user/signature-qualities:
+    get:
+      tags:
+        - User
+      summary: Get a user's signature qualities (simple)
+      description: >-
+        We recommend using the `signature-qualities-details` endpoint to request
+        detailed signature quality information for a user. This endpoint
+        provides comprehensive data about the quality of the signature. However,
+        for compatibility reasons, we continue to offer the previous endpoint,
+        which delivers a simplified result set. This ensures that users of the
+        older version of our API can still access essential signature quality
+        information without needing to upgrade immediately.
+      operationId: Getauser'ssignaturequalities(simple)
+      parameters:
+        - name: username
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            examples:
+              - john.doe@skribble.com
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Getauserssignaturequalities'
+                  - examples:
+                      - qes:
+                          zertes: QES
+                          eidas: QES
+                        aes_minimal:
+                          zertes: QES
+                          eidas: QES
+                        aes:
+                          any: AES
+                        ses:
+                          any: SES
+                contentMediaType: application/json
+              example:
+                qes:
+                  zertes: QES
+                  eidas: QES
+                aes_minimal:
+                  zertes: QES
+                  eidas: QES
+                aes:
+                  any: AES
+                ses:
+                  any: SES
+      deprecated: false
+      servers:
+        - url: https://api.skribble.com
+          variables: {}
+    parameters: []
+  /v2/activities/signatures:
+    get:
+      tags:
+        - Report
+      summary: Get signature activities by business
+      description: >-
+        This endpoint provides detailled signature `activities` information for
+        your business and your members within a specified date range.
+
+
+        Use these parameters to filter for a specific time range.
+
+
+        | **Parameter** | **Description** | **Mandatory** |
+
+        | --- | --- | --- |
+
+        | `start_date` | The start date of the range to fetch the signature
+        `activities`.  <br>Format: `yyyy-MM-dd.` | yes |
+
+        | `end_date` | The end date of the range to fetch the signature
+        `activities`.  <br>Format: `yyyy-MM-dd.` | yes |
+
+
+        ### **Pagination**
+
+
+        The result set can be controlled using the optional pagination
+        parameters `page` and `size`
+
+
+        | **Parameter** | **Description** | **Mandatory** |
+
+        | --- | --- | --- |
+
+        | `page` | The page number to fetch the signature `activities`. 
+        <br>Must be a positive integer.  <br>Default: 1 | no |
+
+        | `size` | The size of the page to fetch the signature activities. 
+        <br>Must be a positive integer.  <br>Default: 25  <br>Maximum: 100 | no
+        |
+
+        | `sort` | The sort order of the signature activities. Can be `asc` or
+        `desc`.  <br>Default is `desc`. | yes |
+
+
+        ### **Response**
+
+
+        The response contains the following information.
+
+
+        **General**
+
+
+        | **Field** | **Description** |
+
+        | --- | --- |
+
+        | `activities` | Array of `activities`. See the following subchapter
+        _Activities_. |
+
+        | `total_items` | Total items to fetch when paginating through all the
+        pages. |
+
+        | `total_pages` | Total pages to fetch when paginating through all the
+        pages. |
+
+        | `current_page` | Current page number. |
+
+        | `size` | Size of the page. |
+
+
+        **Activities**
+
+
+        | **Field** | **Description** |
+
+        | --- | --- |
+
+        | `id` | The ID of the signature `activity`. |
+
+        | `action` | The action type of a signature activity. |
+
+        | Can be `signed` or `sealed`. |  |
+
+        | `timestamp` | The timestamp of the signature activity. |
+
+        | `signature_request_id` | The signature request ID. |
+
+        | `business_id_paid_by` | The ID of the business that paid for the
+        signature activity. |
+
+        | `cost_center` | The cost center of the signature paying party. |
+
+        | This information might not necessarily be present. |  |
+
+        | `initiator` | The initiator `user` of the signature `activity`. See
+        the following subchapter _User_. |
+
+        | `signer` | The signer `user` of the signature `activity`. See the
+        following subchapter _User_. |
+
+
+        **User**
+
+
+        | **Field** | **Description** |
+
+        | --- | --- |
+
+        | `user_id` | The ID of the `user`. |
+
+        | `email` | The email of the `user`. |
+
+        | `first_name` | The first name of the `user`. |
+
+        | `last_name` | The last name of the `user`. |
+
+        | `type` | The membership status of the `user` in relation to the
+        business. Can be `api`, `external`, `member` or `unknown`. |
+
+        | `mobile` | The mobile number of the user. |
+      operationId: Getsignatureactivitiesbybusiness
+      parameters:
+        - name: start_date
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            examples:
+              - '2024-01-01'
+        - name: end_date
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            examples:
+              - '2024-01-31'
+        - name: page
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            contentEncoding: int32
+            examples:
+              - 1
+        - name: size
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            contentEncoding: int32
+            examples:
+              - 50
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: string
+                examples:
+                  - |-
+                    {
+                        "total_pages": 1,
+                        "total_items": 2,
+                        "current_page": 1,
+                        "size": 50,
+                        "activities": [
+                            {
+                                "_id": "9988554433221100aabbccdd",
+                                "action": "SIGNED",
+                                "timestamp": "2024-01-10T10:10:10.000Z",
+                                "signature_request_id": "88552233-0123-1234-1234-0123456789ab",
+                                "cost_center": "Department A",
+                                "initiator": {
+                                    "email": "johnny@skribble.com",
+                                    "first_name": "Johnny",
+                                    "last_name": "Doe",
+                                    "type": "member",
+                                    "mobile": "419988776655"
+                                },
+                                "signer": {
+                                    "email": "johnny.doe@skribble.com",
+                                    "first_name": "Johnny",
+                                    "last_name": "Doe",
+                                    "type": "member",
+                                    "mobile": "419988776655"
+                                }
+                            },
+                            {
+                                "_id": "aa88554433221100aabbccee",
+                                "action": "SIGNED",
+                                "timestamp": "2024-10-01T10:10:10.000Z",
+                                "signature_request_id": "33221144-1234-1234-1234-aabbccddeeff",
+                                "cost_center": "Department B",
+                                "initiator": {
+                                    "email": "jane.doe@skribble.com",
+                                    "first_name": "Jane",
+                                    "last_name": "Doe",
+                                    "type": "member",
+                                    "mobile": "49112233445566"
+                                },
+                                "signer": {
+                                    "email": "johnny.doe@skribble.com",
+                                    "first_name": "Johnny",
+                                    "last_name": "Doe",
+                                    "type": "member",
+                                    "mobile": "419988776655"
+                                }
+                            }
+                    }
+                contentMediaType: application/json
+              example: |-
+                {
+                    "total_pages": 1,
+                    "total_items": 2,
+                    "current_page": 1,
+                    "size": 50,
+                    "activities": [
+                        {
+                            "_id": "9988554433221100aabbccdd",
+                            "action": "SIGNED",
+                            "timestamp": "2024-01-10T10:10:10.000Z",
+                            "signature_request_id": "88552233-0123-1234-1234-0123456789ab",
+                            "cost_center": "Department A",
+                            "initiator": {
+                                "email": "johnny@skribble.com",
+                                "first_name": "Johnny",
+                                "last_name": "Doe",
+                                "type": "member",
+                                "mobile": "419988776655"
+                            },
+                            "signer": {
+                                "email": "johnny.doe@skribble.com",
+                                "first_name": "Johnny",
+                                "last_name": "Doe",
+                                "type": "member",
+                                "mobile": "419988776655"
+                            }
+                        },
+                        {
+                            "_id": "aa88554433221100aabbccee",
+                            "action": "SIGNED",
+                            "timestamp": "2024-10-01T10:10:10.000Z",
+                            "signature_request_id": "33221144-1234-1234-1234-aabbccddeeff",
+                            "cost_center": "Department B",
+                            "initiator": {
+                                "email": "jane.doe@skribble.com",
+                                "first_name": "Jane",
+                                "last_name": "Doe",
+                                "type": "member",
+                                "mobile": "49112233445566"
+                            },
+                            "signer": {
+                                "email": "johnny.doe@skribble.com",
+                                "first_name": "Johnny",
+                                "last_name": "Doe",
+                                "type": "member",
+                                "mobile": "419988776655"
+                            }
+                        }
+                }
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://api.skribble.com
+          variables: {}
+    parameters: []
+  /v2/signature-requests/{SR_ID}/callbacks:
+    get:
+      tags:
+        - Callbacks
+      summary: Get the list of callbacks for a signature request
+      description: >-
+        In certain scenarios, it is beneficial to view and verify the status of
+        callbacks for a `SignatureRequest`. For example, you might want to
+        confirm whether a callback has already been executed or to identify any
+        errors that occurred during the callback process.
+
+
+        This endpoint provides the capability to obtain detailed information
+        about the callbacks associated with a `SignatureRequest`, enabling
+        comprehensive monitoring and troubleshooting. By using this endpoint,
+        you can ensure the reliability and accuracy of your callback operations
+        and quickly address any issues that may arise.
+
+
+        **Result**
+
+
+        If no callback has been called yet, the response will be an empty array.
+        Otherwise it will contain an array of `callback` objects that were
+        already executed.
+
+
+        The fields description of the single callback object:
+
+
+        | **Fieldname** | **Description** |
+
+        | --- | --- |
+
+        | `signature_request_id` | The ID of the parent `SignatureRequest`
+        object. |
+
+        | `url` | The given URL to which the callback request will be sent. |
+
+        | `type` | The type of the event the callback is executed on. This field
+        can have the value `SUCCESS`, `UPDATE` or `ERROR` based on the given
+        `SignatureRequest` fields `callback_success_url`, `callback_update_url`
+        and `callback_error_url` |
+
+        | `state` | The state of the callback. This field can be:  <br>`OPEN` -
+        The callback request will be executed in the next execution cycle. 
+        <br>`COMPLETED` - The callback request was executed successfully. The
+        API received an HTTP 2xx success code in response.  <br>`RESIGNATED` -
+        The callback request has been attempted `attempts` times but was
+        unsuccessful. The API did not receive a valid HTTP 2xx response. |
+
+        | `attempts` | The amount of times the callback request was executed. |
+
+        | `messages` | An array of messages containing the HTTP response message
+        in case that the API did not receive a HTTP 2xx success code. |
+      operationId: Getthelistofcallbacksforasignaturerequest
+      parameters:
+        - name: SR_ID
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: >-
+                    #/components/schemas/Getthelistofcallbacksforasignaturerequest
+                description: ''
+                examples:
+                  - - signature_request_id: cccccccc-5555-8888-abab-123456789012
+                      type: UPDATE
+                      state: OPEN
+                      url: >-
+                        https://myapp.com/some/path/SKRIBBLE_SIGNATURE_REQUEST_ID/update?document_id=123654789_ID&token=12345678
+                      attempts: 1
+                      messages:
+                        - 'Failed: 404 - 404 Not Found: token not found'
+                      created_at: '2049-01-01T10:00:00.000Z'
+                      updated_at: '2049-01-01T10:00:30.000Z'
+                contentMediaType: application/json
+              example:
+                - signature_request_id: cccccccc-5555-8888-abab-123456789012
+                  type: UPDATE
+                  state: OPEN
+                  url: >-
+                    https://myapp.com/some/path/SKRIBBLE_SIGNATURE_REQUEST_ID/update?document_id=123654789_ID&token=12345678
+                  attempts: 1
+                  messages:
+                    - 'Failed: 404 - 404 Not Found: token not found'
+                  created_at: '2049-01-01T10:00:00.000Z'
+                  updated_at: '2049-01-01T10:00:30.000Z'
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://api.skribble.com
+          variables: {}
+    parameters: []
+  /management/health:
+    get:
+      tags:
+        - System health
+      summary: System health
+      operationId: Systemhealth
+      parameters: []
+      responses:
+        default:
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Systemhealth200'
+                  - examples:
+                      - status: UP
+                contentMediaType: application/json
+              example:
+                status: UP
+      deprecated: false
+      servers:
+        - url: https://api.skribble.com
+          variables: {}
+    parameters: []
+  /:
+    get:
+      tags:
+        - Appendix
+      summary: Example PDF (Base64)
+      description: >-
+        This is a base64 encoded one page PDF, ready to be used in the
+        **Skribble API Quickstart** examples.  
+
+        Please copy this directly into your requests or add an environment
+        variable for this.
+      operationId: ExamplePDF(Base64)
+      parameters: []
+      responses:
+        default:
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+      servers:
+        - url: http://No request
+          variables: {}
+    parameters: []
+components:
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+  schemas:
+    Loginasuserapi_demo_your_nameRequest:
+      title: Loginasuserapi_demo_your_nameRequest
+      required:
+        - username
+        - api-key
+      type: object
+      properties:
+        username:
+          type: string
+        api-key:
+          type: string
+      examples:
+        - username: add_your_api_name_here
+          api-key: please_enter_your_password_here
+    Signature:
+      title: Signature
+      required:
+        - account_email
+      type: object
+      properties:
+        account_email:
+          type: string
+      examples:
+        - account_email: you@example.info
+    AddorremovemultiplesignerssimultaneouslyRequest:
+      title: AddorremovemultiplesignerssimultaneouslyRequest
+      required:
+        - id
+        - title
+        - signatures
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        signatures:
+          type: array
+          items:
+            $ref: '#/components/schemas/Signature'
+          description: ''
+      examples:
+        - id: '{{SR_ID}}'
+          title: NewTitleTest
+          signatures:
+            - account_email: john.doe@skribble.com
+            - account_email: new.signer@skribble.com.org
+    CreateasimplesignaturerequestforaPDFdocument:
+      title: CreateasimplesignaturerequestforaPDFdocument
+      required:
+        - title
+        - message
+        - content
+        - signatures
+      type: object
+      properties:
+        title:
+          type: string
+        message:
+          type: string
+        content:
+          type: string
+        signatures:
+          type: array
+          items:
+            $ref: '#/components/schemas/Signature'
+          description: ''
+      examples:
+        - title: Example contract
+          message: Please sign this document!
+          content: '{{BASE64_PDF}}'
+          signatures:
+            - account_email: you@example.info
+            - account_email: personOneToSign@external.net
+            - account_email: personTwoToSign@external.net
+    Signature1:
+      title: Signature1
+      required:
+        - sid
+        - account_email
+        - order
+        - status_code
+        - notify
+      type: object
+      properties:
+        sid:
+          type: string
+        account_email:
+          type: string
+        order:
+          type: integer
+          contentEncoding: int32
+        status_code:
+          type: string
+        notify:
+          type: boolean
+      examples:
+        - sid: eeeeeeee-cdab-938a-aed9-ebabbc92a013
+          account_email: you@example.info
+          order: -1
+          status_code: OPEN
+          notify: true
+    Createasignaturerequestforthreesigners200:
+      title: Createasignaturerequestforthreesigners200
+      required:
+        - id
+        - title
+        - message
+        - document_id
+        - quality
+        - signing_url
+        - status_overall
+        - signatures
+        - cc_email_addresses
+        - owner
+        - read_access
+        - write_access
+        - created_at
+        - updated_at
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        message:
+          type: string
+        document_id:
+          type: string
+        quality:
+          type: string
+        signing_url:
+          type: string
+        status_overall:
+          type: string
+        signatures:
+          type: array
+          items:
+            $ref: '#/components/schemas/Signature1'
+          description: ''
+        cc_email_addresses:
+          type: array
+          items:
+            type: string
+          description: ''
+        owner:
+          type: string
+        read_access:
+          type: array
+          items:
+            type: string
+          description: ''
+        write_access:
+          type: array
+          items:
+            type: string
+          description: ''
+        created_at:
+          type: string
+        updated_at:
+          type: string
+      examples:
+        - id: cccccccc-4a6a-a958-a42e-6ea4172a378b
+          title: Example contract
+          message: Please sign this document!
+          document_id: d98ae06a-3ae4-5cc5-c0a3-62b05901b84f
+          quality: DEMO
+          signing_url: https://my.skribble.com/view/cccccccc-4a6a-a958-a42e-6ea4172a378b
+          status_overall: OPEN
+          signatures:
+            - sid: eeeeeeee-cdab-938a-aed9-ebabbc92a013
+              account_email: you@example.info
+              order: -1
+              status_code: OPEN
+              notify: true
+            - sid: fffffff-abce-3e34-6e47-48b3624f6cd3
+              account_email: persononetosign@external.net
+              order: -1
+              status_code: OPEN
+              notify: true
+            - sid: 33333333-8408-28c1-90fc-63b4767fd7b2
+              account_email: persontwotosign@external.net
+              order: -1
+              status_code: OPEN
+              notify: true
+          cc_email_addresses: []
+          owner: api_demo_your_name
+          read_access:
+            - api_demo_your_name
+            - persononetosign@external.net
+            - persontwotosign@external.net
+            - you@example.info
+          write_access:
+            - api_demo_your_name
+          created_at: '2099-12-12T12:12:12.000Z'
+          updated_at: '2099-12-12T12:12:12.000Z'
+    GetthedocumentIDfromamissingsignaturerequest4041:
+      title: GetthedocumentIDfromamissingsignaturerequest4041
+      required:
+        - type
+        - status
+        - message
+        - method
+        - path
+      type: object
+      properties:
+        type:
+          type: string
+        status:
+          type: integer
+          contentEncoding: int32
+        message:
+          type: string
+        method:
+          type: string
+        path:
+          type: string
+      examples:
+        - type: https://api.skribble.com/problem/entity-not-found
+          status: 404
+          message: SignatureRequest not found
+          method: GET
+          path: /v2/signature-requests/000000-2423-2323-cccc-00000000000
+    TrackSend-Toobject-Checkforstatus:
+      title: TrackSend-Toobject-Checkforstatus
+      required:
+        - status
+        - signers
+        - creator
+      type: object
+      properties:
+        status:
+          type: string
+        signers:
+          type:
+            - string
+            - 'null'
+        creator:
+          type:
+            - string
+            - 'null'
+      examples:
+        - status: UNCLAIMED
+          signers: null
+          creator: null
+    SimplePDFdocumentuploadRequest:
+      title: SimplePDFdocumentuploadRequest
+      required:
+        - title
+        - content
+      type: object
+      properties:
+        title:
+          type: string
+        content:
+          type: string
+      examples:
+        - title: Example contract PDF
+          content: '{{BASE64_PDF}}'
+    SimplePDFdocumentupload200:
+      title: SimplePDFdocumentupload200
+      required:
+        - id
+        - title
+        - content_type
+        - size
+        - page_count
+        - page_width
+        - page_height
+        - owner
+        - read_access
+        - write_access
+        - created_at
+        - updated_at
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        content_type:
+          type: string
+        size:
+          type: integer
+          contentEncoding: int32
+        page_count:
+          type: integer
+          contentEncoding: int32
+        page_width:
+          type: integer
+          contentEncoding: int32
+        page_height:
+          type: integer
+          contentEncoding: int32
+        owner:
+          type: string
+        read_access:
+          type: array
+          items:
+            type: string
+          description: ''
+        write_access:
+          type: array
+          items:
+            type: string
+          description: ''
+        created_at:
+          type: string
+        updated_at:
+          type: string
+      examples:
+        - id: 00000000-1212-9546-6542-323232323232
+          title: Example contract PDF
+          content_type: application/pdf
+          size: 29010
+          page_count: 1
+          page_width: 600
+          page_height: 840
+          owner: api_demo_example
+          read_access:
+            - api_demo_example
+          write_access:
+            - api_demo_example
+          created_at: '2099-12-12T12:12:12.000Z'
+          updated_at: '2099-12-12T12:12:12.000Z'
+    SignerIdentityData3:
+      title: SignerIdentityData3
+      required:
+        - email_address
+      type: object
+      properties:
+        email_address:
+          type: string
+      examples:
+        - email_address: single-signer@skribble.com
+    AddanindividualsignerRequest:
+      title: AddanindividualsignerRequest
+      required:
+        - account_email
+        - signer_identity_data
+      type: object
+      properties:
+        account_email:
+          type: string
+        signer_identity_data:
+          allOf:
+            - $ref: '#/components/schemas/SignerIdentityData3'
+            - {}
+      examples:
+        - account_email: single-signer@skribble.com
+          signer_identity_data:
+            email_address: single-signer@skribble.com
+    AddanattachmenttoasignaturerequestRequest:
+      title: AddanattachmenttoasignaturerequestRequest
+      required:
+        - filename
+        - content_type
+        - content
+      type: object
+      properties:
+        filename:
+          type: string
+        content_type:
+          type: string
+        content:
+          type: string
+      examples:
+        - filename: some_attachment_with_somename.pdf
+          content_type: application/pdf
+          content: '{{BASE64_PDF}}'
+    Addaunsupportedattachmenttype:
+      title: Addaunsupportedattachmenttype
+      required:
+        - type
+        - status
+        - message
+        - method
+        - path
+      type: object
+      properties:
+        type:
+          type: string
+        status:
+          type: integer
+          contentEncoding: int32
+        message:
+          type: string
+        method:
+          type: string
+        path:
+          type: string
+      examples:
+        - type: https://api.skribble.com/problem/problem-with-message
+          status: 400
+          message: Attachment type is not supported
+          method: POST
+          path: /v2/signature-requests/attachments
+    WithdrawasignaturerequestRequest:
+      title: WithdrawasignaturerequestRequest
+      required:
+        - message
+      type: object
+      properties:
+        message:
+          type: string
+      examples:
+        - message: Withdrawel for good reasons.
+    Position:
+      title: Position
+      required:
+        - page
+        - height
+        - width
+        - x
+        - 'y'
+      type: object
+      properties:
+        page:
+          type: string
+        height:
+          type: integer
+          contentEncoding: int32
+        width:
+          type: integer
+          contentEncoding: int32
+        x:
+          type: integer
+          contentEncoding: int32
+        'y':
+          type: integer
+          contentEncoding: int32
+      examples:
+        - page: '0'
+          height: 70
+          width: 150
+          x: 350
+          'y': 240
+    Image:
+      title: Image
+      required:
+        - content_type
+        - content
+      type: object
+      properties:
+        content_type:
+          type: string
+        content:
+          type: string
+      examples:
+        - content_type: image/png
+          content: '{{BASE64_PNG}}'
+    VisualSignature2:
+      title: VisualSignature2
+      required:
+        - position
+        - image
+      type: object
+      properties:
+        position:
+          allOf:
+            - $ref: '#/components/schemas/Position'
+            - {}
+        image:
+          allOf:
+            - $ref: '#/components/schemas/Image'
+            - {}
+      examples:
+        - position:
+            x: 20
+            'y': 20
+            width: 260
+            height: 120
+            page: '0'
+          image:
+            content_type: image/png
+            content: '{{BASE64_PNG}}'
+    SealadocumentRequest:
+      title: SealadocumentRequest
+      required:
+        - content
+        - visual_signature
+      type: object
+      properties:
+        content:
+          type: string
+        visual_signature:
+          allOf:
+            - $ref: '#/components/schemas/VisualSignature2'
+            - {}
+      examples:
+        - content: '{{BASE64_PDF}}'
+          visual_signature:
+            position:
+              x: 20
+              'y': 20
+              width: 260
+              height: 120
+              page: '0'
+            image:
+              content_type: image/png
+              content: '{{BASE64_PNG}}'
+    Sealadocument200:
+      title: Sealadocument200
+      required:
+        - document_id
+      type: object
+      properties:
+        document_id:
+          type: string
+      examples:
+        - document_id: e4cde459-6e63-0095-10b8-55b39ec39f46
+    CreateSend-ToobjectRequest:
+      title: CreateSend-ToobjectRequest
+      required:
+        - title
+        - content
+      type: object
+      properties:
+        title:
+          type: string
+        content:
+          type: string
+      examples:
+        - title: Skribble Demo Send-To
+          content: '{{BASE64_PDF}}'
+    CreateSend-Toobject:
+      title: CreateSend-Toobject
+      required:
+        - url
+        - id
+        - access_code
+      type: object
+      properties:
+        url:
+          type: string
+        id:
+          type: string
+        access_code:
+          type: string
+      examples:
+        - url: https://my.skribble.com/sendto/1d2e74c7-92d6-d552-66c6-dd9e640000c9
+          id: 1d2e74c7-92d6-d552-66c6-dd9e640000c9
+          access_code: fc175e6a-e9c7-73c7-8821-d6033de29999
+    Qes:
+      title: Qes
+      required:
+        - zertes
+        - eidas
+      type: object
+      properties:
+        zertes:
+          type: string
+        eidas:
+          type: string
+      examples:
+        - zertes: QES
+          eidas: QES
+    AesMinimal:
+      title: AesMinimal
+      required:
+        - zertes
+        - eidas
+      type: object
+      properties:
+        zertes:
+          type: string
+        eidas:
+          type: string
+      examples:
+        - zertes: QES
+          eidas: QES
+    Aes:
+      title: Aes
+      required:
+        - any
+      type: object
+      properties:
+        any:
+          type: string
+      examples:
+        - any: AES
+    Ses:
+      title: Ses
+      required:
+        - any
+      type: object
+      properties:
+        any:
+          type: string
+      examples:
+        - any: SES
+    Getauserssignaturequalities:
+      title: Getauserssignaturequalities
+      required:
+        - qes
+        - aes_minimal
+        - aes
+        - ses
+      type: object
+      properties:
+        qes:
+          allOf:
+            - $ref: '#/components/schemas/Qes'
+            - {}
+        aes_minimal:
+          allOf:
+            - $ref: '#/components/schemas/AesMinimal'
+            - {}
+        aes:
+          allOf:
+            - $ref: '#/components/schemas/Aes'
+            - {}
+        ses:
+          allOf:
+            - $ref: '#/components/schemas/Ses'
+            - {}
+      examples:
+        - qes:
+            zertes: QES
+            eidas: QES
+          aes_minimal:
+            zertes: QES
+            eidas: QES
+          aes:
+            any: AES
+          ses:
+            any: SES
+    Getthelistofcallbacksforasignaturerequest:
+      title: Getthelistofcallbacksforasignaturerequest
+      required:
+        - signature_request_id
+        - type
+        - state
+        - url
+        - attempts
+        - messages
+        - created_at
+        - updated_at
+      type: object
+      properties:
+        signature_request_id:
+          type: string
+        type:
+          type: string
+        state:
+          type: string
+        url:
+          type: string
+        attempts:
+          type: integer
+          contentEncoding: int32
+        messages:
+          type: array
+          items:
+            type: string
+          description: ''
+        created_at:
+          type: string
+        updated_at:
+          type: string
+      examples:
+        - signature_request_id: cccccccc-5555-8888-abab-123456789012
+          type: UPDATE
+          state: OPEN
+          url: >-
+            https://myapp.com/some/path/SKRIBBLE_SIGNATURE_REQUEST_ID/update?document_id=123654789_ID&token=12345678
+          attempts: 1
+          messages:
+            - 'Failed: 404 - 404 Not Found: token not found'
+          created_at: '2049-01-01T10:00:00.000Z'
+          updated_at: '2049-01-01T10:00:30.000Z'
+    Systemhealth200:
+      title: Systemhealth200
+      required:
+        - status
+      type: object
+      properties:
+        status:
+          type: string
+      examples:
+        - status: UP
+security: []
+tags:
+  - name: 🔑 Authentication
+    description: >-
+      In order to use the API of Skribble, you first need to obtain an API key
+      with an API user. Both can be accessed inside the API key page inside your
+      business profile. From here, you can create and manage your API keys.
+      Consult our
+      [guide](https://docs.skribble.com/business-admin/api/apicreate.html) for
+      help.
+
+
+      Skribble offers two types of API keys:
+
+
+      **Demo API keys**  
+
+      Demo API keys are for testing and development purposes.  
+
+      You can recognize these keys by their name, which start with
+      **api_demo**.  
+
+      Signatures requested by such keys don't have any legal weight and are free
+      of charge.
+
+
+      **Production API keys**  
+
+      Production API keys are used for live systems.  
+
+      Signatures requested by such keys will be invoiced.  
+
+      You can recognize these keys by their name, which usually starts with
+      **api_production** or in some rare cases just with **api_prod**.
+
+
+      > **⚠ Note**  
+
+      All costs of signature requests created with your API keys will be
+      **charged to your business**! 
+        
+
+      We recommend you to **start with a demo API key for development and
+      testing** and switch to the production API key as soon as you are finished
+      with testing.
+
+
+      If you have problems setting up Skribble Business, just drop us an e-mail
+      at  
+
+      [info@skribble.com](https://mailto:info@skribble.com)
+  - name: 1. Create a SignatureRequest
+    description: >-
+      The document workflow is quite easy.  
+
+      You have one document and need one or more signatures. The document is
+      private and not publicly available.
+
+
+      We need to create a `SignatureRequest` object in Skribble. A
+      `SignatureRequest` is a description telling Skribble, **who** is going to
+      sign **what** and optionally how the signature should look like.
+
+
+      So, let's start with the minimal information Skribble needs.
+
+
+      1. Tell the user, **what will be signed**  
+          The `title` should be short and treated like a file name. This field is mandatory.
+          
+      2. Tell Skribble **who will sign**  
+          The `signatures` array contains all signers of the document.  
+          In the example, we have 3 signers. They can sign in any sequence they want, and the signature position and appearance will be defined by the Skribble web application.  
+          All participants are informed at the same time and are allowed to sign the document in any order. The system ensures that the document is nevertheless only changed sequentially.  
+          The `account_email` contains the user's e-mail address. It has two functions. All notifications are sent to this e-mail address AND the e-mail is used to find the user's ID in our database.
+          
+      3. Tell Skribble **which document will be signed**  
+          The `content` field contains the **Base64 encoded** bytes of the **PDF document**.  
+          As an alternative to the `content`, you can give Skribble an URL using the field `file_url`, where it can download the document. The URL must not be used together with the content field.  
+          All URLs passed to Skribble must use the HTTPS protocol.  
+          `"file_url" : "https://myapp.com/path/to/document"`
+          
+
+      > Since we have a private document the recommended way is to transfer it
+      to Skribble directly. 
+        
+      > The **maximum document size** is about **40 MB**, which results in the
+      maximum request size of 60 MB. 
+        
+
+      You will find more details to the `SignatureRequest` in the chapter
+      **Reference**.
+  - name: 2. Redirect the user to the Skribble web application
+    description: >-
+      The user has to visit the [Skribble web
+      application](https://my.skribble.com) to actually sign the document.
+
+
+      When we created a Signature Request, the user got notified by Skribble
+      that there is a document waiting to be signed.
+
+
+      Now we want to continue immediately and redirect the browser directly to
+      Skribble showing the uploaded document.
+
+
+      Skribble provides a `signing_url` inside the SignatureRequest.  
+
+      The `signing_url` not only points to the [Skribble web
+      application](https://my.skribble.com), but will directly open the document
+      for signing provided that the user is known to Skribble and is logged in.
+      Otherwise, the user must login or register first to be able to see the
+      document.
+
+
+      There are some more options available to tailor the signing flow to your
+      application's specific needs.
+
+
+      #### Using redirections
+
+
+      After successfully signing the document, the user will stay on the
+      [Skribble web application](https://my.skribble.com).
+
+
+      However, you can add three different exit points as query parameters to
+      the `signing_url`. Skribble will respect these parameters and redirect the
+      user to the provided URLs once the signature process is finished.
+
+
+      Using this, you can bring the user back from Skribble to your application.
+
+
+      Make sure you encode your exit URLs properly. This is especially important
+      for `GET` parameter separators like **?** and **&** to ensure that they
+      are not interpreted by browsers as `GET` parameters on Skribble's web
+      application itself.
+
+
+      ##### Exit points
+
+
+      | Parameter | Description |
+
+      | --- | --- |
+
+      | `exitURL` | URL to redirect the user to after the signature process
+      finished. |
+
+      | `errorURL` | URL to redirect the user to if any error occurs. Defaults
+      to exitURL. Ignored if exitURL is not specified. |
+
+      | `declineURL` | URL to redirect the user to if the user declines the
+      signature request. Defaults to exitURL. Ignored if exitURL is not
+      specified. |
+
+      | `declineRedirect=true` (optional) | Use this in combination with
+      `declineURL` to redirect directly to the specified `declineURL`. Skribble
+      popups after the decline action will be skipped by this. |
+
+
+      ##### Redirection timeout
+
+
+      If `exitURL` is specified the user will be automatically redirected to the
+      given URL after a successfull signature process. The default **redirection
+      timeout is 45 seconds**.
+
+
+      Using the URL parameter `redirectTimeout` this duration can be adjusted.
+
+
+      Values equal or lower than 0 will cause the user to be redirected
+      instantly, skipping Skribble's success page. For usability reasons the
+      duration cannot be longer than 90 seconds. If a value higher than 90 is
+      specified, the value will be set to 90.
+
+
+      ##### Hide download button
+
+
+      The success screen can be further simplified by hiding the download
+      button. This minimises the chances that the user gets side tracked and
+      won't follow through to the intended `exitURL`.
+
+
+      To hide the download button you must specify an `exitURL` as well as
+      `hidedownload`. The actual value of `hidedownload` does not matter for it
+      to be active.
+
+
+      Be aware that you have to offer the signed document as a download to the
+      user in your application if you hide the download button on Skribble's
+      interface.
+  - name: 3. Download the signed PDF document
+    description: >-
+      Now we want to download the signed PDF document. The `SignatureRequest`
+      that we created before contains the `document_id`.  
+
+      The document ID is needed to download the document content or in other
+      words to download the PDF document.
+
+
+      We can get the `SignatureRequest` with `GET
+      /v2/signature-requests/{SR_ID}`  
+
+      You will find the document ID inside the field `document_id`.
+
+
+      Finally, we can download the PDF document with a call to `GET
+      /v2/documents/{DOC_ID}/content`.
+
+
+      > **Note**  
+
+      Documents on Skribble are **unchangeable** (immutable).  
+
+      Changes to the document content, like a completed signature, always lead
+      to a **NEW** document with a **NEW** ID. This means that the document ID
+      you receive after uploading a document, will differ from the ID you
+      receive after downloading the document once it is signed . 
+        
+
+      You can find ways to get notified about changes on the `SignatureRequest`
+      in the chapter **Monitoring**.
+  - name: Define the signers
+    description: >-
+      As mentioned in the **Quickstart** chapter, it is possible to specify the
+      number of signers.  
+
+      Please refer to that chapter for an example.
+
+
+      The following special cases should be mentioned.
+
+
+      1.  Add the **SAME signer** more than once.
+
+      2.  **NO signer** initially
+  - name: Define Visual Signatures
+    description: >-
+      The visual signature on a PDF document is an optional element that does
+      not affect the legal validity of the electronic signature. The decision to
+      add a visual signature is at the discretion of the inviter. Including a
+      visual signature can maintain the appearance of a handwritten signature
+      and provide additional information about the signer.
+
+
+      If a signature request lacks specific instructions for a visual signature,
+      the user can create and place a visual signature anywhere on the document
+      using the [Skribble web application](https://my.skribble.com). This
+      flexibility mirrors how physical documents handle signature placement,
+      where visual hints like "Please sign here" are helpful but not required.
+
+
+      In the digital world, we have some more options.
+
+
+      **Multiple visual signatures**
+
+
+      Visual signatures can be placed multiple times within a document, similar
+      to how one might need to sign in various locations on a physical document.
+      The advantage of this approach is that the signatory only needs to sign
+      once using the [ Skribble web application](https://my.skribble.com). All
+      visual signatures in the document are then linked to this single
+      electronic signature.
+  - name: Provide PDF file to sign
+    description: >-
+      The **Skribble API** supports different ways of providing the PDF document
+      for signing.
+  - name: Define the signature quality and legislation
+    description: >-
+      Skribble supports different levels of signature qualities – the so-called
+      e-signature standards. For more information on when to use which
+      e-signature standard, visit our
+      [website](https://www.skribble.com/signaturestandards/).
+
+
+      The selected signature quality for the document is determined by two
+      parameters: `quality` and `legislation`.
+
+
+      The parameter `quality` supports the following values:
+
+
+      | Quality | Description |
+
+      | --- | --- |
+
+      | **QES** | The document must be signed at QES, so every signer must use
+      QES. This is the **default** quality. |
+
+      | **AES** | The document should be signed at AES. Signers will use AES, if
+      available, otherwise they fall back to QES, if available. |
+
+      | **AES_MINIMAL** | The document will be signed at at least AES, but a
+      higher level is preferred. Signers will sign QES, if available, otherwise
+      they will use AES. |
+
+      | **SES** | The document will be signed at SES by every signer. |
+
+      | **DEMO** | The document will be signed with a DEMO signature by every
+      signer.  <br>**Note:** This signature has **NO** legal binding at
+      all.<br>**ALL** `SignatureRequests` that are created using an API demo
+      user (*api_demo_example_xyz*) will get this quality by default. |
+
+
+      > **Note**  
+
+      > The qualities `QES` and `AES_MINIMAL` must provide a `legislation`
+      parameter, because the QES is bound to legal regulations, which are
+      different in Switzerland and the EU.
+
+
+      The legislation parameter correspond to the following values:
+
+
+      | Legislation | Description |
+
+      | --- | --- |
+
+      | **ZERTES** | QES according to the Swiss law. This is the **default**
+      legislation. |
+
+      | **EIDAS** | QES according to the EU law. |
+  - name: Signing without an account
+    description: >-
+      It is possible to create a `SignatureRequest` where one or more invited
+      participants won't need a [Skribble](https://my.skribble.com) account to
+      sign the `SignatureRequest`. Those signers are called
+      _**No-Account-Signers (NAS)**_.
+
+
+      To create a `SignatureRequest` for a user without an account, omit the
+      `signatures` array entry for this user and provide the necessary data
+      using the `signer_identity_data` element instead.
+
+
+      | Field | Description | Mandatory |
+
+      | --- | --- | --- |
+
+      | `email_address` | E-mail address of no account signer | yes (for quality
+      SES) |
+
+      | `mobile_number` | Mobile number of no account signer | no |
+
+      | `first_name` | First name of no account signer | no |
+
+      | `last_name` | Last name of no accounts signer | no |
+
+      | `provider` | Evidence provider where Skribble can verify the signer's
+      identity data. | no |
+
+      | `language` | See **Language parameter** for more information. | no |
+
+
+      Other settings can be provided as usual, e.g. callback URLs, documents and
+      so on.
+
+
+      Each entry in the `signatures` array will be treated as a distinct
+      identity. This means two entries with the same `signer_identity_data` are
+      treated as two different identities and require that this person signs the
+      document twice.
+
+
+      Optionally you can combine `signer_identity_data` and `account_email` in
+      your requests. In this case, the system checks first if there is a
+      Skribble account with the specified e-mail address. If one is found the
+      existing Skribble user will be invited to sign the document. Otherwise,
+      the specified user in `signer_identity_data` will be invited to sign.
+
+
+      > 💡 Good to know  
+
+      We recommend this approach of combining `signer_identity_data` and
+      `account_email` if you are unsure whether the user has a Skribble
+      account.  
+
+      The benefit is that an existing Skribble user will afterwards find the
+      SignatureRequest in the **To sign** section of their account on
+      my.skribble.com.  
+
+      Conversely, if you invite them using only `signer_identity_data`, the
+      document will not appear in their Skribble account, even if they have an
+      existing Skribble account. Instead, they will have to access the document
+      using the specific link provided in their signature invitation email. 
+        
+
+      When the user visits the URL provided in the field `signing_url` inside
+      the signature element, he will be forwarded to a special preview page of
+      the PDF document and can start the signature process as usual.
+
+
+      Missing fields like first name and last name can easily be adjusted by the
+      signer through the Skribble web client.
+
+
+      > Please note that you do not mix up the `signing_url` inside the
+      `signature` field with the `signing_url` on the top level of the response.
+      This contains the default URL for users with a regular
+      [Skribble](https://my.skribble.com) account . 
+        
+
+      ##### Language parameter
+
+
+      ###### Browser view
+
+
+      Skribble will display its content in the user's browser language by
+      default. You can change the language by adding a `lang` parameter to the
+      `signing_url` when calling the browser.
+
+
+      > Example for a `lang` parameter  
+
+      _my.skribble.com/view/some-id-000-00000/some-id-fff-fffff?lang=fr_ 
+        
+
+      ###### E-mail
+
+
+      To determine in which language the e-mails are sent to the user, the
+      parameter `language` can be added to `signer_identity_data`.
+
+
+      ###### Supported languages
+
+
+      Skribble supports the following languages:
+
+
+      | Code | Language |
+
+      | --- | --- |
+
+      | en | English (default) |
+
+      | de | German |
+
+      | fr | French |
+  - name: Define observers
+    description: >-
+      Skribble allows observers to be added to a `SignatureRequest`. Observers
+      are given read access on the `SignatureRequest` and will be notified in
+      the same way about activities on the `SignatureRequest` as a signer of the
+      `SignatureRequest`.
+
+
+      > **Note**  
+
+      > The given observers need to have a valid Skribble account. Otherwise the
+      email address will not be accepted as valid observer.
+  - name: Disable notification e-mails
+    description: >-
+      Skribble takes over the communication with all participants of a
+      `SignatrueRequest`, such as the creator or the different signers. It
+      informs the respective participants by e-mail about changes in the status
+      of the SR.These notifications are activated by default, but can be
+      deactivated by a parameter.
+  - name: Define automatic attachments
+    description: >-
+      When a `SignatureRequest` has been signed by all signers, all signers and
+      all observers are notified by email.
+
+
+      Skribble provides the option to attach two types of attachments
+      automatically to this email:
+
+
+      *   the signed document and
+
+      *   the signature protocol.   
+
+
+      This can be configured via the business settings, which can be used to
+      define that these documents should generally be attached for all
+      `SignatureRequests` created by business members.
+
+
+      Alternatively it is possible to define the attachments on demand per
+      `SignatureRequest` by using the `SignatureRequest` field
+      `attach_on_success.`
+  - name: Define a specific owner
+    description: >-
+      Generally, all `SignatureRequest` objects are created by an API user, who
+      then typically becomes the owner of these objects.
+
+
+      However, in some specific cases, you might want to designate a business
+      member as the owner of a SignatureRequest. For instance, if you have an
+      interface for one of your company applications, you may want the
+      application user to become the owner of the `SignatureRequest` when they
+      initiate a signing process.
+
+
+      This is possible, but only if two conditions are met:
+
+
+      1. The user designated as the new owner must have a **valid Skribble
+      account.**
+
+      2. The user designated as the new owner must be a **member of the same
+      business** as the API user. External users cannot be made owners of a
+      SignatureRequest.
+          
+
+      > 💡 Good to know  
+
+      Even after changing the owner, the API user will remain a participant of
+      the `SignatureRequest` object with read and write access. This allows the
+      API user to continue performing actions such as modifying or retrieving
+      the `SignatureRequest` object.
+  - name: Define a signing sequence
+    description: >-
+      It may be the case that certain contracts or documents must be signed by
+      the signatories in a certain sequence.
+  - name: Disable TAN based NAS notifications for SES
+    description: >-
+      In combination with SES, Skribble offers a straightforward TAN-based
+      validation for the email addresses of No-Account-Signers.
+
+
+      This mechanism can be disabled by setting the field `notify` to `false`
+      and additionally using the field `signer_identity_data.identity_reference`
+      which can hold a customer generated value for further identtification.
+
+
+      This means that No-Account-Signers can sign directly without needing the
+      additional Skribble TAN process.
+
+
+      This option enables you to either handle user identification themselves or
+      to simply jump in as guarantee for your users.
+  - name: Find
+    description: >-
+      #### Signature state
+
+
+      A `SignatureRequest` as well as the single `Signatures` can be in
+      different states.  
+
+      The state of the `SignatureRequest` can be found in the field
+      `status_overall`.  
+
+      The single `Signatures` contains its state ind the field
+      `signatures[].status_code`  
+
+      The `SignatureRequest` and the `Signatures` can take one of the following
+      states:
+
+
+      | State | for Signature | for Signature Request |
+
+      | --- | --- | --- |
+
+      | **OPEN** | Waiting for the user to sign a signature. | At least one user
+      has not signed or declined his/her signature yet. |
+
+      | **DECLINED** | The user declined to sign. | At least one user declined
+      to sign. The signature request failed. |
+
+      | **WITHDRAWN** | The owner has withdrawn the signature request. | The
+      owner has withdrawn the signature request. |
+
+      | **SIGNED** | The user signed the document. | All users signed the
+      document. The signature request was successfully completed. |
+
+      | *ERROR* | A technical error occurred. | A technical error occurred. The
+      signature request cannot be completed. |
+
+
+      > **Note**  
+
+      > The signature states are managed by the system. It has informal value
+      and cannot be changed using the API.
+  - name: Add or remove signers
+    description: >-
+      The Skribble API provides several methods for adding or removing signers
+      from a SignatureRequest object. You can add or remove signers individually
+      or update multiple signers simultaneously.
+  - name: Add or remove attachments
+    description: >-
+      You may need to provide participants with additional information in the
+      form of supplementary documents, such as Terms & Conditions or appendix
+      documents.
+
+
+      In this case, you can use the `attachment` endpoints to provide such
+      documents through the `SignatureRequest` to the participants of the
+      `SignatureRequest`.
+
+
+      **Limits by content-type**
+
+
+      The Skribble API accepts files of the type PDF, image files, Microsoft
+      Office files and plain text types.
+
+
+      Detailed list of the allowed `content_types`:
+
+
+      - `application/pdf`
+
+      - `application/x-tika-msoffice`
+
+      - `application/x-tika-ooxml`
+
+      - `application/msword`
+
+      -
+      `application/vnd.openxmlformats-officedocument.wordprocessingml.document`
+
+      - `application/vnd.ms-word.document.macroEnabled.12`
+
+      - `application/vnd.ms-excel`
+
+      - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
+
+      - `application/vnd.ms-excel.sheet.macroenabled.12`
+
+      - `application/vnd.ms-powerpoint`
+
+      -
+      `application/vnd.openxmlformats-officedocument.presentationml.presentation`
+
+      - `application/vnd.ms-powerpoint.presentation.macroEnabled.12`
+
+      - `image/gif`
+
+      - `image/jpeg`
+
+      - `image/png`
+
+      - `test/plain`
+          
+
+      **Limits by content-size**
+
+
+      The maximum size of one attachment file is equal to the the **maximum
+      document size** of a PDF, which is about **40 MB**, which results in the
+      maximum request size of 60 MB.
+
+
+      **Limits by amount**
+
+
+      Skribble currently does not limit the number of attachments per
+      SignatureRequest. However, if we observe abuse of this service, we will
+      take appropriate measures.
+  - name: Modify
+    description: >-
+      Modifications on existing `SignatureRequests` should be handled with
+      care.  
+
+      We recommend creating the `SignatureRequests` with all necessary
+      information. 
+  - name: Triggers
+    description: >-
+      Triggering actions on SignatureRequests should be handled with care to
+      avoid spamming your users or customers.
+  - name: Create
+    description: >-
+      Uploading and affixing an electronic seal to a document takes just one
+      call using the `/v2/seal` resource.
+
+
+      The JSON is similar to the `SignatureRequest`. It requires only the PDF
+      document as a Base64 encoded string in the content field.
+
+
+      Additionally, you can place a visual signature on the document, as
+      described in the [Visual
+      Signatures](#cb71da67-1dbe-43a6-b74f-405935d88746) chapter of the Skribble
+      API documentation, but this is optional.
+
+
+      An API response from a seal request contains a `document_id` of the newly
+      created document with the seal.
+
+
+      Use the `GET /v2/documents` resource to retrieve the document with the
+      electronic seal or reuse it in further signature requests, such as for
+      personal electronic signatures.
+  - name: User
+    description: >-
+      The Skribble API provides the resource `/user`. This resource can be used
+      to query user data. At the moment, only the endpoint
+      `/user/signature-qualities` is offered to query the possible qualities a
+      user can use for signing.
+  - name: Report
+    description: >-
+      Activities provide detailled signature usage information for your
+      business.
+  - name: Callbacks
+    description: >-
+      The easiest way to get the correct document ID after signing, is to use
+      _success_, _update_ and _failure_ callbacks. These callbacks are triggered
+      as soon as one of the mentioned events takes place.
+
+
+      ##### Set callbacks
+
+
+      To use these callbacks, the corresponding URL that should be called on one
+      of the events, can be added to the `SignatureRequest` in one of these
+      fields
+
+
+      | Field | Description |
+
+      | --- | --- |
+
+      | `callback_success_url` | Is triggered when the document has been
+      successfully signed by all parties involved. |
+
+      | `callback_update_url` | Is triggered on changes on the
+      `SignatureRequest` object like when one person of all involved parties has
+      signed. |
+
+      | `callback_error_url` | Is triggered when a person declines the signature
+      or when the `SignatureRequest` is withdrawn. |
+
+
+      > 💡 Good to know  
+
+      Callback URLs will be called using a _POST_ request.  
+
+      Callback URLs will be HTML encoded for the request. So please ensure, that
+      your URL does not contain already encoded characters. 
+        
+
+      The callback URLs may contain placeholders, which are replaced with the
+      current `SignatureRequest` data before the URL is called.
+
+
+      | Placeholder | Description |
+
+      | --- | --- |
+
+      | `SKRIBBLE_SIGNATURE_REQUEST_ID` | Will be replaced with the
+      `SignatureRequest` ID, which triggers the callback. |
+
+      | `SKRIBBLE_DOCUMENT_ID` | Will be replaced with the most recent or final
+      document ID, which belongs to the triggering `SignatureRequest`. |
+
+      | `SKRIBBLE_SIGNATURE_ID` | Only after a successful signature, so only for
+      `callback_update_url`, this will be replaced with the Signature ID `SID`
+      of the signature just made. |
+
+
+      So, if the success callback triggers, the URL contains the correct
+      document ID, which can then be used to retrieve the document.
+
+
+      ##### TLS Mutual Authentication
+
+
+      Callbacks support TLS mutual authentication (mTLS). If the callback
+      endpoint (your side) asks for a client authentication during the TLS
+      handshake, Skribble will authenticate itself with a [X.509 certificate for
+      <i>api.skribble.com.</i>](https://www.skribble.com/ext/api/certificates/api.skribble.com.cer)  
+
+      The callback will additionally send the related [root certificate from
+      Globalsign](https://www.skribble.com/ext/api/certificates/GlobalSign_Root_CA.cer)
+      as certificate authority as well as the related [intermediate certificate
+      by Alpha
+      SSL](https://www.skribble.com/ext/api/certificates/AlphaSSL_CA.cer) as
+      certificate provider.
+
+
+      ##### Retrials
+
+
+      _Default:_ If a callback does not respond immediately, e.g. due to a
+      **system downtime** on the callback url server (your side), Skribble will
+      retry to call to the callback url every **10 minutes for two hours**.
+      After this, Skribble will stop its efforts to contact the callback
+      endpoint.
+
+
+      _Retry-After:_ A callback response may contains a `Retry-After` header.
+      With this value your system does informs Skribble API to pause retry
+      attempts calling the callback URL until this pause time in seconds
+      expires.
+  - name: System health
+    description: >-
+      If you need to monitor the responsiveness of the Skribble API, you may
+      want to have a look at the `health` resource. It will give you a short
+      update about the current status of the system. `status:UP` tells you that
+      the system is up and running.
+  - name: Appendix
+    description: Appendix

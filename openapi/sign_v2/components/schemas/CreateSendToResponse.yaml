@@ -7,14 +7,16 @@ required:
 properties:
   url:
     type: string
+    description: URL to claim document to get signed.
     format: uri
+    example: https://my.skribble.com/sendto/8229873d-d7c7-4e2b-a8a3-3313532
   id:
     type: string
+    description: Generated send-to document ID
     format: uuid
+    example: 8229873d-d7c7-4e2b-a8a3-000003313532
   access_code:
     type: string
+    description: Access code to be used in for endpoints.
     format: uuid
-example:
-  url: https://my.skribble.com/sendto/1d2e74c7-92d6-d552-66c6-dd9e640000c9
-  id: 1d2e74c7-92d6-d552-66c6-dd9e640000c9
-  access_code: fc175e6a-e9c7-73c7-8821-d6033de29999
+    example: 1232324-a123-478a-8130-b85e6c599999

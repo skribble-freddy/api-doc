@@ -24,6 +24,7 @@ get:
           schema:
             type: string
             format: binary
+        # TODO Possible to get application/json by invoking Accept in header as parameters?
     400:
       $ref: ../components/responses/BadRequest.yaml
       # TODO

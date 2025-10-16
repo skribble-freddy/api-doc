@@ -1,9 +1,0 @@
-title: VisualSignature1
-required:
-  - form_field
-type: object
-properties:
-  form_field:
-    type: string
-examples:
-  - form_field: Person_1

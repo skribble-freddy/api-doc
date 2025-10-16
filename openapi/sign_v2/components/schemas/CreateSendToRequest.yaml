@@ -6,8 +6,10 @@ type: object
 properties:
   title:
     type: string
+    description: Title of the document.
+    example: Document 1
   content:
     type: string
+    description: Base64 Encoded Document.
     format: byte
-example:
-  content: "JVBERi0xLjQKJcfs..."
+    example: "JVBERi0xLjQKJcfs..."

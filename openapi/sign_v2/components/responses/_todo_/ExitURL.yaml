@@ -1,9 +1,0 @@
-name: exitURL
-in: query
-required: false
-description: >-
-  Optional URL to redirect after the signature process finished or declined.
-schema:
-  type: string
-  format: url
-  example: https%3A%2F%2Fgoogle.com

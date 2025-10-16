@@ -1,8 +1,0 @@
-name: hidedownload
-in: query
-required: false
-description: >-
-  Optional Flag to hide and disable the download document option.
-schema:
-  type: boolean
-  example: true

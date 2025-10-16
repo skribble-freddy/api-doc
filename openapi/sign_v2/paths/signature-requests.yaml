@@ -12,7 +12,12 @@ post:
   security:
     - bearer: []
   requestBody:
-    $ref: ../components/requestBodies/CreateSignatureRequest.yaml
+    description: Request body to create a SignatureRequest object
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/CreateSignatureRequest.yaml
   responses:
     200:
       description: OK
@@ -162,7 +167,12 @@ put:
   security:
     - bearer: []
   requestBody:
-    $ref: ../components/requestBodies/CreateSignatureRequest.yaml
+    description: Request body to update a SignatureRequest object
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/CreateSignatureRequest.yaml
   responses:
     200:
       description: OK

@@ -1,9 +1,0 @@
-title: WithdrawasignaturerequestRequest
-required:
-  - message
-type: object
-properties:
-  message:
-    type: string
-examples:
-  - message: Withdrawel for good reasons.

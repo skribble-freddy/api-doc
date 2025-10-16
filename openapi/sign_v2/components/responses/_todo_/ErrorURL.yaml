@@ -1,9 +1,0 @@
-name: errorURL
-in: query
-required: false
-description: >-
-  Optional URL to redirect in case of an error.
-schema:
-  type: string
-  format: url
-  example: https%3A%2F%2Fbing.com

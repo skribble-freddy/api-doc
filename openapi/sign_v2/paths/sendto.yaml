@@ -22,7 +22,15 @@ post:
   security:
     - bearer: []
   requestBody:
-    $ref: ../components/requestBodies/CreateSendToRequest.yaml
+    description: Content can be sent directly as a file or base64-encoded in a JSON object
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/CreateSendToRequest.yaml
+      multipart/form-data:
+        schema:
+          $ref: ../components/schemas/CreateSendToRequest.yaml
   responses:
     200:
       description: OK

@@ -7,14 +7,6 @@ properties:
     format: email
     description: Email address of no-account-signer
     example: no-account@skribble.com
-  identity_reference:
-    type: string
-    description: Optional identification reference (TODO)
-    example: Internal-ID-012345
-  mobile_number:
-    type: string
-    description: Mobile number of no-account-signer
-    example: 41791234567
   first_name:
     type: string
     description: First name of no-account-signer
@@ -23,8 +15,17 @@ properties:
     type: string
     description: Last name of no-account-signer
     example: Doe
+  mobile_number:
+    type: string
+    description: Mobile number of no-account-signer
+    example: 41791234567
   language:
     $ref: ./SignatureLanguage.yaml
+  identity_reference:
+    # TODO: Check if this is relevant in the request and/or respose
+    type: string
+    description: Optional identification reference (TODO)
+    example: Internal-ID-012345
   identification_require_evidence:
     type: boolean
     description: |

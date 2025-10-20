@@ -76,17 +76,17 @@ properties:
   callback_success_url:
     type: string
     description: Callback-URL which is called on overall success.
-    format: url
+    format: uri
     example: https://mybiz.com/call/success
   callback_error_url:
     type: string
     description: Callback-URL which is called in case of an error.
-    format: url
+    format: uri
     example: https://mybiz.com/call/success
   callback_update_url:
     type: string
     description: Callback-URL which is called in case of an update.
-    format: url
+    format: uri
     example: https://mybiz.com/call/success
   custom:
     type: string

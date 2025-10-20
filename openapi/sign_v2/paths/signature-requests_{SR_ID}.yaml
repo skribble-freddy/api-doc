@@ -2,11 +2,9 @@ get:
   operationId: getSignatureRequestDetails
   tags:
     - Signature
-  summary: Get the document ID from the signature request
+  summary: Get a signature request
   description: >-
-    We distinguish between the signature request ID and document ID. To read and
-    download the PDF document, the document ID is retrieved from the 
-    `SignatureRequest` with the ID `{{SR_ID}}`
+    By using the signature request ID you can fetch a `SignatureRequest`. 
   security:
     - bearer: []
   parameters:

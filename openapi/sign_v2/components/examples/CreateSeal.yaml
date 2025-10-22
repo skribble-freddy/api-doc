@@ -17,3 +17,23 @@ SealVisual:
         width: 129
         height: 60
         page: "0"
+      image:
+        content: "U3RyaW5n"
+        content_type: image/png
+
+SealVisualCustom:
+  summary: Seal document with custom visual signature
+  value:
+    account_name: ais_demo_seal
+    title: Example contract
+    content: "U29tZUJhc2U2NEVuY29kZWRJbWFnZQ=="
+    visual_signature:
+      position:
+        x: 100
+        y: 200
+        width: 150
+        height: 70
+        page: "1"
+      image:
+        content: "U3RyaW5n"
+        content_type: image/png

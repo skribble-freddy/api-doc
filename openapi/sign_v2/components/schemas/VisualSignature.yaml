@@ -1,9 +1,6 @@
 title: Visual Signature
 type: object
 description: Visual signature placement information.
-properties:
-  image:
-    $ref: ./VisualSignatureImage.yaml
 oneOf:
   - type: object
     title: Single Position
@@ -12,6 +9,8 @@ oneOf:
     properties:
       position:
         $ref: ./VisualSignaturePosition.yaml
+      image:
+        $ref: ./VisualSignatureImage.yaml
       positions:
         description: Must not be provided when position is used.
         readOnly: true
@@ -27,6 +26,8 @@ oneOf:
         type: array
         items:
           $ref: ./VisualSignaturePosition.yaml
+      image:
+        $ref: ./VisualSignatureImage.yaml
       position:
         description: Must not be provided when positions are used.
         readOnly: true
@@ -43,6 +44,8 @@ oneOf:
         description: >
           Name of the form field in which the signature is placed.
           If multiple fields of this name are present in the document, all will be used.
+      image:
+        $ref: ./VisualSignatureImage.yaml
       position:
         description: Must not be provided when form_field is used.
         readOnly: true

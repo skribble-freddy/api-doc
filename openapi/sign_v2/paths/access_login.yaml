@@ -70,7 +70,7 @@ post:
     #### Logout
 
     There is **no logout**. The access token will expire after the defined time.
-  operationId: postAccessLogin
+  operationId: accessLogin
   security:
     - {}
   requestBody:

@@ -1,5 +1,4 @@
 post:
-  operationId: postSendTo
   tags:
     - SendTo
   summary: Create Send-To
@@ -19,6 +18,7 @@ post:
     - Send-To objects and its related Documents and SignatureRequest objects in
     general, independant of its status, will be deleted automatically after 90
     days.
+  operationId: createSendTo
   security:
     - bearer: []
   requestBody:

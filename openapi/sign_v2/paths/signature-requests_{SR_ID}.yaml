@@ -1,10 +1,10 @@
 get:
-  operationId: getSignatureRequestDetails
   tags:
     - Signature
   summary: Get a Signature Request
   description: >-
     By using the signature request ID you can fetch a `SignatureRequest`. 
+  operationId: getSignatureRequestDetails
   security:
     - bearer: []
   parameters:
@@ -54,7 +54,6 @@ get:
     503:
       $ref: ../components/responses/ServiceUnavailable.yaml
 delete:
-  operationId: deleteSignatureRequest
   tags:
     - Signature
   summary: Delete a Signature Request
@@ -102,6 +101,7 @@ delete:
     `SignatureRequest` e.g. after a **WITHDRAW** request, then the
     `SignatureRequest` and the related `document` will be completely removed
     from the system.
+  operationId: deleteSignatureRequest
   security:
     - bearer: []
   parameters:

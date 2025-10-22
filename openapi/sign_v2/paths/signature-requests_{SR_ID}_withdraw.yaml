@@ -1,5 +1,4 @@
 post:
-  operationId: withdrawSignatureRequest
   tags:
     - Signature
   summary: Withdraw a signature request
@@ -30,6 +29,7 @@ post:
     Nevertheless, there may be situations in which you need to withdraw the
     document and keep it in Skribble. In this case you should of course use the
     `withdraw` functionality.
+  operationId: withdrawSignatureRequest
   security:
     - bearer: []
   parameters:

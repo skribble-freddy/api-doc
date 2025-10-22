@@ -6,7 +6,7 @@ get:
     To call the `track` endpoint, you must include the value of the
     `access_code` field—received when creating the `Send-To` object—in the
     request header `X-Accesscode`.
-  operationId: getSendToTrack
+  operationId: trackSendTo
   security:
     - bearer: []
   parameters:

@@ -10,7 +10,7 @@ get:
     As response you will get the initially provided PDF document in its current
     state. This might be signed, declined or withdrawn or still open for
     signing. The status can be obtained using the `track` endpoind.
-  operationId: getSendToDownload
+  operationId: downloadSendTo
   security:
     - bearer: []
   parameters:

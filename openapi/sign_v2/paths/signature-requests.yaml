@@ -6,7 +6,7 @@ post:
     The `SignatureRequest` object is the primary object of the Skribble API .
     It describes who signs what and how. It gives an overview of the current state 
     of the single Signatures and allows to control user rights or callback functionality.
-  operationId: postSignatureRequest
+  operationId: createSignatureRequest
   security:
     - bearer: []
   requestBody:
@@ -49,7 +49,6 @@ post:
     503:
       $ref: ../components/responses/ServiceUnavailable.yaml
 get:
-  operationId: getSignatureRequest
   tags:
     - Signature
   summary: List and find Signature Requests
@@ -82,6 +81,7 @@ get:
     Furthermore, the result set can be controlled using the optional pagination
     parameters `page_number` and `page_size`, which helps prevent excessively
     large result sets.
+  operationId: getSignatureRequest
   security:
     - bearer: []
   parameters:
@@ -116,7 +116,6 @@ get:
       $ref: ../components/responses/ServiceUnavailable.yaml
 put:
   # TODO: Update this
-  operationId: putSignatureRequest
   tags:
     - Signature
   summary: Update a Signature Request
@@ -144,6 +143,8 @@ put:
         
     - Changes to the signatures can only be made as long as none of the signers
     have already completed the signature.
+  operationId: updateSignatureRequest
+  # TODO: This should go under {SR_ID} with put
   security:
     - bearer: []
   requestBody:

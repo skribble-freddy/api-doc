@@ -1,0 +1,59 @@
+post:
+  operationId: withdrawSignatureRequest
+  tags:
+    - Signature
+  summary: Withdraw a signature request
+  description: >-
+    Sometimes, signing a document may become unnecessary, or errors might occur
+    during the invitation process. As the inviter of such a `SignatureRequest`,
+    you can _explicitely_ `withdraw` the `SignatureRequest`. Withdraw removes
+    all signatories and observers from the document as participants and notifies
+    them with a specified `message.`
+
+
+    Similar to `deletion`, the `withdraw` action can only be executed if:
+
+
+    - The SignatureRequest status is `status_overall=OPEN`
+
+    - The API user has sufficient rights on the `SignatureRequest`, such as when
+    it was created by the API user.
+        
+
+    > **Note**  
+
+    We recommend using the `delete` endpoint. By default, it checks for other
+    options. For example, if the API user does not have withdrawal rights, the
+    user could be removed from the `SignatureRequest` directly, or the document
+    might be deleted directly.  
+
+    Nevertheless, there may be situations in which you need to withdraw the
+    document and keep it in Skribble. In this case you should of course use the
+    `withdraw` functionality.
+  security:
+    - bearer: []
+  parameters:
+    - $ref: ../components/parameters/SignatureIDPath.yaml
+  responses:
+    200:
+      description: OK
+    400:
+      $ref: ../components/responses/BadRequest.yaml
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/BadRequestResponse.yaml
+          example:
+            type: "https://api.skribble.com/problem/problem-with-message"
+            method: "POST"
+            path: "/v2/signature-requests/a557bd30-2709-b371-0595-8a4970953083123/withdraw"
+            status: 400
+            message: UUID string too large"
+    401:
+      $ref: ../components/responses/Unauthorized.yaml
+    429:
+      $ref: ../components/responses/TooManyRequests.yaml
+    500:
+      $ref: ../components/responses/ServerError.yaml
+    503:
+      $ref: ../components/responses/ServiceUnavailable.yaml

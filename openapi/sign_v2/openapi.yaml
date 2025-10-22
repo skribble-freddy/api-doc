@@ -45,6 +45,8 @@ paths:
     $ref: paths/signature-requests.yaml
   /signature-requests/{SR_ID}:
     $ref: paths/signature-requests_{SR_ID}.yaml
+  /signature-requests/{SR_ID}/withdraw:
+    $ref: paths/signature-requests_{SR_ID}_withdraw.yaml
   /sendto:
     $ref: paths/sendto.yaml
   /sendto/{SEND_TO_ID}/track:

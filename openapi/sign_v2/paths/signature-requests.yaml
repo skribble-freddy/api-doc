@@ -1,7 +1,7 @@
 post:
   tags:
     - Signature
-  summary: Create a new signature request
+  summary: Create a signature request
   description: >-
     In this example we have three signers. One of the signers is you and the
     other two are external signers. Of course, it is also possible to create
@@ -54,7 +54,7 @@ get:
   operationId: getSignatureRequest
   tags:
     - Signature
-  summary: List and find SignatureRequests
+  summary: List and find Signature Requests
   description: >-
     Using this `GET` request, you can list all the `SignatureRequests` provided
     that the current user has sufficient access rights to.
@@ -142,7 +142,7 @@ put:
   operationId: putSignatureRequest
   tags:
     - Signature
-  summary: Add or remove multiple signers simultaneously
+  summary: Update a Signature Request
   description: >-
     To add or remove multiple signers at once, you need to update the
     `signatures` array according to your needs.

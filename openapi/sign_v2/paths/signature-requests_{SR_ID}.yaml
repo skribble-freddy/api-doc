@@ -2,7 +2,7 @@ get:
   operationId: getSignatureRequestDetails
   tags:
     - Signature
-  summary: Get a signature request
+  summary: Get a Signature Request
   description: >-
     By using the signature request ID you can fetch a `SignatureRequest`. 
   security:
@@ -57,7 +57,7 @@ delete:
   operationId: deleteSignatureRequest
   tags:
     - Signature
-  summary: Delete a signature request
+  summary: Delete a Signature Request
   description: >-
     By using the signature request ID you can delete a `SignatureRequest`.  
      

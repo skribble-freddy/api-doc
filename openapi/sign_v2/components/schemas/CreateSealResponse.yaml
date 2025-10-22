@@ -1,0 +1,10 @@
+title: Create Seal Response
+type: object
+required:
+  - document_id
+properties:
+  document_id:
+    type: string
+    description: Generated document ID
+    format: uuid
+    example: 98ca4eda-11f7-da4a-72da-9db677f38280

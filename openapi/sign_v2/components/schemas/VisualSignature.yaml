@@ -4,36 +4,48 @@ description: Visual signature placement information.
 properties:
   image:
     $ref: ./VisualSignatureImage.yaml
-  positions:
-    type: array
-    description: List of positions where the signature should appear.
-    items:
-      $ref: ./VisualSignaturePosition.yaml
-  form_field:
-    type: string
-    description: >
-      Name of the form field in which the signature is placed.
-      If multiple fields of this name are present in the document, all will be used.
-      Takes precedence before positions.
-    example: Signature1
 oneOf:
   - type: object
-    title: Positions
-    description: Use explicit positions only.
+    title: Single Position
+    description: Use a single explicit position.
+    required: ["position"]
+    properties:
+      position:
+        $ref: ./VisualSignaturePosition.yaml
+      positions:
+        description: Must not be provided when position is used.
+        readOnly: true
+      form_field:
+        description: Must not be provided when position is used.
+        readOnly: true
+  - type: object
+    title: Multiple Positions
+    description: Use multiple explicit positions.
     required: ["positions"]
     properties:
       positions:
         type: array
+        items:
+          $ref: ./VisualSignaturePosition.yaml
+      position:
+        description: Must not be provided when positions are used.
+        readOnly: true
       form_field:
-        description: Must not be provided when positions is used.
+        description: Must not be provided when positions are used.
         readOnly: true
   - type: object
     title: Form Field
-    description: Use form_field only.
+    description: Use a form field only.
     required: ["form_field"]
     properties:
       form_field:
         type: string
+        description: >
+          Name of the form field in which the signature is placed.
+          If multiple fields of this name are present in the document, all will be used.
+      position:
+        description: Must not be provided when form_field is used.
+        readOnly: true
       positions:
         description: Must not be provided when form_field is used.
         readOnly: true

@@ -1,0 +1,19 @@
+SealDoc:
+  summary: Seal document
+  value:
+    account_name: ais_demo_seal
+    content: "U29tZUJhc2U2NEVuY29kZWRJbWFnZQ=="
+
+SealVisual:
+  summary: Seal document with visual signature
+  value:
+    account_name: ais_demo_seal
+    title: Example contract
+    content: "U29tZUJhc2U2NEVuY29kZWRJbWFnZQ=="
+    visual_signature:
+      position:
+        x: 364
+        y: 160
+        width: 129
+        height: 60
+        page: "0"

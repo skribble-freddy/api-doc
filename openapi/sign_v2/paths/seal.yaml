@@ -3,11 +3,14 @@ post:
     - Seal
   summary: Seal a document with a legal entity signature
   description: >-
-    Uploading and affixing an electronic seal to a document takes just one call using the /v2/seal resource.
-    The JSON is similar to the SignatureRequest. It requires only the PDF document as a Base64 encoded string in the content field.
-    Additionally, you can place a visual signature on the document, as described in the Visual Signatures chapter of the Skribble API documentation, but this is optional.
-    An API response from a seal request contains a document_id of the newly created document with the seal.
-    Use the GET /v2/documents resource to retrieve the document with the electronic seal or reuse it in further signature requests, such as for personal electronic signatures.
+    Uploading and affixing an electronic seal to a document takes just one call.
+
+
+    Additionally, you can place a visual signature on the document.
+    
+    
+    An API response from a seal request contains a document_id of the newly created
+    document with the seal that can be retrieved.
   operationId: sealDocument
   security:
     - bearer: []
@@ -18,10 +21,18 @@ post:
       application/json:
         schema:
           $ref: ../components/schemas/CreateSealRequest.yaml
+        examples:
+          Sample1:
+            $ref: ../components/examples/CreateSeal.yaml#/SealDoc
+          Sample2:
+            $ref: ../components/examples/CreateSeal.yaml#/SealVisual
   responses:
     200:
       description: OK
-      # TODO Any content?
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/CreateSealResponse.yaml
     400:
       $ref: ../components/responses/BadRequest.yaml
     401:

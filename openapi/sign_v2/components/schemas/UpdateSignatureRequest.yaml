@@ -2,6 +2,7 @@ title: Update Signature Request
 type: object
 required:
   - id
+# TODO: Despite full support to change many of those properties do we want to have all of them in the spec?
 properties:
   id:
     type: string

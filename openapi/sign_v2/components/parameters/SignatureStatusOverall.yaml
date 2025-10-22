@@ -1,0 +1,6 @@
+name: status_overall
+in: header
+description: Filter on the field `status_overall` with one of the valid Signature states	
+required: false
+schema:
+  $ref: ../schemas/SignatureStatusOverall.yaml

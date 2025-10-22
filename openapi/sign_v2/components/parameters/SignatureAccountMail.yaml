@@ -1,0 +1,8 @@
+name: account_email
+in: header
+description: Filter on the field `signatures[].account_email`
+required: false
+schema:
+  type: string
+  format: email
+example: john.doe@skribble.com

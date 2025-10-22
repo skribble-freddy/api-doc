@@ -1,0 +1,8 @@
+name: page_number
+in: header
+description: Page number for pagination. By default pagination is disabled.
+required: false
+schema:
+  type: number
+  minimum: 1
+example: 1

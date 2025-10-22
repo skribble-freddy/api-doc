@@ -1,0 +1,9 @@
+name: page_size
+in: header
+description: Page size for pagination.
+required: false
+schema:
+  type: number
+  default: 50
+  minimum: 0
+example: 25

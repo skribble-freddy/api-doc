@@ -1,0 +1,7 @@
+name: search
+in: header
+description: Filter on the field `title` to search for documents containing the serach term.
+required: false
+schema:
+  type: string
+example: text to find

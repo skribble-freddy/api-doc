@@ -60,61 +60,39 @@ get:
     that the current user has sufficient access rights to.
 
 
+    **Filter**
+
+
     You can optionally filter these `SignatureRequests` using one or more of the
-    following criteria.
+    optional parameters.  
 
 
-    | Parameter | Description | Mandatory |
+    The filter searches for an exact match of the corresponding field
+    content. This means that the filter is case sensitive and find objects
+    that only _contain_ the parameter. For example _account_email=john.doe@skribble.com_ 
+    will only find a `SignatureRequests` where the field `account_email` is exactly
+    john.doe@skribble.com and it won't find another.john.doe@skribble.com
 
-    | --- | --- | --- |
-
-    | **account_email** | Filter on the field `signatures[].account_email` | no
-    |
-
-    | **search** | Filter on the field `title` to search for documents
-    _**containing**_ the serach term. | no |
-
-    | **signature_status** | Filter on the field `signatures[].status_code` with
-    one of the valid **Signature states** | no |
-
-    | **status_overall** | Filter on the field `status_overall` with one of the
-    valid **Signature states** | no |
-
-
-    > **Note**  
-
-    The filter searches for an exact match of the corresponding field content.
-    This means that the filter is case sensitive and won&apos;t find objects
-    that only _contain_ the parameter. For example
-    _account_email=john.doe@skribble.com_ will only find a `SignatureRequests`
-    where the field `account_email` is exactly
-    [&lt;em&gt;john.doe@skribble.com&lt;/em&gt;](https://mailto:john.doe@skribble.com).
-    It won&apos;t find
-    [&lt;em&gt;another.john.doe@skribble.com&lt;/em&gt;](https://mailto:another.john.doe@skribble.com)  
 
     Exception: The search parameter searches for document titles that contain
     the search term. 
-      
+  
 
-    **Pagination**
+    **Pagination** 
 
 
     Furthermore, the result set can be controlled using the optional pagination
     parameters `page_number` and `page_size`, which helps prevent excessively
     large result sets.
-
-
-    | Parameter | Description | Mandatory |
-
-    | --- | --- | --- |
-
-    | `page_number` | Page number must be greater than or equal to 0 
-    <br>Default: Pagination is disabled | no |
-
-    | `page_size` | Page size must be greater than or equal to 0  <br>Default:
-    50 | no |
   security:
     - bearer: []
+  parameters:
+    - $ref: ../components/parameters/SignatureAccountMail.yaml
+    - $ref: ../components/parameters/SignatureSearch.yaml
+    - $ref: ../components/parameters/SignatureStatusCode.yaml
+    - $ref: ../components/parameters/SignatureStatusOverall.yaml
+    - $ref: ../components/parameters/PageNumber.yaml
+    - $ref: ../components/parameters/PageSize.yaml
   responses:
     200:
       description: OK

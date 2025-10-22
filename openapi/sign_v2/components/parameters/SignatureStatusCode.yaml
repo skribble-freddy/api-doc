@@ -1,0 +1,6 @@
+name: signature_status
+in: header
+description: Filter on the field `signatures[].status_code` with one of the valid Signature states	
+required: false
+schema:
+  $ref: ../schemas/SignatureStatusCode.yaml

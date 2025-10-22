@@ -5,7 +5,7 @@ SealDoc:
     content: "U29tZUJhc2U2NEVuY29kZWRJbWFnZQ=="
 
 SealVisual:
-  summary: Seal document with visual signature
+  summary: Seal document with default visual signature
   value:
     account_name: ais_demo_seal
     title: Example contract
@@ -17,9 +17,6 @@ SealVisual:
         width: 129
         height: 60
         page: "0"
-      image:
-        content: "U3RyaW5n"
-        content_type: image/png
 
 SealVisualCustom:
   summary: Seal document with custom visual signature

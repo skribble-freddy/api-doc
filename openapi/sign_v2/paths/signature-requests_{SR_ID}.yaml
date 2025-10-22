@@ -15,7 +15,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: ../components/schemas/CreateSignatureResponse.yaml
+            $ref: ../components/schemas/SignatureResponse.yaml
           examples:
             Sample1:
               $ref: ../components/examples/CreateSignatureResponse.yaml#/Sample1

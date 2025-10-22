@@ -3,11 +3,9 @@ post:
     - Signature
   summary: Create a signature request
   description: >-
-    In this example we have three signers. One of the signers is you and the
-    other two are external signers. Of course, it is also possible to create
-    signature requests in which you are the only signer or where you are not a
-    signer yourself. In the second case, you as creator of the
-    `SignatureRequest` get read-only rights on this data object.
+    The `SignatureRequest` object is the primary object of the Skribble API .
+    It describes who signs what and how. It gives an overview of the current state 
+    of the single Signatures and allows to control user rights or callback functionality.
   operationId: postSignatureRequest
   security:
     - bearer: []
@@ -24,7 +22,7 @@ post:
       content:
         application/json:
           schema:
-            $ref: ../components/schemas/CreateSignatureResponse.yaml
+            $ref: ../components/schemas/SignatureResponse.yaml
           examples:
             Sample1:
               $ref: ../components/examples/CreateSignatureResponse.yaml#/Sample1
@@ -56,21 +54,21 @@ get:
     - Signature
   summary: List and find Signature Requests
   description: >-
-    Using this `GET` request, you can list all the `SignatureRequests` provided
+    Using this `GET` request, you can list all the `SignatureRequest` provided
     that the current user has sufficient access rights to.
 
 
     **Filter**
 
 
-    You can optionally filter these `SignatureRequests` using one or more of the
+    You can optionally filter these `SignatureRequest` using one or more of the
     optional parameters.  
 
 
     The filter searches for an exact match of the corresponding field
     content. This means that the filter is case sensitive and find objects
     that only _contain_ the parameter. For example _account_email=john.doe@skribble.com_ 
-    will only find a `SignatureRequests` where the field `account_email` is exactly
+    will only find a `SignatureRequest` where the field `account_email` is exactly
     john.doe@skribble.com and it won't find another.john.doe@skribble.com
 
 
@@ -102,7 +100,7 @@ get:
             type: array
             description: List of Signature Requests.
             items:
-              $ref: ../components/schemas/CreateSignatureResponse.yaml
+              $ref: ../components/schemas/SignatureResponse.yaml
           examples:
             default:
               $ref: ../components/examples/CreateSignatureResponse.yaml#/SampleArray            
@@ -123,9 +121,12 @@ put:
     - Signature
   summary: Update a Signature Request
   description: >-
+    Modifications on existing `SignatureRequest` should be handled with care.
+    We recommend creating the `SignatureRequest` with all necessary information. 
+
+
     To add or remove multiple signers at once, you need to update the
     `signatures` array according to your needs.
-
 
     - To add a signer to the `SignatureRequest`, simply add a new entry to the
     signatures array.
@@ -151,14 +152,14 @@ put:
     content:
       application/json:
         schema:
-          $ref: ../components/schemas/CreateSignatureRequest.yaml
+          $ref: ../components/schemas/UpdateSignatureRequest.yaml
   responses:
     200:
       description: OK
-#      content:
-#        application/json:
-#          schema:
-#            $ref: ../components/schemas/CreateSignatureResponse.yaml
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/SignatureResponse.yaml
     400:
       $ref: ../components/responses/BadRequest.yaml
     401:

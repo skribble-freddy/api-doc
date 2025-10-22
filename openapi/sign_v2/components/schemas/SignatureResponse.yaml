@@ -37,6 +37,9 @@ properties:
       type: string
       format: email
     example: []
+  expiration_date:
+    type: string
+    example: 2025-11-21
   attachments:
     type: array
     items:

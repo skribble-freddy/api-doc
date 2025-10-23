@@ -20,7 +20,7 @@ Sample1:
     attachments: []
     owner: api_production_skribbleag_5a2a_0
     read_access:
-      - freddy@skribble.com
+      - you@example.info
       - api_production_skribbleag_5a2a_0
     write_access:
       - api_production_skribbleag_5a2a_0

@@ -69,22 +69,29 @@ components:
 security: []
 tags:
   - name: Access
-    description: Endpoints for authentication, authorization, and user access management.
+    description: >-
+      Endpoints for authentication, authorization, and user access management.
   - name: Signature
-    description: Endpoints related to creating and managing signature requests.
+    description: >-
+      Endpoints related to creating and managing signature requests.
   - name: SendTo
-    description: Endpoints for Send-To
+    description: >-
+      Endpoints for Send-To
   - name: Seal
-    description: Endpoints for Seals
+    description: >-
+      Endpoints for Seals
   - name: Document
-    description: Endpoints for Documents
+    description: >-
+      Endpoints for Documents
   - name: Tracking
     description: >-
-      In addition to the automatic signature reminders, manual reminders can also
-      be initiated via the Skribble web application and also via the API.
+      Endpoints related to tracking signature requests.
   - name: User
-    description: Endpoints for Users
+    description: >-
+      Endpoints for Users
   - name: Report
-    description: Endpoints for Reporting
+    description: >-
+      Endpoints for Reporting
   - name: Monitoring
-    description: Endpoints for Monitoring
+    description: >-
+      Endpoints for Monitoring

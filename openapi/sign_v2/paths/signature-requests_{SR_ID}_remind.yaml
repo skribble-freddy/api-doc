@@ -1,0 +1,53 @@
+post:
+  tags:
+    # TODO: Maybe in dedicated sub-area 'Signature-Triggers'?
+    - Signature
+  summary: Remind open signers of a signature request
+  description: >-
+    In addition to the automatic signature reminders, manual reminders can also
+    be initiated via the Skribble web application and also via the API.
+
+
+    This allows for greater flexibility in managing signature requests, ensuring
+    that important documents are signed promptly. By using both automatic and
+    manual reminders, you can tailor your approach to suit the specific needs of
+    your users or customers.
+
+
+    **Limits**
+
+
+    There is an hourly limit on the number of signature reminders that can be
+    sent. This limit ensures that reminders are used responsibly and prevents
+    excessive notifications. Generally, this restriction should not affect you
+    if you use this feature appropriately. By adhering to this limit, you can
+    effectively manage your signature requests without overwhelming your users
+    or customers with frequent reminders.
+  operationId: remindSignatureRequest
+  security:
+    - bearer: []
+  parameters:
+    - $ref: ../components/parameters/SignatureIDPath.yaml
+  responses:
+    200:
+      description: OK
+    400:
+      $ref: ../components/responses/BadRequest.yaml
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/BadRequestResponse.yaml
+          example:
+            type: "https://api.skribble.com/problem/problem-with-message"
+            method: "POST"
+            path: "/v2/signature-requests/0b06bdfd-6af9-95c4-9f53-c58f49e712c2/remind"
+            status: 400
+            message: "SignatureRequest not found for ID: 0b06bdfd-6af9-95c4-9f53-c58f49e712c2"
+    401:
+      $ref: ../components/responses/Unauthorized.yaml
+    429:
+      $ref: ../components/responses/TooManyRequests.yaml
+    500:
+      $ref: ../components/responses/ServerError.yaml
+    503:
+      $ref: ../components/responses/ServiceUnavailable.yaml

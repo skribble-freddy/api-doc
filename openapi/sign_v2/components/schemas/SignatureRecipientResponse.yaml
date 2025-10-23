@@ -1,4 +1,4 @@
-title: Signature Receipient in Response
+title: Signature Callbacks Response
 type: object
 properties:
   sid:

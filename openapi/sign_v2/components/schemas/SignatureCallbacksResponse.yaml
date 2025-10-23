@@ -1,0 +1,67 @@
+title: Signature Receipient in Response
+type: array
+items:
+  type: object
+  properties:
+    signature_request_id:
+      type: string
+      description: Signature request's unique ID on Skribble.
+      format: uuid
+      example: "b107da0e-db25-478a-8130-b85e6c57ae83"
+    type:
+      $ref: ./CallbackType.yaml
+    state:
+      $ref: ./CallbackState.yaml
+    url:
+      type: string
+      description: The called URL of this callback.
+      format: uri
+      example: "http://ext-service:8080/callback_success"
+    attempts:
+      type: integer
+      description: The attempts this callback was carried out.
+      format: int32
+      example: 1
+    messages:
+      type: array
+      description: Error messages in case that the callback failed.
+      items:
+        type: string
+        description: HTTP response message in case that the API did not receive a HTTP 2xx success code.
+      example: 
+        - Failed 404
+        - Failed 500
+    owner:
+      # TODO: Is this provided ?
+      deprecated: true
+      type: string
+      description: E-mail address of the object owner.
+      example: api@company_a.com
+    read_access:
+      # TODO: Is this provided ?
+      deprecated: true
+      type: array
+      description: E-mail addresses with read access to the object.
+      items:
+        type: string
+      example:
+        - api_production_skribbleag_5a2a_0
+    write_access:
+      # TODO: Is this provided ?
+      deprecated: true
+      type: array
+      description: E-mail addresses with write access to the object.
+      items:
+        type: string
+      example:
+        - api_production_skribbleag_5a2a_0
+    created_at:
+      type: string
+      description: The time at which the object was created.
+      format: date-time
+      example: "2025-10-08T17:37:03.569Z"
+    updated_at:
+      type: string
+      description: The time at which the object was last changed.
+      format: date-time
+      example: "2025-10-08T17:37:03.569Z"

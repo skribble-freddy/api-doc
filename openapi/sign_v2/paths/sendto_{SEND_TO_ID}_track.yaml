@@ -1,6 +1,7 @@
 get:
   tags:
     - SendTo
+    - Tracking
   summary: Track Send-To
   description: >-
     To call the `track` endpoint, you must include the value of the

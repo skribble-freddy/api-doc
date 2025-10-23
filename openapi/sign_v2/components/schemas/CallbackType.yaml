@@ -1,0 +1,21 @@
+title: Callback Type
+type: string
+description: >-
+  The type of this callback. 
+
+  Possible values:
+    - **SUCCESS** Is triggered when the document has been successfully signed by all parties involved.
+    - **UPDATE** Is triggered on changes on the `SignatureRequest` object like when one person of all involved parties has signed.
+    - **ERROR** Is triggered when a person declines the signature or when the `SignatureRequest` is withdrawn.
+    - **START_SIGN** Is triggered when a person starts the signature process (only for xQES).
+    - **INITIATE** ?.
+    - **IDENT_ERROR** Is triggered when the identification of a person within a signature process ended in an error (only for xQES).
+enum:
+  - SUCCESS
+  - UPDATE
+  - ERROR
+  - START_SIGN
+  # TODO: What is this state INITIATE ?
+  - INITIATE
+  - IDENT_ERROR
+example: SUCCESS

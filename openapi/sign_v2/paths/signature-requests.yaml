@@ -104,15 +104,17 @@ get:
           examples:
             default:
               $ref: ../components/examples/CreateSignatureResponse.yaml#/SampleArray            
-    '400':
+    400:
       $ref: ../components/responses/BadRequest.yaml
-    '401':
+    401:
       $ref: ../components/responses/Unauthorized.yaml
-    '429':
+    403:
+      $ref: ../components/responses/Forbidden.yaml
+    429:
       $ref: ../components/responses/TooManyRequests.yaml
-    '500':
+    500:
       $ref: ../components/responses/ServerError.yaml
-    '503':
+    503:
       $ref: ../components/responses/ServiceUnavailable.yaml
 put:
   # TODO: Update this
@@ -163,6 +165,8 @@ put:
             $ref: ../components/schemas/SignatureResponse.yaml
     400:
       $ref: ../components/responses/BadRequest.yaml
+    403:
+      $ref: ../components/responses/Forbidden.yaml
     401:
       $ref: ../components/responses/Unauthorized.yaml
     429:

@@ -48,9 +48,11 @@ post:
             method: "POST"
             path: "/v2/signature-requests/a557bd30-2709-b371-0595-8a4970953083123/withdraw"
             status: 400
-            message: UUID string too large"
+            message: "UUID string too large"
     401:
       $ref: ../components/responses/Unauthorized.yaml
+    403:
+      $ref: ../components/responses/Forbidden.yaml
     429:
       $ref: ../components/responses/TooManyRequests.yaml
     500:

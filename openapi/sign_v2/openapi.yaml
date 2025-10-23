@@ -78,6 +78,10 @@ tags:
     description: Endpoints for Seals
   - name: Document
     description: Endpoints for Documents
+  - name: Tracking
+    description: >-
+      In addition to the automatic signature reminders, manual reminders can also
+      be initiated via the Skribble web application and also via the API.
   - name: User
     description: Endpoints for Users
   - name: Report

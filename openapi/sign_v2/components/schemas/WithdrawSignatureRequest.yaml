@@ -1,7 +1,5 @@
 title: Withdraw Signature Request
 type: object
-required:
-  - message
 properties:
   message:
     type: string

@@ -36,7 +36,7 @@ items:
       deprecated: true
       type: string
       description: E-mail address of the object owner.
-      example: api@company_a.com
+      example: api@company.com
     read_access:
       # TODO: Is this provided ?
       deprecated: true

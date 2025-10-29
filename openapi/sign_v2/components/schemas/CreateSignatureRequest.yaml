@@ -71,8 +71,8 @@ properties:
           type: string
           format: email
         example:
-          - backoffice@company_a.com
-          - info@company_b.com
+          - backoffice@company.com
+          - info@company.com
   callback_success_url:
     type: string
     description: Callback-URL which is called on overall success.
@@ -134,7 +134,7 @@ oneOf:
         type: string
         format: byte
         description: Base64 encoded bytes of the document.
-        example: "JVBERi0xLjQKJcfs..."
+        example: "SGVsbG8gd29ybGQh"
       content_type:
         type: string
         description: Content type of bytes sent in content. Currently, only application/pdf is supported.

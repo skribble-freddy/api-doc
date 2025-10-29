@@ -41,8 +41,8 @@ properties:
           type: string
           format: email
         example:
-          - backoffice@company_a.com
-          - info@company_b.com
+          - backoffice@company.com
+          - info@company.com
   callback_success_url:
     type: string
     description: Callback-URL which is called on overall success.

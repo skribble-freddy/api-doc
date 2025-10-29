@@ -12,4 +12,4 @@ properties:
     type: string
     description: Base64 Encoded Document.
     format: byte
-    example: "JVBERi0xLjQKJcfs..."
+    example: "SGVsbG8gd29ybGQh"

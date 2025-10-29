@@ -10,7 +10,7 @@ properties:
   account_email:
     type: string
     format: email
-    example: "you@example.info"
+    example: you@example.info
   signer_identity_data:
     $ref: ./SignerIdentityDataResponse.yaml
   sequence:

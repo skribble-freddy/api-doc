@@ -19,7 +19,7 @@ properties:
   mobile_number:
     type: string
     description: Optional mobile number of no-account-signer
-    example: 41791234567
+    example: "41791234567"
   language:
     $ref: ./SignatureLanguage.yaml
   identity_reference:

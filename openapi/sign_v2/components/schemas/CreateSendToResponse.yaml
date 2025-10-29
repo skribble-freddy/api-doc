@@ -19,4 +19,4 @@ properties:
     type: string
     description: Access code to be used in for endpoints.
     format: uuid
-    example: 1232324-a123-478a-8130-b85e6c599999
+    example: b498e9d2-93f4-4380-b998-c44f467ae020

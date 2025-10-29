@@ -1,0 +1,48 @@
+Sample:
+  summary: Sample one PDF document
+  value:
+    id: 00000000-1212-9546-6542-323232323232
+    title: Example contract PDF
+    content_type: application/pdf
+    size: 29010
+    page_count: 1
+    page_width: 600
+    page_height: 840
+    owner: api_demo_example
+    read_access:
+      - api_demo_example
+    write_access:
+      - api_demo_example
+    created_at: "2099-12-12T12:12:12.000Z"
+    updated_at: "2099-12-12T12:12:12.000Z"
+
+SampleArray:
+  value:
+    - id: 00000000-1212-9546-6542-323232323232
+      title: Example contract PDF
+      content_type: application/pdf
+      size: 29010
+      page_count: 1
+      page_width: 600
+      page_height: 840
+      owner: api_demo_example
+      read_access:
+        - api_demo_example
+      write_access:
+        - api_demo_example
+      created_at: "2099-12-12T12:12:12.000Z"
+      updated_at: "2099-12-12T12:12:12.000Z"
+    - id: 11111111-2222-3333-4444-555555555555
+      title: Employee NDA Document
+      content_type: application/pdf
+      size: 48230
+      page_count: 3
+      page_width: 612
+      page_height: 792
+      owner: api_demo_example
+      read_access:
+        - api_demo_example
+      write_access:
+        - api_demo_example
+      created_at: "2099-10-01T09:00:00.000Z"
+      updated_at: "2099-10-02T11:45:00.000Z"

@@ -1,0 +1,70 @@
+post:
+  tags:
+    - Document
+  summary: Upload document
+  description: >-
+    Upload using a **Base64 encoded** file as `content`.
+  operationId: uploadDocument
+  security:
+    - bearer: []
+  requestBody:
+    description: Request body to create a Document object
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/UploadDocumentRequest.yaml
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/DocumentResponse.yaml
+          examples:
+            default:
+              $ref: ../components/examples/DocumentResponse.yaml#/Sample           
+    400:
+      $ref: ../components/responses/BadRequest.yaml
+      # TODO: Content
+    401:
+      $ref: ../components/responses/Unauthorized.yaml
+    429:
+      $ref: ../components/responses/TooManyRequests.yaml
+    500:
+      $ref: ../components/responses/ServerError.yaml
+    503:
+      $ref: ../components/responses/ServiceUnavailable.yaml
+get:
+  tags:
+    - Document
+  summary: List all accessible documents
+  description: >-
+    This request returns an array of all accessible `Documents` objects.
+  operationId: getDocuments
+  security:
+    - bearer: []
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            description: List of Documents.
+            items:
+              $ref: ../components/schemas/DocumentResponse.yaml
+          examples:
+            default:
+              $ref: ../components/examples/DocumentResponse.yaml#/SampleArray            
+    400:
+      $ref: ../components/responses/BadRequest.yaml
+      # TODO: Content
+    401:
+      $ref: ../components/responses/Unauthorized.yaml
+    429:
+      $ref: ../components/responses/TooManyRequests.yaml
+    500:
+      $ref: ../components/responses/ServerError.yaml
+    503:
+      $ref: ../components/responses/ServiceUnavailable.yaml

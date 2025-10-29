@@ -1,0 +1,15 @@
+title: Upload Document Request
+type: object
+required:
+  - title
+  - content
+properties:
+  title:
+    type: string
+    description: Title of the document.
+    example: Example contract PDF
+  content:
+    type: string
+    format: byte
+    description: Base64 encoded bytes of the document.
+    example: "U29tZUJhc2U2NEVuY29kZWRJbWFnZQ=="

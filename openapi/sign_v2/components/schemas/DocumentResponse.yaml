@@ -1,0 +1,49 @@
+title: Document Response
+type: object
+description: Document object Response.
+properties:
+  id:
+    type: string
+    format: uuid
+    example: 00000000-1212-9546-6542-323232323232
+  title:
+    type: string
+    example: Example contract PDF
+  content_type:
+    type: string
+    example: application/pdf
+  size:
+    type: integer
+    example: 29010
+  page_count:
+    type: integer
+    example: 1
+  page_width:
+    type: integer
+    example: 600
+  page_height:
+    type: integer
+    example: 840
+  owner:
+    type: string
+    example: api_demo_example
+  read_access:
+    type: array
+    items:
+      type: string
+    example:
+      - api_demo_example
+  write_access:
+    type: array
+    items:
+      type: string
+    example:
+      - api_demo_example
+  created_at:
+    type: string
+    format: date-time
+    example: '2099-12-12T12:12:12.000Z'
+  updated_at:
+    type: string
+    format: date-time
+    example: '2099-12-12T12:12:12.000Z'

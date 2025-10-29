@@ -53,6 +53,8 @@ paths:
     $ref: paths/signature-requests_{SR_ID}_callbacks.yaml
   /seal:
     $ref: paths/seal.yaml
+  /documents:
+    $ref: paths/documents.yaml
   /sendto:
     $ref: paths/sendto.yaml
   /sendto/{SEND_TO_ID}/track:

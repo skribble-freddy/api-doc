@@ -16,6 +16,13 @@ post:
       application/json:
         schema:
           $ref: ../components/schemas/CreateSignatureRequest.yaml
+        examples:
+          PDFBase64:
+            $ref: ../components/examples/CreateSignatureBasic.yaml#/PDFBase64
+          PDFFileURL:
+            $ref: ../components/examples/CreateSignatureBasic.yaml#/PDFFileURL
+          PDFExistingDoc:
+            $ref: ../components/examples/CreateSignatureBasic.yaml#/PDFExistingDoc
   responses:
     200:
       description: OK

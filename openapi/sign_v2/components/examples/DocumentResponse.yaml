@@ -1,5 +1,5 @@
 Sample:
-  summary: Sample one PDF document
+  summary: Sample PDF document
   value:
     id: 00000000-1212-9546-6542-323232323232
     title: Example contract PDF
@@ -15,6 +15,35 @@ Sample:
       - api_demo_example
     created_at: "2099-12-12T12:12:12.000Z"
     updated_at: "2099-12-12T12:12:12.000Z"
+
+SamplePDFForm:
+  summary: Sample PDF with signature fields
+  value:
+    id: 8e725b0d-379c-5fd7-e7b7-ff369ac0c497
+    parent_id: 461a654e-a2f5-7511-9e80-544abd6216e8
+    title: Employment Contract
+    content_type: application/pdf
+    size: 266626
+    page_count: 3
+    page_width: 596
+    page_height: 843
+    signature_fields:
+      - name: Signature1
+        signed: true
+        positions:
+          - x: 75.0
+            y: 470.0
+            width: 112.0
+            height: 52.0
+            page: "2"
+            rotation: 0
+    owner: api_demo_example
+    read_access:
+      - api_demo_example
+    write_access:
+      - api_demo_example
+    created_at: "2024-11-18T12:37:45.842Z"
+    updated_at: "2024-11-18T12:37:45.842Z"
 
 SampleArray:
   value:

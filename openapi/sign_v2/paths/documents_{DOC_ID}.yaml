@@ -19,6 +19,8 @@ get:
           examples:
             default:
               $ref: ../components/examples/DocumentResponse.yaml#/Sample           
+            form:
+              $ref: ../components/examples/DocumentResponse.yaml#/SamplePDFForm           
     400:
       $ref: ../components/responses/BadRequest.yaml
       content:

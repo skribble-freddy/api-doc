@@ -6,6 +6,11 @@ properties:
     type: string
     format: uuid
     example: 00000000-1212-9546-6542-323232323232
+  parent_id:
+    description: ID of the previous version of the Document object. As documents are immutable, every change will create a new version, which is connected by the parent_id.
+    type: string
+    format: uuid
+    example: 12345678-1234-aaaa-ffff-0123456789af
   title:
     type: string
     example: Example contract PDF
@@ -24,6 +29,11 @@ properties:
   page_height:
     type: integer
     example: 840
+  signature_fields:
+    type: array
+    description: Optional detected Signature Formfields
+    items:
+      $ref: ./SignatureFormField.yaml
   owner:
     type: string
     example: api_demo_example

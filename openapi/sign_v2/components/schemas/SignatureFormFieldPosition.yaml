@@ -1,0 +1,32 @@
+title: Formfield Position
+type: object
+properties:
+  page:
+    type: string
+    description: |
+      Page number (0-indexed) where the field appears.
+      This is a String and not a number!	
+    example: "0"
+  height:
+    type: number
+    description: Height of the field in pixels.
+    example: 70
+  width:
+    type: number
+    description: Width of the field in pixels.
+    example: 150
+  x:
+    type: number
+    description: X-coordinate (pixels from left) of field.
+    example: 350
+  y:
+    type: number
+    description: Y-coordinate (pixels from top) of field.
+    example: 240
+  rotation:
+    type: number
+    description: |
+      Defines a rotation of the field content. 
+      If used in context with a form field, then only the values 0, 90, 180, 270 are legal.
+      Otherwise every value is legal. The rotation is applied counter clockwise.
+    example: 0

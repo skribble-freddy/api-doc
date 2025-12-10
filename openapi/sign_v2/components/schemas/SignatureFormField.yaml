@@ -1,0 +1,17 @@
+title: Signature Formfield
+type: object
+properties:
+  name:
+    type: string
+    description: Signature Formfield name
+    example: Signature1
+  signed:
+    type: boolean
+    description: Signature status of Formfield
+    default: false
+    example: false
+  positions:
+    type: array
+    description: List of positions where the Formfield is present
+    items:
+      $ref: ./SignatureFormFieldPosition.yaml

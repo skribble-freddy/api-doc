@@ -1,0 +1,15 @@
+title: Document Content Response
+type: object
+description: Document Content Response as JSON
+properties:
+  content_type:
+    type: string
+    example: application/pdf
+  content_size:
+    type: integer
+    example: 29010
+  content:
+    type: string
+    format: byte
+    description: Base64 encoded bytes of the document.
+    example: "U29tZUJhc2U2NEVuY29kZWRJbWFnZQ=="

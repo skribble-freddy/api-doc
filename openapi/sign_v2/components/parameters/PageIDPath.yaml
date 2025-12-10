@@ -1,0 +1,7 @@
+name: PAGE_ID
+in: path
+description: Page ID of the document
+required: true
+schema:
+  type: integer
+example: 0

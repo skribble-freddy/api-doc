@@ -1,0 +1,45 @@
+get:
+  tags:
+    - Document
+  summary: Get document content
+  description: >-
+    Dwnload the document content that contains the PDF document
+    with the document ID as PDF binary or JSON with Base64-encoded PDF.
+  operationId: getDocumentContent
+  security:
+    - bearer: []
+  parameters:
+    - $ref: ../components/parameters/DocumentIdPath.yaml
+  responses:
+    200:
+      description: PDF or JSON with Base64-encoded PDF
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/DocumentContentResponse.yaml
+        application/pdf:
+          schema:
+            type: string
+            format: binary
+    400:
+      $ref: ../components/responses/BadRequest.yaml
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/BadRequestResponse.yaml
+          example:
+            type: "https://api.skribble.com/problem/problem-with-message"
+            method: "GET"
+            path: "/v2/documents/8e725b0d-379c-5fd7-e7b7-ff369ac0c49723/content"
+            status: 400
+            message: "UUID string too large"
+    401:
+      $ref: ../components/responses/Unauthorized.yaml
+    404:
+      $ref: ../components/responses/NotFound.yaml
+    429:
+      $ref: ../components/responses/TooManyRequests.yaml
+    500:
+      $ref: ../components/responses/ServerError.yaml
+    503:
+      $ref: ../components/responses/ServiceUnavailable.yaml

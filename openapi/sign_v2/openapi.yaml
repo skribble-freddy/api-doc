@@ -55,6 +55,12 @@ paths:
     $ref: paths/seal.yaml
   /documents:
     $ref: paths/documents.yaml
+  /documents/{DOC_ID}:
+    $ref: paths/documents_{DOC_ID}.yaml
+  /documents/{DOC_ID}/content:
+    $ref: paths/documents_{DOC_ID}_content.yaml
+  /documents/{DOC_ID}/pages/{PAGE_ID}:
+    $ref: paths/documents_{DOC_ID}_pages_{PAGE_ID}.yaml
   /sendto:
     $ref: paths/sendto.yaml
   /sendto/{SEND_TO_ID}/track:

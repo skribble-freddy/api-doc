@@ -1,0 +1,80 @@
+get:
+  tags:
+    - Document
+  summary: Get document metadata
+  description: >-
+    By using the document ID you can fetch a `Document` metadata. 
+  operationId: getDocumentMetadata
+  security:
+    - bearer: []
+  parameters:
+    - $ref: ../components/parameters/DocumentIDPath.yaml
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/DocumentResponse.yaml
+          examples:
+            default:
+              $ref: ../components/examples/DocumentResponse.yaml#/Sample           
+    400:
+      $ref: ../components/responses/BadRequest.yaml
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/BadRequestResponse.yaml
+          example:
+            type: "https://api.skribble.com/problem/problem-with-message"
+            method: "POST"
+            path: "/v2/documents"
+            status: 400
+            message: "Error parsing field 'content'"
+    401:
+      $ref: ../components/responses/Unauthorized.yaml
+    404:
+      $ref: ../components/responses/NotFound.yaml
+    429:
+      $ref: ../components/responses/TooManyRequests.yaml
+    500:
+      $ref: ../components/responses/ServerError.yaml
+    503:
+      $ref: ../components/responses/ServiceUnavailable.yaml
+delete:
+  tags:
+    - Document
+  summary: Delete document
+  description: >-
+    Deleting a `Document` is similar to deleting a `SignatureRequest`.  
+
+    That means, deleting a `Document`  does not necessarily remove the a
+    `Document` from the system.  
+
+
+    If there is MORE than one participant involved, then the DELETE request will
+    only remove the current user from the `Document`.   
+
+
+    Only when the last user deletes the `Document` using the Skribble web
+    application, the system  will finally remove the object.
+  operationId: deleteDocument
+  security:
+    - bearer: []
+  parameters:
+    - $ref: ../components/parameters/DocumentIDPath.yaml
+  responses:
+    200:
+      description: OK
+    400:
+      $ref: ../components/responses/BadRequest.yaml
+    401:
+      $ref: ../components/responses/Unauthorized.yaml
+    404:
+      $ref: ../components/responses/NotFound.yaml
+    429:
+      $ref: ../components/responses/TooManyRequests.yaml
+    500:
+      $ref: ../components/responses/ServerError.yaml
+    503:
+      $ref: ../components/responses/ServiceUnavailable.yaml

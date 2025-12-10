@@ -2,7 +2,6 @@ title: Create Seal Request
 type: object
 required:
   - content
-  - account_name
 properties:
   content:
     type: string
@@ -11,7 +10,7 @@ properties:
     example: "U29tZUJhc2U2NEVuY29kZWRJbWFnZQ=="
   account_name:
     type: string
-    description: Account name of the seal contract that should be used.
+    description: Account name of the seal contract that should be used. If your company own more than one seal and the field account_name is not given or empty, then the first given seal for the API user will be used for sealing.
     example: ais_demo_seal
   title:
     type: string

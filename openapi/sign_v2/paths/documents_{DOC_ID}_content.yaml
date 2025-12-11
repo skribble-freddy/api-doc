@@ -9,7 +9,7 @@ get:
   security:
     - bearer: []
   parameters:
-    - $ref: ../components/parameters/DocumentIdPath.yaml
+    - $ref: ../components/parameters/DocumentIDPath.yaml
   responses:
     200:
       description: PDF or JSON with Base64-encoded PDF

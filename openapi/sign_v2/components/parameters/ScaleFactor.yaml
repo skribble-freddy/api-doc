@@ -1,0 +1,9 @@
+name: scale
+in: header
+description: The scaling factor for the image. 
+required: false
+schema:
+  type: number
+  default: 100
+  minimum: 0
+example: 20

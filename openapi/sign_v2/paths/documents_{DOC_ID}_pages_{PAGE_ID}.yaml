@@ -1,0 +1,49 @@
+get:
+  tags:
+    - Document
+  summary: Get document page preview
+  description: >-
+    When uploading a PDF document to Skribble, the system generates some preview
+    images for the PDF pages. These preview images can be requested by passing
+    the page `{{PAGE_ID}}` you want to get a preview for, starting at **0** for
+    page number 1.  
+
+    > By using the optional parameter `scale` you can choose between a preview
+    in real size using `scale=100` or a thumbnail preview using `scale=20`. 
+  operationId: getDocumentPreview
+  security:
+    - bearer: []
+  parameters:
+    - $ref: ../components/parameters/DocumentIDPath.yaml
+    - $ref: ../components/parameters/PageIDPath.yaml
+    - $ref: ../components/parameters/ScaleFactor.yaml
+  responses:
+    200:
+      description: Preview image in WebP format
+      content:
+        application/webp:
+          schema:
+            type: string
+            format: binary
+    400:
+      $ref: ../components/responses/BadRequest.yaml
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/BadRequestResponse.yaml
+          example:
+            type: "https://api.skribble.com/problem/problem-with-message"
+            method: "GET"
+            path: "/v2/documents/8e725b0d-379c-5fd7-e7b7-ff369ac0c49723/pages/0"
+            status: 400
+            message: "scale '2000' not supported"
+    401:
+      $ref: ../components/responses/Unauthorized.yaml
+    404:
+      $ref: ../components/responses/NotFound.yaml
+    429:
+      $ref: ../components/responses/TooManyRequests.yaml
+    500:
+      $ref: ../components/responses/ServerError.yaml
+    503:
+      $ref: ../components/responses/ServiceUnavailable.yaml

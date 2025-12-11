@@ -22,7 +22,7 @@
 
   },
   "devDependencies": {
-    "@redocly/cli": "2.12.5"
+    "@redocly/cli": "2.12.6"
   },
   "dependencies": {
     "@redocly/redoc": "0.128.0"

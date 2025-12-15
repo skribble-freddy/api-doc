@@ -2,7 +2,7 @@ get:
   tags:
     - Document
   summary: Get document content
-  description: >-
+  description: |
     Dwnload the document content that contains the PDF document
     with the document ID as PDF binary or JSON with Base64-encoded PDF.
   operationId: getDocumentContent

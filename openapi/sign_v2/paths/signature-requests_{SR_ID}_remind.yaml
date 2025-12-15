@@ -3,7 +3,7 @@ post:
     - Signature
     - Tracking
   summary: Remind open signers of a signature request
-  description: >-
+  description: |
     In addition to the automatic signature reminders, manual reminders can also
     be initiated via the Skribble web application and also via the API.
 

@@ -2,7 +2,7 @@ get:
   tags:
     - Document
   summary: Get document metadata
-  description: >-
+  description: |
     By using the document ID you can fetch a `Document` metadata. 
   operationId: getDocumentMetadata
   security:
@@ -47,7 +47,7 @@ delete:
   tags:
     - Document
   summary: Delete document
-  description: >-
+  description: |
     Deleting a `Document` is similar to deleting a `SignatureRequest`.  
 
     That means, deleting a `Document`  does not necessarily remove the a

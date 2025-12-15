@@ -3,7 +3,7 @@ post:
     - Signature
     - Tracking
   summary: Get callbacks detals for a signature request
-  description: >-
+  description: |
     In certain scenarios, it is beneficial to view and verify the status of
     callbacks for a `SignatureRequest`. For example, you might want to confirm
     whether a callback has already been executed or to identify any errors that

@@ -2,7 +2,7 @@ post:
   tags:
     - SendTo
   summary: Create Send-To
-  description: >-
+  description: |
     Start the signing process by uploading the PDF document `content` and
     assigning it a `title`.
 

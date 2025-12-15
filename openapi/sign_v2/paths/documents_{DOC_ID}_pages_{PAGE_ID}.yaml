@@ -2,7 +2,7 @@ get:
   tags:
     - Document
   summary: Get document page preview
-  description: >-
+  description: |
     When uploading a PDF document to Skribble, the system generates some preview
     images for the PDF pages. These preview images can be requested by passing
     the page `{{PAGE_ID}}` you want to get a preview for, starting at **0** for

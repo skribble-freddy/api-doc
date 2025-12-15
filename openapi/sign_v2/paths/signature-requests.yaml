@@ -23,6 +23,8 @@ post:
             $ref: ../components/examples/CreateSignatureBasic.yaml#/PDFFileURL
           PDFExistingDoc:
             $ref: ../components/examples/CreateSignatureBasic.yaml#/PDFExistingDoc
+          Callbacks:
+            $ref: ../components/examples/CreateSignatureBasic.yaml#/Callbacks
   responses:
     200:
       description: OK

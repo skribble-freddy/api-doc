@@ -29,3 +29,19 @@ PDFExistingDoc:
       - account_email: you@example.info
       - account_email: personOneToSign@external.net
       - account_email: personTwoToSign@external.net
+
+Callbacks:
+  summary: With all callback Templates
+  value:
+    title: Example contract
+    message: Please sign this document!
+    content: "SGVsbG8gd29ybGQh"
+    content_type: application/pdf
+    signatures:
+      - account_email: you@example.info
+    callback_success_url: >-
+      https://myapp.com/some/path/SKRIBBLE_SIGNATURE_REQUEST_ID/success?document_id=SKRIBBLE_DOCUMENT_ID&token=12345678
+    callback_update_url: >-
+      https://myapp.com/some/path/SKRIBBLE_SIGNATURE_REQUEST_ID/update?document_id=SKRIBBLE_DOCUMENT_ID&token=12345678
+    callback_error_url: >-
+      https://myapp.com/some/path/SKRIBBLE_SIGNATURE_REQUEST_ID/error?document_id=SKRIBBLE_DOCUMENT_ID&token=12345678

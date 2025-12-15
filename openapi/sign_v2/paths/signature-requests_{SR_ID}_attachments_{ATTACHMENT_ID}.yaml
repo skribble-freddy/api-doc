@@ -1,0 +1,39 @@
+delete:
+  tags:
+    - Signature
+    - Attachment
+  summary: Remove an attachment from a signature request
+  description: |
+    Delete the attachment with the `ATTACHMENT_ID` from the `SignatureRequest`
+    with the ID `SR_ID`
+  operationId: deleteSignatureAttachment
+  security:
+    - bearer: []
+  parameters:
+    - $ref: ../components/parameters/SignatureIDPath.yaml
+    - $ref: ../components/parameters/AttachmentIDPath.yaml
+  responses:
+    200:
+      description: OK
+    400:
+      $ref: ../components/responses/BadRequest.yaml
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/BadRequestResponse.yaml
+          example:
+            type: "https://api.skribble.com/problem/problem-with-message"
+            method: "DELETE"
+            path: "/v2/signature-requests/9259fc0e-388e-b329-7705-a3e96c89348f/attachments/5f22bc70-3f7a-c53c-16c8-37ff293ba93023"
+            status: 400
+            message: "UUID string too large"
+    401:
+      $ref: ../components/responses/Unauthorized.yaml
+    404:
+      $ref: ../components/responses/NotFound.yaml
+    429:
+      $ref: ../components/responses/TooManyRequests.yaml
+    500:
+      $ref: ../components/responses/ServerError.yaml
+    503:
+      $ref: ../components/responses/ServiceUnavailable.yaml

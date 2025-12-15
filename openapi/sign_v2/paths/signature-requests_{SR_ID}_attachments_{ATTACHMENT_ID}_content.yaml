@@ -1,0 +1,44 @@
+get:
+  tags:
+    - Signature
+    - Attachment
+  summary: Get Signature Attachment content
+  description: |
+    Downloads the attachment content with the `ATTACHMENT_ID` for the
+    `SignatureRequest` with the ID `SR_ID`
+  operationId: getSignatureAttachmentContent
+  security:
+    - bearer: []
+  parameters:
+    - $ref: ../components/parameters/SignatureIDPath.yaml
+    - $ref: ../components/parameters/AttachmentIDPath.yaml
+  responses:
+    200:
+      description: Binary attachment content.
+      content:
+        application/octet-stream:
+          schema:
+            type: string
+            format: binary
+    400:
+      $ref: ../components/responses/BadRequest.yaml
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/BadRequestResponse.yaml
+          example:
+            type: "https://api.skribble.com/problem/problem-with-message"
+            method: "GET"
+            path: "/v2/signature-requests/9259fc0e-388e-b329-7705-a3e96c89348f/attachments/5f22bc70-3f7a-c53c-16c8-37ff293ba93023/content"
+            status: 400
+            message: "UUID string too large"
+    401:
+      $ref: ../components/responses/Unauthorized.yaml
+    404:
+      $ref: ../components/responses/NotFound.yaml
+    429:
+      $ref: ../components/responses/TooManyRequests.yaml
+    500:
+      $ref: ../components/responses/ServerError.yaml
+    503:
+      $ref: ../components/responses/ServiceUnavailable.yaml

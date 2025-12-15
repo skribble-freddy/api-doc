@@ -1,0 +1,10 @@
+title: Signature Attachment
+type: object
+properties:
+  attachment_id:
+    type: string
+    format: uuid
+    example: 8ed33046-3798-8c54-0b13-0820d0d6e121
+  filename:
+    type: string
+    example: "Attachment.pdf"

@@ -1,0 +1,85 @@
+get:
+  tags:
+    - Signature
+    - Attachment
+  summary: Add an attachment to a signature request
+  description: |
+    Use this endpoint to provide supplementary documents (for example, Terms &
+    Conditions or appendices) to participants of a `SignatureRequest`.
+
+    Attachments are delivered to participants together with the
+    `SignatureRequest`.
+
+    **Content type limits**:
+    The Skribble API accepts PDF files, image files, Microsoft Office files, and
+    plain text files.
+
+    Allowed content types:
+    - application/pdf
+    - application/x-tika-msoffice
+    - application/x-tika-ooxml
+    - application/msword
+    - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+    - application/vnd.ms-word.document.macroEnabled.12
+    - application/vnd.ms-excel
+    - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    - application/vnd.ms-excel.sheet.macroenabled.12
+    - application/vnd.ms-powerpoint
+    - application/vnd.openxmlformats-officedocument.presentationml.presentation
+    - application/vnd.ms-powerpoint.presentation.macroEnabled.12
+    - image/gif
+    - image/jpeg
+    - image/png
+    - text/plain
+
+    **Content size limits**:
+    The maximum size of a single attachment is approximately 40 MB.
+    The maximum request size is 60 MB.
+
+    **Amount limits**:
+    There is currently no limit on the number of attachments per
+    SignatureRequest. Abuse of this service may result in enforced limits.
+  operationId: createSignatureAttachment
+  security:
+    - bearer: []
+  parameters:
+    - $ref: ../components/parameters/SignatureIDPath.yaml
+  requestBody:
+    description: Request body to create a SignatureAttachment object
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/CreateSignatureAttachmentRequest.yaml
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/SignatureResponse.yaml
+          examples:
+            Attachment1:
+              $ref: ../components/examples/CreateSignatureAttachmentResponse.yaml
+    400:
+      $ref: ../components/responses/BadRequest.yaml
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/BadRequestResponse.yaml
+          example:
+            type: "https://api.skribble.com/problem/problem-with-message"
+            method: "POST"
+            path: "/v2/signature-requests/attachments"
+            status: 400
+            message: "Attachment type is not supported"
+    401:
+      $ref: ../components/responses/Unauthorized.yaml
+    404:
+      $ref: ../components/responses/NotFound.yaml
+    429:
+      $ref: ../components/responses/TooManyRequests.yaml
+    500:
+      $ref: ../components/responses/ServerError.yaml
+    503:
+      $ref: ../components/responses/ServiceUnavailable.yaml

@@ -1,0 +1,9 @@
+summary: Sample with attachment
+value:
+  id: 4f43614a-de50-bfe1-2df3-4c881fc7840e
+  title: Sample document
+  message: Please sign this document.
+  document_id: 1ff0cf91-6b54-f3bd-bffb-8fcd5e799764
+  attachments:
+    - attachment_id: 8ed33046-3798-8c54-0b13-0820d0d6e121
+      filename: Attachment.pdf

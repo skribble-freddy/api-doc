@@ -51,6 +51,8 @@ paths:
     $ref: paths/signature-requests_{SR_ID}_remind.yaml
   /signature-requests/{SR_ID}/callbacks:
     $ref: paths/signature-requests_{SR_ID}_callbacks.yaml
+  /signature-requests/{SR_ID}/attachments:
+    $ref: paths/signature-requests_{SR_ID}_attachments.yaml
   /seal:
     $ref: paths/seal.yaml
   /documents:
@@ -78,22 +80,25 @@ security: []
 tags:
   - name: Access
     description: >-
-      Endpoints for authentication, authorization, and user access management.
+      Endpoints for authentication, authorization, and user access management
   - name: Signature
     description: >-
-      Endpoints related to creating and managing signature requests.
-  - name: SendTo
-    description: >-
-      Endpoints for Send-To
-  - name: Seal
-    description: >-
-      Endpoints for Seals
+      Endpoints related to creating and managing signature requests
   - name: Document
     description: >-
       Endpoints for Documents
+  - name: Attachment
+    description: >-
+      Endpoints for Attachments
   - name: Tracking
     description: >-
-      Endpoints related to tracking signature requests.
+      Endpoints related to tracking signature requests
+  - name: Seal
+    description: >-
+      Endpoints for Seals
+  - name: SendTo
+    description: >-
+      Endpoints for Send-To
   - name: User
     description: >-
       Endpoints for Users

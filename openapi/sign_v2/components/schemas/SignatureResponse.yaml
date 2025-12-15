@@ -43,8 +43,7 @@ properties:
   attachments:
     type: array
     items:
-      # TODO Definition
-      type: object
+      $ref: ./SignatureAttachment.yaml
     example: []
   attach_on_success:
     $ref: ./AttachOnSuccess.yaml
@@ -74,3 +73,15 @@ properties:
     type: string
     format: date-time
     example: "2025-10-08T17:37:03.569Z"
+  callback_success_url:
+    type: string
+    format: uri
+    example: https://mybiz.com/call/success
+  callback_error_url:
+    type: string
+    format: uri
+    example: https://mybiz.com/call/success
+  callback_update_url:
+    type: string
+    format: uri
+    example: https://mybiz.com/call/success

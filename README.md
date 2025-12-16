@@ -39,6 +39,13 @@ npm run build:validation_v1
 npm run preview:validation_v1
 ```
 
+## GitHub Pages
+
+https://skribble-freddy.github.io/api-doc/sign_api_v2.html
+https://skribble-freddy.github.io/api-doc/sign_api_v3.html
+https://skribble-freddy.github.io/api-doc/validation_api_v1.html
+
+
 # Tools
 
 Visual Studio Code Add'in https://marketplace.visualstudio.com/items?itemName=Redocly.openapi-vs-code

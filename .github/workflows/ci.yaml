@@ -12,26 +12,35 @@ permissions:
 
 jobs:
   build-and-deploy:
+    name: Lint, Build & Deploy OpenAPI Docs
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: "24"
 
-      - run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-      - run: npm run lint
+      - name: Lint OpenAPI docs
+        run: npm run lint
 
-      - run: npm run bundle
+      - name: Bundle OpenAPI specs
+        run: npm run bundle
 
-      - run: npm run build
+      - name: Build HTML docs
+        run: npm run build
 
       - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: ./dist
+          keep_files: false

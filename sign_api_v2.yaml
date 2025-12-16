@@ -1,0 +1,3297 @@
+openapi: 3.1.0
+info:
+  title: Skribble API v2
+  version: 2.1.0
+  description: |-
+    The Skribble API v2 documentation describes the publicly available Skribble API version 2. The API allows businesses and teams of any size to integrate the e-signing solution of Skribble with internal systems, software, or SaaS solutions. It provides a simple interface to create and manage signature requests programmatically. Signature requests define who signs what and describe the document flow between participants. Actual signing occurs in the Skribble web application.
+    To get started, set up Skribble Business. Feedback and questions can be sent to the Google Group public-api-users@skribble.com.
+    API v2 provides enhanced features including creating, finding, and triggering signature requests, user and monitoring details, and reporting activities. It maintains backward compatibility with API v1 but upgrading is recommended to access the latest features. Migration from API v1 involves updating base URLs, renaming fields, and adjusting visual signature positions.
+  license:
+    name: Apache 2.0
+    identifier: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://www.skribble.com/en-eu/terms-of-use/
+  contact:
+    name: Skribble Engineering
+    url: https://skribble.com
+    email: info@skribble.com
+servers:
+  - url: https://api.skribble.com/v2
+    description: Production - Switzerland
+  - url: https://api.skribble.de/v2
+    description: Production - Germany
+  - url: https://api.scribital.com/v2
+    description: Staging - Switzerland
+  - url: https://api.scribital.de/v2
+    description: Staging - Germany
+security: []
+tags:
+  - name: Access
+    description: Endpoints for authentication, authorization, and user access management
+  - name: Signature
+    description: Endpoints related to creating and managing signature requests
+  - name: Document
+    description: Endpoints for Documents
+  - name: Attachment
+    description: Endpoints for Attachments
+  - name: Tracking
+    description: Endpoints related to tracking signature requests
+  - name: Seal
+    description: Endpoints for Seals
+  - name: SendTo
+    description: Endpoints for Send-To
+  - name: User
+    description: Endpoints for Users
+  - name: Report
+    description: Endpoints for Reporting
+  - name: Monitoring
+    description: Endpoints for Monitoring
+paths:
+  /access/login:
+    post:
+      tags:
+        - Access
+      summary: Authentication
+      description: |
+        In order to use the API of Skribble, you first need to obtain an API key
+        with an API user. Both can be accessed inside the API key page inside your
+        business profile. From here, you can create and manage your API keys.
+        Consult our [guide](https://docs.skribble.com/business-admin/api/apicreate.html) for help.
+
+
+        Skribble offers two types of API keys:
+
+
+        **Demo API keys**  
+
+        Demo API keys are for testing and development purposes.
+        Signatures requested by such keys don't have any legal weight and are free
+        of charge.
+
+        You can recognize these keys by their name, which start with **api_demo**.  
+
+
+        **Production API keys**  
+
+        Production API keys are used for live systems.
+        Signatures requested by such keys will be invoiced.  
+
+        You can recognize these keys by their name, which usually starts with
+        **api_production** or in some rare cases just with **api_prod**.
+
+        > **⚠ Note**  
+        All costs of signature requests created with your API keys will be
+        **charged to your business**! 
+              
+        We recommend you to **start with a demo API key for development and
+        testing** and switch to the production API key as soon as you are finished
+        with testing.
+
+        If you have problems setting up Skribble Business, just drop us an e-mail
+        at [info@skribble.com](mailto:info@skribble.com).
+
+
+        To obtain an access token, log in using the `/access/login` resource.
+
+        You can pass your login data using raw JSON or alternatively as
+        `x-www-form-urlencoded` `key:value` pairs (see example requests).
+
+        Upon a successful login, a JSON Web Token (JWT) will be returned.  
+        The JWT MUST be included in nearly every request made to the API.
+
+
+        The access token is transported in an HTTP header called `Authorization`.
+
+        The content of the header starts with `Bearer` followed by the JWT string.
+        Example: `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI...`
+
+        ### Token Life Cycle
+
+        #### API-Key
+
+        The API key has a long, but not an unlimited lifetime.  
+        The validity period depends on the volume of API calls and is discussed individually as part of the shared secret agreement.
+
+        #### Access Token
+
+        The access token has a lifetime of about **20 minutes**.  
+        Currently, we do not renew the access token automatically. Planned for future releases.
+
+        #### Logout
+
+        There is **no logout**. The access token will expire after the defined time.
+      operationId: accessLogin
+      security:
+        - {}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+            example:
+              username: add_your_api_name_here
+              api-key: please_enter_your_password_here
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+                description: JSON Web Token (JWT)
+              example: eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJJWlMxY0pXQXlXVFdZeDR6dXRGNzJlYWVILT...
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /signature-requests:
+    post:
+      tags:
+        - Signature
+      summary: Create a signature request
+      description: |
+        The `SignatureRequest` object is the primary object of the Skribble API .
+        It describes who signs what and how. It gives an overview of the current state 
+        of the single Signatures and allows to control user rights or callback functionality.
+      operationId: createSignatureRequest
+      security:
+        - bearer: []
+      requestBody:
+        description: Request body to create a SignatureRequest object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSignatureRequest'
+            examples:
+              PDFBase64:
+                $ref: '#/components/examples/PDFBase64'
+              PDFFileURL:
+                $ref: '#/components/examples/PDFFileURL'
+              PDFExistingDoc:
+                $ref: '#/components/examples/PDFExistingDoc'
+              Sequences:
+                $ref: '#/components/examples/Sequences'
+              NASfirst:
+                $ref: '#/components/examples/NASfirst'
+              Callbacks:
+                $ref: '#/components/examples/Callbacks'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignatureResponse'
+              examples:
+                Sample1:
+                  $ref: '#/components/examples/Sample1'
+                Sample2:
+                  $ref: '#/components/examples/Sample2'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+    get:
+      tags:
+        - Signature
+      summary: List and find Signature Requests
+      description: |
+        Using this `GET` request, you can list all the `SignatureRequest` provided
+        that the current user has sufficient access rights to.
+
+
+        **Filter**
+
+
+        You can optionally filter these `SignatureRequest` using one or more of the
+        optional parameters.  
+
+
+        The filter searches for an exact match of the corresponding field
+        content. This means that the filter is case sensitive and find objects
+        that only _contain_ the parameter. For example _account_email=john.doe@skribble.com_ 
+        will only find a `SignatureRequest` where the field `account_email` is exactly
+        john.doe@skribble.com and it won't find another.john.doe@skribble.com
+
+
+        Exception: The search parameter searches for document titles that contain
+        the search term. 
+
+
+        **Pagination** 
+
+
+        Furthermore, the result set can be controlled using the optional pagination
+        parameters `page_number` and `page_size`, which helps prevent excessively
+        large result sets.
+      operationId: getSignatureRequest
+      security:
+        - bearer: []
+      parameters:
+        - $ref: '#/components/parameters/SignatureAccountMail'
+        - $ref: '#/components/parameters/SignatureSearch'
+        - $ref: '#/components/parameters/SignatureStatusCode'
+        - $ref: '#/components/parameters/SignatureStatusOverall'
+        - $ref: '#/components/parameters/PageNumber'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                description: List of Signature Requests.
+                items:
+                  $ref: '#/components/schemas/SignatureResponse'
+              examples:
+                default:
+                  $ref: '#/components/examples/SampleArray'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+    put:
+      tags:
+        - Signature
+      summary: Update a Signature Request
+      description: |
+        Modifications on existing `SignatureRequest` should be handled with care.
+        We recommend creating the `SignatureRequest` with all necessary information. 
+
+
+        To add or remove multiple signers at once, you need to update the
+        `signatures` array according to your needs.
+
+        - To add a signer to the `SignatureRequest`, simply add a new entry to the
+        signatures array.
+            
+        - To remove a signer from the `SignatureRequest`, simply remove the
+        corresponding entry from the `signatures` array.
+            
+
+        > ⚠️ **IMPORTANT NOTE** 
+          
+
+        - Please be aware that if you want to add one or more new signers, you MUST
+        include the existing signers in the update request. Any signers not present
+        in the `signatures` array will be removed!
+            
+        - Changes to the signatures can only be made as long as none of the signers
+        have already completed the signature.
+      operationId: updateSignatureRequest
+      security:
+        - bearer: []
+      requestBody:
+        description: Request body to update a SignatureRequest object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSignatureRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignatureResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /signature-requests/{SR_ID}:
+    get:
+      tags:
+        - Signature
+      summary: Get a Signature Request
+      description: |
+        By using the signature request ID you can fetch a `SignatureRequest`. 
+      operationId: getSignatureRequestDetails
+      security:
+        - bearer: []
+      parameters:
+        - $ref: '#/components/parameters/SignatureIDPath'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignatureResponse'
+              examples:
+                Sample1:
+                  $ref: '#/components/examples/Sample1'
+                Sample2:
+                  $ref: '#/components/examples/Sample2'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+    delete:
+      tags:
+        - Signature
+      summary: Delete a Signature Request
+      description: |
+        By using the signature request ID you can delete a `SignatureRequest`.  
+         
+        **Important:** A `SignatureRequest` can only be deleted using the API, if:
+
+        1. the `SignatureRequest` is in the `status_overall=OPEN` and
+
+        2. the API user has sufficient rights on the `SignatureRequest`, eg. when it
+        was created by the API user. 
+          
+        Deleting a `SignatureRequest` does not necessarily remove the
+        `SignatureRequest` from the system. 
+         
+        **WITHDRAWN**  
+
+        When the API user is the **owner** of the `SignatureRequest` and the
+        `SignatureRequest` is still in the `status_overall=OPEN` then the
+        `SignatureRequest` will be **WITHDRAWN**.  
+
+        This means that the `SignatureRequest` will get `status_overall=WITHDRAWN`
+        and all the invited signatures will be marked with `status_code=WITHDRAWN`.
+        Sign and read rights for the signers will be removed from the
+        `SignatureRequest`, so that the invited signers can neither read nor sign
+        the `SignatureRequest` any more. 
+
+
+        **REMOVE AS PARTICIPANT**  
+
+        When the API user is NOT the owner of the document but a participant of the
+        `SignatureRequest`, then the `DELETE` request will only remove the current
+        API user as participant from the signature request. 
+
+        In this case the system will remove the objects the `SignatureRequest` and
+        the related `document` as soon as the last remaining user deletes the
+        `SignatureRequest` using the [Skribble web
+        application](https://my.skribble.com) 
+
+
+        **DELETING**  
+
+        When the API user is the last user with access rights to the
+        `SignatureRequest` e.g. after a **WITHDRAW** request, then the
+        `SignatureRequest` and the related `document` will be completely removed
+        from the system.
+      operationId: deleteSignatureRequest
+      security:
+        - bearer: []
+      parameters:
+        - $ref: '#/components/parameters/SignatureIDPath'
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /signature-requests/{SR_ID}/withdraw:
+    post:
+      tags:
+        - Signature
+      summary: Withdraw a signature request
+      description: |
+        Sometimes, signing a document may become unnecessary, or errors might occur
+        during the invitation process. As the inviter of such a `SignatureRequest`,
+        you can _explicitely_ `withdraw` the `SignatureRequest`. Withdraw removes
+        all signatories and observers from the document as participants and notifies
+        them with a specified `message.`
+
+
+        Similar to `deletion`, the `withdraw` action can only be executed if:
+
+
+        - The SignatureRequest status is `status_overall=OPEN`
+
+        - The API user has sufficient rights on the `SignatureRequest`, such as when
+        it was created by the API user.
+            
+
+        > **Note**  
+
+        We recommend using the `delete` endpoint. By default, it checks for other
+        options. For example, if the API user does not have withdrawal rights, the
+        user could be removed from the `SignatureRequest` directly, or the document
+        might be deleted directly.  
+
+        Nevertheless, there may be situations in which you need to withdraw the
+        document and keep it in Skribble. In this case you should of course use the
+        `withdraw` functionality.
+      operationId: withdrawSignatureRequest
+      security:
+        - bearer: []
+      parameters:
+        - $ref: '#/components/parameters/SignatureIDPath'
+      requestBody:
+        description: Request body to withdraw a SignatureRequest object
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WithdrawSignatureRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignatureResponse'
+              examples:
+                Sample1:
+                  $ref: '#/components/examples/WithdrawSignatureResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /signature-requests/{SR_ID}/remind:
+    post:
+      tags:
+        - Signature
+        - Tracking
+      summary: Remind open signers of a signature request
+      description: |
+        In addition to the automatic signature reminders, manual reminders can also
+        be initiated via the Skribble web application and also via the API.
+
+
+        This allows for greater flexibility in managing signature requests, ensuring
+        that important documents are signed promptly. By using both automatic and
+        manual reminders, you can tailor your approach to suit the specific needs of
+        your users or customers.
+
+
+        **Limits**
+
+
+        There is an hourly limit on the number of signature reminders that can be
+        sent. This limit ensures that reminders are used responsibly and prevents
+        excessive notifications. Generally, this restriction should not affect you
+        if you use this feature appropriately. By adhering to this limit, you can
+        effectively manage your signature requests without overwhelming your users
+        or customers with frequent reminders.
+      operationId: remindSignatureRequest
+      security:
+        - bearer: []
+      parameters:
+        - $ref: '#/components/parameters/SignatureIDPath'
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /signature-requests/{SR_ID}/callbacks:
+    post:
+      tags:
+        - Signature
+        - Tracking
+      summary: Get callbacks detals for a signature request
+      description: |
+        In certain scenarios, it is beneficial to view and verify the status of
+        callbacks for a `SignatureRequest`. For example, you might want to confirm
+        whether a callback has already been executed or to identify any errors that
+        occurred during the callback process.
+
+
+        This endpoint provides the capability to obtain detailed information about
+        the callbacks associated with a `SignatureRequest`, enabling comprehensive
+        monitoring and troubleshooting. By using this endpoint, you can ensure the
+        reliability and accuracy of your callback operations and quickly address any
+        issues that may arise.
+
+
+        **Result**
+
+
+        If no callback has been called yet, the response will be an empty array.
+        Otherwise it will contain an array of `callback` objects that were already
+        executed.
+      operationId: getSignatureRequestCallbacks
+      security:
+        - bearer: []
+      parameters:
+        - $ref: '#/components/parameters/SignatureIDPath'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignatureCallbacksResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /signature-requests/{SR_ID}/attachments:
+    get:
+      tags:
+        - Signature
+        - Attachment
+      summary: Add an attachment to a signature request
+      description: |
+        Use this endpoint to provide supplementary documents (for example, Terms &
+        Conditions or appendices) to participants of a `SignatureRequest`.
+
+        Attachments are delivered to participants together with the
+        `SignatureRequest`.
+
+        **Content type limits**:
+        The Skribble API accepts PDF files, image files, Microsoft Office files, and
+        plain text files.
+
+        Allowed content types:
+        - application/pdf
+        - application/x-tika-msoffice
+        - application/x-tika-ooxml
+        - application/msword
+        - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+        - application/vnd.ms-word.document.macroEnabled.12
+        - application/vnd.ms-excel
+        - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+        - application/vnd.ms-excel.sheet.macroenabled.12
+        - application/vnd.ms-powerpoint
+        - application/vnd.openxmlformats-officedocument.presentationml.presentation
+        - application/vnd.ms-powerpoint.presentation.macroEnabled.12
+        - image/gif
+        - image/jpeg
+        - image/png
+        - text/plain
+
+        **Content size limits**:
+        The maximum size of a single attachment is approximately 40 MB.
+        The maximum request size is 60 MB.
+
+        **Amount limits**:
+        There is currently no limit on the number of attachments per
+        SignatureRequest. Abuse of this service may result in enforced limits.
+      operationId: createSignatureAttachment
+      security:
+        - bearer: []
+      parameters:
+        - $ref: '#/components/parameters/SignatureIDPath'
+      requestBody:
+        description: Request body to create a SignatureAttachment object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSignatureAttachmentRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignatureResponse'
+              examples:
+                Attachment1:
+                  $ref: '#/components/examples/CreateSignatureAttachmentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /signature-requests/{SR_ID}/attachments/{ATTACHMENT_ID}/content:
+    get:
+      tags:
+        - Signature
+        - Attachment
+      summary: Get Signature Attachment content
+      description: |
+        Downloads the attachment content with the `ATTACHMENT_ID` for the
+        `SignatureRequest` with the ID `SR_ID`
+      operationId: getSignatureAttachmentContent
+      security:
+        - bearer: []
+      parameters:
+        - $ref: '#/components/parameters/SignatureIDPath'
+        - $ref: '#/components/parameters/AttachmentIDPath'
+      responses:
+        '200':
+          description: Binary attachment content.
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /signature-requests/{SR_ID}/attachments/{ATTACHMENT_ID}:
+    delete:
+      tags:
+        - Signature
+        - Attachment
+      summary: Remove an attachment from a signature request
+      description: |
+        Delete the attachment with the `ATTACHMENT_ID` from the `SignatureRequest`
+        with the ID `SR_ID`
+      operationId: deleteSignatureAttachment
+      security:
+        - bearer: []
+      parameters:
+        - $ref: '#/components/parameters/SignatureIDPath'
+        - $ref: '#/components/parameters/AttachmentIDPath'
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /signature-requests/{SR_ID}/signatures:
+    post:
+      tags:
+        - Signature
+      summary: Add an individual signer
+      description: |
+        To add an individual signer, use the same parameters as when creating a
+        SignatureRequest. The process is the same. By using `account_email`, you can
+        add a signer who has a Skribble account. By using `signer_identity_data`,
+        you can invite a No-Account-Signer to the SignatureRequest with the ID
+        `{{SR_ID}}`.
+
+
+        > 💡 Good to know  
+
+        We recommend this approach of combining `signer_idendity_data` and
+        `account_email` if you are unsure whether the user has a Skribble account.
+        The benefit is that an existing Skribble user will afterwards find the
+        SignatureRequest in the **To sign** section of their account on
+        my.skribble.com.  
+
+        Conversely, if you invite them using only `signer_identity_data`, the
+        document will not appear in their Skribble account, even if they have an
+        existing Skribble account. Instead, they will have to access the document
+        using the specific link provided in their signature invitation email.
+      operationId: addSignatureSigner
+      security:
+        - bearer: []
+      parameters:
+        - $ref: '#/components/parameters/SignatureIDPath'
+      requestBody:
+        description: Request body to add a Signer
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignatureRecipient'
+            examples:
+              default:
+                $ref: '#/components/examples/AddSignatureSigner'
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /signature-requests/{SR_ID}/signatures/{SID}:
+    delete:
+      tags:
+        - Signature
+      summary: Remove an individual signer
+      description: |
+        To remove an individual signer, provide the SignatureRequest ID `{{SR_ID}}`
+        and the Signature ID `{{SID}}` of the signer you want to remove.
+      operationId: removeSignatureSigner
+      security:
+        - bearer: []
+      parameters:
+        - $ref: '#/components/parameters/SignatureIDPath'
+        - $ref: '#/components/parameters/SignerIDPath'
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /seal:
+    post:
+      tags:
+        - Seal
+      summary: Seal a document with a legal entity signature
+      description: |
+        Uploading and affixing an electronic seal to a document takes just one call.
+
+
+        Additionally, you can place a visual signature on the document.
+
+
+        An API response from a seal request contains a document_id of the newly created
+        document with the seal that can be retrieved.
+      operationId: sealDocument
+      security:
+        - bearer: []
+      requestBody:
+        description: Content base64-encoded in a JSON object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSealRequest'
+            examples:
+              Sample1:
+                $ref: '#/components/examples/SealDoc'
+              Sample2:
+                $ref: '#/components/examples/SealVisual'
+              Sample3:
+                $ref: '#/components/examples/SealVisualCustom'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateSealResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /documents:
+    post:
+      tags:
+        - Document
+      summary: Upload document
+      description: |
+        Upload using a **Base64 encoded** file as `content`.
+      operationId: uploadDocument
+      security:
+        - bearer: []
+      requestBody:
+        description: Request body to create a Document object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadDocumentRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentResponse'
+              examples:
+                default:
+                  $ref: '#/components/examples/Sample'
+                form:
+                  $ref: '#/components/examples/SamplePDFForm'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+    get:
+      tags:
+        - Document
+      summary: List all accessible documents
+      description: |
+        This request returns an array of all accessible `Documents` objects.
+      operationId: getDocuments
+      security:
+        - bearer: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                description: List of Documents.
+                items:
+                  $ref: '#/components/schemas/DocumentResponse'
+              examples:
+                default:
+                  $ref: '#/components/examples/DocumentResponse_SampleArray'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /documents/{DOC_ID}:
+    get:
+      tags:
+        - Document
+      summary: Get document metadata
+      description: |
+        By using the document ID you can fetch a `Document` metadata. 
+      operationId: getDocumentMetadata
+      security:
+        - bearer: []
+      parameters:
+        - $ref: '#/components/parameters/DocumentIDPath'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentResponse'
+              examples:
+                default:
+                  $ref: '#/components/examples/Sample'
+                form:
+                  $ref: '#/components/examples/SamplePDFForm'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+    delete:
+      tags:
+        - Document
+      summary: Delete document
+      description: |
+        Deleting a `Document` is similar to deleting a `SignatureRequest`.  
+
+        That means, deleting a `Document`  does not necessarily remove the a
+        `Document` from the system.  
+
+
+        If there is MORE than one participant involved, then the DELETE request will
+        only remove the current user from the `Document`.   
+
+
+        Only when the last user deletes the `Document` using the Skribble web
+        application, the system  will finally remove the object.
+      operationId: deleteDocument
+      security:
+        - bearer: []
+      parameters:
+        - $ref: '#/components/parameters/DocumentIDPath'
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /documents/{DOC_ID}/content:
+    get:
+      tags:
+        - Document
+      summary: Get document content
+      description: |
+        Dwnload the document content that contains the PDF document
+        with the document ID as PDF binary or JSON with Base64-encoded PDF.
+      operationId: getDocumentContent
+      security:
+        - bearer: []
+      parameters:
+        - $ref: '#/components/parameters/DocumentIDPath'
+      responses:
+        '200':
+          description: PDF or JSON with Base64-encoded PDF
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentContentResponse'
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /documents/{DOC_ID}/pages/{PAGE_ID}:
+    get:
+      tags:
+        - Document
+      summary: Get document page preview
+      description: |
+        When uploading a PDF document to Skribble, the system generates some preview
+        images for the PDF pages. These preview images can be requested by passing
+        the page `{{PAGE_ID}}` you want to get a preview for, starting at **0** for
+        page number 1.  
+
+        > By using the optional parameter `scale` you can choose between a preview
+        in real size using `scale=100` or a thumbnail preview using `scale=20`. 
+      operationId: getDocumentPreview
+      security:
+        - bearer: []
+      parameters:
+        - $ref: '#/components/parameters/DocumentIDPath'
+        - $ref: '#/components/parameters/PageIDPath'
+        - $ref: '#/components/parameters/ScaleFactor'
+      responses:
+        '200':
+          description: Preview image in WebP format
+          content:
+            application/webp:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /sendto:
+    post:
+      tags:
+        - SendTo
+      summary: Create Send-To
+      description: |
+        Start the signing process by uploading the PDF document `content` and
+        assigning it a `title`.
+
+        ### Limited lifetime
+
+        > Send-To objects and its related Documents and SignatureRequests are only
+        guaranteed for a **limited lifetime.** 
+          
+        - Send-To request that dont get claimed by a user, so where a user does not
+        add the document to the list of his documents to sign, will be deleted
+        automatically after one day.
+            
+        - Send-To objects and its related Documents and SignatureRequest objects in
+        general, independant of its status, will be deleted automatically after 90
+        days.
+      operationId: createSendTo
+      security:
+        - {}
+      requestBody:
+        description: Content can be sent directly as a file or base64-encoded in a JSON object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSendToRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateSendToRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateSendToResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /sendto/{SEND_TO_ID}/track:
+    get:
+      tags:
+        - SendTo
+        - Tracking
+      summary: Track Send-To
+      description: |
+        To call the `track` endpoint, you must include the value of the
+        `access_code` field—received when creating the `Send-To` object—in the
+        request header `X-Accesscode`.
+      operationId: trackSendTo
+      security:
+        - {}
+      parameters:
+        - $ref: '#/components/parameters/XAccesscodeHeader'
+        - $ref: '#/components/parameters/SendToIdPath'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackSendToResponse'
+              examples:
+                unclaimed:
+                  $ref: '#/components/examples/SendToUnclaimed'
+                claimed:
+                  $ref: '#/components/examples/SendToClaimed'
+                signed:
+                  $ref: '#/components/examples/SendToSigned'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /sendto/{SEND_TO_ID}/download:
+    get:
+      tags:
+        - SendTo
+      summary: Download Send-To document
+      description: |
+        To call the `download` endpoint, you must include the value of the
+        `access_code` field—received when creating the `Send-To` object—in the
+        request header `X-Accesscode`.
+
+        As response you will get the initially provided PDF document in its current
+        state. This might be signed, declined or withdrawn or still open for
+        signing. The status can be obtained using the `track` endpoind.
+      operationId: downloadSendTo
+      security:
+        - {}
+      parameters:
+        - $ref: '#/components/parameters/XAccesscodeHeader'
+        - $ref: '#/components/parameters/SendToIdPath'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /sendto/{SEND_TO_ID}:
+    delete:
+      tags:
+        - SendTo
+      summary: Delete Send-To
+      description: |
+        To call the `delete` endpoint, you must include the value of the
+        `access_code` field—received when creating the `Send-To` object—in the
+        request header `X-Accesscode`.
+
+        This call deletes the involved `Send-To`, `Document`, and `SignatureRequest`
+        objects regardless of the current `Send-To` state.
+      operationId: deleteSendTo
+      security:
+        - {}
+      parameters:
+        - $ref: '#/components/parameters/XAccesscodeHeader'
+        - $ref: '#/components/parameters/SendToIdPath'
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /user/signature-qualities:
+    get:
+      tags:
+        - User
+      summary: Get signature qualities details for a user
+      description: |
+        The result of this query will tell you what final signature `quality` will be
+        used for the given user `username` to sign a document.  
+
+        The resulting signature quality is determined in combination of the
+        requested `quality` and `legislation`, whereas any stands for any legislation.  
+
+        Description for the example request:  
+
+        If you create a `SignatureRequest` with `quality=AES_MINIMAL` and the
+        `legislation=ZERTES` the user in this example would finally sign the document
+        with the signature quality `QES`.  
+
+        As described in the previous chapter `AES_MINIMAL` will use `QES` as long as the
+        user settings allow this.
+      operationId: getUserSignatureQualities
+      security:
+        - bearer: []
+      parameters:
+        - $ref: '#/components/parameters/UserName'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSignatureQualitiesResponse'
+              examples:
+                default:
+                  $ref: '#/components/examples/UserSignatureQualitiesResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /activities/signatures:
+    get:
+      tags:
+        - Report
+      summary: Get signature activities by business
+      description: |
+        This endpoint provides detailled signature `activities` information for your business and your members within a specified date range.
+
+        Use these parameters to filter for a specific time range.
+
+        | **Parameter** | **Description** | **Mandatory** |
+        | --- | --- | --- |
+        | `start_date` | The start date of the range to fetch the signature `activities`.  <br>Format: `yyyy-MM-dd.` | yes |
+        | `end_date` | The end date of the range to fetch the signature `activities`.  <br>Format: `yyyy-MM-dd.` | yes |
+
+        ### **Pagination**
+
+        The result set can be controlled using the optional pagination parameters `page` and `size`
+
+        | **Parameter** | **Description** | **Mandatory** |
+        | --- | --- | --- |
+        | `page` | The page number to fetch the signature `activities`.  <br>Must be a positive integer.  <br>Default: 1 | no |
+        | `size` | The size of the page to fetch the signature activities.  <br>Must be a positive integer.  <br>Default: 25  <br>Maximum: 100 | no |
+        | `sort` | The sort order of the signature activities. Can be `asc` or `desc`.  <br>Default is `desc`. | no |
+
+        ### **Response**
+
+        The response contains the following information.
+
+        **General**
+
+        | **Field** | **Description** |
+        | --- | --- |
+        | `activities` | Array of `activities`. See the following subchapter _Activities_. |
+        | `total_items` | Total items to fetch when paginating through all the pages. |
+        | `total_pages` | Total pages to fetch when paginating through all the pages. |
+        | `current_page` | Current page number. |
+        | `size` | Size of the page. |
+
+        **Activities**
+
+        | **Field** | **Description** |
+        | --- | --- |
+        | `id` | The ID of the signature `activity`. |
+        | `action` | The action type of a signature activity. |
+        | Can be `signed` or `sealed`. |  |
+        | `timestamp` | The timestamp of the signature activity. |
+        | `signature_request_id` | The signature request ID. |
+        | `business_id_paid_by` | The ID of the business that paid for the signature activity. |
+        | `cost_center` | The cost center of the signature paying party. |
+        | This information might not necessarily be present. |  |
+        | `initiator` | The initiator `user` of the signature `activity`. See the following subchapter _User_. |
+        | `signer` | The signer `user` of the signature `activity`. See the following subchapter _User_. |
+
+        **User**
+
+        | **Field** | **Description** |
+        | --- | --- |
+        | `user_id` | The ID of the `user`. |
+        | `email` | The email of the `user`. |
+        | `first_name` | The first name of the `user`. |
+        | `last_name` | The last name of the `user`. |
+        | `type` | The membership status of the `user` in relation to the business. Can be `api`, `external`, `member` or `unknown`. |
+        | `mobile` | The mobile number of the user. |
+      operationId: getActivitiesSignaturesByBusiness
+      security:
+        - bearer: []
+      parameters:
+        - $ref: '#/components/parameters/StartDate'
+        - $ref: '#/components/parameters/EndDate'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Size'
+        - $ref: '#/components/parameters/Sort'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivitiesSignaturesResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /management/health:
+    get:
+      tags:
+        - Monitoring
+      summary: System health
+      description: |
+        Get details about system health
+
+        If you need to monitor the responsiveness of the Skribble API, you may want to
+        have a look at the health resource. It will give you a short update about the 
+        current status of the system.
+
+        `status:UP` tells you that the system is up and running.
+      operationId: getSystemHealth
+      security:
+        - {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemHealthResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+components:
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+  schemas:
+    LoginRequest:
+      type: object
+      required:
+        - username
+        - api-key
+      properties:
+        username:
+          type: string
+          description: The username of the users credentials to login
+          example: add_your_api_name_here
+        api-key:
+          type: string
+          description: The API key of the users credentials to login
+          example: please_enter_your_password_here
+    SignatureStatusCode:
+      title: Signature Status Code
+      type: string
+      description: |-
+        The state of a signature.
+        Possible values:
+          - **OPEN** Waiting for the user to sign a signature.
+          - **DECLINED** The user declined to sign.
+          - **WITHDRAWN** The owner has withdrawn the signature request.
+          - **SIGNED** The user signed the document.
+          - **ERROR** A technical error occurred.
+      enum:
+        - OPEN
+        - DECLINED
+        - WITHDRAWN
+        - SIGNED
+        - ERROR
+      example: SIGNED
+    SignatureStatusOverall:
+      title: Signature Status Overall
+      type: string
+      description: |-
+        Overall signing status of the document.
+        Possible values:
+          - **OPEN** At least one user has not signed or declined their signature yet.
+          - **DECLINED** At least one user declined to sign. The signature request failed.
+          - **WITHDRAWN** The owner has withdrawn the signature request.
+          - **SIGNED** All users signed the document. The signature request was successfully completed.
+          - **ERROR** A technical error occurred. The signature request cannot be completed.
+      enum:
+        - OPEN
+        - DECLINED
+        - WITHDRAWN
+        - SIGNED
+        - ERROR
+      example: OPEN
+    SignatureLegislation:
+      title: Signature Legislation
+      type: string
+      description: Legislation of the signatures for this signature request. Only important for QES signatures.
+      enum:
+        - ZERTES
+        - EIDAS
+      example: ZERTES
+    SignatureQuality:
+      title: Signature Quality
+      type: string
+      description: Minimal quality of the signatures for this signature request.
+      enum:
+        - SES
+        - AES
+        - AES_MINIMAL
+        - QES
+        - DEMO
+      example: QES
+    SignatureLanguage:
+      title: Signature Language
+      type: string
+      description: Determines in which language e-mails are sent to the user, if the user has not set their language preference yet.
+      enum:
+        - en
+        - de
+        - fr
+        - it
+      default: en
+    SignerIdentityDataResponse:
+      title: Signer Identity Data in Response
+      type: object
+      description: Optional Signer identity information.
+      properties:
+        email_address:
+          type: string
+          description: Optional no-account eMail
+          format: email
+          example: nas@example.com
+        first_name:
+          type: string
+          description: Optional first name of no-account-signer
+          example: John
+        last_name:
+          type: string
+          description: Optional last name of no-account-signer
+          example: Doe
+        mobile_number:
+          type: string
+          description: Optional mobile number of no-account-signer
+          example: '41791234567'
+        language:
+          $ref: '#/components/schemas/SignatureLanguage'
+        identity_reference:
+          type: string
+          description: Optional identification reference (TODO)
+          example: Internal-ID-012345
+        identification_require_evidence:
+          type: boolean
+          description: |
+            Optional. If set, even if the signer is already identified, a new identification process is started to get fresh evidence records.
+            If the business hasn't enabled Express QES, the request is rejected.
+          example: true
+        provider:
+          type: string
+          description: Optional Evidence provider
+          example: swisscom_ra_app
+        evidence_id:
+          type: string
+          description: Optional ID of the evidence records created during identification.
+          example: evidence-12345
+    VisualSignatureImage:
+      title: Visual Signature Image
+      type: object
+      description: Visual signature image.
+      required:
+        - content
+        - content_type
+      properties:
+        content:
+          type: string
+          description: Base64 encoded bytes of content.
+          format: byte
+          example: SGVsbG8gd29ybGQh
+        content_type:
+          type: string
+          description: Content type of bytes sent in content. At the moment this MUST be image/png
+          example: image/png
+    VisualSignaturePosition:
+      title: Visual Signature Position
+      type: object
+      properties:
+        page:
+          type: string
+          description: "Page number (0-indexed) where the signature appears.\nThis is a String and not a number!\t\n"
+          example: '0'
+        height:
+          type: number
+          description: Height of the signature in pixels.
+          example: 70
+        width:
+          type: number
+          description: Width of the signature in pixels.
+          example: 150
+        x:
+          type: number
+          description: X-coordinate (pixels from left) of signature.
+          example: 350
+        'y':
+          type: number
+          description: Y-coordinate (pixels from top) of signature.
+          example: 240
+        rotation:
+          type: number
+          description: |
+            Defines a rotation of the field content. 
+            If used in context with a form field, then only the values 0, 90, 180, 270 are legal.
+            Otherwise every value is legal. The rotation is applied counter clockwise.
+          example: 0
+    VisualSignatureResponse:
+      title: Visual Signature Response
+      type: object
+      description: Visual signature placement information.
+      properties:
+        image:
+          $ref: '#/components/schemas/VisualSignatureImage'
+        position:
+          description: Position where the signature should appear.
+          $ref: '#/components/schemas/VisualSignaturePosition'
+        positions:
+          type: array
+          description: List of additional positions where the signature should appear.
+          items:
+            $ref: '#/components/schemas/VisualSignaturePosition'
+        form_field:
+          type: string
+          description: |
+            Name of the form field in which the signature is placed. If multiple fields of this name are present in the document, all will be used. Takes precedence before positions.
+          example: Signature1
+    SignatureRecipientResponse:
+      title: Signature Callbacks Response
+      type: object
+      properties:
+        sid:
+          type: string
+          format: uuid
+          example: 894a0240-e01a-2307-4376-0267c6a8d105
+        status_code:
+          $ref: '#/components/schemas/SignatureStatusCode'
+        account_email:
+          type: string
+          format: email
+          example: you@example.info
+        signer_identity_data:
+          $ref: '#/components/schemas/SignerIdentityDataResponse'
+        sequence:
+          type: integer
+          format: int32
+          example: -1
+        notify:
+          type: boolean
+          example: true
+        visual_signature:
+          $ref: '#/components/schemas/VisualSignatureResponse'
+    SignatureAttachment:
+      title: Signature Attachment
+      type: object
+      properties:
+        attachment_id:
+          type: string
+          format: uuid
+          example: 8ed33046-3798-8c54-0b13-0820d0d6e121
+        filename:
+          type: string
+          example: Attachment.pdf
+    AttachOnSuccess:
+      title: Attachment when signed
+      type: array
+      description: |-
+        When a SignatureRequest has been signed by all signers, all signers and all observers are notified by email. Skribble provides the option to attach two types of attachments automatically to this email:
+          - the signed document and
+          - the signature protocol.
+
+        This can be configured via the business settings, which can be used to define that these documents should generally be attached for all SignatureRequests created by business members.
+        Alternatively it is possible to define the attachments on demand per SignatureRequest by using this field.
+      items:
+        type: string
+        enum:
+          - SIGNED_DOCUMENT
+          - SIGNATURE_PROTOCOL
+      example:
+        - SIGNED_DOCUMENT
+        - SIGNATURE_PROTOCOL
+    SignatureResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 4f43614a-de50-bfe1-2df3-4c881fc7840e
+        title:
+          type: string
+          example: Example contract
+        message:
+          type: string
+          example: Please sign this document!
+        document_id:
+          type: string
+          format: uuid
+          example: 29eae6aa-5558-2ada-2870-d4e654c0da5c
+        legislation:
+          $ref: '#/components/schemas/SignatureLegislation'
+        quality:
+          $ref: '#/components/schemas/SignatureQuality'
+        signing_url:
+          type: string
+          format: uri
+          example: https://my.skribble.com/view/4f43614a-de50-bfe1-2df3-4c881fc7840e
+        status_overall:
+          $ref: '#/components/schemas/SignatureStatusOverall'
+        business:
+          type: string
+          example: biz-42b4c2fb9ee947778ba70bc0698c78f7
+        signatures:
+          type: array
+          items:
+            $ref: '#/components/schemas/SignatureRecipientResponse'
+        cc_email_addresses:
+          type: array
+          items:
+            type: string
+            format: email
+          example: []
+        expiration_date:
+          type: string
+          example: '2025-11-21'
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/SignatureAttachment'
+          example: []
+        attach_on_success:
+          $ref: '#/components/schemas/AttachOnSuccess'
+        owner:
+          type: string
+          example: api_production_skribbleag_42b4_9
+        read_access:
+          type: array
+          items:
+            type: string
+          example:
+            - persononetosign@external.net
+            - api_production_skribbleag_42b4_9
+            - you@example.info
+            - persontwotosign@external.net
+        write_access:
+          type: array
+          items:
+            type: string
+          example:
+            - api_production_skribbleag_42b4_9
+        created_at:
+          type: string
+          format: date-time
+          example: '2025-10-08T17:37:03.569Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2025-10-08T17:37:03.569Z'
+        callback_success_url:
+          type: string
+          format: uri
+          example: https://mybiz.com/call/success
+        callback_error_url:
+          type: string
+          format: uri
+          example: https://mybiz.com/call/success
+        callback_update_url:
+          type: string
+          format: uri
+          example: https://mybiz.com/call/success
+    SignerIdentityData:
+      title: Signer Identity Data
+      type: object
+      description: Optional (no-account) signer identity information.
+      properties:
+        email_address:
+          type: string
+          format: email
+          description: Email address of no-account-signer
+          example: no-account@skribble.com
+        first_name:
+          type: string
+          description: First name of no-account-signer
+          example: John
+        last_name:
+          type: string
+          description: Last name of no-account-signer
+          example: Doe
+        mobile_number:
+          type: string
+          description: Mobile number of no-account-signer
+          example: '41791234567'
+        language:
+          $ref: '#/components/schemas/SignatureLanguage'
+        identity_reference:
+          type: string
+          description: Optional identification reference (TODO)
+          example: Internal-ID-012345
+        identification_require_evidence:
+          type: boolean
+          description: |
+            (optional) if set, even if the signer is already identified, a new identification process is started to get fresh evidence records.
+            If the business hasn't enabled Express QES, the request is rejected.
+          example: true
+    VisualSignature:
+      title: Visual Signature
+      type: object
+      description: Visual signature placement information.
+      oneOf:
+        - type: object
+          title: Single Position
+          description: Use a single explicit position.
+          required:
+            - position
+          properties:
+            position:
+              $ref: '#/components/schemas/VisualSignaturePosition'
+            image:
+              $ref: '#/components/schemas/VisualSignatureImage'
+            positions:
+              description: Must not be provided when position is used.
+              readOnly: true
+            form_field:
+              description: Must not be provided when position is used.
+              readOnly: true
+        - type: object
+          title: Multiple Positions
+          description: Use multiple explicit positions.
+          required:
+            - positions
+          properties:
+            positions:
+              type: array
+              items:
+                $ref: '#/components/schemas/VisualSignaturePosition'
+            image:
+              $ref: '#/components/schemas/VisualSignatureImage'
+            position:
+              description: Must not be provided when positions are used.
+              readOnly: true
+            form_field:
+              description: Must not be provided when positions are used.
+              readOnly: true
+        - type: object
+          title: Form Field
+          description: Use a form field only.
+          required:
+            - form_field
+          properties:
+            form_field:
+              type: string
+              description: |
+                Name of the form field in which the signature is placed. If multiple fields of this name are present in the document, all will be used.
+            image:
+              $ref: '#/components/schemas/VisualSignatureImage'
+            position:
+              description: Must not be provided when form_field is used.
+              readOnly: true
+            positions:
+              description: Must not be provided when form_field is used.
+              readOnly: true
+    SignatureRecipient:
+      title: Signature Receipient
+      type: object
+      properties:
+        account_email:
+          type: string
+          description: Optional signer account eMail.
+          format: email
+          example: you@example.info
+        sequence:
+          type: number
+          description: Optional signer sequence.
+          format: int32
+          default: -1
+          example: 1
+        notify:
+          type: boolean
+          description: Whether to send a notification to this signer.
+          default: true
+          example: false
+        language:
+          $ref: '#/components/schemas/SignatureLanguage'
+        signer_identity_data:
+          $ref: '#/components/schemas/SignerIdentityData'
+        visual_signature:
+          $ref: '#/components/schemas/VisualSignature'
+    UpdateSignatureRequest:
+      title: Update Signature Request
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          description: Unique ID of the signature request.
+          format: uuid
+          example: 4f43614a-de50-bfe1-2df3-4c881fc7840e
+        title:
+          type: string
+          description: Title of the signature request.
+          example: Example contract
+        message:
+          type: string
+          description: Message sent to the other participants along with this signature request.
+          example: Please sign this document!
+        legislation:
+          $ref: '#/components/schemas/SignatureLegislation'
+        quality:
+          $ref: '#/components/schemas/SignatureQuality'
+        signatures:
+          oneOf:
+            - type: 'null'
+              title: No signers
+            - type: array
+              title: Signers
+              description: List of recipients required to sign the document.
+              items:
+                $ref: '#/components/schemas/SignatureRecipient'
+        cc_email_addresses:
+          oneOf:
+            - type: 'null'
+              title: No update
+            - type: array
+              title: Update in Observers
+              description: Observer email addresses of users who are granted read access and to whom notifications are sent.
+              items:
+                type: string
+                format: email
+              example:
+                - backoffice@company.com
+                - info@company.com
+        callback_success_url:
+          type: string
+          description: Callback-URL which is called on overall success.
+          format: uri
+          example: https://mybiz.com/call/success
+        callback_error_url:
+          type: string
+          description: Callback-URL which is called in case of an error.
+          format: uri
+          example: https://mybiz.com/call/success
+        callback_update_url:
+          type: string
+          description: Callback-URL which is called in case of an update.
+          format: uri
+          example: https://mybiz.com/call/success
+        custom:
+          type: string
+          description: Custom field where own/customer settings related to this signature request can be stored for future actions.
+          example: MyCustomvalue1,MyVal2
+        attach_on_success:
+          oneOf:
+            - type: 'null'
+              title: No update
+            - $ref: '#/components/schemas/AttachOnSuccess'
+              title: Attachment when signed
+        read_access:
+          oneOf:
+            - type: 'null'
+              title: No update
+            - type: array
+              title: Specific read access
+              description: Give specific users read access to this signature request.
+              items:
+                type: string
+              example:
+                - john.doe@skriobble.com
+                - jane.doe@skribble.com
+                - api_production_skribbleag_5a2a_0
+        write_access:
+          oneOf:
+            - type: 'null'
+              title: No update
+            - type: array
+              title: Specific write access
+              description: Give specific users full write access to this signature request.
+              items:
+                type: string
+              example:
+                - api_production_skribbleag_5a2a_0
+    CreateSignatureRequest:
+      title: Create Signature Request
+      type: object
+      required:
+        - title
+      properties:
+        title:
+          type: string
+          description: Title of the signature request.
+          example: Example contract
+        message:
+          type: string
+          description: Message sent to the other participants along with this signature request.
+          example: Please sign this document!
+        legislation:
+          $ref: '#/components/schemas/SignatureLegislation'
+        quality:
+          $ref: '#/components/schemas/SignatureQuality'
+        signatures:
+          oneOf:
+            - type: 'null'
+              title: No signers
+            - type: array
+              title: Signers
+              description: |-
+                List of recipients required to sign the document.
+                It is possible to create a SignatureRequest where one or more invited participants won't need a  Skribble account to sign the SignatureRequest. Those signers are called No-Account-Signers (NAS).
+                To create a SignatureRequest for a user without an account, omit the signatures array entry for this user and provide the necessary data using the `signer_identity_data` element instead.
+                Each entry in the signatures array will be treated as a distinct identity. This means two entries  with the same `signer_identity_data` are treated as two different identities and require that this  person signs the document twice.
+                Optionally you can combine `signer_identity_data` and account_email in your requests. In this case,  the system checks first if there is a Skribble account with the specified e-mail address.  If one is found the existing Skribble user will be invited to sign the document. Otherwise, the  specified user in `signer_identity_data` will be invited to sign.
+                > Good to know We recommend this approach of combining `signer_identity_data` and `account_email` if you are unsure  whether the user has a Skribble account. The benefit is that an existing Skribble user will afterwards find the SignatureRequest in the  To sign section of their account on my.skribble.com. Conversely, if you invite them using only signer_identity_data, the document will not appear in their Skribble account, even if they have an existing Skribble account. Instead, they will have to access the document using the specific link provided in their signature invitation email. 
+                When the user visits the URL provided in the field `signing_url` inside the signature element, he will be forwarded to a special preview page of the PDF document and can start the signature process as usual.
+                Missing fields like first name and last name can easily be adjusted by the signer through the Skribble web client.
+              items:
+                $ref: '#/components/schemas/SignatureRecipient'
+        cc_email_addresses:
+          oneOf:
+            - type: 'null'
+              title: No observers
+            - type: array
+              title: Observers
+              description: Observer email addresses of users who are granted read access and to whom notifications are sent. The given observers need to have a valid Skribble account. Otherwise the email address will not be accepted as valid observer.
+              items:
+                type: string
+                format: email
+              example:
+                - backoffice@company.com
+                - info@company.com
+        callback_success_url:
+          type: string
+          description: Callback-URL which is called on overall success.
+          format: uri
+          example: https://mybiz.com/call/success
+        callback_error_url:
+          type: string
+          description: Callback-URL which is called in case of an error.
+          format: uri
+          example: https://mybiz.com/call/success
+        callback_update_url:
+          type: string
+          description: Callback-URL which is called in case of an update.
+          format: uri
+          example: https://mybiz.com/call/success
+        custom:
+          type: string
+          description: Custom field where own/customer settings related to this signature request can be stored for future actions.
+          example: MyCustomvalue1,MyVal2
+        attach_on_success:
+          oneOf:
+            - type: 'null'
+              title: No attachment when signed
+            - $ref: '#/components/schemas/AttachOnSuccess'
+              title: Attachment when signed
+        creator:
+          oneOf:
+            - type: 'null'
+              title: No owner
+            - type: string
+              title: Specific owner
+              description: 'Set a business member as owner of this signature request in addition to the API User. '
+              format: email
+              example: some-member-of@your-buiness.com
+        write_access:
+          oneOf:
+            - type: 'null'
+              title: No other writer
+            - type: array
+              title: Additional writer
+              description: Give existing users full write access to this signature request.  The given observers need to have a valid Skribble account. Otherwise the email address will not be accepted as valid observer.
+              items:
+                type: string
+                format: email
+              example:
+                - john.doe@skriobble.com
+                - jane.doe@skribble.com
+      oneOf:
+        - type: object
+          title: Base64 Content
+          description: Provide the document as Base64-encoded content.
+          required:
+            - content
+          properties:
+            content:
+              type: string
+              format: byte
+              description: Base64 encoded bytes of the document.
+              example: SGVsbG8gd29ybGQh
+            content_type:
+              type: string
+              description: Content type of bytes sent in content. Currently, only application/pdf is supported.
+              example: application/pdf
+        - type: object
+          title: File URL
+          description: Provide a publicly accessible URL for the document.
+          required:
+            - file_url
+          properties:
+            file_url:
+              type: string
+              format: uri
+              description: Publicly accessible URL for document download.
+              example: https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
+        - type: object
+          title: Document ID
+          description: Reference an existing document already uploaded to Skribble.
+          required:
+            - document_id
+          properties:
+            document_id:
+              type: string
+              description: Document ID of an existing document on Skribble.
+              example: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+    WithdrawSignatureRequest:
+      title: Withdraw Signature Request
+      type: object
+      properties:
+        message:
+          type: string
+          description: Withdraw message.
+          minLength: 0
+          maxLength: 2048
+          example: The reason for withdrawing the signature.
+    CallbackType:
+      title: Callback Type
+      type: string
+      description: |-
+        The type of this callback. 
+        Possible values:
+          - **SUCCESS** Is triggered when the document has been successfully signed by all parties involved.
+          - **UPDATE** Is triggered on changes on the `SignatureRequest` object like when one person of all involved parties has signed.
+          - **ERROR** Is triggered when a person declines the signature or when the `SignatureRequest` is withdrawn.
+          - **START_SIGN** Is triggered when a person starts the signature process (only for xQES).
+          - **INITIATE** ?.
+          - **IDENT_ERROR** Is triggered when the identification of a person within a signature process ended in an error (only for xQES).
+      enum:
+        - SUCCESS
+        - UPDATE
+        - ERROR
+        - START_SIGN
+        - INITIATE
+        - IDENT_ERROR
+      example: SUCCESS
+    CallbackState:
+      title: Callback State
+      type: string
+      description: |-
+        The state of the callback.
+        Possible values:
+          - **OPEN** The callback request will be executed in the next execution cycle.
+          - **COMPLETED** The callback request was executed successfully. The API received an HTTP 2xx success code in response.
+          - **RESIGNATED** The callback request has been attempted `attempts` times but was unsuccessful. The API did not receive a valid HTTP 2xx response.
+      enum:
+        - OPEN
+        - COMPLETED
+        - RESIGNATED
+      example: COMPLETED
+    SignatureCallbacksResponse:
+      title: Signature Receipient in Response
+      type: array
+      items:
+        type: object
+        properties:
+          signature_request_id:
+            type: string
+            description: Signature request's unique ID on Skribble.
+            format: uuid
+            example: b107da0e-db25-478a-8130-b85e6c57ae83
+          type:
+            $ref: '#/components/schemas/CallbackType'
+          state:
+            $ref: '#/components/schemas/CallbackState'
+          url:
+            type: string
+            description: The called URL of this callback.
+            format: uri
+            example: http://ext-service:8080/callback_success
+          attempts:
+            type: integer
+            description: The attempts this callback was carried out.
+            format: int32
+            example: 1
+          messages:
+            type: array
+            description: Error messages in case that the callback failed.
+            items:
+              type: string
+              description: HTTP response message in case that the API did not receive a HTTP 2xx success code.
+            example:
+              - Failed 404
+              - Failed 500
+          owner:
+            deprecated: true
+            type: string
+            description: E-mail address of the object owner.
+            example: api@company.com
+          read_access:
+            deprecated: true
+            type: array
+            description: E-mail addresses with read access to the object.
+            items:
+              type: string
+            example:
+              - api_production_skribbleag_5a2a_0
+          write_access:
+            deprecated: true
+            type: array
+            description: E-mail addresses with write access to the object.
+            items:
+              type: string
+            example:
+              - api_production_skribbleag_5a2a_0
+          created_at:
+            type: string
+            description: The time at which the object was created.
+            format: date-time
+            example: '2025-10-08T17:37:03.569Z'
+          updated_at:
+            type: string
+            description: The time at which the object was last changed.
+            format: date-time
+            example: '2025-10-08T17:37:03.569Z'
+    CreateSignatureAttachmentRequest:
+      title: Create Signature Attachment Request
+      required:
+        - filename
+        - content_type
+        - content
+      type: object
+      properties:
+        filename:
+          type: string
+          description: File name of the attachment.
+          example: Attachment-1.pdf
+        content_type:
+          type: string
+          description: Content type of the attachment.
+          example: application/pdf
+        content:
+          type: string
+          description: Base64 Encoded Content.
+          format: byte
+          example: SGVsbG8gd29ybGQh
+    CreateSealRequest:
+      title: Create Seal Request
+      type: object
+      required:
+        - content
+      properties:
+        content:
+          type: string
+          format: byte
+          description: Base64 encoded bytes of the document.
+          example: U29tZUJhc2U2NEVuY29kZWRJbWFnZQ==
+        account_name:
+          type: string
+          description: Account name of the seal contract that should be used. If your company own more than one seal and the field account_name is not given or empty, then the first given seal for the API user will be used for sealing.
+          example: ais_demo_seal
+        title:
+          type: string
+          description: Title of the document.
+          example: Example contract
+        visual_signature:
+          oneOf:
+            - type: 'null'
+              title: No visual signature
+            - $ref: '#/components/schemas/VisualSignature'
+              title: Visual signature
+    CreateSealResponse:
+      title: Create Seal Response
+      type: object
+      required:
+        - document_id
+      properties:
+        document_id:
+          type: string
+          description: Generated document ID
+          format: uuid
+          example: 98ca4eda-11f7-da4a-72da-9db677f38280
+    SignatureFormFieldPosition:
+      title: Formfield Position
+      type: object
+      properties:
+        page:
+          type: string
+          description: "Page number (0-indexed) where the field appears.\nThis is a String and not a number!\t\n"
+          example: '0'
+        height:
+          type: number
+          description: Height of the field in pixels.
+          example: 70
+        width:
+          type: number
+          description: Width of the field in pixels.
+          example: 150
+        x:
+          type: number
+          description: X-coordinate (pixels from left) of field.
+          example: 350
+        'y':
+          type: number
+          description: Y-coordinate (pixels from top) of field.
+          example: 240
+        rotation:
+          type: number
+          description: |
+            Defines a rotation of the field content. 
+            If used in context with a form field, then only the values 0, 90, 180, 270 are legal.
+            Otherwise every value is legal. The rotation is applied counter clockwise.
+          example: 0
+    SignatureFormField:
+      title: Signature Formfield
+      type: object
+      properties:
+        name:
+          type: string
+          description: Signature Formfield name
+          example: Signature1
+        signed:
+          type: boolean
+          description: Signature status of Formfield
+          default: false
+          example: false
+        positions:
+          type: array
+          description: List of positions where the Formfield is present
+          items:
+            $ref: '#/components/schemas/SignatureFormFieldPosition'
+    DocumentResponse:
+      title: Document Response
+      type: object
+      description: Document object Response.
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 00000000-1212-9546-6542-323232323232
+        parent_id:
+          description: ID of the previous version of the Document object. As documents are immutable, every change will create a new version, which is connected by the parent_id.
+          type: string
+          format: uuid
+          example: 12345678-1234-aaaa-ffff-0123456789af
+        title:
+          type: string
+          example: Example contract PDF
+        content_type:
+          type: string
+          example: application/pdf
+        size:
+          type: integer
+          example: 29010
+        page_count:
+          type: integer
+          example: 1
+        page_width:
+          type: integer
+          example: 600
+        page_height:
+          type: integer
+          example: 840
+        signature_fields:
+          type: array
+          description: Optional detected Signature Formfields
+          items:
+            $ref: '#/components/schemas/SignatureFormField'
+        owner:
+          type: string
+          example: api_demo_example
+        read_access:
+          type: array
+          items:
+            type: string
+          example:
+            - api_demo_example
+        write_access:
+          type: array
+          items:
+            type: string
+          example:
+            - api_demo_example
+        created_at:
+          type: string
+          format: date-time
+          example: '2099-12-12T12:12:12.000Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2099-12-12T12:12:12.000Z'
+    UploadDocumentRequest:
+      title: Upload Document Request
+      type: object
+      required:
+        - title
+      properties:
+        title:
+          type: string
+          description: Title of the document.
+          example: Example contract PDF
+      oneOf:
+        - type: object
+          title: Base64 Content
+          description: Provide the document as Base64-encoded content.
+          required:
+            - content
+          properties:
+            content:
+              type: string
+              format: byte
+              description: Base64 encoded bytes of the document.
+              example: SGVsbG8gd29ybGQh
+            content_type:
+              type: string
+              description: Content type of bytes sent in content. Currently, only application/pdf is supported.
+              example: application/pdf
+        - type: object
+          title: File URL
+          description: Provide a publicly accessible URL for the document.
+          required:
+            - file_url
+          properties:
+            file_url:
+              type: string
+              format: uri
+              description: Publicly accessible URL for document download.
+              example: https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
+    DocumentContentResponse:
+      title: Document Content Response
+      type: object
+      description: Document Content Response as JSON
+      properties:
+        content_type:
+          type: string
+          example: application/pdf
+        content_size:
+          type: integer
+          example: 29010
+        content:
+          type: string
+          format: byte
+          description: Base64 encoded bytes of the document.
+          example: U29tZUJhc2U2NEVuY29kZWRJbWFnZQ==
+    CreateSendToRequest:
+      title: Create Send-To Request
+      required:
+        - title
+        - content
+      type: object
+      properties:
+        title:
+          type: string
+          description: Title of the document.
+          example: Document 1
+        content:
+          type: string
+          description: Base64 Encoded Document.
+          format: byte
+          example: SGVsbG8gd29ybGQh
+    CreateSendToResponse:
+      title: Create Send-To Response
+      type: object
+      required:
+        - url
+        - id
+        - access_code
+      properties:
+        url:
+          type: string
+          description: URL to claim document to get signed.
+          format: uri
+          example: https://my.skribble.com/sendto/8229873d-d7c7-4e2b-a8a3-3313532
+        id:
+          type: string
+          description: Generated send-to document ID
+          format: uuid
+          example: 8229873d-d7c7-4e2b-a8a3-000003313532
+        access_code:
+          type: string
+          description: Access code to be used in for endpoints.
+          format: uuid
+          example: b498e9d2-93f4-4380-b998-c44f467ae020
+    TrackSendToResponse:
+      title: TrackSendToResponse
+      type: object
+      required:
+        - status
+        - signers
+        - creator
+      properties:
+        status:
+          type: string
+          description: Status of the Send-To request
+          enum:
+            - UNCLAIMED
+            - EXPIRED
+            - CLAIMED
+            - SIGNING
+            - SIGNED
+            - WITHDRAWN
+            - DECLINED
+        creator:
+          description: User who claimed the Send-To request
+          oneOf:
+            - type: string
+            - type: 'null'
+        signers:
+          description: List of signers for the Send-To request
+          oneOf:
+            - type: array
+              items:
+                type: string
+            - type: 'null'
+    SignatureQualitiesEntry:
+      title: Signature Qualities Entry
+      type: object
+      required:
+        - quality
+        - provider
+        - legislation
+      properties:
+        quality:
+          type: string
+          description: Signature quality level
+          example: QES
+        provider:
+          type: string
+          description: Signature provider
+          example: AIS
+        legislation:
+          type: string
+          description: Applicable legislation
+          example: ZERTES
+    UserSignatureQualitiesResponse:
+      title: User Signature Qualities Response
+      type: object
+      properties:
+        qes:
+          type: object
+          properties:
+            zertes:
+              $ref: '#/components/schemas/SignatureQualitiesEntry'
+            eidas:
+              $ref: '#/components/schemas/SignatureQualitiesEntry'
+        aes_minimal:
+          type: object
+          properties:
+            zertes:
+              $ref: '#/components/schemas/SignatureQualitiesEntry'
+            eidas:
+              $ref: '#/components/schemas/SignatureQualitiesEntry'
+        aes:
+          type: object
+          properties:
+            any:
+              $ref: '#/components/schemas/SignatureQualitiesEntry'
+        ses:
+          type: object
+          properties:
+            any:
+              $ref: '#/components/schemas/SignatureQualitiesEntry'
+        demo:
+          type: object
+          properties:
+            any:
+              $ref: '#/components/schemas/SignatureQualitiesEntry'
+        seal:
+          type: object
+          properties:
+            aes:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/SignatureQualitiesEntry'
+            qes:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/SignatureQualitiesEntry'
+        part11:
+          type: object
+          properties:
+            any:
+              $ref: '#/components/schemas/SignatureQualitiesEntry'
+    ActivitiesSignaturesUser:
+      title: Create Seal Response
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          example: john.doe@skribble.com
+        first_name:
+          type: string
+          example: John
+        last_name:
+          type: string
+          example: Doe
+        type:
+          type: string
+          enum:
+            - member
+            - external
+            - api
+            - unknown
+          example: member
+        mobile:
+          type: string
+          example: '41791234567'
+    ActivitiesSignaturesEntry:
+      title: Activities Signatures by Business Entry
+      type: object
+      properties:
+        id:
+          type: string
+          example: 66f5c2c054dc55b710d27968
+        action:
+          type: string
+          description: Action performed on the signature request
+          example: SIGNED
+        timestamp:
+          type: string
+          format: date-time
+          example: '2024-01-31T13:59:11.382Z'
+        signature_request_id:
+          type: string
+          description: ID of the related signature request
+          example: baf85d34-6676-8592-a7aa-39fb0ea81622
+        business_id_paid_by:
+          type: string
+          description: The ID of the business that paid for the signature activity
+          example: 5a2aea44ddea4f0531ebcdcbcedf873c
+        cost_center:
+          description: Optional cost center
+          oneOf:
+            - type: 'null'
+            - type: string
+        initiator:
+          $ref: '#/components/schemas/ActivitiesSignaturesUser'
+        signer:
+          $ref: '#/components/schemas/ActivitiesSignaturesUser'
+        quality:
+          $ref: '#/components/schemas/SignatureQuality'
+        legislation:
+          $ref: '#/components/schemas/SignatureLegislation'
+    ActivitiesSignaturesResponse:
+      title: Activities Signatures by Business Response
+      type: object
+      description: Document Content Response as JSON
+      properties:
+        total_pages:
+          type: integer
+          example: 8
+        total_items:
+          type: integer
+          example: 377
+        current_page:
+          type: integer
+          example: 1
+        size:
+          type: integer
+          example: 50
+        activities:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivitiesSignaturesEntry'
+    SystemHealthResponse:
+      title: System Health Response
+      type: object
+      description: System Health.
+      properties:
+        status:
+          type: string
+          example: UP
+        groups:
+          type: array
+          items:
+            type: string
+          example:
+            - liveness readyness
+  responses:
+    BadRequest:
+      description: Bad request
+    TooManyRequests:
+      description: Too many requests
+    ServerError:
+      description: Internal server error
+    ServiceUnavailable:
+      description: Service unavailable
+    Unauthorized:
+      description: Unauthorized
+    Forbidden:
+      description: Access denied
+    NotFound:
+      description: Not found
+  parameters:
+    SignatureAccountMail:
+      name: account_email
+      in: query
+      description: Filter on the field `signatures[].account_email`
+      required: false
+      schema:
+        type: string
+        format: email
+      example: john.doe@skribble.com
+    SignatureSearch:
+      name: search
+      in: query
+      description: Filter on the field `title` to search for documents containing the serach term.
+      required: false
+      schema:
+        type: string
+      example: text to find
+    SignatureStatusCode:
+      name: signature_status
+      in: query
+      description: Filter on the field `signatures[].status_code` with one of the valid Signature states
+      required: false
+      schema:
+        $ref: '#/components/schemas/SignatureStatusCode'
+    SignatureStatusOverall:
+      name: status_overall
+      in: query
+      description: Filter on the field `status_overall` with one of the valid Signature states
+      required: false
+      schema:
+        $ref: '#/components/schemas/SignatureStatusOverall'
+    PageNumber:
+      name: page_number
+      in: query
+      description: Page number for pagination. By default pagination is disabled.
+      required: false
+      schema:
+        type: number
+        minimum: 1
+      example: 1
+    PageSize:
+      name: page_size
+      in: query
+      description: Page size for pagination.
+      required: false
+      schema:
+        type: number
+        default: 50
+        minimum: 0
+      example: 25
+    SignatureIDPath:
+      name: SR_ID
+      in: path
+      description: Unique ID received when creating the Signature Request object
+      required: true
+      schema:
+        type: string
+        format: uuid
+      example: cccccccc-4a6a-a958-a42e-6ea4172a378b
+    AttachmentIDPath:
+      name: ATTACHMENT_ID
+      in: path
+      description: Unique ID returned when the Signature Attachment is created.
+      required: true
+      schema:
+        type: string
+        format: uuid
+      example: 8ed33046-3798-8c54-0b13-0820d0d6e121
+    SignerIDPath:
+      name: SID
+      in: path
+      description: Unique ID of the signer
+      required: true
+      schema:
+        type: string
+        format: uuid
+      example: 97db18c8-7ca1-35a2-9726-0b32771e4ac6
+    DocumentIDPath:
+      name: DOC_ID
+      in: path
+      description: Unique ID received when creating the Document Request object
+      required: true
+      schema:
+        type: string
+        format: uuid
+      example: f1e2d3c4-7b8a-4e6f-9d3b-123456789abc
+    PageIDPath:
+      name: PAGE_ID
+      in: path
+      description: Page ID of the document
+      required: true
+      schema:
+        type: integer
+      example: 0
+    ScaleFactor:
+      name: scale
+      in: header
+      description: The scaling factor for the image.
+      required: false
+      schema:
+        type: number
+        default: 100
+        minimum: 0
+      example: 20
+    XAccesscodeHeader:
+      name: X-Accesscode
+      in: header
+      description: Access code received when creating the Send-To object
+      required: true
+      schema:
+        type: string
+        format: uuid
+      example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+    SendToIdPath:
+      name: SEND_TO_ID
+      in: path
+      description: Unique ID received when creating the Send-To object
+      required: true
+      schema:
+        type: string
+        format: uuid
+      example: d98ae06a-3ae4-5cc5-c0a3-62b05901b84f
+    UserName:
+      name: username
+      in: query
+      description: Username to find
+      required: false
+      schema:
+        type: string
+        format: email
+      example: john.doe@skribble.com
+    StartDate:
+      name: start_date
+      in: query
+      description: Start Date to find
+      required: true
+      schema:
+        type: string
+        format: date
+      example: '2024-01-01'
+    EndDate:
+      name: end_date
+      in: query
+      description: End Date to find
+      required: true
+      schema:
+        type: string
+        format: date
+      example: '2024-01-31'
+    Page:
+      name: page
+      in: query
+      description: Page for pagination.
+      required: false
+      schema:
+        type: number
+        default: 1
+      example: 1
+    Size:
+      name: size
+      in: query
+      description: Page size for pagination.
+      required: false
+      schema:
+        type: number
+        default: 25
+        maximum: 100
+      example: 50
+    Sort:
+      name: sort
+      in: query
+      description: Sort order
+      required: false
+      schema:
+        type: string
+        enum:
+          - asc
+          - desc
+        default: desc
+        example: desc
+  examples:
+    SampleArray:
+      value:
+        - id: 4f43614a-de50-bfe1-2df3-4c881fc7840e
+          title: Example contract
+          message: Please sign this document!
+          document_id: 29eae6aa-5558-2ada-2870-d4e654c0da5c
+          legislation: ZERTES
+          quality: QES
+          signing_url: https://my.skribble.com/view/4f43614a-de50-bfe1-2df3-4c881fc7840e
+          status_overall: OPEN
+          business: biz-42b4c2fb9ee947778ba70bc0698c78f7
+          signatures: []
+          cc_email_addresses: []
+          attachments: []
+          owner: api_production_skribbleag_42b4_9
+          read_access:
+            - persononetosign@external.net
+          write_access:
+            - api_production_skribbleag_42b4_9
+          created_at: '2025-10-08T17:37:03.569Z'
+          updated_at: '2025-10-08T17:37:03.569Z'
+        - id: f47ac10b-58cc-4372-a567-0e02b2c3d479
+          title: Second contract
+          message: Please sign this as well!
+          document_id: a1b2c3d4-e5f6-4789-a1b2-c3d4e5f6a1b2
+          legislation: EIDAS
+          quality: QES
+          signing_url: https://my.skribble.com/view/another-uuid-example
+          status_overall: OPEN
+          business: biz-123
+          signatures: []
+          cc_email_addresses: []
+          attachments: []
+          owner: api_production_skribbleag_42b4_9
+          read_access:
+            - you@example.info
+          write_access:
+            - api_production_skribbleag_42b4_9
+          created_at: '2025-10-08T18:00:00.000Z'
+          updated_at: '2025-10-08T18:00:00.000Z'
+    PDFBase64:
+      summary: Document - With Base64 document
+      value:
+        title: Example contract
+        message: Please sign this document!
+        content: SGVsbG8gd29ybGQh
+        content_type: application/pdf
+        signatures:
+          - account_email: you@example.info
+    PDFFileURL:
+      summary: Document - From a public file URL
+      value:
+        title: Example contract
+        message: Please sign this document!
+        file_url: https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
+        signatures:
+          - account_email: you@example.info
+          - account_email: personOneToSign@external.net
+    PDFExistingDoc:
+      summary: Document - Referencing an uploaded document
+      value:
+        title: Example contract
+        message: Please sign this document!
+        document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+        signatures:
+          - account_email: you@example.info
+          - account_email: personOneToSign@external.net
+          - account_email: personTwoToSign@external.net
+    Sequences:
+      summary: Signature Sequences
+      value:
+        title: Example contract
+        message: Please sign this document!
+        content: SGVsbG8gd29ybGQh
+        content_type: application/pdf
+        quality: SES
+        signatures:
+          - account_email: irst@example.com
+            sequence: 1
+          - account_email: second@example.com
+            sequence: 2
+          - account_email: third@example.com
+            sequence: 3
+          - account_email: fourth@example.com
+            sequence: 4
+    NASfirst:
+      summary: NAS unless has an account
+      value:
+        title: Example contract
+        message: Please sign this document!
+        content: SGVsbG8gd29ybGQh
+        content_type: application/pdf
+        quality: SES
+        signatures:
+          - account_email: signer@skribble.com
+            signer_identity_data:
+              email_address: signer@skribble.com
+    Callbacks:
+      summary: With all callback Templates
+      value:
+        title: Example contract
+        message: Please sign this document!
+        content: SGVsbG8gd29ybGQh
+        content_type: application/pdf
+        signatures:
+          - account_email: you@example.info
+        callback_success_url: https://myapp.com/some/path/SKRIBBLE_SIGNATURE_REQUEST_ID/success?document_id=SKRIBBLE_DOCUMENT_ID&token=12345678
+        callback_update_url: https://myapp.com/some/path/SKRIBBLE_SIGNATURE_REQUEST_ID/update?document_id=SKRIBBLE_DOCUMENT_ID&token=12345678
+        callback_error_url: https://myapp.com/some/path/SKRIBBLE_SIGNATURE_REQUEST_ID/error?document_id=SKRIBBLE_DOCUMENT_ID&token=12345678
+    Sample1:
+      summary: Sample one signer waiting for signature
+      value:
+        id: 4f43614a-de50-bfe1-2df3-4c881fc7840e
+        title: Sample document
+        message: Please sign this document.
+        document_id: 1ff0cf91-6b54-f3bd-bffb-8fcd5e799764
+        legislation: ZERTES
+        quality: QES
+        signing_url: https://my.scribital.de/view/4f43614a-de50-bfe1-2df3-4c881fc7840e
+        status_overall: OPEN
+        business: biz-5a2aea44ddea4f0531ebcdcbcedf873c
+        signatures:
+          - sid: e5ab7fba-e815-0f65-f437-7c78953a0b7d
+            account_email: you@example.info
+            sequence: -1
+            status_code: OPEN
+            notify: true
+        cc_email_addresses: []
+        attachments: []
+        owner: api_production_skribbleag_5a2a_0
+        read_access:
+          - you@example.info
+          - api_production_skribbleag_5a2a_0
+        write_access:
+          - api_production_skribbleag_5a2a_0
+        created_at: '2025-10-15T07:47:01.223Z'
+        updated_at: '2025-10-15T07:47:01.223Z'
+    Sample2:
+      summary: Sample multiple signers with visual signatures where one has signed
+      value:
+        id: 8c73215f-bf33-d8a9-90e5-1a5cd0b9273a
+        title: Employment Contract
+        message: Please review and sign your employment contract.
+        document_id: 2aa9b2e7-3c21-4d7a-bf9c-6a1f6f5fcb98
+        legislation: EIDAS
+        quality: AES
+        signing_url: https://my.scribital.de/view/8c73215f-bf33-d8a9-90e5-1a5cd0b9273a
+        status_overall: OPEN
+        business: biz-87c4d39afc6d471da7bcbf4f2e8ef931
+        signatures:
+          - sid: 5ad9f2c1-6a81-42af-9a6a-7c5adcb54e23
+            account_email: alice@example.com
+            sequence: 1
+            status_code: SIGNED
+            notify: true
+            visual_signature:
+              position:
+                x: 120
+                'y': 490
+                width: 150
+                height: 70
+                page: '2'
+                rotation: 0
+              positions:
+                - x: 120
+                  'y': 490
+                  width: 150
+                  height: 70
+                  page: '2'
+                  rotation: 0
+          - sid: 19de3b41-9d65-4cb7-90ff-239b7a0eac12
+            account_email: hr@examplecorp.com
+            sequence: 2
+            status_code: OPEN
+            notify: true
+            visual_signature:
+              position:
+                x: 130
+                'y': 420
+                width: 155
+                height: 72
+                page: '2'
+                rotation: 0
+              positions:
+                - x: 130
+                  'y': 420
+                  width: 155
+                  height: 72
+                  page: '2'
+                  rotation: 0
+        cc_email_addresses:
+          - legal@examplecorp.com
+        owner: api_production_skribbleag_7b4b_1
+        read_access:
+          - alice@example.com
+          - hr@examplecorp.com
+          - legal@examplecorp.com
+          - api_production_skribbleag_7b4b_1
+        write_access:
+          - api_production_skribbleag_7b4b_1
+        created_at: '2025-10-15T08:15:22.115Z'
+        updated_at: '2025-10-15T08:15:22.115Z'
+    WithdrawSignatureResponse:
+      summary: Sample after withdrawn
+      value:
+        id: 4f43614a-de50-bfe1-2df3-4c881fc7840e
+        title: Sample document
+        message: Please sign this document.
+        document_id: 1ff0cf91-6b54-f3bd-bffb-8fcd5e799764
+        legislation: ZERTES
+        quality: QES
+        signing_url: https://my.scribital.de/view/4f43614a-de50-bfe1-2df3-4c881fc7840e
+        status_overall: WITHDRAWN
+        business: biz-5a2aea44ddea4f0531ebcdcbcedf873c
+        signatures:
+          - sid: e5ab7fba-e815-0f65-f437-7c78953a0b7d
+            account_email: you@example.info
+            sequence: -1
+            status_code: OPEN
+            notify: true
+        cc_email_addresses: []
+        attachments: []
+        owner: api_production_skribbleag_5a2a_0
+        read_access:
+          - api_production_skribbleag_5a2a_0
+        write_access:
+          - api_production_skribbleag_5a2a_0
+        created_at: '2025-10-15T07:47:01.223Z'
+        updated_at: '2025-10-15T07:47:01.223Z'
+    CreateSignatureAttachmentResponse:
+      summary: Sample with attachment
+      value:
+        id: 4f43614a-de50-bfe1-2df3-4c881fc7840e
+        title: Sample document
+        message: Please sign this document.
+        document_id: 1ff0cf91-6b54-f3bd-bffb-8fcd5e799764
+        attachments:
+          - attachment_id: 8ed33046-3798-8c54-0b13-0820d0d6e121
+            filename: Attachment.pdf
+    AddSignatureSigner:
+      summary: Add Individual Signer
+      value:
+        account_email: single-signer@skribble.com
+        signer_identity_data:
+          email_address: single-signer@skribble.com
+    SealDoc:
+      summary: Seal document
+      value:
+        account_name: ais_demo_seal
+        content: U29tZUJhc2U2NEVuY29kZWRJbWFnZQ==
+    SealVisual:
+      summary: Seal document with default visual signature
+      value:
+        account_name: ais_demo_seal
+        title: Example contract
+        content: U29tZUJhc2U2NEVuY29kZWRJbWFnZQ==
+        visual_signature:
+          position:
+            x: 364
+            'y': 160
+            width: 129
+            height: 60
+            page: '0'
+    SealVisualCustom:
+      summary: Seal document with custom visual signature
+      value:
+        account_name: ais_demo_seal
+        title: Example contract
+        content: U29tZUJhc2U2NEVuY29kZWRJbWFnZQ==
+        visual_signature:
+          position:
+            x: 100
+            'y': 200
+            width: 150
+            height: 70
+            page: '1'
+          image:
+            content: U3RyaW5n
+            content_type: image/png
+    DocumentResponse_SampleArray:
+      value:
+        - id: 00000000-1212-9546-6542-323232323232
+          title: Example contract PDF
+          content_type: application/pdf
+          size: 29010
+          page_count: 1
+          page_width: 600
+          page_height: 840
+          owner: api_demo_example
+          read_access:
+            - api_demo_example
+          write_access:
+            - api_demo_example
+          created_at: '2099-12-12T12:12:12.000Z'
+          updated_at: '2099-12-12T12:12:12.000Z'
+        - id: 11111111-2222-3333-4444-555555555555
+          title: Employee NDA Document
+          content_type: application/pdf
+          size: 48230
+          page_count: 3
+          page_width: 612
+          page_height: 792
+          owner: api_demo_example
+          read_access:
+            - api_demo_example
+          write_access:
+            - api_demo_example
+          created_at: '2099-10-01T09:00:00.000Z'
+          updated_at: '2099-10-02T11:45:00.000Z'
+    Sample:
+      summary: Sample PDF document
+      value:
+        id: 00000000-1212-9546-6542-323232323232
+        title: Example contract PDF
+        content_type: application/pdf
+        size: 29010
+        page_count: 1
+        page_width: 600
+        page_height: 840
+        owner: api_demo_example
+        read_access:
+          - api_demo_example
+        write_access:
+          - api_demo_example
+        created_at: '2099-12-12T12:12:12.000Z'
+        updated_at: '2099-12-12T12:12:12.000Z'
+    SamplePDFForm:
+      summary: Sample PDF with signature fields
+      value:
+        id: 8e725b0d-379c-5fd7-e7b7-ff369ac0c497
+        parent_id: 461a654e-a2f5-7511-9e80-544abd6216e8
+        title: Employment Contract
+        content_type: application/pdf
+        size: 266626
+        page_count: 3
+        page_width: 596
+        page_height: 843
+        signature_fields:
+          - name: Signature1
+            signed: true
+            positions:
+              - x: 75
+                'y': 470
+                width: 112
+                height: 52
+                page: '2'
+                rotation: 0
+        owner: api_demo_example
+        read_access:
+          - api_demo_example
+        write_access:
+          - api_demo_example
+        created_at: '2024-11-18T12:37:45.842Z'
+        updated_at: '2024-11-18T12:37:45.842Z'
+    SendToUnclaimed:
+      summary: Send-To not yet claimed
+      value:
+        status: UNCLAIMED
+        creator: null
+        signers: null
+    SendToClaimed:
+      summary: Send-To claimed by a user
+      value:
+        status: CLAIMED
+        creator: user@example.com
+        signers: null
+    SendToSigned:
+      summary: Send-To fully signed
+      value:
+        status: SIGNED
+        creator: user@example.com
+        signers:
+          - signer1@example.com
+          - signer2@example.com
+    UserSignatureQualitiesResponse:
+      summary: Sample User Signature Qualities Response
+      value:
+        qes:
+          zertes:
+            quality: QES
+            provider: AIS
+            legislation: ZERTES
+          eidas:
+            quality: QES
+            provider: AIS
+            legislation: EIDAS
+        aes_minimal:
+          zertes:
+            quality: QES
+            provider: AIS
+            legislation: ZERTES
+          eidas:
+            quality: QES
+            provider: AIS
+            legislation: EIDAS
+        aes:
+          any:
+            quality: AES
+            provider: GLOBALSIGN
+            legislation: EIDAS
+        ses:
+          any:
+            quality: SES
+            provider: SKRIBBLE_SES
+            legislation: ZERTES
+        demo:
+          any:
+            quality: DEMO
+            provider: SELFSIGNED
+            legislation: UNDEFINED
+        seal:
+          aes:
+            ais_demo_seal:
+              quality: AES
+              provider: AIS
+              legislation: ZERTES
+          qes: {}
+        part11:
+          any:
+            quality: PART11
+            provider: SKRIBBLE_PART11
+            legislation: UNDEFINED

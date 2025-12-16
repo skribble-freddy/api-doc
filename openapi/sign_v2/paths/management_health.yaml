@@ -1,0 +1,34 @@
+get:
+  tags:
+    - Monitoring
+  summary: System health
+  description: |
+    Get details about system health
+
+    If you need to monitor the responsiveness of the Skribble API, you may want to
+    have a look at the health resource. It will give you a short update about the 
+    current status of the system.
+    
+    `status:UP` tells you that the system is up and running.
+  operationId: getSystemHealth
+  security:
+    - bearer: []
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/SystemHealthResponse.yaml
+    400:
+      $ref: ../components/responses/BadRequest.yaml
+    401:
+      $ref: ../components/responses/Unauthorized.yaml
+    404:
+      $ref: ../components/responses/NotFound.yaml
+    429:
+      $ref: ../components/responses/TooManyRequests.yaml
+    500:
+      $ref: ../components/responses/ServerError.yaml
+    503:
+      $ref: ../components/responses/ServiceUnavailable.yaml

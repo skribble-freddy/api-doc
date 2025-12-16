@@ -1,0 +1,14 @@
+title: System Health Response
+type: object
+description: System Health.
+properties:
+  status:
+    type: string
+    example: UP
+  groups:
+    type: array
+    items:
+      type: string
+    example:
+      - liveness
+        readyness

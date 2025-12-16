@@ -2,31 +2,56 @@ name: API Docs CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
-  lint-and-preview:
+  lint-and-build:
+    name: Lint, Bundle & Build OpenAPI Docs
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "24"
 
-    - name: Install Redocly CLI
-      run: npm install -g @redocly/cli
+      - name: Install dependencies
+        run: npm ci
 
-    - name: Lint Validation API v1
-      run: redocly lint openapi/validation_v1/openapi.yaml
+      - name: Lint OpenAPI docs
+        run: npm run lint
 
-    - name: Lint Sign API v2
-      run: redocly lint openapi/sign_v2/openapi.yaml
+      - name: Bundle OpenAPI specs
+        run: npm run bundle
 
-    - name: Lint Sign API v3
-      run: redocly lint openapi/sign_v3/openapi.yaml
+      - name: Build HTML docs
+        run: npm run build
+
+      - name: Upload dist folder for deployment
+        uses: actions/upload-artifact@v3
+        with:
+          name: openapi-dist
+          path: ./dist
+
+  deploy:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    needs: lint-and-build
+
+    steps:
+      - name: Download built docs
+        uses: actions/download-artifact@v3
+        with:
+          name: openapi-dist
+          path: ./dist
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v6
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist

@@ -12,11 +12,11 @@
     "preview:sign_v3": "redocly preview --product redoc -p 4001 -d openapi/sign_v3",
     "preview:validation_v1": "redocly preview --product redoc -p 4002 -d openapi/validation_v1",
     "build:sign_v2": "redocly build-docs sign@v2 --output=dist/sign_api_v2.html --theme.openapi.disableSearch",
-    "build:sign_v3": "redocly build-docs sign@v3 --output=dist/sing_api_v3.html --theme.openapi.disableSearch",
+    "build:sign_v3": "redocly build-docs sign@v3 --output=dist/sign_api_v3.html --theme.openapi.disableSearch",
     "build:validation_v1": "redocly build-docs validation@v1 --output=dist/validation_api_v1.html --theme.openapi.disableSearch",
     "build": "npm run build:sign_v2 && npm run build:sign_v3 && npm run build:validation_v1",
     "bundle:sign_v2": "redocly bundle sign@v2 --output=dist/sign_api_v2.yaml",
-    "bundle:sign_v3": "redocly bundle sign@v3 --output=dist/sing_api_v3.yaml",
+    "bundle:sign_v3": "redocly bundle sign@v3 --output=dist/sign_api_v3.yaml",
     "bundle:validation_v1": "redocly bundle validation@v1 --output=dist/validation_api_v1.yaml",
     "bundle": "npm run bundle:sign_v2 && npm run bundle:sign_v3 && npm run bundle:validation_v1"
 

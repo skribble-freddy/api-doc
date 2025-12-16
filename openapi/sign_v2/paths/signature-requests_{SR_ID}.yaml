@@ -23,30 +23,10 @@ get:
               $ref: ../components/examples/CreateSignatureResponse.yaml#/Sample2
     400:
       $ref: ../components/responses/BadRequest.yaml
-      content:
-        application/json:
-          schema:
-            $ref: ../components/schemas/BadRequestResponse.yaml
-          example:
-            type: "https://api.skribble.com/problem/problem-with-message"
-            method: "GET"
-            path: "/v2/signature-requests/"
-            status: 400
-            message: "Request method not supported"
     401:
       $ref: ../components/responses/Unauthorized.yaml
     404:
       $ref: ../components/responses/NotFound.yaml
-      content:
-        application/json:
-          schema:
-            $ref: ../components/schemas/BadRequestResponse.yaml
-          example:
-            type: https://api.scribital.de/problem/entity-not-found"
-            method: "GET"
-            path: "/v2/signature-requests/3648f61d-4194-455c-a0bc-1c438d2cd11b"
-            status: 404
-            message: "SignatureRequest not found"
     429:
       $ref: ../components/responses/TooManyRequests.yaml
     500:
@@ -111,16 +91,6 @@ delete:
       description: OK
     400:
       $ref: ../components/responses/BadRequest.yaml
-      content:
-        application/json:
-          schema:
-            $ref: ../components/schemas/BadRequestResponse.yaml
-          example:
-            type: "https://api.skribble.com/problem/problem-with-message"
-            method: "DELETE"
-            path: "/v2/signature-requests/a557bd30-2709-b371-0595-8a4970953083123"
-            status: 400
-            message: "UUID string too large"
     401:
       $ref: ../components/responses/Unauthorized.yaml
     403:

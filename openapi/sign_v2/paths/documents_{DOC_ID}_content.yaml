@@ -23,16 +23,6 @@ get:
             format: binary
     400:
       $ref: ../components/responses/BadRequest.yaml
-      content:
-        application/json:
-          schema:
-            $ref: ../components/schemas/BadRequestResponse.yaml
-          example:
-            type: "https://api.skribble.com/problem/problem-with-message"
-            method: "GET"
-            path: "/v2/documents/8e725b0d-379c-5fd7-e7b7-ff369ac0c49723/content"
-            status: 400
-            message: "UUID string too large"
     401:
       $ref: ../components/responses/Unauthorized.yaml
     404:

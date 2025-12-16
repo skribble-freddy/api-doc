@@ -28,7 +28,6 @@ post:
               $ref: ../components/examples/DocumentResponse.yaml#/SamplePDFForm           
     400:
       $ref: ../components/responses/BadRequest.yaml
-      # TODO: Content
     401:
       $ref: ../components/responses/Unauthorized.yaml
     429:
@@ -61,7 +60,6 @@ get:
               $ref: ../components/examples/DocumentResponse.yaml#/SampleArray            
     400:
       $ref: ../components/responses/BadRequest.yaml
-      # TODO: Content
     401:
       $ref: ../components/responses/Unauthorized.yaml
     429:

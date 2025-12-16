@@ -43,16 +43,6 @@ post:
               $ref: ../components/examples/CreateSignatureResponse.yaml#/Sample2
     400:
       $ref: ../components/responses/BadRequest.yaml
-      content:
-        application/json:
-          schema:
-            $ref: ../components/schemas/BadRequestResponse.yaml
-          example:
-            type: "https://api.skribble.com/problem/problem-with-message"
-            method: "POST"
-            path: "/v2/signature-requests"
-            status: 400
-            message: "No document source found! Please use document_id, content or file_url to provide a document source"
     401:
       $ref: ../components/responses/Unauthorized.yaml
     429:

@@ -53,32 +53,12 @@ post:
               $ref: ../components/examples/WithdrawSignatureResponse.yaml
     400:
       $ref: ../components/responses/BadRequest.yaml
-      content:
-        application/json:
-          schema:
-            $ref: ../components/schemas/BadRequestResponse.yaml
-          example:
-            type: "https://api.skribble.com/problem/problem-with-message"
-            method: "POST"
-            path: "/v2/signature-requests/a557bd30-2709-b371-0595-8a4970953083123/withdraw"
-            status: 400
-            message: "UUID string too large"
     401:
       $ref: ../components/responses/Unauthorized.yaml
     403:
       $ref: ../components/responses/Forbidden.yaml
     404:
       $ref: ../components/responses/NotFound.yaml
-      content:
-        application/json:
-          schema:
-            $ref: ../components/schemas/BadRequestResponse.yaml
-          example:
-            type: https://api.scribital.de/problem/entity-not-found"
-            method: "POST"
-            path: "/v2/signature-requests/57de257a-bb6d-5309-c4f2-03883bff5534/withdraw"
-            status: 404
-            message: "SignatureRequest not found"
     429:
       $ref: ../components/responses/TooManyRequests.yaml
     500:

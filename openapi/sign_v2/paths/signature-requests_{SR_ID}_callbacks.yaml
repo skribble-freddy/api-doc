@@ -37,30 +37,10 @@ post:
             $ref: ../components/schemas/SignatureCallbacksResponse.yaml
     400:
       $ref: ../components/responses/BadRequest.yaml
-      content:
-        application/json:
-          schema:
-            $ref: ../components/schemas/BadRequestResponse.yaml
-          example:
-            type: "https://api.skribble.com/problem/problem-with-message"
-            method: "POST"
-            path: "/v2/signature-requests/a557bd30-2709-b371-0595-8a4970953083123/callbacks"
-            status: 400
-            message: "UUID string too large"
     401:
       $ref: ../components/responses/Unauthorized.yaml
     403:
       $ref: ../components/responses/Forbidden.yaml
-      content:
-        application/json:
-          schema:
-            $ref: ../components/schemas/BadRequestResponse.yaml
-          example:
-            type: "https://api.skribble.com/problem/problem-with-message"
-            method: "GET"
-            path: "/v2/signature-requests/4c5855cb-5987-6873-3d73-52033a8c3002/callbackss"
-            status: 403
-            message: "Access denied"
     429:
       $ref: ../components/responses/TooManyRequests.yaml
     500:

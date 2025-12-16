@@ -63,16 +63,6 @@ get:
               $ref: ../components/examples/CreateSignatureAttachmentResponse.yaml
     400:
       $ref: ../components/responses/BadRequest.yaml
-      content:
-        application/json:
-          schema:
-            $ref: ../components/schemas/BadRequestResponse.yaml
-          example:
-            type: "https://api.skribble.com/problem/problem-with-message"
-            method: "POST"
-            path: "/v2/signature-requests/attachments"
-            status: 400
-            message: "Attachment type is not supported"
     401:
       $ref: ../components/responses/Unauthorized.yaml
     404:

@@ -57,6 +57,8 @@ paths:
     $ref: paths/signature-requests_{SR_ID}_attachments_{ATTACHMENT_ID}_content.yaml
   /signature-requests/{SR_ID}/attachments/{ATTACHMENT_ID}:
     $ref: paths/signature-requests_{SR_ID}_attachments_{ATTACHMENT_ID}.yaml
+  /signature-requests/{SR_ID}/signatures:
+    $ref: paths/signature-requests_{SR_ID}_signatures.yaml
   /seal:
     $ref: paths/seal.yaml
   /documents:

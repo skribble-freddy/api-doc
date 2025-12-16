@@ -18,7 +18,6 @@ PDFFileURL:
       - account_email: you@example.info
       - account_email: personOneToSign@external.net
 
-
 PDFExistingDoc:
   summary: Document - Referencing an uploaded document
   value:
@@ -29,6 +28,37 @@ PDFExistingDoc:
       - account_email: you@example.info
       - account_email: personOneToSign@external.net
       - account_email: personTwoToSign@external.net
+
+Sequences:
+  summary: Signature Sequences
+  value:
+    title: Example contract
+    message: Please sign this document!
+    content: "SGVsbG8gd29ybGQh"
+    content_type: application/pdf
+    quality: SES
+    signatures:
+      - account_email: irst@example.com
+        sequence: 1
+      - account_email: second@example.com
+        sequence: 2
+      - account_email: third@example.com
+        sequence: 3
+      - account_email: fourth@example.com
+        sequence: 4
+
+NASfirst:
+  summary: NAS unless has an account
+  value:
+    title: Example contract
+    message: Please sign this document!
+    content: "SGVsbG8gd29ybGQh"
+    content_type: application/pdf
+    quality: SES
+    signatures:
+      - account_email: signer@skribble.com
+        signer_identity_data:
+          email_address: signer@skribble.com
 
 Callbacks:
   summary: With all callback Templates

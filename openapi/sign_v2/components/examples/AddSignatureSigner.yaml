@@ -1,0 +1,5 @@
+summary: Add Individual Signer
+value:
+  account_email: single-signer@skribble.com
+  signer_identity_data:
+    email_address: single-signer@skribble.com

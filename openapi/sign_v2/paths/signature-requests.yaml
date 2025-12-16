@@ -23,6 +23,10 @@ post:
             $ref: ../components/examples/CreateSignatureBasic.yaml#/PDFFileURL
           PDFExistingDoc:
             $ref: ../components/examples/CreateSignatureBasic.yaml#/PDFExistingDoc
+          Sequences:
+            $ref: ../components/examples/CreateSignatureBasic.yaml#/Sequences
+          NASfirst:
+            $ref: ../components/examples/CreateSignatureBasic.yaml#/NASfirst
           Callbacks:
             $ref: ../components/examples/CreateSignatureBasic.yaml#/Callbacks
   responses:
@@ -155,7 +159,6 @@ put:
     - Changes to the signatures can only be made as long as none of the signers
     have already completed the signature.
   operationId: updateSignatureRequest
-  # TODO: This should go under {SR_ID} with put
   security:
     - bearer: []
   requestBody:

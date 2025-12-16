@@ -1,0 +1,8 @@
+name: SID
+in: path
+description: Unique ID of the signer
+required: true
+schema:
+  type: string
+  format: uuid
+example: 97db18c8-7ca1-35a2-9726-0b32771e4ac6

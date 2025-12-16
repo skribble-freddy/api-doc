@@ -79,6 +79,8 @@ paths:
     $ref: paths/sendto_{SEND_TO_ID}_download.yaml
   /sendto/{SEND_TO_ID}:
     $ref: paths/sendto_{SEND_TO_ID}.yaml
+  /user/signature-qualities:
+    $ref: paths/user_signature-qualities.yaml
   /management/health:
     $ref: paths/management_health.yaml
 components:

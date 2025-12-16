@@ -1,0 +1,19 @@
+title: Signature Qualities Entry
+type: object
+required:
+  - quality
+  - provider
+  - legislation
+properties:
+  quality:
+    type: string
+    description: Signature quality level
+    example: QES
+  provider:
+    type: string
+    description: Signature provider
+    example: AIS
+  legislation:
+    type: string
+    description: Applicable legislation
+    example: ZERTES

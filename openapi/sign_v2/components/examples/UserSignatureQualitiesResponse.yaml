@@ -1,0 +1,47 @@
+summary: Sample User Signature Qualities Response
+value:
+  qes:
+    zertes:
+      quality: QES
+      provider: AIS
+      legislation: ZERTES
+    eidas:
+      quality: QES
+      provider: AIS
+      legislation: EIDAS
+  aes_minimal:
+    zertes:
+      quality: QES
+      provider: AIS
+      legislation: ZERTES
+    eidas:
+      quality: QES
+      provider: AIS
+      legislation: EIDAS
+  aes:
+    any:
+      quality: AES
+      provider: GLOBALSIGN
+      legislation: EIDAS
+  ses:
+    any:
+      quality: SES
+      provider: SKRIBBLE_SES
+      legislation: ZERTES
+  demo:
+    any:
+      quality: DEMO
+      provider: SELFSIGNED
+      legislation: UNDEFINED
+  seal:
+    aes:
+      ais_demo_seal:
+        quality: AES
+        provider: AIS
+        legislation: ZERTES
+    qes: {}
+  part11:
+    any:
+      quality: PART11
+      provider: SKRIBBLE_PART11
+      legislation: UNDEFINED

@@ -1,0 +1,48 @@
+title: User Signature Qualities Response
+type: object
+properties:
+  qes:
+    type: object
+    properties:
+      zertes:
+        $ref: ./SignatureQualitiesEntry.yaml
+      eidas:
+        $ref: ./SignatureQualitiesEntry.yaml
+  aes_minimal:
+    type: object
+    properties:
+      zertes:
+        $ref: ./SignatureQualitiesEntry.yaml
+      eidas:
+        $ref: ./SignatureQualitiesEntry.yaml
+  aes:
+    type: object
+    properties:
+      any:
+        $ref: ./SignatureQualitiesEntry.yaml
+  ses:
+    type: object
+    properties:
+      any:
+        $ref: ./SignatureQualitiesEntry.yaml
+  demo:
+    type: object
+    properties:
+      any:
+        $ref: ./SignatureQualitiesEntry.yaml
+  seal:
+    type: object
+    properties: 
+      aes:
+        type: object
+        additionalProperties:
+          $ref: ./SignatureQualitiesEntry.yaml
+      qes:
+        type: object
+        additionalProperties:
+          $ref: ./SignatureQualitiesEntry.yaml
+  part11:
+    type: object
+    properties:
+      any:
+        $ref: ./SignatureQualitiesEntry.yaml

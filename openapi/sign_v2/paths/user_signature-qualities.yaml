@@ -1,0 +1,46 @@
+get:
+  tags:
+    - User
+  summary: Get signature qualities details for a user
+  description: |
+    The result of this query will tell you what final signature `quality` will be
+    used for the given user `username` to sign a document.  
+
+    The resulting signature quality is determined in combination of the
+    requested `quality` and `legislation`, whereas any stands for any legislation.  
+
+    Description for the example request:  
+
+    If you create a `SignatureRequest` with `quality=AES_MINIMAL` and the
+    `legislation=ZERTES` the user in this example would finally sign the document
+    with the signature quality `QES`.  
+
+    As described in the previous chapter `AES_MINIMAL` will use `QES` as long as the
+    user settings allow this.
+  operationId: getUserSignatureQualities
+  security:
+    - bearer: []
+  parameters:
+    - $ref: ../components/parameters/UserName.yaml
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/UserSignatureQualitiesResponse.yaml
+          examples:
+            default:
+              $ref: ../components/examples/UserSignatureQualitiesResponse.yaml
+    400:
+      $ref: ../components/responses/BadRequest.yaml
+    401:
+      $ref: ../components/responses/Unauthorized.yaml
+    404:
+      $ref: ../components/responses/NotFound.yaml
+    429:
+      $ref: ../components/responses/TooManyRequests.yaml
+    500:
+      $ref: ../components/responses/ServerError.yaml
+    503:
+      $ref: ../components/responses/ServiceUnavailable.yaml

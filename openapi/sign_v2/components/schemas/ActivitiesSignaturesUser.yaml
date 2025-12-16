@@ -1,0 +1,24 @@
+title: Create Seal Response
+type: object
+properties:
+  email:
+    type: string
+    format: email
+    example: "john.doe@skribble.com"
+  first_name:
+    type: string
+    example: "John"
+  last_name:
+    type: string
+    example: "Doe"
+  type:
+    type: string
+    enum:
+      - member
+      - external
+      - api
+      - unknown
+    example: member
+  mobile:
+    type: string
+    example: "41791234567"

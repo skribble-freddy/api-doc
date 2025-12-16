@@ -1,0 +1,9 @@
+name: size
+in: query
+description: Page size for pagination.
+required: false
+schema:
+  type: number
+  default: 25
+  maximum: 100
+example: 50

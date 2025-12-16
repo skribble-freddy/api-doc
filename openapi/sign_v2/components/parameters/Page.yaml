@@ -1,0 +1,8 @@
+name: page
+in: query
+description: Page for pagination.
+required: false
+schema:
+  type: number
+  default: 1
+example: 1

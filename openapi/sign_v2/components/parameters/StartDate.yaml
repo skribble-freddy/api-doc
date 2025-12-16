@@ -1,0 +1,8 @@
+name: start_date
+in: query
+description: Start Date to find
+required: true
+schema:
+  type: string
+  format: date
+example: "2024-01-01"

@@ -1,0 +1,36 @@
+title: Activities Signatures by Business Entry
+type: object
+properties:
+  id:
+    type: string
+    example: "66f5c2c054dc55b710d27968"
+  action:
+    type: string
+    description: Action performed on the signature request
+    example: "SIGNED"
+  timestamp:
+    type: string
+    format: date-time
+    example: "2024-01-31T13:59:11.382Z"
+  signature_request_id:
+    type: string
+    description: ID of the related signature request
+    example: "baf85d34-6676-8592-a7aa-39fb0ea81622"
+  business_id_paid_by:
+    # TODO: Does this really exist ?
+    type: string
+    description: The ID of the business that paid for the signature activity
+    example: "5a2aea44ddea4f0531ebcdcbcedf873c"
+  cost_center:
+    description: Optional cost center
+    oneOf:
+      - type: "null"
+      - type: string
+  initiator:
+    $ref: ./ActivitiesSignaturesUser.yaml
+  signer:
+    $ref: ./ActivitiesSignaturesUser.yaml
+  quality:
+    $ref: ./SignatureQuality.yaml
+  legislation:
+    $ref: ./SignatureLegislation.yaml

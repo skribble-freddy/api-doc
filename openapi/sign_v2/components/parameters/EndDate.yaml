@@ -1,0 +1,8 @@
+name: end_date
+in: query
+description: End Date to find
+required: true
+schema:
+  type: string
+  format: date
+example: "2024-01-31"

@@ -1,0 +1,21 @@
+title: Activities Signatures by Business Response
+type: object
+description: Document Content Response as JSON
+properties:
+  total_pages:
+    type: integer
+    example: 8
+  total_items:
+    type: integer
+    example: 377
+  current_page:
+    type: integer
+    example: 1
+  size:
+    type: integer
+    example: 50
+  activities:
+    type: array
+    items:
+          $ref: ./ActivitiesSignaturesEntry.yaml
+    

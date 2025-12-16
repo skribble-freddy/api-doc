@@ -1,0 +1,149 @@
+get:
+  tags:
+    - Report
+  summary: Get signature activities by business
+  description: >
+    This endpoint provides detailled signature `activities` information for your
+    business and your members within a specified date range.
+
+
+    Use these parameters to filter for a specific time range.
+
+
+    | **Parameter** | **Description** | **Mandatory** |
+
+    | --- | --- | --- |
+
+    | `start_date` | The start date of the range to fetch the signature
+    `activities`.  <br>Format: `yyyy-MM-dd.` | yes |
+
+    | `end_date` | The end date of the range to fetch the signature
+    `activities`.  <br>Format: `yyyy-MM-dd.` | yes |
+
+
+    ### **Pagination**
+
+
+    The result set can be controlled using the optional pagination parameters
+    `page` and `size`
+
+
+    | **Parameter** | **Description** | **Mandatory** |
+
+    | --- | --- | --- |
+
+    | `page` | The page number to fetch the signature `activities`.  <br>Must be
+    a positive integer.  <br>Default: 1 | no |
+
+    | `size` | The size of the page to fetch the signature activities.  <br>Must
+    be a positive integer.  <br>Default: 25  <br>Maximum: 100 | no |
+
+    | `sort` | The sort order of the signature activities. Can be `asc` or
+    `desc`.  <br>Default is `desc`. | no |
+
+
+    ### **Response**
+
+
+    The response contains the following information.
+
+
+    **General**
+
+
+    | **Field** | **Description** |
+
+    | --- | --- |
+
+    | `activities` | Array of `activities`. See the following subchapter
+    _Activities_. |
+
+    | `total_items` | Total items to fetch when paginating through all the
+    pages. |
+
+    | `total_pages` | Total pages to fetch when paginating through all the
+    pages. |
+
+    | `current_page` | Current page number. |
+
+    | `size` | Size of the page. |
+
+
+    **Activities**
+
+
+    | **Field** | **Description** |
+
+    | --- | --- |
+
+    | `id` | The ID of the signature `activity`. |
+
+    | `action` | The action type of a signature activity. |
+
+    | Can be `signed` or `sealed`. |  |
+
+    | `timestamp` | The timestamp of the signature activity. |
+
+    | `signature_request_id` | The signature request ID. |
+
+    | `business_id_paid_by` | The ID of the business that paid for the signature
+    activity. |
+
+    | `cost_center` | The cost center of the signature paying party. |
+
+    | This information might not necessarily be present. |  |
+
+    | `initiator` | The initiator `user` of the signature `activity`. See the
+    following subchapter _User_. |
+
+    | `signer` | The signer `user` of the signature `activity`. See the
+    following subchapter _User_. |
+
+
+    **User**
+
+
+    | **Field** | **Description** |
+
+    | --- | --- |
+
+    | `user_id` | The ID of the `user`. |
+
+    | `email` | The email of the `user`. |
+
+    | `first_name` | The first name of the `user`. |
+
+    | `last_name` | The last name of the `user`. |
+
+    | `type` | The membership status of the `user` in relation to the business.
+    Can be `api`, `external`, `member` or `unknown`. |
+
+    | `mobile` | The mobile number of the user. |
+  operationId: getActivitiesSignaturesByBusiness
+  security:
+    - bearer: []
+  parameters:
+    - $ref: ../components/parameters/StartDate.yaml
+    - $ref: ../components/parameters/EndDate.yaml
+    - $ref: ../components/parameters/Page.yaml
+    - $ref: ../components/parameters/Size.yaml
+    - $ref: ../components/parameters/Sort.yaml
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ActivitiesSignaturesResponse.yaml
+    400:
+      $ref: ../components/responses/BadRequest.yaml
+    401:
+      $ref: ../components/responses/Unauthorized.yaml
+    404:
+      $ref: ../components/responses/NotFound.yaml
+    429:
+      $ref: ../components/responses/TooManyRequests.yaml
+    500:
+      $ref: ../components/responses/ServerError.yaml
+    503:
+      $ref: ../components/responses/ServiceUnavailable.yaml

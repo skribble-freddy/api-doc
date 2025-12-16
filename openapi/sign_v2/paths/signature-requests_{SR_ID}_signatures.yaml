@@ -42,17 +42,6 @@ post:
       description: OK
     400:
       $ref: ../components/responses/BadRequest.yaml
-      # TODO
-      content:
-        application/json:
-          schema:
-            $ref: ../components/schemas/BadRequestResponse.yaml
-          example:
-            type: "https://api.skribble.com/problem/problem-with-message"
-            method: "POST"
-            path: "/v2/signature-requests/0b06bdfd-6af9-95c4-9f53-c58f49e712c2/remind"
-            status: 400
-            message: "SignatureRequest not found for ID: 0b06bdfd-6af9-95c4-9f53-c58f49e712c2"
     401:
       $ref: ../components/responses/Unauthorized.yaml
     403:

@@ -23,16 +23,6 @@ get:
               $ref: ../components/examples/DocumentResponse.yaml#/SamplePDFForm           
     400:
       $ref: ../components/responses/BadRequest.yaml
-      content:
-        application/json:
-          schema:
-            $ref: ../components/schemas/BadRequestResponse.yaml
-          example:
-            type: "https://api.skribble.com/problem/problem-with-message"
-            method: "POST"
-            path: "/v2/documents"
-            status: 400
-            message: "Error parsing field 'content'"
     401:
       $ref: ../components/responses/Unauthorized.yaml
     404:

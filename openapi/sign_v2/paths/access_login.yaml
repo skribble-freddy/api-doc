@@ -96,16 +96,6 @@ post:
           example: "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJJWlMxY0pXQXlXVFdZeDR6dXRGNzJlYWVILT..."
     400:
       $ref: ../components/responses/BadRequest.yaml
-      content:
-        application/json:
-          schema:
-            $ref: ../components/schemas/BadRequestResponse.yaml
-          example:
-            type: "https://api.skribble.com/problem/problem-with-message"
-            method: "POST"
-            path: "/v2/access/login"
-            status: 400
-            message: "Invalid input for 'username' or 'api-key'. No credentials provided. Please ensure 'username' and 'api-key' are correctly transmitted"
     429:
       $ref: ../components/responses/TooManyRequests.yaml
     500:

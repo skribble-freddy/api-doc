@@ -1,5 +1,5 @@
 name: page_size
-in: header
+in: query
 description: Page size for pagination.
 required: false
 schema:

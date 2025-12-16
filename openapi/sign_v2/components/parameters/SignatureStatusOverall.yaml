@@ -1,5 +1,5 @@
 name: status_overall
-in: header
+in: query
 description: Filter on the field `status_overall` with one of the valid Signature states	
 required: false
 schema:

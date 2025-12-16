@@ -1,5 +1,5 @@
 name: search
-in: header
+in: query
 description: Filter on the field `title` to search for documents containing the serach term.
 required: false
 schema:

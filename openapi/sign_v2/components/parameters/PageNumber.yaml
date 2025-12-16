@@ -1,5 +1,5 @@
 name: page_number
-in: header
+in: query
 description: Page number for pagination. By default pagination is disabled.
 required: false
 schema:

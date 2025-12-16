@@ -11,7 +11,7 @@ delete:
     objects regardless of the current `Send-To` state.
   operationId: deleteSendTo
   security:
-    - bearer: []
+    - {}
   parameters:
     - $ref: ../components/parameters/XAccesscodeHeader.yaml
     - $ref: ../components/parameters/SendToIdPath.yaml

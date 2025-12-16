@@ -12,7 +12,7 @@ get:
     `status:UP` tells you that the system is up and running.
   operationId: getSystemHealth
   security:
-    - bearer: []
+    - {}
   responses:
     200:
       description: OK

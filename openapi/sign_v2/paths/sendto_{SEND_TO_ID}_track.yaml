@@ -9,7 +9,7 @@ get:
     request header `X-Accesscode`.
   operationId: trackSendTo
   security:
-    - bearer: []
+    - {}
   parameters:
     - $ref: ../components/parameters/XAccesscodeHeader.yaml
     - $ref: ../components/parameters/SendToIdPath.yaml

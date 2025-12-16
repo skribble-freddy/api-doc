@@ -20,7 +20,7 @@ post:
     days.
   operationId: createSendTo
   security:
-    - bearer: []
+    - {}
   requestBody:
     description: Content can be sent directly as a file or base64-encoded in a JSON object
     required: true

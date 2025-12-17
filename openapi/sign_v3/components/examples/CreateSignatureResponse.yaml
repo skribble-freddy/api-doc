@@ -11,7 +11,7 @@ Sample1:
         version_id: a84f5085-67e5-e106-71c7-69b3d4b7c632
     legislation: ZERTES
     quality: QES
-    signing_url: https://my.scribital.de/view/4f43614a-de50-bfe1-2df3-4c881fc7840e
+    signing_url: https://my.skribble.com/view/4f43614a-de50-bfe1-2df3-4c881fc7840e
     status_overall: OPEN
     business_id: biz-5a2aea44ddea4f0531ebcdcbcedf873c
     signatures:
@@ -48,7 +48,7 @@ Sample2:
         version_id: a84f5085-67e5-e106-71c7-69b3d4b7c632
     legislation: EIDAS
     quality: AES
-    signing_url: https://my.scribital.de/view/8c73215f-bf33-d8a9-90e5-1a5cd0b9273a
+    signing_url: https://my.skribble.com/view/8c73215f-bf33-d8a9-90e5-1a5cd0b9273a
     status_overall: OPEN
     business_id: biz-87c4d39afc6d471da7bcbf4f2e8ef931
     signatures:
@@ -109,7 +109,7 @@ SampleArray:
           version_id: a84f5085-67e5-e106-71c7-69b3d4b7c632
       legislation: ZERTES
       quality: QES
-      signing_url: https://my.scribital.de/view/4f43614a-de50-bfe1-2df3-4c881fc7840e
+      signing_url: https://my.skribble.com/view/4f43614a-de50-bfe1-2df3-4c881fc7840e
       status_overall: OPEN
       business_id: biz-5a2aea44ddea4f0531ebcdcbcedf873c
       signatures:
@@ -142,7 +142,7 @@ SampleArray:
           version_id: a84f5085-67e5-e106-71c7-69b3d4b7c632
       legislation: EIDAS
       quality: AES
-      signing_url: https://my.scribital.de/view/8c73215f-bf33-d8a9-90e5-1a5cd0b9273a
+      signing_url: https://my.skribble.com/view/8c73215f-bf33-d8a9-90e5-1a5cd0b9273a
       status_overall: OPEN
       business_id: biz-87c4d39afc6d471da7bcbf4f2e8ef931
       signatures:

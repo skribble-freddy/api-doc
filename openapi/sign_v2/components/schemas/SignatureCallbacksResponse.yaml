@@ -45,7 +45,7 @@ items:
       items:
         type: string
       example:
-        - api_production_skribbleag_5a2a_0
+        - api_demo_example
     write_access:
       # TODO: Is this provided ?
       deprecated: true
@@ -54,7 +54,7 @@ items:
       items:
         type: string
       example:
-        - api_production_skribbleag_5a2a_0
+        - api_demo_example
     created_at:
       type: string
       description: The time at which the object was created.

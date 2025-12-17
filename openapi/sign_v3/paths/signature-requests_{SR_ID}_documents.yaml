@@ -1,0 +1,33 @@
+post:
+  tags:
+    - Signature
+  summary: Add an additional document
+  description: |
+    To add an additional document while the `SignatureRequest` is still in `DRAFT`.
+  operationId: addDocumentInSignatureRequest
+  security:
+    - bearer: []
+  parameters:
+    - $ref: ../../sign_v2/components/parameters/SignatureIDPath.yaml
+  requestBody:
+    description: Request body to add a Document
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/UploadDocumentInSignature.yaml
+  responses:
+    200:
+      description: OK
+    400:
+      $ref: ../../sign_v2/components/responses/BadRequest.yaml
+    401:
+      $ref: ../../sign_v2/components/responses/Unauthorized.yaml
+    403:
+      $ref: ../../sign_v2/components/responses/Forbidden.yaml
+    429:
+      $ref: ../../sign_v2/components/responses/TooManyRequests.yaml
+    500:
+      $ref: ../../sign_v2/components/responses/ServerError.yaml
+    503:
+      $ref: ../../sign_v2/components/responses/ServiceUnavailable.yaml

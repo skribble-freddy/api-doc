@@ -1,0 +1,30 @@
+title: Signature Receipient
+type: object
+properties:
+  account_email:
+    type: string
+    description: Optional signer account eMail.
+    format: email
+    example: you@example.info
+  signer_group_id:
+    type: string
+    description: Optional signer group ID.
+    example: gr_9feb51ba97444c539261b64294f33225
+  sequence:
+    type: number
+    description: Optional signer sequence.
+    format: int32
+    default: -1
+    example: 1
+  notify:
+    type: boolean
+    description: Whether to send a notification to this signer.
+    default: true
+    example: false
+  signer_identity_data:
+    $ref: ../../../sign_v2/components/schemas/SignerIdentityData.yaml
+  document_signatures:
+    type: array
+    description: Visual Signatures
+    items:
+      $ref: SignatureDocument.yaml

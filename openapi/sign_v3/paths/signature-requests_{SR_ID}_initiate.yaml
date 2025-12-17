@@ -1,0 +1,31 @@
+post:
+  tags:
+    - Signature
+  summary: Invite signers and start signing process
+  description: |
+    To start the signing process as usual, simply call the initiate endpoint.
+
+    This action sends out the invitation emails and changes the status_overall from `DRAFT` to `OPEN`.
+  
+    As a result, the `SignatureRequest` will no longer appear in the Drafts section. Instead, users 
+    will find it in the appropriate section, such as Pending.
+  operationId: initiateSignatureRequest
+  security:
+    - bearer: []
+  parameters:
+    - $ref: ../../sign_v2/components/parameters/SignatureIDPath.yaml
+  responses:
+    200:
+      description: OK
+    400:
+      $ref: ../../sign_v2/components/responses/BadRequest.yaml
+    401:
+      $ref: ../../sign_v2/components/responses/Unauthorized.yaml
+    403:
+      $ref: ../../sign_v2/components/responses/Forbidden.yaml
+    429:
+      $ref: ../../sign_v2/components/responses/TooManyRequests.yaml
+    500:
+      $ref: ../../sign_v2/components/responses/ServerError.yaml
+    503:
+      $ref: ../../sign_v2/components/responses//ServiceUnavailable.yaml

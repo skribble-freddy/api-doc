@@ -1,0 +1,39 @@
+title: Visual Signature
+type: object
+description: Visual signature placement information.
+oneOf:
+  - type: object
+    title: Multiple Positions
+    description: Use multiple explicit positions.
+    required: ["positions"]
+    properties:
+      positions:
+        type: array
+        items:
+          $ref: ../../../sign_v2/components/schemas/VisualSignaturePosition.yaml
+      image:
+        $ref: ../../../sign_v2/components/schemas/VisualSignatureImage.yaml
+      position:
+        description: Must not be provided when positions are used.
+        readOnly: true
+      form_field:
+        description: Must not be provided when positions are used.
+        readOnly: true
+  - type: object
+    title: Form Field
+    description: Use a form field only.
+    required: ["form_field"]
+    properties:
+      form_field:
+        type: string
+        description: >
+          Name of the form field in which the signature is placed.
+          If multiple fields of this name are present in the document, all will be used.
+      image:
+        $ref: ../../../sign_v2/components/schemas/VisualSignatureImage.yaml
+      position:
+        description: Must not be provided when form_field is used.
+        readOnly: true
+      positions:
+        description: Must not be provided when form_field is used.
+        readOnly: true

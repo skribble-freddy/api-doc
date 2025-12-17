@@ -18,9 +18,9 @@ properties:
     description: Message sent to the other participants along with this signature request.
     example: Please sign this document!
   legislation:
-    $ref: ./SignatureLegislation.yaml
+    $ref: ../../../sign_v2/components/schemas/SignatureLegislation.yaml
   quality:
-    $ref: ./SignatureQuality.yaml
+    $ref: ../../../sign_v2/components/schemas/SignatureQuality.yaml
   signatures:
     oneOf:
       - type: "null"
@@ -31,6 +31,7 @@ properties:
         items:
           $ref: ./SignatureRecipient.yaml
   cc_email_addresses:
+    # TODO ADJUST FOR V3 => observers ?
     oneOf:
       - type: "null"
         title: No update
@@ -66,7 +67,7 @@ properties:
     oneOf:
       - type: "null"
         title: No update
-      - $ref: ./AttachOnSuccess.yaml
+      - $ref: ../../../sign_v2/components/schemas/AttachOnSuccess.yaml
         title: Attachment when signed
   read_access:
     oneOf:

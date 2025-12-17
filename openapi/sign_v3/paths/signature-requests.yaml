@@ -6,6 +6,18 @@ post:
     The `SignatureRequest` object is the primary object of the Skribble API .
     It describes who signs what and how. It gives an overview of the current state 
     of the single Signatures and allows to control user rights or callback functionality.
+
+    Compared to the previous API version, one major improvement is the ability to include
+    multiple documents when creating a `SignatureRequest`.
+
+    Another significant change is that the request no longer triggers invitations immediately.
+    Instead, the `SignatureRequest` is created with an status_overall value of DRAFT.
+
+    If you specify an owner for the `SignatureRequest` using the creator field, that user will see
+    it appear in the new Drafts section. From there, they can continue the process and complete
+    the invitation steps.
+
+    When everything is ready, don't forget to call `/initiate` to start the `SignatureRequest`
   operationId: createSignatureRequest
   security:
     - bearer: []
@@ -17,18 +29,18 @@ post:
         schema:
           $ref: ../components/schemas/CreateSignatureRequest.yaml
         examples:
-          PDFBase64:
-            $ref: ../components/examples/CreateSignatureBasic.yaml#/PDFBase64
-          PDFFileURL:
-            $ref: ../components/examples/CreateSignatureBasic.yaml#/PDFFileURL
-          PDFExistingDoc:
-            $ref: ../components/examples/CreateSignatureBasic.yaml#/PDFExistingDoc
-          Sequences:
-            $ref: ../components/examples/CreateSignatureBasic.yaml#/Sequences
+          OneSignerOneDoc:
+            $ref: ../components/examples/CreateSignatureMultiDoc.yaml#/OneSignerOneDoc
+          OneSignerMultiDoc:
+            $ref: ../components/examples/CreateSignatureMultiDoc.yaml#/OneSignerMultiDoc
+          MultiSignerMultiDoc:
+            $ref: ../components/examples/CreateSignatureMultiDoc.yaml#/MultiSignerMultiDoc
           NASfirst:
-            $ref: ../components/examples/CreateSignatureBasic.yaml#/NASfirst
+            $ref: ../components/examples/CreateSignatureMultiDoc.yaml#/NASfirst
+          SignerGroup:
+            $ref: ../components/examples/CreateSignatureMultiDoc.yaml#/SignerGroup
           Callbacks:
-            $ref: ../components/examples/CreateSignatureBasic.yaml#/Callbacks
+            $ref: ../components/examples/CreateSignatureMultiDoc.yaml#/Callbacks
   responses:
     200:
       description: OK
@@ -42,15 +54,15 @@ post:
             Sample2:
               $ref: ../components/examples/CreateSignatureResponse.yaml#/Sample2
     400:
-      $ref: ../components/responses/BadRequest.yaml
+      $ref: ../../sign_v2/components/responses/BadRequest.yaml
     401:
-      $ref: ../components/responses/Unauthorized.yaml
+      $ref: ../../sign_v2/components/responses/Unauthorized.yaml
     429:
-      $ref: ../components/responses/TooManyRequests.yaml
+      $ref: ../../sign_v2/components/responses/TooManyRequests.yaml
     500:
-      $ref: ../components/responses/ServerError.yaml
+      $ref: ../../sign_v2/components/responses/ServerError.yaml
     503:
-      $ref: ../components/responses/ServiceUnavailable.yaml
+      $ref: ../../sign_v2/components/responses/ServiceUnavailable.yaml
 get:
   tags:
     - Signature
@@ -76,7 +88,7 @@ get:
 
     Exception: The search parameter searches for document titles that contain
     the search term. 
-  
+
 
     **Pagination** 
 
@@ -88,12 +100,12 @@ get:
   security:
     - bearer: []
   parameters:
-    - $ref: ../components/parameters/SignatureAccountMail.yaml
-    - $ref: ../components/parameters/SignatureSearch.yaml
-    - $ref: ../components/parameters/SignatureStatusCode.yaml
-    - $ref: ../components/parameters/SignatureStatusOverall.yaml
-    - $ref: ../components/parameters/PageNumber.yaml
-    - $ref: ../components/parameters/PageSize.yaml
+      - $ref: ../../sign_v2/components/parameters/SignatureAccountMail.yaml
+      - $ref: ../../sign_v2/components/parameters/SignatureSearch.yaml
+      - $ref: ../../sign_v2/components/parameters/SignatureStatusCode.yaml
+      - $ref: ../../sign_v2/components/parameters/SignatureStatusOverall.yaml
+      - $ref: ../../sign_v2/components/parameters/PageNumber.yaml
+      - $ref: ../../sign_v2/components/parameters/PageSize.yaml
   responses:
     200:
       description: OK
@@ -106,21 +118,20 @@ get:
               $ref: ../components/schemas/SignatureResponse.yaml
           examples:
             default:
-              $ref: ../components/examples/CreateSignatureResponse.yaml#/SampleArray            
+              $ref: ../components/examples/CreateSignatureResponse.yaml#/SampleArray
     400:
-      $ref: ../components/responses/BadRequest.yaml
+      $ref: ../../sign_v2/components/responses/BadRequest.yaml
     401:
-      $ref: ../components/responses/Unauthorized.yaml
+      $ref: ../../sign_v2/components/responses/Unauthorized.yaml
     403:
-      $ref: ../components/responses/Forbidden.yaml
+      $ref: ../../sign_v2/components/responses/Forbidden.yaml
     429:
-      $ref: ../components/responses/TooManyRequests.yaml
+      $ref: ../../sign_v2/components/responses/TooManyRequests.yaml
     500:
-      $ref: ../components/responses/ServerError.yaml
+      $ref: ../../sign_v2/components/responses/ServerError.yaml
     503:
-      $ref: ../components/responses/ServiceUnavailable.yaml
+      $ref: ../../sign_v2/components/responses/ServiceUnavailable.yaml
 put:
-  # TODO: Update this
   tags:
     - Signature
   summary: Update a Signature Request
@@ -166,14 +177,14 @@ put:
           schema:
             $ref: ../components/schemas/SignatureResponse.yaml
     400:
-      $ref: ../components/responses/BadRequest.yaml
+      $ref: ../../sign_v2/components/responses/BadRequest.yaml
     403:
-      $ref: ../components/responses/Forbidden.yaml
+      $ref: ../../sign_v2/components/responses/Forbidden.yaml
     401:
-      $ref: ../components/responses/Unauthorized.yaml
+      $ref: ../../sign_v2/components/responses/Unauthorized.yaml
     429:
-      $ref: ../components/responses/TooManyRequests.yaml
+      $ref: ../../sign_v2/components/responses/TooManyRequests.yaml
     500:
-      $ref: ../components/responses/ServerError.yaml
+      $ref: ../../sign_v2/components/responses/ServerError.yaml
     503:
-      $ref: ../components/responses/ServiceUnavailable.yaml
+      $ref: ../../sign_v2/components/responses/ServiceUnavailable.yaml

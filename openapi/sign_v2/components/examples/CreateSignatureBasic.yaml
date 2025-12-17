@@ -38,7 +38,7 @@ Sequences:
     content_type: application/pdf
     quality: SES
     signatures:
-      - account_email: irst@example.com
+      - account_email: first@example.com
         sequence: 1
       - account_email: second@example.com
         sequence: 2

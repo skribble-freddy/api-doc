@@ -1,0 +1,131 @@
+title: Create Signature Request
+type: object
+required:
+  - title
+  - documents
+properties:
+  title:
+    type: string
+    description: Title of the signature request.
+    example: Example contract
+  message:
+    type: string
+    description: Message sent to the other participants along with this signature request.
+    example: Please sign this document!
+  legislation:
+    $ref: ../../../sign_v2/components/schemas/SignatureLegislation.yaml
+  quality:
+    $ref: ../../../sign_v2/components/schemas/SignatureQuality.yaml
+  documents:
+    type: array
+    items: 
+      $ref: ./DocumentInSignature.yaml
+  signatures:
+    oneOf:
+      - type: "null"
+        title: No signers
+      - type: array
+        title: Signers
+        # TODO Check description
+        description: >-
+          List of recipients required to sign the document.
+    
+          It is possible to create a SignatureRequest where one or more invited participants won't need a 
+          Skribble account to sign the SignatureRequest. Those signers are called No-Account-Signers (NAS).
+ 
+          To create a SignatureRequest for a user without an account, omit the signatures array entry for
+          this user and provide the necessary data using the `signer_identity_data` element instead.
+
+          Each entry in the signatures array will be treated as a distinct identity. This means two entries 
+          with the same `signer_identity_data` are treated as two different identities and require that this 
+          person signs the document twice.
+
+          Optionally you can combine `signer_identity_data` and account_email in your requests. In this case, 
+          the system checks first if there is a Skribble account with the specified e-mail address. 
+          If one is found the existing Skribble user will be invited to sign the document. Otherwise, the 
+          specified user in `signer_identity_data` will be invited to sign.
+
+          > Good to know
+          We recommend this approach of combining `signer_identity_data` and `account_email` if you are unsure 
+          whether the user has a Skribble account.
+          The benefit is that an existing Skribble user will afterwards find the SignatureRequest in the 
+          To sign section of their account on my.skribble.com.
+          Conversely, if you invite them using only signer_identity_data, the document will not appear in
+          their Skribble account, even if they have an existing Skribble account. Instead, they will have to
+          access the document using the specific link provided in their signature invitation email. 
+
+          When the user visits the URL provided in the field `signing_url` inside the signature element, he
+          will be forwarded to a special preview page of the PDF document and can start the signature process
+          as usual.
+
+          Missing fields like first name and last name can easily be adjusted by the signer through the
+          Skribble web client.
+        items:
+          $ref: ./SignatureRecipient.yaml
+  cc_email_addresses:
+    # TODO ADJUST FOR V3 => observers ?
+    oneOf:
+      - type: "null"
+        title: No observers
+      - type: array
+        title: Observers
+        # TODO: Check if the given observers need to have a valid Skribble account
+        description: >-
+          Observer email addresses of users who are granted read access and to whom notifications are sent.
+          The given observers need to have a valid Skribble account. Otherwise the email address will not be accepted as valid observer.
+        items:
+          type: string
+          format: email
+        example:
+          - backoffice@company.com
+          - info@company.com
+  callback_success_url:
+    type: string
+    description: Callback-URL which is called on overall success.
+    format: uri
+    example: https://mybiz.com/call/success
+  callback_error_url:
+    type: string
+    description: Callback-URL which is called in case of an error.
+    format: uri
+    example: https://mybiz.com/call/success
+  callback_update_url:
+    type: string
+    description: Callback-URL which is called in case of an update.
+    format: uri
+    example: https://mybiz.com/call/success
+  custom:
+    type: string
+    description: Custom field where own/customer settings related to this signature request can be stored for future actions.
+    example: MyCustomvalue1,MyVal2
+  attach_on_success:
+    oneOf:
+      - type: "null"
+        title: No attachment when signed
+      - $ref: ../../../sign_v2/components/schemas/AttachOnSuccess.yaml
+        title: Attachment when signed
+  creator:
+    oneOf:
+      - type: "null"
+        title: No owner
+      - type: string
+        title: Specific owner
+        description: >-
+          Set a business member as owner of this signature request in addition to the API User. 
+        format: email
+        example: some-member-of@your-buiness.com
+  write_access:
+    oneOf:
+      - type: "null"
+        title: No other writer
+      - type: array
+        title: Additional writer
+        description: >-
+          Give existing users full write access to this signature request. 
+          The given observers need to have a valid Skribble account. Otherwise the email address will not be accepted as valid observer.
+        items:
+          type: string
+          format: email
+        example:
+          - john.doe@skriobble.com
+          - jane.doe@skribble.com

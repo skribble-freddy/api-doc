@@ -1,0 +1,8 @@
+title: Signature Document Upload
+type: object
+properties:
+  content:
+    type: string
+    format: byte
+    description: Base64 encoded bytes of the document.
+    example: "U29tZUJhc2U2NEVuY29kZWRJbWFnZQ=="

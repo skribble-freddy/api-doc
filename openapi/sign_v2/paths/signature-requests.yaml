@@ -1,7 +1,7 @@
 post:
   tags:
     - Signature
-  summary: Create a signature request
+  summary: Create a Signature Request
   description: |
     The `SignatureRequest` object is the primary object of the Skribble API .
     It describes who signs what and how. It gives an overview of the current state 

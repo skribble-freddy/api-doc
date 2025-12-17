@@ -1,0 +1,28 @@
+delete:
+  tags:
+    - Signature
+  summary: Remove an document
+  description: |
+    Delete the document with the `DOC_ID` from the `SignatureRequest`
+    with the ID `SR_ID`
+  operationId: deleteDocumentInSignatureRequest
+  security:
+    - bearer: []
+  parameters:
+    - $ref: ../../sign_v2/components/parameters/SignatureIDPath.yaml
+    - $ref: ../../sign_v2/components/parameters/DocumentIDPath.yaml
+  responses:
+    200:
+      description: OK
+    400:
+      $ref: ../../sign_v2/components/responses/BadRequest.yaml
+    401:
+      $ref: ../../sign_v2/components/responses/Unauthorized.yaml
+    404:
+      $ref: ../../sign_v2/components/responses/NotFound.yaml
+    429:
+      $ref: ../../sign_v2/components/responses/TooManyRequests.yaml
+    500:
+      $ref: ../../sign_v2/components/responses/ServerError.yaml
+    503:
+      $ref: ../../sign_v2/components/responses/ServiceUnavailable.yaml

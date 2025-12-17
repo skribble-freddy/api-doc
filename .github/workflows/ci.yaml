@@ -28,16 +28,22 @@ jobs:
         run: npm ci
 
       - name: Lint OpenAPI docs
-        run: npm run lint
+        run: |
+          set -e
+          npm run lint
 
       - name: Bundle OpenAPI specs
-        run: npm run bundle
+        run: |
+          set -e
+          npm run bundle
 
       - name: Build HTML docs
-        run: npm run build
+        run: |
+          set -e
+          npm run build
 
       - name: Deploy to GitHub Pages
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && success()
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

@@ -60,7 +60,7 @@ paths:
   /documents/{DOC_ID}:
     $ref: ../sign_v2/paths/documents_{DOC_ID}.yaml
   /documents/{DOC_ID}/content:
-    $ref: ../sign_v2/paths/documents_{DOC_ID}_content.yaml
+    $ref: ../sign_v2/pathss/documents_{DOC_ID}_content.yaml
   /documents/{DOC_ID}/pages/{PAGE_ID}:
     $ref: ../sign_v2/paths/documents_{DOC_ID}_pages_{PAGE_ID}.yaml
   /sendto:

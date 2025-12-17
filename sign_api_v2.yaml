@@ -156,7 +156,7 @@ paths:
     post:
       tags:
         - Signature
-      summary: Create a signature request
+      summary: Create a Signature Request
       description: |
         The `SignatureRequest` object is the primary object of the Skribble API .
         It describes who signs what and how. It gives an overview of the current state 
@@ -1728,14 +1728,14 @@ components:
           $ref: '#/components/schemas/AttachOnSuccess'
         owner:
           type: string
-          example: api_production_skribbleag_42b4_9
+          example: api_demo_example
         read_access:
           type: array
           items:
             type: string
           example:
             - persononetosign@external.net
-            - api_production_skribbleag_42b4_9
+            - api_demo_example
             - you@example.info
             - persontwotosign@external.net
         write_access:
@@ -1743,7 +1743,7 @@ components:
           items:
             type: string
           example:
-            - api_production_skribbleag_42b4_9
+            - api_demo_example
         created_at:
           type: string
           format: date-time
@@ -1963,7 +1963,7 @@ components:
               example:
                 - john.doe@skriobble.com
                 - jane.doe@skribble.com
-                - api_production_skribbleag_5a2a_0
+                - api_demo_example
         write_access:
           oneOf:
             - type: 'null'
@@ -1974,7 +1974,7 @@ components:
               items:
                 type: string
               example:
-                - api_production_skribbleag_5a2a_0
+                - api_demo_example
     CreateSignatureRequest:
       title: Create Signature Request
       type: object
@@ -2197,7 +2197,7 @@ components:
             items:
               type: string
             example:
-              - api_production_skribbleag_5a2a_0
+              - api_demo_example
           write_access:
             deprecated: true
             type: array
@@ -2205,7 +2205,7 @@ components:
             items:
               type: string
             example:
-              - api_production_skribbleag_5a2a_0
+              - api_demo_example
           created_at:
             type: string
             description: The time at which the object was created.
@@ -2870,43 +2870,92 @@ components:
     SampleArray:
       value:
         - id: 4f43614a-de50-bfe1-2df3-4c881fc7840e
-          title: Example contract
-          message: Please sign this document!
-          document_id: 29eae6aa-5558-2ada-2870-d4e654c0da5c
+          title: Sample document
+          message: Please sign this document.
+          document_id: 1ff0cf91-6b54-f3bd-bffb-8fcd5e799764
           legislation: ZERTES
           quality: QES
           signing_url: https://my.skribble.com/view/4f43614a-de50-bfe1-2df3-4c881fc7840e
           status_overall: OPEN
-          business: biz-42b4c2fb9ee947778ba70bc0698c78f7
-          signatures: []
+          business: biz-5a2aea44ddea4f0531ebcdcbcedf873c
+          signatures:
+            - sid: e5ab7fba-e815-0f65-f437-7c78953a0b7d
+              account_email: you@example.info
+              sequence: -1
+              status_code: OPEN
+              notify: true
           cc_email_addresses: []
           attachments: []
-          owner: api_production_skribbleag_42b4_9
-          read_access:
-            - persononetosign@external.net
-          write_access:
-            - api_production_skribbleag_42b4_9
-          created_at: '2025-10-08T17:37:03.569Z'
-          updated_at: '2025-10-08T17:37:03.569Z'
-        - id: f47ac10b-58cc-4372-a567-0e02b2c3d479
-          title: Second contract
-          message: Please sign this as well!
-          document_id: a1b2c3d4-e5f6-4789-a1b2-c3d4e5f6a1b2
-          legislation: EIDAS
-          quality: QES
-          signing_url: https://my.skribble.com/view/another-uuid-example
-          status_overall: OPEN
-          business: biz-123
-          signatures: []
-          cc_email_addresses: []
-          attachments: []
-          owner: api_production_skribbleag_42b4_9
+          owner: api_demo_example
           read_access:
             - you@example.info
+            - api_demo_example
           write_access:
-            - api_production_skribbleag_42b4_9
-          created_at: '2025-10-08T18:00:00.000Z'
-          updated_at: '2025-10-08T18:00:00.000Z'
+            - api_demo_example
+          created_at: '2025-10-15T07:47:01.223Z'
+          updated_at: '2025-10-15T07:47:01.223Z'
+        - id: 8c73215f-bf33-d8a9-90e5-1a5cd0b9273a
+          title: Employment Contract
+          message: Please review and sign your employment contract.
+          document_id: 2aa9b2e7-3c21-4d7a-bf9c-6a1f6f5fcb98
+          legislation: EIDAS
+          quality: AES
+          signing_url: https://my.skribble.com/view/8c73215f-bf33-d8a9-90e5-1a5cd0b9273a
+          status_overall: OPEN
+          business: biz-87c4d39afc6d471da7bcbf4f2e8ef931
+          signatures:
+            - sid: 5ad9f2c1-6a81-42af-9a6a-7c5adcb54e23
+              account_email: alice@example.com
+              sequence: 1
+              status_code: SIGNED
+              notify: true
+              visual_signature:
+                position:
+                  x: 120
+                  'y': 490
+                  width: 150
+                  height: 70
+                  page: '2'
+                  rotation: 0
+                positions:
+                  - x: 120
+                    'y': 490
+                    width: 150
+                    height: 70
+                    page: '2'
+                    rotation: 0
+            - sid: 19de3b41-9d65-4cb7-90ff-239b7a0eac12
+              account_email: hr@examplecorp.com
+              sequence: 2
+              status_code: OPEN
+              notify: true
+              visual_signature:
+                position:
+                  x: 130
+                  'y': 420
+                  width: 155
+                  height: 72
+                  page: '2'
+                  rotation: 0
+                positions:
+                  - x: 130
+                    'y': 420
+                    width: 155
+                    height: 72
+                    page: '2'
+                    rotation: 0
+          cc_email_addresses:
+            - legal@examplecorp.com
+          owner: api_demo_example
+          read_access:
+            - alice@example.com
+            - hr@examplecorp.com
+            - legal@examplecorp.com
+            - api_demo_example
+          write_access:
+            - api_demo_example
+          created_at: '2025-10-15T08:15:22.115Z'
+          updated_at: '2025-10-15T08:15:22.115Z'
     PDFBase64:
       summary: Document - With Base64 document
       value:
@@ -2944,7 +2993,7 @@ components:
         content_type: application/pdf
         quality: SES
         signatures:
-          - account_email: irst@example.com
+          - account_email: first@example.com
             sequence: 1
           - account_email: second@example.com
             sequence: 2
@@ -2985,7 +3034,7 @@ components:
         document_id: 1ff0cf91-6b54-f3bd-bffb-8fcd5e799764
         legislation: ZERTES
         quality: QES
-        signing_url: https://my.scribital.de/view/4f43614a-de50-bfe1-2df3-4c881fc7840e
+        signing_url: https://my.skribble.com/view/4f43614a-de50-bfe1-2df3-4c881fc7840e
         status_overall: OPEN
         business: biz-5a2aea44ddea4f0531ebcdcbcedf873c
         signatures:
@@ -2996,12 +3045,12 @@ components:
             notify: true
         cc_email_addresses: []
         attachments: []
-        owner: api_production_skribbleag_5a2a_0
+        owner: api_demo_example
         read_access:
           - you@example.info
-          - api_production_skribbleag_5a2a_0
+          - api_demo_example
         write_access:
-          - api_production_skribbleag_5a2a_0
+          - api_demo_example
         created_at: '2025-10-15T07:47:01.223Z'
         updated_at: '2025-10-15T07:47:01.223Z'
     Sample2:
@@ -3013,7 +3062,7 @@ components:
         document_id: 2aa9b2e7-3c21-4d7a-bf9c-6a1f6f5fcb98
         legislation: EIDAS
         quality: AES
-        signing_url: https://my.scribital.de/view/8c73215f-bf33-d8a9-90e5-1a5cd0b9273a
+        signing_url: https://my.skribble.com/view/8c73215f-bf33-d8a9-90e5-1a5cd0b9273a
         status_overall: OPEN
         business: biz-87c4d39afc6d471da7bcbf4f2e8ef931
         signatures:
@@ -3059,14 +3108,14 @@ components:
                   rotation: 0
         cc_email_addresses:
           - legal@examplecorp.com
-        owner: api_production_skribbleag_7b4b_1
+        owner: api_demo_example
         read_access:
           - alice@example.com
           - hr@examplecorp.com
           - legal@examplecorp.com
-          - api_production_skribbleag_7b4b_1
+          - api_demo_example
         write_access:
-          - api_production_skribbleag_7b4b_1
+          - api_demo_example
         created_at: '2025-10-15T08:15:22.115Z'
         updated_at: '2025-10-15T08:15:22.115Z'
     WithdrawSignatureResponse:
@@ -3078,7 +3127,7 @@ components:
         document_id: 1ff0cf91-6b54-f3bd-bffb-8fcd5e799764
         legislation: ZERTES
         quality: QES
-        signing_url: https://my.scribital.de/view/4f43614a-de50-bfe1-2df3-4c881fc7840e
+        signing_url: https://my.skribble.com/view/4f43614a-de50-bfe1-2df3-4c881fc7840e
         status_overall: WITHDRAWN
         business: biz-5a2aea44ddea4f0531ebcdcbcedf873c
         signatures:
@@ -3089,11 +3138,11 @@ components:
             notify: true
         cc_email_addresses: []
         attachments: []
-        owner: api_production_skribbleag_5a2a_0
+        owner: api_demo_example
         read_access:
-          - api_production_skribbleag_5a2a_0
+          - api_demo_example
         write_access:
-          - api_production_skribbleag_5a2a_0
+          - api_demo_example
         created_at: '2025-10-15T07:47:01.223Z'
         updated_at: '2025-10-15T07:47:01.223Z'
     CreateSignatureAttachmentResponse:

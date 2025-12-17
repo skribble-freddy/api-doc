@@ -155,11 +155,23 @@ paths:
     post:
       tags:
         - Signature
-      summary: Create a signature request
+      summary: Create a Signature Request
       description: |
         The `SignatureRequest` object is the primary object of the Skribble API .
         It describes who signs what and how. It gives an overview of the current state 
         of the single Signatures and allows to control user rights or callback functionality.
+
+        Compared to the previous API version, one major improvement is the ability to include
+        multiple documents when creating a `SignatureRequest`.
+
+        Another significant change is that the request no longer triggers invitations immediately.
+        Instead, the `SignatureRequest` is created with an status_overall value of DRAFT.
+
+        If you specify an owner for the `SignatureRequest` using the creator field, that user will see
+        it appear in the new Drafts section. From there, they can continue the process and complete
+        the invitation steps.
+
+        When everything is ready, don't forget to call `/initiate` to start the `SignatureRequest`
       operationId: createSignatureRequest
       security:
         - bearer: []
@@ -171,16 +183,16 @@ paths:
             schema:
               $ref: '#/components/schemas/CreateSignatureRequest'
             examples:
-              PDFBase64:
-                $ref: '#/components/examples/PDFBase64'
-              PDFFileURL:
-                $ref: '#/components/examples/PDFFileURL'
-              PDFExistingDoc:
-                $ref: '#/components/examples/PDFExistingDoc'
-              Sequences:
-                $ref: '#/components/examples/Sequences'
+              OneSignerOneDoc:
+                $ref: '#/components/examples/OneSignerOneDoc'
+              OneSignerMultiDoc:
+                $ref: '#/components/examples/OneSignerMultiDoc'
+              MultiSignerMultiDoc:
+                $ref: '#/components/examples/MultiSignerMultiDoc'
               NASfirst:
                 $ref: '#/components/examples/NASfirst'
+              SignerGroup:
+                $ref: '#/components/examples/SignerGroup'
               Callbacks:
                 $ref: '#/components/examples/Callbacks'
       responses:
@@ -348,12 +360,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SignatureResponse'
+                $ref: '#/components/schemas/SignatureResponse-2'
               examples:
                 Sample1:
-                  $ref: '#/components/examples/Sample1'
+                  $ref: '#/components/examples/CreateSignatureResponse_Sample1'
                 Sample2:
-                  $ref: '#/components/examples/Sample2'
+                  $ref: '#/components/examples/CreateSignatureResponse_Sample2'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -434,6 +446,38 @@ paths:
           $ref: '#/components/responses/ServerError'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
+  /signature-requests/{SR_ID}/initiate:
+    post:
+      tags:
+        - Signature
+      summary: Invite signers and start signing process
+      description: |
+        To start the signing process as usual, simply call the initiate endpoint.
+
+        This action sends out the invitation emails and changes the status_overall from `DRAFT` to `OPEN`.
+
+        As a result, the `SignatureRequest` will no longer appear in the Drafts section. Instead, users 
+        will find it in the appropriate section, such as Pending.
+      operationId: initiateSignatureRequest
+      security:
+        - bearer: []
+      parameters:
+        - $ref: '#/components/parameters/SignatureIDPath'
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
   /signature-requests/{SR_ID}/withdraw:
     post:
       tags:
@@ -484,7 +528,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SignatureResponse'
+                $ref: '#/components/schemas/SignatureResponse-2'
               examples:
                 Sample1:
                   $ref: '#/components/examples/WithdrawSignatureResponse'
@@ -655,7 +699,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SignatureResponse'
+                $ref: '#/components/schemas/SignatureResponse-2'
               examples:
                 Attachment1:
                   $ref: '#/components/examples/CreateSignatureAttachmentResponse'
@@ -812,6 +856,69 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /signature-requests/{SR_ID}/documents:
+    post:
+      tags:
+        - Signature
+      summary: Add an additional document
+      description: |
+        To add an additional document while the `SignatureRequest` is still in `DRAFT`.
+      operationId: addDocumentInSignatureRequest
+      security:
+        - bearer: []
+      parameters:
+        - $ref: '#/components/parameters/SignatureIDPath'
+      requestBody:
+        description: Request body to add a Document
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadDocumentInSignature'
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /signature-requests/{SR_ID}/documents/{DOC_ID}:
+    delete:
+      tags:
+        - Signature
+      summary: Remove an document
+      description: |
+        Delete the document with the `DOC_ID` from the `SignatureRequest`
+        with the ID `SR_ID`
+      operationId: deleteDocumentInSignatureRequest
+      security:
+        - bearer: []
+      parameters:
+        - $ref: '#/components/parameters/SignatureIDPath'
+        - $ref: '#/components/parameters/DocumentIDPath'
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
         '500':
@@ -1482,6 +1589,24 @@ components:
         - SIGNED
         - ERROR
       example: OPEN
+    DocumentInSignatureResponse:
+      title: Signature Document Response
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique Document ID.
+          format: uuid
+          example: f1e2d3c4-7b8a-4e6f-9d3b-123456789abc
+        name:
+          type: string
+          description: Document Name.
+          example: Filename1.pdf
+        version_id:
+          type: string
+          description: Document Version ID.
+          format: uuid
+          example: a84f5085-67e5-e106-71c7-69b3d4b7c632
     SignatureLegislation:
       title: Signature Legislation
       type: string
@@ -1501,6 +1626,128 @@ components:
         - QES
         - DEMO
       example: QES
+    SignatureStatusOverall-2:
+      title: Signature Status Overall
+      type: string
+      description: |-
+        Overall signing status of the document.
+        Possible values:
+          - **DRAFT** The signature request has not yet been placed.
+          - **OPEN** At least one user has not signed or declined their signature yet.
+          - **DECLINED** At least one user declined to sign. The signature request failed.
+          - **WITHDRAWN** The owner has withdrawn the signature request.
+          - **SIGNED** All users signed the document. The signature request was successfully completed.
+          - **ERROR** A technical error occurred. The signature request cannot be completed.
+      enum:
+        - DRAFT
+        - OPEN
+        - DECLINED
+        - WITHDRAWN
+        - SIGNED
+        - ERROR
+      example: OPEN
+    VisualSignaturePosition:
+      title: Visual Signature Position
+      type: object
+      properties:
+        page:
+          type: string
+          description: "Page number (0-indexed) where the signature appears.\nThis is a String and not a number!\t\n"
+          example: '0'
+        height:
+          type: number
+          description: Height of the signature in pixels.
+          example: 70
+        width:
+          type: number
+          description: Width of the signature in pixels.
+          example: 150
+        x:
+          type: number
+          description: X-coordinate (pixels from left) of signature.
+          example: 350
+        'y':
+          type: number
+          description: Y-coordinate (pixels from top) of signature.
+          example: 240
+        rotation:
+          type: number
+          description: |
+            Defines a rotation of the field content. 
+            If used in context with a form field, then only the values 0, 90, 180, 270 are legal.
+            Otherwise every value is legal. The rotation is applied counter clockwise.
+          example: 0
+    VisualSignatureImage:
+      title: Visual Signature Image
+      type: object
+      description: Visual signature image.
+      required:
+        - content
+        - content_type
+      properties:
+        content:
+          type: string
+          description: Base64 encoded bytes of content.
+          format: byte
+          example: SGVsbG8gd29ybGQh
+        content_type:
+          type: string
+          description: Content type of bytes sent in content. At the moment this MUST be image/png
+          example: image/png
+    VisualSignature:
+      title: Visual Signature
+      type: object
+      description: Visual signature placement information.
+      oneOf:
+        - type: object
+          title: Multiple Positions
+          description: Use multiple explicit positions.
+          required:
+            - positions
+          properties:
+            positions:
+              type: array
+              items:
+                $ref: '#/components/schemas/VisualSignaturePosition'
+            image:
+              $ref: '#/components/schemas/VisualSignatureImage'
+            position:
+              description: Must not be provided when positions are used.
+              readOnly: true
+            form_field:
+              description: Must not be provided when positions are used.
+              readOnly: true
+        - type: object
+          title: Form Field
+          description: Use a form field only.
+          required:
+            - form_field
+          properties:
+            form_field:
+              type: string
+              description: |
+                Name of the form field in which the signature is placed. If multiple fields of this name are present in the document, all will be used.
+            image:
+              $ref: '#/components/schemas/VisualSignatureImage'
+            position:
+              description: Must not be provided when form_field is used.
+              readOnly: true
+            positions:
+              description: Must not be provided when form_field is used.
+              readOnly: true
+    SignatureDocument:
+      title: Signer Document to Sign
+      type: object
+      properties:
+        document_id:
+          type: string
+          description: Unique Document ID.
+          format: uuid
+          example: f1e2d3c4-7b8a-4e6f-9d3b-123456789abc
+        visual_signature:
+          oneOf:
+            - type: 'null'
+            - $ref: '#/components/schemas/VisualSignature'
     SignatureLanguage:
       title: Signature Language
       type: string
@@ -1553,74 +1800,6 @@ components:
           type: string
           description: Optional ID of the evidence records created during identification.
           example: evidence-12345
-    VisualSignatureImage:
-      title: Visual Signature Image
-      type: object
-      description: Visual signature image.
-      required:
-        - content
-        - content_type
-      properties:
-        content:
-          type: string
-          description: Base64 encoded bytes of content.
-          format: byte
-          example: SGVsbG8gd29ybGQh
-        content_type:
-          type: string
-          description: Content type of bytes sent in content. At the moment this MUST be image/png
-          example: image/png
-    VisualSignaturePosition:
-      title: Visual Signature Position
-      type: object
-      properties:
-        page:
-          type: string
-          description: "Page number (0-indexed) where the signature appears.\nThis is a String and not a number!\t\n"
-          example: '0'
-        height:
-          type: number
-          description: Height of the signature in pixels.
-          example: 70
-        width:
-          type: number
-          description: Width of the signature in pixels.
-          example: 150
-        x:
-          type: number
-          description: X-coordinate (pixels from left) of signature.
-          example: 350
-        'y':
-          type: number
-          description: Y-coordinate (pixels from top) of signature.
-          example: 240
-        rotation:
-          type: number
-          description: |
-            Defines a rotation of the field content. 
-            If used in context with a form field, then only the values 0, 90, 180, 270 are legal.
-            Otherwise every value is legal. The rotation is applied counter clockwise.
-          example: 0
-    VisualSignatureResponse:
-      title: Visual Signature Response
-      type: object
-      description: Visual signature placement information.
-      properties:
-        image:
-          $ref: '#/components/schemas/VisualSignatureImage'
-        position:
-          description: Position where the signature should appear.
-          $ref: '#/components/schemas/VisualSignaturePosition'
-        positions:
-          type: array
-          description: List of additional positions where the signature should appear.
-          items:
-            $ref: '#/components/schemas/VisualSignaturePosition'
-        form_field:
-          type: string
-          description: |
-            Name of the form field in which the signature is placed. If multiple fields of this name are present in the document, all will be used. Takes precedence before positions.
-          example: Signature1
     SignatureRecipientResponse:
       title: Signature Callbacks Response
       type: object
@@ -1629,23 +1808,28 @@ components:
           type: string
           format: uuid
           example: 894a0240-e01a-2307-4376-0267c6a8d105
-        status_code:
-          $ref: '#/components/schemas/SignatureStatusCode'
         account_email:
           type: string
           format: email
           example: you@example.info
+        document_signatures:
+          type: array
+          items:
+            $ref: '#/components/schemas/SignatureDocument'
         signer_identity_data:
           $ref: '#/components/schemas/SignerIdentityDataResponse'
         sequence:
           type: integer
           format: int32
           example: -1
+        status_code:
+          $ref: '#/components/schemas/SignatureStatusCode'
         notify:
           type: boolean
           example: true
-        visual_signature:
-          $ref: '#/components/schemas/VisualSignatureResponse'
+        invited_by:
+          type: string
+          example: api_demo_example
     SignatureAttachment:
       title: Signature Attachment
       type: object
@@ -1688,10 +1872,10 @@ components:
         message:
           type: string
           example: Please sign this document!
-        document_id:
-          type: string
-          format: uuid
-          example: 29eae6aa-5558-2ada-2870-d4e654c0da5c
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentInSignatureResponse'
         legislation:
           $ref: '#/components/schemas/SignatureLegislation'
         quality:
@@ -1701,15 +1885,18 @@ components:
           format: uri
           example: https://my.skribble.com/view/4f43614a-de50-bfe1-2df3-4c881fc7840e
         status_overall:
-          $ref: '#/components/schemas/SignatureStatusOverall'
-        business:
+          $ref: '#/components/schemas/SignatureStatusOverall-2'
+        business_id:
           type: string
           example: biz-42b4c2fb9ee947778ba70bc0698c78f7
         signatures:
           type: array
           items:
             $ref: '#/components/schemas/SignatureRecipientResponse'
-        cc_email_addresses:
+        origin:
+          type: string
+          example: API
+        observers:
           type: array
           items:
             type: string
@@ -1727,14 +1914,14 @@ components:
           $ref: '#/components/schemas/AttachOnSuccess'
         owner:
           type: string
-          example: api_production_skribbleag_42b4_9
+          example: api_demo_example
         read_access:
           type: array
           items:
             type: string
           example:
             - persononetosign@external.net
-            - api_production_skribbleag_42b4_9
+            - api_demo_example
             - you@example.info
             - persontwotosign@external.net
         write_access:
@@ -1742,7 +1929,7 @@ components:
           items:
             type: string
           example:
-            - api_production_skribbleag_42b4_9
+            - api_demo_example
         created_at:
           type: string
           format: date-time
@@ -1797,63 +1984,6 @@ components:
             (optional) if set, even if the signer is already identified, a new identification process is started to get fresh evidence records.
             If the business hasn't enabled Express QES, the request is rejected.
           example: true
-    VisualSignature:
-      title: Visual Signature
-      type: object
-      description: Visual signature placement information.
-      oneOf:
-        - type: object
-          title: Single Position
-          description: Use a single explicit position.
-          required:
-            - position
-          properties:
-            position:
-              $ref: '#/components/schemas/VisualSignaturePosition'
-            image:
-              $ref: '#/components/schemas/VisualSignatureImage'
-            positions:
-              description: Must not be provided when position is used.
-              readOnly: true
-            form_field:
-              description: Must not be provided when position is used.
-              readOnly: true
-        - type: object
-          title: Multiple Positions
-          description: Use multiple explicit positions.
-          required:
-            - positions
-          properties:
-            positions:
-              type: array
-              items:
-                $ref: '#/components/schemas/VisualSignaturePosition'
-            image:
-              $ref: '#/components/schemas/VisualSignatureImage'
-            position:
-              description: Must not be provided when positions are used.
-              readOnly: true
-            form_field:
-              description: Must not be provided when positions are used.
-              readOnly: true
-        - type: object
-          title: Form Field
-          description: Use a form field only.
-          required:
-            - form_field
-          properties:
-            form_field:
-              type: string
-              description: |
-                Name of the form field in which the signature is placed. If multiple fields of this name are present in the document, all will be used.
-            image:
-              $ref: '#/components/schemas/VisualSignatureImage'
-            position:
-              description: Must not be provided when form_field is used.
-              readOnly: true
-            positions:
-              description: Must not be provided when form_field is used.
-              readOnly: true
     SignatureRecipient:
       title: Signature Receipient
       type: object
@@ -1863,6 +1993,10 @@ components:
           description: Optional signer account eMail.
           format: email
           example: you@example.info
+        signer_group_id:
+          type: string
+          description: Optional signer group ID.
+          example: gr_9feb51ba97444c539261b64294f33225
         sequence:
           type: number
           description: Optional signer sequence.
@@ -1874,12 +2008,13 @@ components:
           description: Whether to send a notification to this signer.
           default: true
           example: false
-        language:
-          $ref: '#/components/schemas/SignatureLanguage'
         signer_identity_data:
           $ref: '#/components/schemas/SignerIdentityData'
-        visual_signature:
-          $ref: '#/components/schemas/VisualSignature'
+        document_signatures:
+          type: array
+          description: Visual Signatures
+          items:
+            $ref: '#/components/schemas/SignatureDocument'
     UpdateSignatureRequest:
       title: Update Signature Request
       type: object
@@ -1962,7 +2097,7 @@ components:
               example:
                 - john.doe@skriobble.com
                 - jane.doe@skribble.com
-                - api_production_skribbleag_5a2a_0
+                - api_demo_example
         write_access:
           oneOf:
             - type: 'null'
@@ -1973,12 +2108,22 @@ components:
               items:
                 type: string
               example:
-                - api_production_skribbleag_5a2a_0
+                - api_demo_example
+    DocumentInSignature:
+      title: Signature Document
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique Document ID.
+          format: uuid
+          example: f1e2d3c4-7b8a-4e6f-9d3b-123456789abc
     CreateSignatureRequest:
       title: Create Signature Request
       type: object
       required:
         - title
+        - documents
       properties:
         title:
           type: string
@@ -1992,6 +2137,10 @@ components:
           $ref: '#/components/schemas/SignatureLegislation'
         quality:
           $ref: '#/components/schemas/SignatureQuality'
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentInSignature'
         signatures:
           oneOf:
             - type: 'null'
@@ -2069,43 +2218,139 @@ components:
               example:
                 - john.doe@skriobble.com
                 - jane.doe@skribble.com
-      oneOf:
-        - type: object
-          title: Base64 Content
-          description: Provide the document as Base64-encoded content.
-          required:
-            - content
-          properties:
-            content:
-              type: string
-              format: byte
-              description: Base64 encoded bytes of the document.
-              example: SGVsbG8gd29ybGQh
-            content_type:
-              type: string
-              description: Content type of bytes sent in content. Currently, only application/pdf is supported.
-              example: application/pdf
-        - type: object
-          title: File URL
-          description: Provide a publicly accessible URL for the document.
-          required:
-            - file_url
-          properties:
-            file_url:
-              type: string
-              format: uri
-              description: Publicly accessible URL for document download.
-              example: https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
-        - type: object
-          title: Document ID
-          description: Reference an existing document already uploaded to Skribble.
-          required:
-            - document_id
-          properties:
-            document_id:
-              type: string
-              description: Document ID of an existing document on Skribble.
-              example: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+    VisualSignatureResponse:
+      title: Visual Signature Response
+      type: object
+      description: Visual signature placement information.
+      properties:
+        image:
+          $ref: '#/components/schemas/VisualSignatureImage'
+        position:
+          description: Position where the signature should appear.
+          $ref: '#/components/schemas/VisualSignaturePosition'
+        positions:
+          type: array
+          description: List of additional positions where the signature should appear.
+          items:
+            $ref: '#/components/schemas/VisualSignaturePosition'
+        form_field:
+          type: string
+          description: |
+            Name of the form field in which the signature is placed. If multiple fields of this name are present in the document, all will be used. Takes precedence before positions.
+          example: Signature1
+    SignatureRecipientResponse-2:
+      title: Signature Callbacks Response
+      type: object
+      properties:
+        sid:
+          type: string
+          format: uuid
+          example: 894a0240-e01a-2307-4376-0267c6a8d105
+        status_code:
+          $ref: '#/components/schemas/SignatureStatusCode'
+        account_email:
+          type: string
+          format: email
+          example: you@example.info
+        signer_identity_data:
+          $ref: '#/components/schemas/SignerIdentityDataResponse'
+        sequence:
+          type: integer
+          format: int32
+          example: -1
+        notify:
+          type: boolean
+          example: true
+        visual_signature:
+          $ref: '#/components/schemas/VisualSignatureResponse'
+    SignatureResponse-2:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 4f43614a-de50-bfe1-2df3-4c881fc7840e
+        title:
+          type: string
+          example: Example contract
+        message:
+          type: string
+          example: Please sign this document!
+        document_id:
+          type: string
+          format: uuid
+          example: 29eae6aa-5558-2ada-2870-d4e654c0da5c
+        legislation:
+          $ref: '#/components/schemas/SignatureLegislation'
+        quality:
+          $ref: '#/components/schemas/SignatureQuality'
+        signing_url:
+          type: string
+          format: uri
+          example: https://my.skribble.com/view/4f43614a-de50-bfe1-2df3-4c881fc7840e
+        status_overall:
+          $ref: '#/components/schemas/SignatureStatusOverall'
+        business:
+          type: string
+          example: biz-42b4c2fb9ee947778ba70bc0698c78f7
+        signatures:
+          type: array
+          items:
+            $ref: '#/components/schemas/SignatureRecipientResponse-2'
+        cc_email_addresses:
+          type: array
+          items:
+            type: string
+            format: email
+          example: []
+        expiration_date:
+          type: string
+          example: '2025-11-21'
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/SignatureAttachment'
+          example: []
+        attach_on_success:
+          $ref: '#/components/schemas/AttachOnSuccess'
+        owner:
+          type: string
+          example: api_demo_example
+        read_access:
+          type: array
+          items:
+            type: string
+          example:
+            - persononetosign@external.net
+            - api_demo_example
+            - you@example.info
+            - persontwotosign@external.net
+        write_access:
+          type: array
+          items:
+            type: string
+          example:
+            - api_demo_example
+        created_at:
+          type: string
+          format: date-time
+          example: '2025-10-08T17:37:03.569Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2025-10-08T17:37:03.569Z'
+        callback_success_url:
+          type: string
+          format: uri
+          example: https://mybiz.com/call/success
+        callback_error_url:
+          type: string
+          format: uri
+          example: https://mybiz.com/call/success
+        callback_update_url:
+          type: string
+          format: uri
+          example: https://mybiz.com/call/success
     WithdrawSignatureRequest:
       title: Withdraw Signature Request
       type: object
@@ -2196,7 +2441,7 @@ components:
             items:
               type: string
             example:
-              - api_production_skribbleag_5a2a_0
+              - api_demo_example
           write_access:
             deprecated: true
             type: array
@@ -2204,7 +2449,7 @@ components:
             items:
               type: string
             example:
-              - api_production_skribbleag_5a2a_0
+              - api_demo_example
           created_at:
             type: string
             description: The time at which the object was created.
@@ -2236,6 +2481,72 @@ components:
           description: Base64 Encoded Content.
           format: byte
           example: SGVsbG8gd29ybGQh
+    UploadDocumentInSignature:
+      title: Signature Document Upload
+      type: object
+      properties:
+        content:
+          type: string
+          format: byte
+          description: Base64 encoded bytes of the document.
+          example: U29tZUJhc2U2NEVuY29kZWRJbWFnZQ==
+    VisualSignature-2:
+      title: Visual Signature
+      type: object
+      description: Visual signature placement information.
+      oneOf:
+        - type: object
+          title: Single Position
+          description: Use a single explicit position.
+          required:
+            - position
+          properties:
+            position:
+              $ref: '#/components/schemas/VisualSignaturePosition'
+            image:
+              $ref: '#/components/schemas/VisualSignatureImage'
+            positions:
+              description: Must not be provided when position is used.
+              readOnly: true
+            form_field:
+              description: Must not be provided when position is used.
+              readOnly: true
+        - type: object
+          title: Multiple Positions
+          description: Use multiple explicit positions.
+          required:
+            - positions
+          properties:
+            positions:
+              type: array
+              items:
+                $ref: '#/components/schemas/VisualSignaturePosition'
+            image:
+              $ref: '#/components/schemas/VisualSignatureImage'
+            position:
+              description: Must not be provided when positions are used.
+              readOnly: true
+            form_field:
+              description: Must not be provided when positions are used.
+              readOnly: true
+        - type: object
+          title: Form Field
+          description: Use a form field only.
+          required:
+            - form_field
+          properties:
+            form_field:
+              type: string
+              description: |
+                Name of the form field in which the signature is placed. If multiple fields of this name are present in the document, all will be used.
+            image:
+              $ref: '#/components/schemas/VisualSignatureImage'
+            position:
+              description: Must not be provided when form_field is used.
+              readOnly: true
+            positions:
+              description: Must not be provided when form_field is used.
+              readOnly: true
     CreateSealRequest:
       title: Create Seal Request
       type: object
@@ -2259,7 +2570,7 @@ components:
           oneOf:
             - type: 'null'
               title: No visual signature
-            - $ref: '#/components/schemas/VisualSignature'
+            - $ref: '#/components/schemas/VisualSignature-2'
               title: Visual signature
     CreateSealResponse:
       title: Create Seal Response
@@ -2869,107 +3180,182 @@ components:
     SampleArray:
       value:
         - id: 4f43614a-de50-bfe1-2df3-4c881fc7840e
-          title: Example contract
-          message: Please sign this document!
-          document_id: 29eae6aa-5558-2ada-2870-d4e654c0da5c
+          title: Sample document
+          message: Please sign this document.
+          documents:
+            - id: a84f5085-67e5-e106-71c7-69b3d4b7c632
+              name: Filename1.pdf
+              version_id: a84f5085-67e5-e106-71c7-69b3d4b7c632
           legislation: ZERTES
           quality: QES
           signing_url: https://my.skribble.com/view/4f43614a-de50-bfe1-2df3-4c881fc7840e
           status_overall: OPEN
-          business: biz-42b4c2fb9ee947778ba70bc0698c78f7
-          signatures: []
-          cc_email_addresses: []
+          business_id: biz-5a2aea44ddea4f0531ebcdcbcedf873c
+          signatures:
+            - sid: e5ab7fba-e815-0f65-f437-7c78953a0b7d
+              account_email: you@example.info
+              document_signatures:
+                - document_id: a84f5085-67e5-e106-71c7-69b3d4b7c632
+                  visual_signature: null
+              sequence: -1
+              status_code: OPEN
+              notify: true
+              invited_by: api_demo_example
+          origin: API
+          observers: []
           attachments: []
-          owner: api_production_skribbleag_42b4_9
-          read_access:
-            - persononetosign@external.net
-          write_access:
-            - api_production_skribbleag_42b4_9
-          created_at: '2025-10-08T17:37:03.569Z'
-          updated_at: '2025-10-08T17:37:03.569Z'
-        - id: f47ac10b-58cc-4372-a567-0e02b2c3d479
-          title: Second contract
-          message: Please sign this as well!
-          document_id: a1b2c3d4-e5f6-4789-a1b2-c3d4e5f6a1b2
-          legislation: EIDAS
-          quality: QES
-          signing_url: https://my.skribble.com/view/another-uuid-example
-          status_overall: OPEN
-          business: biz-123
-          signatures: []
-          cc_email_addresses: []
-          attachments: []
-          owner: api_production_skribbleag_42b4_9
+          owner: api_demo_example
           read_access:
             - you@example.info
+            - api_demo_example
           write_access:
-            - api_production_skribbleag_42b4_9
-          created_at: '2025-10-08T18:00:00.000Z'
-          updated_at: '2025-10-08T18:00:00.000Z'
-    PDFBase64:
-      summary: Document - With Base64 document
+            - api_demo_example
+          created_at: '2025-10-15T07:47:01.223Z'
+          updated_at: '2025-10-15T07:47:01.223Z'
+        - id: 8c73215f-bf33-d8a9-90e5-1a5cd0b9273a
+          title: Employment Contract
+          message: Please review and sign your employment contract.
+          documents:
+            - id: a84f5085-67e5-e106-71c7-69b3d4b7c632
+              name: Filename1.pdf
+              version_id: a84f5085-67e5-e106-71c7-69b3d4b7c632
+          legislation: EIDAS
+          quality: AES
+          signing_url: https://my.skribble.com/view/8c73215f-bf33-d8a9-90e5-1a5cd0b9273a
+          status_overall: OPEN
+          business_id: biz-87c4d39afc6d471da7bcbf4f2e8ef931
+          signatures:
+            - sid: 5ad9f2c1-6a81-42af-9a6a-7c5adcb54e23
+              account_email: alice@example.com
+              document_signatures:
+                - document_id: a84f5085-67e5-e106-71c7-69b3d4b7c632
+                  visual_signature:
+                    positions:
+                      - x: 120
+                        'y': 490
+                        width: 150
+                        height: 70
+                        page: '2'
+                        rotation: 0
+              sequence: 1
+              status_code: SIGNED
+              notify: true
+              invited_by: api_demo_example
+            - sid: 19de3b41-9d65-4cb7-90ff-239b7a0eac12
+              account_email: hr@examplecorp.com
+              document_signatures:
+                - document_id: a84f5085-67e5-e106-71c7-69b3d4b7c632
+                  visual_signature:
+                    positions:
+                      - x: 130
+                        'y': 420
+                        width: 155
+                        height: 72
+                        page: '2'
+                        rotation: 0
+              sequence: 2
+              status_code: OPEN
+              notify: true
+              invited_by: api_demo_example
+          origin: API
+          observers:
+            - legal@examplecorp.com
+          owner: api_demo_example
+          read_access:
+            - alice@example.com
+            - hr@examplecorp.com
+            - legal@examplecorp.com
+            - api_demo_example
+          write_access:
+            - api_demo_example
+          created_at: '2025-10-15T08:15:22.115Z'
+          updated_at: '2025-10-15T08:15:22.115Z'
+    OneSignerOneDoc:
+      summary: One Signer with one document
       value:
         title: Example contract
         message: Please sign this document!
-        content: SGVsbG8gd29ybGQh
-        content_type: application/pdf
+        quality: DEMO
+        documents:
+          - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
         signatures:
           - account_email: you@example.info
-    PDFFileURL:
-      summary: Document - From a public file URL
+    OneSignerMultiDoc:
+      summary: One Signer with multiple documents
       value:
         title: Example contract
-        message: Please sign this document!
-        file_url: https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
+        message: Please sign this documents!
+        quality: DEMO
+        documents:
+          - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+          - document_id: 14f65d46-6653-c33c-81a8-260bd5aba3c5
         signatures:
           - account_email: you@example.info
-          - account_email: personOneToSign@external.net
-    PDFExistingDoc:
-      summary: Document - Referencing an uploaded document
+            document_signatures:
+              - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+                visual_signatures:
+                  - positions:
+                      x: 120
+                      'y': 780
+                      width: 150
+                      height: 70
+                      page: '0'
+              - document_id: 14f65d46-6653-c33c-81a8-260bd5aba3c5
+    MultiSignerMultiDoc:
+      summary: Multiple signers and documents
       value:
         title: Example contract
-        message: Please sign this document!
-        document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+        message: Please sign this documents!
+        quality: DEMO
+        documents:
+          - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+          - document_id: 14f65d46-6653-c33c-81a8-260bd5aba3c5
         signatures:
           - account_email: you@example.info
-          - account_email: personOneToSign@external.net
-          - account_email: personTwoToSign@external.net
-    Sequences:
-      summary: Signature Sequences
-      value:
-        title: Example contract
-        message: Please sign this document!
-        content: SGVsbG8gd29ybGQh
-        content_type: application/pdf
-        quality: SES
-        signatures:
-          - account_email: irst@example.com
             sequence: 1
-          - account_email: second@example.com
+            document_signatures:
+              - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+              - document_id: 14f65d46-6653-c33c-81a8-260bd5aba3c5
+          - account_email: personOneToSign@external.net
             sequence: 2
-          - account_email: third@example.com
+            document_signatures:
+              - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+          - account_email: personTwoToSign@external.net
             sequence: 3
-          - account_email: fourth@example.com
-            sequence: 4
+            document_signatures:
+              - document_id: 14f65d46-6653-c33c-81a8-260bd5aba3c5
     NASfirst:
       summary: NAS unless has an account
       value:
         title: Example contract
         message: Please sign this document!
-        content: SGVsbG8gd29ybGQh
-        content_type: application/pdf
         quality: SES
+        documents:
+          - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
         signatures:
           - account_email: signer@skribble.com
             signer_identity_data:
               email_address: signer@skribble.com
+    SignerGroup:
+      summary: Using Signer Group
+      value:
+        title: Example contract
+        message: Please sign this document!
+        quality: SES
+        documents:
+          - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+        signatures:
+          - account_email: signer@skribble.com
+            sequence: 1
+          - signer_group_id: gr_9feb51ba97444c539261b64294f33225
+            sequence: 2
     Callbacks:
       summary: With all callback Templates
       value:
         title: Example contract
         message: Please sign this document!
-        content: SGVsbG8gd29ybGQh
-        content_type: application/pdf
+        documents:
+          - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
         signatures:
           - account_email: you@example.info
         callback_success_url: https://myapp.com/some/path/SKRIBBLE_SIGNATURE_REQUEST_ID/success?document_id=SKRIBBLE_DOCUMENT_ID&token=12345678
@@ -2981,10 +3367,107 @@ components:
         id: 4f43614a-de50-bfe1-2df3-4c881fc7840e
         title: Sample document
         message: Please sign this document.
+        documents:
+          - id: a84f5085-67e5-e106-71c7-69b3d4b7c632
+            name: Filename1.pdf
+            version_id: a84f5085-67e5-e106-71c7-69b3d4b7c632
+        legislation: ZERTES
+        quality: QES
+        signing_url: https://my.skribble.com/view/4f43614a-de50-bfe1-2df3-4c881fc7840e
+        status_overall: OPEN
+        business_id: biz-5a2aea44ddea4f0531ebcdcbcedf873c
+        signatures:
+          - sid: e5ab7fba-e815-0f65-f437-7c78953a0b7d
+            account_email: you@example.info
+            document_signatures:
+              - document_id: a84f5085-67e5-e106-71c7-69b3d4b7c632
+                visual_signature: null
+            sequence: -1
+            status_code: OPEN
+            notify: true
+            invited_by: api_demo_example
+        origin: API
+        observers: []
+        attachments: []
+        owner: api_demo_example
+        read_access:
+          - you@example.info
+          - api_demo_example
+        write_access:
+          - api_demo_example
+        created_at: '2025-10-15T07:47:01.223Z'
+        updated_at: '2025-10-15T07:47:01.223Z'
+    Sample2:
+      summary: Sample multiple signers with visual signatures where one has signed
+      value:
+        id: 8c73215f-bf33-d8a9-90e5-1a5cd0b9273a
+        title: Employment Contract
+        message: Please review and sign your employment contract.
+        documents:
+          - id: a84f5085-67e5-e106-71c7-69b3d4b7c632
+            name: Filename1.pdf
+            version_id: a84f5085-67e5-e106-71c7-69b3d4b7c632
+        legislation: EIDAS
+        quality: AES
+        signing_url: https://my.skribble.com/view/8c73215f-bf33-d8a9-90e5-1a5cd0b9273a
+        status_overall: OPEN
+        business_id: biz-87c4d39afc6d471da7bcbf4f2e8ef931
+        signatures:
+          - sid: 5ad9f2c1-6a81-42af-9a6a-7c5adcb54e23
+            account_email: alice@example.com
+            document_signatures:
+              - document_id: a84f5085-67e5-e106-71c7-69b3d4b7c632
+                visual_signature:
+                  positions:
+                    - x: 120
+                      'y': 490
+                      width: 150
+                      height: 70
+                      page: '2'
+                      rotation: 0
+            sequence: 1
+            status_code: SIGNED
+            notify: true
+            invited_by: api_demo_example
+          - sid: 19de3b41-9d65-4cb7-90ff-239b7a0eac12
+            account_email: hr@examplecorp.com
+            document_signatures:
+              - document_id: a84f5085-67e5-e106-71c7-69b3d4b7c632
+                visual_signature:
+                  positions:
+                    - x: 130
+                      'y': 420
+                      width: 155
+                      height: 72
+                      page: '2'
+                      rotation: 0
+            sequence: 2
+            status_code: OPEN
+            notify: true
+            invited_by: api_demo_example
+        origin: API
+        observers:
+          - legal@examplecorp.com
+        owner: api_demo_example
+        read_access:
+          - alice@example.com
+          - hr@examplecorp.com
+          - legal@examplecorp.com
+          - api_demo_example
+        write_access:
+          - api_demo_example
+        created_at: '2025-10-15T08:15:22.115Z'
+        updated_at: '2025-10-15T08:15:22.115Z'
+    CreateSignatureResponse_Sample1:
+      summary: Sample one signer waiting for signature
+      value:
+        id: 4f43614a-de50-bfe1-2df3-4c881fc7840e
+        title: Sample document
+        message: Please sign this document.
         document_id: 1ff0cf91-6b54-f3bd-bffb-8fcd5e799764
         legislation: ZERTES
         quality: QES
-        signing_url: https://my.scribital.de/view/4f43614a-de50-bfe1-2df3-4c881fc7840e
+        signing_url: https://my.skribble.com/view/4f43614a-de50-bfe1-2df3-4c881fc7840e
         status_overall: OPEN
         business: biz-5a2aea44ddea4f0531ebcdcbcedf873c
         signatures:
@@ -2995,15 +3478,15 @@ components:
             notify: true
         cc_email_addresses: []
         attachments: []
-        owner: api_production_skribbleag_5a2a_0
+        owner: api_demo_example
         read_access:
           - you@example.info
-          - api_production_skribbleag_5a2a_0
+          - api_demo_example
         write_access:
-          - api_production_skribbleag_5a2a_0
+          - api_demo_example
         created_at: '2025-10-15T07:47:01.223Z'
         updated_at: '2025-10-15T07:47:01.223Z'
-    Sample2:
+    CreateSignatureResponse_Sample2:
       summary: Sample multiple signers with visual signatures where one has signed
       value:
         id: 8c73215f-bf33-d8a9-90e5-1a5cd0b9273a
@@ -3012,7 +3495,7 @@ components:
         document_id: 2aa9b2e7-3c21-4d7a-bf9c-6a1f6f5fcb98
         legislation: EIDAS
         quality: AES
-        signing_url: https://my.scribital.de/view/8c73215f-bf33-d8a9-90e5-1a5cd0b9273a
+        signing_url: https://my.skribble.com/view/8c73215f-bf33-d8a9-90e5-1a5cd0b9273a
         status_overall: OPEN
         business: biz-87c4d39afc6d471da7bcbf4f2e8ef931
         signatures:
@@ -3058,14 +3541,14 @@ components:
                   rotation: 0
         cc_email_addresses:
           - legal@examplecorp.com
-        owner: api_production_skribbleag_7b4b_1
+        owner: api_demo_example
         read_access:
           - alice@example.com
           - hr@examplecorp.com
           - legal@examplecorp.com
-          - api_production_skribbleag_7b4b_1
+          - api_demo_example
         write_access:
-          - api_production_skribbleag_7b4b_1
+          - api_demo_example
         created_at: '2025-10-15T08:15:22.115Z'
         updated_at: '2025-10-15T08:15:22.115Z'
     WithdrawSignatureResponse:
@@ -3077,7 +3560,7 @@ components:
         document_id: 1ff0cf91-6b54-f3bd-bffb-8fcd5e799764
         legislation: ZERTES
         quality: QES
-        signing_url: https://my.scribital.de/view/4f43614a-de50-bfe1-2df3-4c881fc7840e
+        signing_url: https://my.skribble.com/view/4f43614a-de50-bfe1-2df3-4c881fc7840e
         status_overall: WITHDRAWN
         business: biz-5a2aea44ddea4f0531ebcdcbcedf873c
         signatures:
@@ -3088,11 +3571,11 @@ components:
             notify: true
         cc_email_addresses: []
         attachments: []
-        owner: api_production_skribbleag_5a2a_0
+        owner: api_demo_example
         read_access:
-          - api_production_skribbleag_5a2a_0
+          - api_demo_example
         write_access:
-          - api_production_skribbleag_5a2a_0
+          - api_demo_example
         created_at: '2025-10-15T07:47:01.223Z'
         updated_at: '2025-10-15T07:47:01.223Z'
     CreateSignatureAttachmentResponse:
@@ -3111,6 +3594,8 @@ components:
         account_email: single-signer@skribble.com
         signer_identity_data:
           email_address: single-signer@skribble.com
+        document_signatures:
+          - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
     SealDoc:
       summary: Seal document
       value:

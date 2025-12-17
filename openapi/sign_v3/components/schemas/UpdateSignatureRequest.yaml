@@ -1,0 +1,95 @@
+title: Update Signature Request
+type: object
+required:
+  - id
+# TODO: Despite full support to change many of those properties do we want to have all of them in the spec?
+properties:
+  id:
+    type: string
+    description: Unique ID of the signature request.
+    format: uuid
+    example: 4f43614a-de50-bfe1-2df3-4c881fc7840e
+  title:
+    type: string
+    description: Title of the signature request.
+    example: Example contract
+  message:
+    type: string
+    description: Message sent to the other participants along with this signature request.
+    example: Please sign this document!
+  legislation:
+    $ref: ../../../sign_v2/components/schemas/SignatureLegislation.yaml
+  quality:
+    $ref: ../../../sign_v2/components/schemas/SignatureQuality.yaml
+  signatures:
+    oneOf:
+      - type: "null"
+        title: No signers
+      - type: array
+        title: Signers
+        description: List of recipients required to sign the document.
+        items:
+          $ref: ./SignatureRecipient.yaml
+  cc_email_addresses:
+    # TODO ADJUST FOR V3 => observers ?
+    oneOf:
+      - type: "null"
+        title: No update
+      - type: array
+        title: Update in Observers
+        description: Observer email addresses of users who are granted read access and to whom notifications are sent.
+        items:
+          type: string
+          format: email
+        example:
+          - backoffice@company.com
+          - info@company.com
+  callback_success_url:
+    type: string
+    description: Callback-URL which is called on overall success.
+    format: uri
+    example: https://mybiz.com/call/success
+  callback_error_url:
+    type: string
+    description: Callback-URL which is called in case of an error.
+    format: uri
+    example: https://mybiz.com/call/success
+  callback_update_url:
+    type: string
+    description: Callback-URL which is called in case of an update.
+    format: uri
+    example: https://mybiz.com/call/success
+  custom:
+    type: string
+    description: Custom field where own/customer settings related to this signature request can be stored for future actions.
+    example: MyCustomvalue1,MyVal2
+  attach_on_success:
+    oneOf:
+      - type: "null"
+        title: No update
+      - $ref: ../../../sign_v2/components/schemas/AttachOnSuccess.yaml
+        title: Attachment when signed
+  read_access:
+    oneOf:
+      - type: "null"
+        title: No update
+      - type: array
+        title: Specific read access
+        description: Give specific users read access to this signature request. 
+        items:
+          type: string
+        example:
+          - john.doe@skriobble.com
+          - jane.doe@skribble.com
+          - api_demo_example
+  write_access:
+    oneOf:
+      - type: "null"
+        title: No update
+      - type: array
+        title: Specific write access
+        description: Give specific users full write access to this signature request. 
+        items:
+          type: string
+        example:
+          - api_demo_example

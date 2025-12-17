@@ -7,8 +7,17 @@ post:
     It describes who signs what and how. It gives an overview of the current state 
     of the single Signatures and allows to control user rights or callback functionality.
 
-    > Note: When everything is ready, don't forget to call `/initiate` to start
-    the `SignatureRequest`
+    Compared to the previous API version, one major improvement is the ability to include
+    multiple documents when creating a `SignatureRequest`.
+
+    Another significant change is that the request no longer triggers invitations immediately.
+    Instead, the `SignatureRequest` is created with an status_overall value of DRAFT.
+
+    If you specify an owner for the `SignatureRequest` using the creator field, that user will see
+    it appear in the new Drafts section. From there, they can continue the process and complete
+    the invitation steps.
+
+    When everything is ready, don't forget to call `/initiate` to start the `SignatureRequest`
   operationId: createSignatureRequest
   security:
     - bearer: []
@@ -91,7 +100,6 @@ get:
   security:
     - bearer: []
   parameters:
-
       - $ref: ../../sign_v2/components/parameters/SignatureAccountMail.yaml
       - $ref: ../../sign_v2/components/parameters/SignatureSearch.yaml
       - $ref: ../../sign_v2/components/parameters/SignatureStatusCode.yaml

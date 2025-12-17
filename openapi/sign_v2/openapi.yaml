@@ -95,16 +95,16 @@ tags:
   - name: Access
     description: >-
       Endpoints for authentication, authorization, and user access management
-  - name: Signature
-    description: >-
-      Endpoints related to creating and managing signature requests
   - name: Document
     description: >-
       Endpoints for Documents
-  - name: Attachment
+  - name: Signature
+    description: >-
+      Endpoints related to creating and managing signature requests
+  - name: Signature Attachment
     description: >-
       Endpoints for Attachments
-  - name: Tracking
+  - name: Signature Tracking
     description: >-
       Endpoints related to tracking signature requests
   - name: Seal

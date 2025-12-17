@@ -1,7 +1,6 @@
 get:
   tags:
-    - Signature
-    - Attachment
+    - Signature Attachment
   summary: Get Signature Attachment content
   description: |
     Downloads the attachment content with the `ATTACHMENT_ID` for the

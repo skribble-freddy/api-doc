@@ -1,7 +1,6 @@
 post:
   tags:
-    - Signature
-    - Tracking
+    - Signature Tracking
   summary: Get callbacks detals for a signature request
   description: |
     In certain scenarios, it is beneficial to view and verify the status of

@@ -1,7 +1,6 @@
 post:
   tags:
-    - Signature
-    - Tracking
+    - Signature Tracking
   summary: Remind open signers of a signature request
   description: |
     In addition to the automatic signature reminders, manual reminders can also

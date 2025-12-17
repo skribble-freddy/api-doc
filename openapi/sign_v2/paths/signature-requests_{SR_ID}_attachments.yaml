@@ -1,7 +1,6 @@
 get:
   tags:
-    - Signature
-    - Attachment
+    - Signature Attachment
   summary: Add an attachment to a signature request
   description: |
     Use this endpoint to provide supplementary documents (for example, Terms &

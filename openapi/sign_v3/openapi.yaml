@@ -52,7 +52,7 @@ paths:
   /signature-requests/{SR_ID}/attachments/{ATTACHMENT_ID}:
     $ref: ../sign_v2/paths/signature-requests_{SR_ID}_attachments_{ATTACHMENT_ID}.yaml
   /signature-requests/{SR_ID}/signatures:
-    $ref: ../sign_v2/paths/signature-requests_{SR_ID}_signatures.yaml
+    $ref: ./paths/signature-requests_{SR_ID}_signatures.yaml
   /signature-requests/{SR_ID}/signatures/{SID}:
     $ref: ../sign_v2/paths/signature-requests_{SR_ID}_signatures_{SID}.yaml
   /seal:

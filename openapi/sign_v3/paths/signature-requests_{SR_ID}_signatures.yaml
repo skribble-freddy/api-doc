@@ -1,0 +1,54 @@
+post:
+  tags:
+    - Signature
+  summary: Add an individual signer
+  description: |
+    To add an individual signer, use the same parameters as when creating a
+    SignatureRequest. The process is the same. By using `account_email`, you can
+    add a signer who has a Skribble account. By using `signer_identity_data`,
+    you can invite a No-Account-Signer to the SignatureRequest with the ID
+    `{{SR_ID}}`.
+
+
+    > 💡 Good to know  
+
+    We recommend this approach of combining `signer_idendity_data` and
+    `account_email` if you are unsure whether the user has a Skribble account.
+    The benefit is that an existing Skribble user will afterwards find the
+    SignatureRequest in the **To sign** section of their account on
+    my.skribble.com.  
+
+    Conversely, if you invite them using only `signer_identity_data`, the
+    document will not appear in their Skribble account, even if they have an
+    existing Skribble account. Instead, they will have to access the document
+    using the specific link provided in their signature invitation email.
+  operationId: addSignatureSigner
+  security:
+    - bearer: []
+  parameters:
+    - $ref: ../../sign_v2/components/parameters/SignatureIDPath.yaml
+  requestBody:
+    description: Request body to add a Signer
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/SignatureRecipient.yaml
+        examples:
+          default:
+            $ref: ../components/examples/AddSignatureSigner.yaml
+  responses:
+    200:
+      description: OK
+    400:
+      $ref: ../../sign_v2/components/responses/BadRequest.yaml
+    401:
+      $ref: ../../sign_v2/components/responses/Unauthorized.yaml
+    403:
+      $ref: ../../sign_v2/components/responses/Forbidden.yaml
+    429:
+      $ref: ../../sign_v2/components/responses/TooManyRequests.yaml
+    500:
+      $ref: ../../sign_v2/components/responses/ServerError.yaml
+    503:
+      $ref: ../../sign_v2/components/responses/ServiceUnavailable.yaml

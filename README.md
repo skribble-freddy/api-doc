@@ -34,8 +34,8 @@ npm run bundle
 
 ```bash
 npm run build 
-npm run build:validation_v1
 
+npm run build:validation_v1
 npm run preview:validation_v1
 ```
 

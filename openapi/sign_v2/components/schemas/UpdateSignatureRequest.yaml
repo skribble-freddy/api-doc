@@ -80,7 +80,7 @@ properties:
         example:
           - john.doe@skriobble.com
           - jane.doe@skribble.com
-          - api_production_skribbleag_5a2a_0
+          - api_demo_example
   write_access:
     oneOf:
       - type: "null"
@@ -91,4 +91,4 @@ properties:
         items:
           type: string
         example:
-          - api_production_skribbleag_5a2a_0
+          - api_demo_example

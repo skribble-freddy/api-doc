@@ -49,22 +49,22 @@ properties:
     $ref: ./AttachOnSuccess.yaml
   owner:
     type: string
-    example: api_production_skribbleag_42b4_9
+    example: api_demo_example
   read_access:
     type: array
     items:
       type: string
     example:
-      - "persononetosign@external.net"
-      - "api_production_skribbleag_42b4_9"
-      - "you@example.info"
-      - "persontwotosign@external.net"
+      - persononetosign@external.net
+      - api_demo_example
+      - you@example.info
+      - persontwotosign@external.net
   write_access:
     type: array
     items:
       type: string
     example:
-      - "api_production_skribbleag_42b4_9"
+      - api_demo_example
   created_at:
     type: string
     format: date-time

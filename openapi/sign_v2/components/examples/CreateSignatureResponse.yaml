@@ -18,12 +18,12 @@ Sample1:
         notify: true
     cc_email_addresses: []
     attachments: []
-    owner: api_production_skribbleag_5a2a_0
+    owner: api_demo_example
     read_access:
       - you@example.info
-      - api_production_skribbleag_5a2a_0
+      - api_demo_example
     write_access:
-      - api_production_skribbleag_5a2a_0
+      - api_demo_example
     created_at: 2025-10-15T07:47:01.223Z
     updated_at: 2025-10-15T07:47:01.223Z
 
@@ -82,14 +82,14 @@ Sample2:
               rotation: 0
     cc_email_addresses:
       - legal@examplecorp.com
-    owner: api_production_skribbleag_7b4b_1
+    owner: api_demo_example
     read_access:
       - alice@example.com
       - hr@examplecorp.com
       - legal@examplecorp.com
-      - api_production_skribbleag_7b4b_1
+      - api_demo_example
     write_access:
-      - api_production_skribbleag_7b4b_1
+      - api_demo_example
     created_at: 2025-10-15T08:15:22.115Z
     updated_at: 2025-10-15T08:15:22.115Z
 
@@ -109,11 +109,11 @@ SampleArray:
       ]
       cc_email_addresses: []
       attachments: []
-      owner: api_production_skribbleag_42b4_9
+      owner: api_demo_example
       read_access:
         - persononetosign@external.net
       write_access:
-        - api_production_skribbleag_42b4_9
+        - api_demo_example
       created_at: 2025-10-08T17:37:03.569Z
       updated_at: 2025-10-08T17:37:03.569Z
     - id: f47ac10b-58cc-4372-a567-0e02b2c3d479
@@ -130,10 +130,10 @@ SampleArray:
       ]
       cc_email_addresses: []
       attachments: []
-      owner: api_production_skribbleag_42b4_9
+      owner: api_demo_example
       read_access:
         - you@example.info
       write_access:
-        - api_production_skribbleag_42b4_9
+        - api_demo_example
       created_at: 2025-10-08T18:00:00.000Z
       updated_at: 2025-10-08T18:00:00.000Z

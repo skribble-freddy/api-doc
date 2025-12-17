@@ -1,0 +1,12 @@
+title: Signer Document to Sign
+type: object
+properties:
+  document_id:
+    type: string
+    description: Unique Document ID.
+    format: uuid
+    example: f1e2d3c4-7b8a-4e6f-9d3b-123456789abc
+  visual_signature:
+    oneOf:
+      - type: "null"
+      - $ref: ./VisualSignature.yaml

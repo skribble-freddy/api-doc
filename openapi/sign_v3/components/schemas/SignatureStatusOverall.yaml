@@ -1,0 +1,20 @@
+title: Signature Status Overall
+type: string
+description: >-
+  Overall signing status of the document.
+
+  Possible values:
+    - **DRAFT** The signature request has not yet been placed.
+    - **OPEN** At least one user has not signed or declined their signature yet.
+    - **DECLINED** At least one user declined to sign. The signature request failed.
+    - **WITHDRAWN** The owner has withdrawn the signature request.
+    - **SIGNED** All users signed the document. The signature request was successfully completed.
+    - **ERROR** A technical error occurred. The signature request cannot be completed.
+enum:
+  - DRAFT
+  - OPEN
+  - DECLINED
+  - WITHDRAWN
+  - SIGNED
+  - ERROR
+example: OPEN

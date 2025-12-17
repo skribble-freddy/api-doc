@@ -1,0 +1,182 @@
+post:
+  tags:
+    - Signature
+  summary: Create a signature request
+  description: |
+    The `SignatureRequest` object is the primary object of the Skribble API .
+    It describes who signs what and how. It gives an overview of the current state 
+    of the single Signatures and allows to control user rights or callback functionality.
+
+    > Note: When everything is ready, don't forget to call `/initiate` to start
+    the `SignatureRequest`
+  operationId: createSignatureRequest
+  security:
+    - bearer: []
+  requestBody:
+    description: Request body to create a SignatureRequest object
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/CreateSignatureRequest.yaml
+        examples:
+          OneSignerOneDoc:
+            $ref: ../components/examples/CreateSignatureMultiDoc.yaml#/OneSignerOneDoc
+          OneSignerMultiDoc:
+            $ref: ../components/examples/CreateSignatureMultiDoc.yaml#/OneSignerMultiDoc
+          MultiSignerMultiDoc:
+            $ref: ../components/examples/CreateSignatureMultiDoc.yaml#/MultiSignerMultiDoc
+          NASfirst:
+            $ref: ../components/examples/CreateSignatureMultiDoc.yaml#/NASfirst
+          SignerGroup:
+            $ref: ../components/examples/CreateSignatureMultiDoc.yaml#/SignerGroup
+          Callbacks:
+            $ref: ../components/examples/CreateSignatureMultiDoc.yaml#/Callbacks
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/SignatureResponse.yaml
+          examples:
+            Sample1:
+              $ref: ../components/examples/CreateSignatureResponse.yaml#/Sample1
+            Sample2:
+              $ref: ../components/examples/CreateSignatureResponse.yaml#/Sample2
+    400:
+      $ref: ../../sign_v2/components/responses/BadRequest.yaml
+    401:
+      $ref: ../../sign_v2/components/responses/Unauthorized.yaml
+    429:
+      $ref: ../../sign_v2/components/responses/TooManyRequests.yaml
+    500:
+      $ref: ../../sign_v2/components/responses/ServerError.yaml
+    503:
+      $ref: ../../sign_v2/components/responses/ServiceUnavailable.yaml
+get:
+  tags:
+    - Signature
+  summary: List and find Signature Requests
+  description: |
+    Using this `GET` request, you can list all the `SignatureRequest` provided
+    that the current user has sufficient access rights to.
+
+
+    **Filter**
+
+
+    You can optionally filter these `SignatureRequest` using one or more of the
+    optional parameters.  
+
+
+    The filter searches for an exact match of the corresponding field
+    content. This means that the filter is case sensitive and find objects
+    that only _contain_ the parameter. For example _account_email=john.doe@skribble.com_ 
+    will only find a `SignatureRequest` where the field `account_email` is exactly
+    john.doe@skribble.com and it won't find another.john.doe@skribble.com
+
+
+    Exception: The search parameter searches for document titles that contain
+    the search term. 
+
+
+    **Pagination** 
+
+
+    Furthermore, the result set can be controlled using the optional pagination
+    parameters `page_number` and `page_size`, which helps prevent excessively
+    large result sets.
+  operationId: getSignatureRequest
+  security:
+    - bearer: []
+  parameters:
+
+      - $ref: ../../sign_v2/components/parameters/SignatureAccountMail.yaml
+      - $ref: ../../sign_v2/components/parameters/SignatureSearch.yaml
+      - $ref: ../../sign_v2/components/parameters/SignatureStatusCode.yaml
+      - $ref: ../../sign_v2/components/parameters/SignatureStatusOverall.yaml
+      - $ref: ../../sign_v2/components/parameters/PageNumber.yaml
+      - $ref: ../../sign_v2/components/parameters/PageSize.yaml
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            description: List of Signature Requests.
+            items:
+              $ref: ../components/schemas/SignatureResponse.yaml
+          examples:
+            default:
+              $ref: ../components/examples/CreateSignatureResponse.yaml#/SampleArray
+    400:
+      $ref: ../../sign_v2/components/responses/BadRequest.yaml
+    401:
+      $ref: ../../sign_v2/components/responses/Unauthorized.yaml
+    403:
+      $ref: ../../sign_v2/components/responses/Forbidden.yaml
+    429:
+      $ref: ../../sign_v2/components/responses/TooManyRequests.yaml
+    500:
+      $ref: ../../sign_v2/components/responses/ServerError.yaml
+    503:
+      $ref: ../../sign_v2/components/responses/ServiceUnavailable.yaml
+put:
+  tags:
+    - Signature
+  summary: Update a Signature Request
+  description: |
+    Modifications on existing `SignatureRequest` should be handled with care.
+    We recommend creating the `SignatureRequest` with all necessary information. 
+
+
+    To add or remove multiple signers at once, you need to update the
+    `signatures` array according to your needs.
+
+    - To add a signer to the `SignatureRequest`, simply add a new entry to the
+    signatures array.
+        
+    - To remove a signer from the `SignatureRequest`, simply remove the
+    corresponding entry from the `signatures` array.
+        
+
+    > ⚠️ **IMPORTANT NOTE** 
+      
+
+    - Please be aware that if you want to add one or more new signers, you MUST
+    include the existing signers in the update request. Any signers not present
+    in the `signatures` array will be removed!
+        
+    - Changes to the signatures can only be made as long as none of the signers
+    have already completed the signature.
+  operationId: updateSignatureRequest
+  security:
+    - bearer: []
+  requestBody:
+    description: Request body to update a SignatureRequest object
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/UpdateSignatureRequest.yaml
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/SignatureResponse.yaml
+    400:
+      $ref: ../../sign_v2/components/responses/BadRequest.yaml
+    403:
+      $ref: ../../sign_v2/components/responses/Forbidden.yaml
+    401:
+      $ref: ../../sign_v2/components/responses/Unauthorized.yaml
+    429:
+      $ref: ../../sign_v2/components/responses/TooManyRequests.yaml
+    500:
+      $ref: ../../sign_v2/components/responses/ServerError.yaml
+    503:
+      $ref: ../../sign_v2/components/responses/ServiceUnavailable.yaml

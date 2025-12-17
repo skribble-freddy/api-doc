@@ -1,0 +1,90 @@
+type: object
+properties:
+  id:
+    type: string
+    format: uuid
+    example: 4f43614a-de50-bfe1-2df3-4c881fc7840e
+  title:
+    type: string
+    example: "Example contract"
+  message:
+    type: string
+    example: Please sign this document!
+  documents:
+    type: array
+    items: 
+      $ref: ./DocumentInSignatureResponse.yaml
+  legislation:
+    $ref: ../../../sign_v2/components/schemas/SignatureLegislation.yaml
+  quality:
+    $ref: ../../../sign_v2/components/schemas/SignatureQuality.yaml
+  signing_url:
+    type: string
+    format: uri
+    example: https://my.skribble.com/view/4f43614a-de50-bfe1-2df3-4c881fc7840e
+  status_overall:
+    $ref: ./SignatureStatusOverall.yaml
+  business_id:
+    type: string
+    example: biz-42b4c2fb9ee947778ba70bc0698c78f7
+  signatures:
+    type: array
+    items:
+      $ref: ./SignatureRecipientResponse.yaml
+  origin: 
+    type: string
+    example: API
+  observers:
+    type: array
+    items:
+      type: string
+      format: email
+    example: []
+  expiration_date:
+    type: string
+    example: 2025-11-21
+  attachments:
+    type: array
+    items:
+      $ref: ../../../sign_v2/components/schemas/SignatureAttachment.yaml
+    example: []
+  attach_on_success:
+    $ref: ../../../sign_v2/components/schemas/AttachOnSuccess.yaml
+  owner:
+    type: string
+    example: api_demo_example
+  read_access:
+    type: array
+    items:
+      type: string
+    example:
+      - persononetosign@external.net
+      - api_demo_example
+      - you@example.info
+      - persontwotosign@external.net
+  write_access:
+    type: array
+    items:
+      type: string
+    example:
+      - api_demo_example
+  created_at:
+    type: string
+    format: date-time
+    example: "2025-10-08T17:37:03.569Z"
+  updated_at:
+    type: string
+    format: date-time
+    example: "2025-10-08T17:37:03.569Z"
+  callback_success_url:
+    type: string
+    format: uri
+    example: https://mybiz.com/call/success
+  callback_error_url:
+    type: string
+    format: uri
+    example: https://mybiz.com/call/success
+  callback_update_url:
+    type: string
+    format: uri
+    example: https://mybiz.com/call/success

@@ -1,0 +1,8 @@
+title: Signature Document
+type: object
+properties:
+  id:
+    type: string
+    description: Unique Document ID.
+    format: uuid
+    example: f1e2d3c4-7b8a-4e6f-9d3b-123456789abc

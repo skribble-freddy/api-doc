@@ -1,0 +1,29 @@
+title: Signature Callbacks Response
+type: object
+properties:
+  sid:
+    type: string
+    format: uuid
+    example: "894a0240-e01a-2307-4376-0267c6a8d105"
+  account_email:
+    type: string
+    format: email
+    example: you@example.info
+  document_signatures:
+    type: array
+    items: 
+      $ref: SignatureDocument.yaml
+  signer_identity_data:
+    $ref: ../../../sign_v2/components/schemas/SignerIdentityDataResponse.yaml
+  sequence:
+    type: integer
+    format: int32
+    example: -1
+  status_code:
+    $ref: ../../../sign_v2/components/schemas/SignatureStatusCode.yaml
+  notify:
+    type: boolean
+    example: true
+  invited_by:
+    type: string
+    example: api_demo_example

@@ -1,0 +1,99 @@
+OneSignerOneDoc:
+  summary: One Signer with one document
+  value:
+    title: Example contract
+    message: Please sign this document!
+    quality: DEMO
+    documents:
+      - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+    signatures:
+      - account_email: you@example.info
+
+OneSignerMultiDoc:
+  summary: One Signer with multiple documents
+  value:
+    title: Example contract
+    message: Please sign this documents!
+    quality: DEMO
+    documents:
+      - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+      - document_id: 14f65d46-6653-c33c-81a8-260bd5aba3c5
+    signatures:
+      - account_email: you@example.info
+        document_signatures:
+          - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+            visual_signatures:
+              - positions:
+                  x: 120.0
+                  y: 780.0
+                  width: 150.0
+                  height: 70.0
+                  page: "0"
+          - document_id: 14f65d46-6653-c33c-81a8-260bd5aba3c5
+
+MultiSignerMultiDoc:
+  summary: Multiple signers and documents
+  value:
+    title: Example contract
+    message: Please sign this documents!
+    quality: DEMO
+    documents:
+      - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+      - document_id: 14f65d46-6653-c33c-81a8-260bd5aba3c5
+    signatures:
+      - account_email: you@example.info
+        sequence: 1
+        document_signatures:
+          - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+          - document_id: 14f65d46-6653-c33c-81a8-260bd5aba3c5
+      - account_email: personOneToSign@external.net
+        sequence: 2
+        document_signatures:
+          - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+      - account_email: personTwoToSign@external.net
+        sequence: 3
+        document_signatures:
+          - document_id: 14f65d46-6653-c33c-81a8-260bd5aba3c5
+
+NASfirst:
+  summary: NAS unless has an account
+  value:
+    title: Example contract
+    message: Please sign this document!
+    quality: SES
+    documents:
+      - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+    signatures:
+      - account_email: signer@skribble.com
+        signer_identity_data:
+          email_address: signer@skribble.com
+
+SignerGroup:
+  summary: Using Signer Group
+  value:
+    title: Example contract
+    message: Please sign this document!
+    quality: SES
+    documents:
+      - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+    signatures:
+      - account_email: signer@skribble.com
+        sequence: 1
+      - signer_group_id: gr_9feb51ba97444c539261b64294f33225
+        sequence: 2
+
+Callbacks:
+  summary: With all callback Templates
+  value:
+    title: Example contract
+    message: Please sign this document!
+    documents:
+      - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+    signatures:
+      - account_email: you@example.info
+    callback_success_url: >-
+      https://myapp.com/some/path/SKRIBBLE_SIGNATURE_REQUEST_ID/success?document_id=SKRIBBLE_DOCUMENT_ID&token=12345678
+    callback_update_url: >-
+      https://myapp.com/some/path/SKRIBBLE_SIGNATURE_REQUEST_ID/update?document_id=SKRIBBLE_DOCUMENT_ID&token=12345678
+    callback_error_url: >-
+      https://myapp.com/some/path/SKRIBBLE_SIGNATURE_REQUEST_ID/error?document_id=SKRIBBLE_DOCUMENT_ID&token=12345678

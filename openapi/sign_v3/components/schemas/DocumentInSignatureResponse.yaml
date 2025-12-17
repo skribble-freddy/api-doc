@@ -1,0 +1,17 @@
+title: Signature Document Response
+type: object
+properties:
+  id:
+    type: string
+    description: Unique Document ID.
+    format: uuid
+    example: f1e2d3c4-7b8a-4e6f-9d3b-123456789abc
+  name:
+    type: string
+    description: Document Name.
+    example: Filename1.pdf
+  version_id:
+    type: string
+    description: Document Version ID.
+    format: uuid
+    example: a84f5085-67e5-e106-71c7-69b3d4b7c632

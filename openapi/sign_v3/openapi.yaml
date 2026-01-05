@@ -43,6 +43,8 @@ paths:
     $ref: ../sign_v2/paths/signature-requests_{SR_ID}_withdraw.yaml
   /signature-requests/{SR_ID}/remind:
     $ref: ../sign_v2/paths/signature-requests_{SR_ID}_remind.yaml
+  /signature-requests/{SR_ID}/report:
+    $ref: ../sign_v2/paths/signature-requests_{SR_ID}_report.yaml
   /signature-requests/{SR_ID}/callbacks:
     $ref: ../sign_v2/paths/signature-requests_{SR_ID}_callbacks.yaml
   /signature-requests/{SR_ID}/attachments:

@@ -1,0 +1,37 @@
+get:
+  tags:
+    - Signature
+  summary: Get Signature Request Report
+  description: |
+    Provides the signature report for a specific signature request in a
+    human-readable, digitally signed PDF format.
+
+    The report contains all relevant information about the signature process,
+    including signatories, timestamps, and verification details. It serves as
+    legally valid proof of the completed signing process and can be stored or
+    shared for auditing, compliance, or record-keeping purposes.
+  operationId: getSignatureReport
+  security:
+    - bearer: []
+  parameters:
+    - $ref: ../components/parameters/SignatureIDPath.yaml
+  responses:
+    200:
+      description: OK
+      content:
+        application/pdf:
+          schema:
+            type: string
+            format: binary
+    400:
+      $ref: ../components/responses/BadRequest.yaml
+    401:
+      $ref: ../components/responses/Unauthorized.yaml
+    403:
+      $ref: ../components/responses/Forbidden.yaml
+    429:
+      $ref: ../components/responses/TooManyRequests.yaml
+    500:
+      $ref: ../components/responses/ServerError.yaml
+    503:
+      $ref: ../components/responses/ServiceUnavailable.yaml

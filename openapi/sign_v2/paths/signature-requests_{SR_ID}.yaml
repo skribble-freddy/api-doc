@@ -1,6 +1,7 @@
 get:
   tags:
     - Signature
+    - Signature Tracking
   summary: Get a Signature Request
   description: |
     By using the signature request ID you can fetch a `SignatureRequest`. 

@@ -346,6 +346,7 @@ paths:
     get:
       tags:
         - Signature
+        - Signature Tracking
       summary: Get a Signature Request
       description: |
         By using the signature request ID you can fetch a `SignatureRequest`. 
@@ -579,6 +580,44 @@ paths:
       responses:
         '200':
           description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /signature-requests/{SR_ID}/report:
+    get:
+      tags:
+        - Signature
+      summary: Get Signature Request Report
+      description: |
+        Provides the signature report for a specific signature request in a
+        human-readable, digitally signed PDF format.
+
+        The report contains all relevant information about the signature process,
+        including signatories, timestamps, and verification details. It serves as
+        legally valid proof of the completed signing process and can be stored or
+        shared for auditing, compliance, or record-keeping purposes.
+      operationId: getSignatureReport
+      security:
+        - bearer: []
+      parameters:
+        - $ref: '#/components/parameters/SignatureIDPath'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':

@@ -1457,8 +1457,8 @@ paths:
 
         | **Parameter** | **Description** | **Mandatory** |
         | --- | --- | --- |
-        | `start_date` | The start date of the range to fetch the signature `activities`.  <br>Format: `yyyy-MM-dd.` | yes |
-        | `end_date` | The end date of the range to fetch the signature `activities`.  <br>Format: `yyyy-MM-dd.` | yes |
+        | `start_date` | The start date of the range to fetch the signature `activities`.  Format: `yyyy-MM-dd.` | yes |
+        | `end_date` | The end date of the range to fetch the signature `activities`.  Format: `yyyy-MM-dd.` | yes |
 
         ### **Pagination**
 
@@ -1466,9 +1466,9 @@ paths:
 
         | **Parameter** | **Description** | **Mandatory** |
         | --- | --- | --- |
-        | `page` | The page number to fetch the signature `activities`.  <br>Must be a positive integer.  <br>Default: 1 | no |
-        | `size` | The size of the page to fetch the signature activities.  <br>Must be a positive integer.  <br>Default: 25  <br>Maximum: 100 | no |
-        | `sort` | The sort order of the signature activities. Can be `asc` or `desc`.  <br>Default is `desc`. | no |
+        | `page` | The page number to fetch the signature `activities`.  Must be a positive integer.  Default: 1 | no |
+        | `size` | The size of the page to fetch the signature activities.  Must be a positive integer.  Default: 25  Maximum: 100 | no |
+        | `sort` | The sort order of the signature activities. Can be `asc` or `desc`.  Default is `desc`. | no |
 
         ### **Response**
 

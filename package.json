@@ -1,6 +1,6 @@
 {
   "name": "skribble-api-docs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Skribble API's",
   "scripts": {
     "check": "redocly check-config",

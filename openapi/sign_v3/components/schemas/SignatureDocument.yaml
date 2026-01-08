@@ -9,4 +9,4 @@ properties:
   visual_signature:
     oneOf:
       - type: "null"
-      - $ref: ./VisualSignature.yaml
+      - $ref: ./VisualSignature_v3.yaml

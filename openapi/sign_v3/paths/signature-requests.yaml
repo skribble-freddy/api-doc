@@ -47,7 +47,7 @@ post:
       content:
         application/json:
           schema:
-            $ref: ../components/schemas/SignatureResponse.yaml
+            $ref: ../components/schemas/SignatureResponse_v3.yaml
           examples:
             Sample1:
               $ref: ../components/examples/CreateSignatureResponse.yaml#/Sample1
@@ -103,7 +103,7 @@ get:
       - $ref: ../../sign_v2/components/parameters/SignatureAccountMail.yaml
       - $ref: ../../sign_v2/components/parameters/SignatureSearch.yaml
       - $ref: ../../sign_v2/components/parameters/SignatureStatusCode.yaml
-      - $ref: ../../sign_v2/components/parameters/SignatureStatusOverall.yaml
+      - $ref: ../components/parameters/SignatureStatusOverall_v3.yaml
       - $ref: ../../sign_v2/components/parameters/PageNumber.yaml
       - $ref: ../../sign_v2/components/parameters/PageSize.yaml
   responses:
@@ -115,7 +115,7 @@ get:
             type: array
             description: List of Signature Requests.
             items:
-              $ref: ../components/schemas/SignatureResponse.yaml
+              $ref: ../components/schemas/SignatureResponse_v3.yaml
           examples:
             default:
               $ref: ../components/examples/CreateSignatureResponse.yaml#/SampleArray
@@ -175,7 +175,7 @@ put:
       content:
         application/json:
           schema:
-            $ref: ../components/schemas/SignatureResponse.yaml
+            $ref: ../components/schemas/SignatureResponse_v3.yaml
     400:
       $ref: ../../sign_v2/components/responses/BadRequest.yaml
     403:

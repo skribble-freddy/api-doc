@@ -201,7 +201,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SignatureResponse'
+                $ref: '#/components/schemas/SignatureResponse_v3'
               examples:
                 Sample1:
                   $ref: '#/components/examples/Sample1'
@@ -257,7 +257,7 @@ paths:
         - $ref: '#/components/parameters/SignatureAccountMail'
         - $ref: '#/components/parameters/SignatureSearch'
         - $ref: '#/components/parameters/SignatureStatusCode'
-        - $ref: '#/components/parameters/SignatureStatusOverall'
+        - $ref: '#/components/parameters/SignatureStatusOverall_v3'
         - $ref: '#/components/parameters/PageNumber'
         - $ref: '#/components/parameters/PageSize'
       responses:
@@ -269,7 +269,7 @@ paths:
                 type: array
                 description: List of Signature Requests.
                 items:
-                  $ref: '#/components/schemas/SignatureResponse'
+                  $ref: '#/components/schemas/SignatureResponse_v3'
               examples:
                 default:
                   $ref: '#/components/examples/SampleArray'
@@ -329,7 +329,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SignatureResponse'
+                $ref: '#/components/schemas/SignatureResponse_v3'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -361,7 +361,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SignatureResponse-2'
+                $ref: '#/components/schemas/SignatureResponse'
               examples:
                 Sample1:
                   $ref: '#/components/examples/CreateSignatureResponse_Sample1'
@@ -529,7 +529,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SignatureResponse-2'
+                $ref: '#/components/schemas/SignatureResponse'
               examples:
                 Sample1:
                   $ref: '#/components/examples/WithdrawSignatureResponse'
@@ -738,7 +738,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SignatureResponse-2'
+                $ref: '#/components/schemas/SignatureResponse'
               examples:
                 Attachment1:
                   $ref: '#/components/examples/CreateSignatureAttachmentResponse'
@@ -1610,18 +1610,20 @@ components:
         - SIGNED
         - ERROR
       example: SIGNED
-    SignatureStatusOverall:
+    SignatureStatusOverall_v3:
       title: Signature Status Overall
       type: string
       description: |-
         Overall signing status of the document.
         Possible values:
+          - **DRAFT** The signature request has not yet been placed.
           - **OPEN** At least one user has not signed or declined their signature yet.
           - **DECLINED** At least one user declined to sign. The signature request failed.
           - **WITHDRAWN** The owner has withdrawn the signature request.
           - **SIGNED** All users signed the document. The signature request was successfully completed.
           - **ERROR** A technical error occurred. The signature request cannot be completed.
       enum:
+        - DRAFT
         - OPEN
         - DECLINED
         - WITHDRAWN
@@ -1665,26 +1667,6 @@ components:
         - QES
         - DEMO
       example: QES
-    SignatureStatusOverall-2:
-      title: Signature Status Overall
-      type: string
-      description: |-
-        Overall signing status of the document.
-        Possible values:
-          - **DRAFT** The signature request has not yet been placed.
-          - **OPEN** At least one user has not signed or declined their signature yet.
-          - **DECLINED** At least one user declined to sign. The signature request failed.
-          - **WITHDRAWN** The owner has withdrawn the signature request.
-          - **SIGNED** All users signed the document. The signature request was successfully completed.
-          - **ERROR** A technical error occurred. The signature request cannot be completed.
-      enum:
-        - DRAFT
-        - OPEN
-        - DECLINED
-        - WITHDRAWN
-        - SIGNED
-        - ERROR
-      example: OPEN
     VisualSignaturePosition:
       title: Visual Signature Position
       type: object
@@ -1733,7 +1715,7 @@ components:
           type: string
           description: Content type of bytes sent in content. At the moment this MUST be image/png
           example: image/png
-    VisualSignature:
+    VisualSignature_v3:
       title: Visual Signature
       type: object
       description: Visual signature placement information.
@@ -1786,7 +1768,7 @@ components:
         visual_signature:
           oneOf:
             - type: 'null'
-            - $ref: '#/components/schemas/VisualSignature'
+            - $ref: '#/components/schemas/VisualSignature_v3'
     SignatureLanguage:
       title: Signature Language
       type: string
@@ -1839,7 +1821,7 @@ components:
           type: string
           description: Optional ID of the evidence records created during identification.
           example: evidence-12345
-    SignatureRecipientResponse:
+    SignatureRecipientResponse_v3:
       title: Signature Callbacks Response
       type: object
       properties:
@@ -1898,7 +1880,7 @@ components:
       example:
         - SIGNED_DOCUMENT
         - SIGNATURE_PROTOCOL
-    SignatureResponse:
+    SignatureResponse_v3:
       type: object
       properties:
         id:
@@ -1924,14 +1906,14 @@ components:
           format: uri
           example: https://my.skribble.com/view/4f43614a-de50-bfe1-2df3-4c881fc7840e
         status_overall:
-          $ref: '#/components/schemas/SignatureStatusOverall-2'
+          $ref: '#/components/schemas/SignatureStatusOverall_v3'
         business_id:
           type: string
           example: biz-42b4c2fb9ee947778ba70bc0698c78f7
         signatures:
           type: array
           items:
-            $ref: '#/components/schemas/SignatureRecipientResponse'
+            $ref: '#/components/schemas/SignatureRecipientResponse_v3'
         origin:
           type: string
           example: API
@@ -2257,6 +2239,24 @@ components:
               example:
                 - john.doe@skriobble.com
                 - jane.doe@skribble.com
+    SignatureStatusOverall:
+      title: Signature Status Overall
+      type: string
+      description: |-
+        Overall signing status of the document.
+        Possible values:
+          - **OPEN** At least one user has not signed or declined their signature yet.
+          - **DECLINED** At least one user declined to sign. The signature request failed.
+          - **WITHDRAWN** The owner has withdrawn the signature request.
+          - **SIGNED** All users signed the document. The signature request was successfully completed.
+          - **ERROR** A technical error occurred. The signature request cannot be completed.
+      enum:
+        - OPEN
+        - DECLINED
+        - WITHDRAWN
+        - SIGNED
+        - ERROR
+      example: OPEN
     VisualSignatureResponse:
       title: Visual Signature Response
       type: object
@@ -2277,7 +2277,7 @@ components:
           description: |
             Name of the form field in which the signature is placed. If multiple fields of this name are present in the document, all will be used. Takes precedence before positions.
           example: Signature1
-    SignatureRecipientResponse-2:
+    SignatureRecipientResponse:
       title: Signature Callbacks Response
       type: object
       properties:
@@ -2302,7 +2302,7 @@ components:
           example: true
         visual_signature:
           $ref: '#/components/schemas/VisualSignatureResponse'
-    SignatureResponse-2:
+    SignatureResponse:
       type: object
       properties:
         id:
@@ -2335,7 +2335,7 @@ components:
         signatures:
           type: array
           items:
-            $ref: '#/components/schemas/SignatureRecipientResponse-2'
+            $ref: '#/components/schemas/SignatureRecipientResponse'
         cc_email_addresses:
           type: array
           items:
@@ -2529,7 +2529,7 @@ components:
           format: byte
           description: Base64 encoded bytes of the document.
           example: U29tZUJhc2U2NEVuY29kZWRJbWFnZQ==
-    VisualSignature-2:
+    VisualSignature:
       title: Visual Signature
       type: object
       description: Visual signature placement information.
@@ -2609,7 +2609,7 @@ components:
           oneOf:
             - type: 'null'
               title: No visual signature
-            - $ref: '#/components/schemas/VisualSignature-2'
+            - $ref: '#/components/schemas/VisualSignature'
               title: Visual signature
     CreateSealResponse:
       title: Create Seal Response
@@ -3059,13 +3059,13 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/SignatureStatusCode'
-    SignatureStatusOverall:
+    SignatureStatusOverall_v3:
       name: status_overall
       in: query
       description: Filter on the field `status_overall` with one of the valid Signature states
       required: false
       schema:
-        $ref: '#/components/schemas/SignatureStatusOverall'
+        $ref: '#/components/schemas/SignatureStatusOverall_v3'
     PageNumber:
       name: page_number
       in: query

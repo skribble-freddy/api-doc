@@ -21,4 +21,3 @@ properties:
       - type: "null"
         title: No visual signature
       - $ref: ./VisualSignature.yaml
-        title: Visual signature

@@ -3,7 +3,14 @@ info:
   title: Skribble API v3
   version: 3.0.0
   description: |-
-    The Skribble API v3 documentation describes the publicly available Skribble API version 3. The API allows businesses and teams of any size to integrate the e-signing solution of Skribble with internal systems, software, or SaaS solutions. It provides a simple interface to create and manage signature requests programmatically. Signature requests define who signs what and describe the document flow between participants. Actual signing occurs in the Skribble web application.
+    The Skribble API v3 documentation describes the publicly available Skribble
+    API version 3. The API allows businesses and teams of any size to integrate
+    the e-signing solution of Skribble with internal systems, software, or SaaS
+    solutions. It provides a simple interface to create and manage signature
+    requests programmatically. Signature requests define who signs what and
+    describe the document flow between participants. Actual signing occurs in
+    the Skribble web application.
+
     API v3 provides ...
   license:
     name: Apache 2.0
@@ -51,7 +58,7 @@ paths:
       tags:
         - Access
       summary: Authentication
-      description: |
+      description: |-
         In order to use the API of Skribble, you first need to obtain an API key
         with an API user. Both can be accessed inside the API key page inside your
         business profile. From here, you can create and manage your API keys.
@@ -156,7 +163,7 @@ paths:
       tags:
         - Signature
       summary: Create a Signature Request
-      description: |
+      description: |-
         The `SignatureRequest` object is the primary object of the Skribble API .
         It describes who signs what and how. It gives an overview of the current state 
         of the single Signatures and allows to control user rights or callback functionality.
@@ -221,7 +228,7 @@ paths:
       tags:
         - Signature
       summary: List and find Signature Requests
-      description: |
+      description: |-
         Using this `GET` request, you can list all the `SignatureRequest` provided
         that the current user has sufficient access rights to.
 
@@ -289,7 +296,7 @@ paths:
       tags:
         - Signature
       summary: Update a Signature Request
-      description: |
+      description: |-
         Modifications on existing `SignatureRequest` should be handled with care.
         We recommend creating the `SignatureRequest` with all necessary information. 
 
@@ -304,7 +311,7 @@ paths:
         corresponding entry from the `signatures` array.
             
 
-        > ⚠️ **IMPORTANT NOTE** 
+        > **IMPORTANT NOTE** 
           
 
         - Please be aware that if you want to add one or more new signers, you MUST
@@ -348,8 +355,7 @@ paths:
         - Signature
         - Signature Tracking
       summary: Get a Signature Request
-      description: |
-        By using the signature request ID you can fetch a `SignatureRequest`. 
+      description: 'By using the signature request ID you can fetch a `SignatureRequest`. '
       operationId: getSignatureRequestDetails
       security:
         - bearer: []
@@ -383,7 +389,7 @@ paths:
       tags:
         - Signature
       summary: Delete a Signature Request
-      description: |
+      description: |-
         By using the signature request ID you can delete a `SignatureRequest`.  
          
         **Important:** A `SignatureRequest` can only be deleted using the API, if:
@@ -452,7 +458,7 @@ paths:
       tags:
         - Signature
       summary: Invite signers and start signing process
-      description: |
+      description: |-
         To start the signing process as usual, simply call the initiate endpoint.
 
         This action sends out the invitation emails and changes the status_overall from `DRAFT` to `OPEN`.
@@ -484,7 +490,7 @@ paths:
       tags:
         - Signature
       summary: Withdraw a signature request
-      description: |
+      description: |-
         Sometimes, signing a document may become unnecessary, or errors might occur
         during the invitation process. As the inviter of such a `SignatureRequest`,
         you can _explicitely_ `withdraw` the `SignatureRequest`. Withdraw removes
@@ -552,7 +558,7 @@ paths:
       tags:
         - Signature Tracking
       summary: Remind open signers of a signature request
-      description: |
+      description: |-
         In addition to the automatic signature reminders, manual reminders can also
         be initiated via the Skribble web application and also via the API.
 
@@ -597,7 +603,7 @@ paths:
       tags:
         - Signature
       summary: Get Signature Request Report
-      description: |
+      description: |-
         Provides the signature report for a specific signature request in a
         human-readable, digitally signed PDF format.
 
@@ -635,7 +641,7 @@ paths:
       tags:
         - Signature Tracking
       summary: Get callbacks detals for a signature request
-      description: |
+      description: |-
         In certain scenarios, it is beneficial to view and verify the status of
         callbacks for a `SignatureRequest`. For example, you might want to confirm
         whether a callback has already been executed or to identify any errors that
@@ -684,7 +690,7 @@ paths:
       tags:
         - Signature Attachment
       summary: Add an attachment to a signature request
-      description: |
+      description: |-
         Use this endpoint to provide supplementary documents (for example, Terms &
         Conditions or appendices) to participants of a `SignatureRequest`.
 
@@ -759,7 +765,7 @@ paths:
       tags:
         - Signature Attachment
       summary: Get Signature Attachment content
-      description: |
+      description: |-
         Downloads the attachment content with the `ATTACHMENT_ID` for the
         `SignatureRequest` with the ID `SR_ID`
       operationId: getSignatureAttachmentContent
@@ -793,7 +799,7 @@ paths:
       tags:
         - Signature Attachment
       summary: Remove an attachment from a signature request
-      description: |
+      description: |-
         Delete the attachment with the `ATTACHMENT_ID` from the `SignatureRequest`
         with the ID `SR_ID`
       operationId: deleteSignatureAttachment
@@ -822,7 +828,7 @@ paths:
       tags:
         - Signature
       summary: Add an individual signer
-      description: |
+      description: |-
         To add an individual signer, use the same parameters as when creating a
         SignatureRequest. The process is the same. By using `account_email`, you can
         add a signer who has a Skribble account. By using `signer_identity_data`,
@@ -877,7 +883,7 @@ paths:
       tags:
         - Signature
       summary: Remove an individual signer
-      description: |
+      description: |-
         To remove an individual signer, provide the SignatureRequest ID `{{SR_ID}}`
         and the Signature ID `{{SID}}` of the signer you want to remove.
       operationId: removeSignatureSigner
@@ -906,8 +912,7 @@ paths:
       tags:
         - Signature
       summary: Add an additional document
-      description: |
-        To add an additional document while the `SignatureRequest` is still in `DRAFT`.
+      description: To add an additional document while the `SignatureRequest` is still in `DRAFT`.
       operationId: addDocumentInSignatureRequest
       security:
         - bearer: []
@@ -940,7 +945,7 @@ paths:
       tags:
         - Signature
       summary: Remove an document
-      description: |
+      description: |-
         Delete the document with the `DOC_ID` from the `SignatureRequest`
         with the ID `SR_ID`
       operationId: deleteDocumentInSignatureRequest
@@ -969,7 +974,7 @@ paths:
       tags:
         - Seal
       summary: Seal a document with a legal entity signature
-      description: |
+      description: |-
         Uploading and affixing an electronic seal to a document takes just one call.
 
 
@@ -1019,8 +1024,7 @@ paths:
       tags:
         - Document
       summary: Upload document
-      description: |
-        Upload using a **Base64 encoded** file as `content`.
+      description: Upload using a **Base64 encoded** file as `content`.
       operationId: uploadDocument
       security:
         - bearer: []
@@ -1057,8 +1061,7 @@ paths:
       tags:
         - Document
       summary: List all accessible documents
-      description: |
-        This request returns an array of all accessible `Documents` objects.
+      description: This request returns an array of all accessible `Documents` objects.
       operationId: getDocuments
       security:
         - bearer: []
@@ -1090,8 +1093,7 @@ paths:
       tags:
         - Document
       summary: Get document metadata
-      description: |
-        By using the document ID you can fetch a `Document` metadata. 
+      description: 'By using the document ID you can fetch a `Document` metadata. '
       operationId: getDocumentMetadata
       security:
         - bearer: []
@@ -1125,7 +1127,7 @@ paths:
       tags:
         - Document
       summary: Delete document
-      description: |
+      description: |-
         Deleting a `Document` is similar to deleting a `SignatureRequest`.  
 
         That means, deleting a `Document`  does not necessarily remove the a
@@ -1163,7 +1165,7 @@ paths:
       tags:
         - Document
       summary: Get document content
-      description: |
+      description: |-
         Dwnload the document content that contains the PDF document
         with the document ID as PDF binary or JSON with Base64-encoded PDF.
       operationId: getDocumentContent
@@ -1199,7 +1201,7 @@ paths:
       tags:
         - Document
       summary: Get document page preview
-      description: |
+      description: |-
         When uploading a PDF document to Skribble, the system generates some preview
         images for the PDF pages. These preview images can be requested by passing
         the page `{{PAGE_ID}}` you want to get a preview for, starting at **0** for
@@ -1239,7 +1241,7 @@ paths:
       tags:
         - SendTo
       summary: Create Send-To
-      description: |
+      description: |-
         Start the signing process by uploading the PDF document `content` and
         assigning it a `title`.
 
@@ -1290,7 +1292,7 @@ paths:
       tags:
         - SendTo
       summary: Track Send-To
-      description: |
+      description: |-
         To call the `track` endpoint, you must include the value of the
         `access_code` field—received when creating the `Send-To` object—in the
         request header `X-Accesscode`.
@@ -1331,7 +1333,7 @@ paths:
       tags:
         - SendTo
       summary: Download Send-To document
-      description: |
+      description: |-
         To call the `download` endpoint, you must include the value of the
         `access_code` field—received when creating the `Send-To` object—in the
         request header `X-Accesscode`.
@@ -1370,7 +1372,7 @@ paths:
       tags:
         - SendTo
       summary: Delete Send-To
-      description: |
+      description: |-
         To call the `delete` endpoint, you must include the value of the
         `access_code` field—received when creating the `Send-To` object—in the
         request header `X-Accesscode`.
@@ -1403,7 +1405,7 @@ paths:
       tags:
         - User
       summary: Get signature qualities details for a user
-      description: |
+      description: |-
         The result of this query will tell you what final signature `quality` will be
         used for the given user `username` to sign a document.  
 
@@ -1489,13 +1491,11 @@ paths:
         | **Field** | **Description** |
         | --- | --- |
         | `id` | The ID of the signature `activity`. |
-        | `action` | The action type of a signature activity. |
-        | Can be `signed` or `sealed`. |  |
+        | `action` | The action type of a signature activity. Can be `signed` or `sealed`. |
         | `timestamp` | The timestamp of the signature activity. |
         | `signature_request_id` | The signature request ID. |
         | `business_id_paid_by` | The ID of the business that paid for the signature activity. |
-        | `cost_center` | The cost center of the signature paying party. |
-        | This information might not necessarily be present. |  |
+        | `cost_center` | The cost center of the signature paying party. This information might not necessarily be present. |
         | `initiator` | The initiator `user` of the signature `activity`. See the following subchapter _User_. |
         | `signer` | The signer `user` of the signature `activity`. See the following subchapter _User_. |
 
@@ -1542,7 +1542,7 @@ paths:
       tags:
         - Monitoring
       summary: System health
-      description: |
+      description: |-
         Get details about system health
 
         If you need to monitor the responsiveness of the Skribble API, you may want to
@@ -1597,6 +1597,7 @@ components:
       type: string
       description: |-
         The state of a signature.
+
         Possible values:
           - **OPEN** Waiting for the user to sign a signature.
           - **DECLINED** The user declined to sign.
@@ -1615,6 +1616,7 @@ components:
       type: string
       description: |-
         Overall signing status of the document.
+
         Possible values:
           - **DRAFT** The signature request has not yet been placed.
           - **OPEN** At least one user has not signed or declined their signature yet.
@@ -1673,7 +1675,7 @@ components:
       properties:
         page:
           type: string
-          description: "Page number (0-indexed) where the signature appears.\nThis is a String and not a number!\t\n"
+          description: "Page number (0-indexed) where the signature appears.\nThis is a String and not a number!\t"
           example: '0'
         height:
           type: number
@@ -1693,7 +1695,7 @@ components:
           example: 240
         rotation:
           type: number
-          description: |
+          description: |-
             Defines a rotation of the field content. 
             If used in context with a form field, then only the values 0, 90, 180, 270 are legal.
             Otherwise every value is legal. The rotation is applied counter clockwise.
@@ -1809,7 +1811,7 @@ components:
           example: Internal-ID-012345
         identification_require_evidence:
           type: boolean
-          description: |
+          description: |-
             Optional. If set, even if the signer is already identified, a new identification process is started to get fresh evidence records.
             If the business hasn't enabled Express QES, the request is rejected.
           example: true
@@ -1866,11 +1868,14 @@ components:
       title: Attachment when signed
       type: array
       description: |-
-        When a SignatureRequest has been signed by all signers, all signers and all observers are notified by email. Skribble provides the option to attach two types of attachments automatically to this email:
+        When a SignatureRequest has been signed by all signers, all signers and all observers are notified by email.
+        Skribble provides the option to attach two types of attachments automatically to this email:
           - the signed document and
           - the signature protocol.
 
-        This can be configured via the business settings, which can be used to define that these documents should generally be attached for all SignatureRequests created by business members.
+        This can be configured via the business settings, which can be used to define that these documents should generally
+        be attached for all SignatureRequests created by business members.
+
         Alternatively it is possible to define the attachments on demand per SignatureRequest by using this field.
       items:
         type: string
@@ -2001,7 +2006,7 @@ components:
           example: Internal-ID-012345
         identification_require_evidence:
           type: boolean
-          description: |
+          description: |-
             (optional) if set, even if the signer is already identified, a new identification process is started to get fresh evidence records.
             If the business hasn't enabled Express QES, the request is rejected.
           example: true
@@ -2170,13 +2175,37 @@ components:
               title: Signers
               description: |-
                 List of recipients required to sign the document.
-                It is possible to create a SignatureRequest where one or more invited participants won't need a  Skribble account to sign the SignatureRequest. Those signers are called No-Account-Signers (NAS).
-                To create a SignatureRequest for a user without an account, omit the signatures array entry for this user and provide the necessary data using the `signer_identity_data` element instead.
-                Each entry in the signatures array will be treated as a distinct identity. This means two entries  with the same `signer_identity_data` are treated as two different identities and require that this  person signs the document twice.
-                Optionally you can combine `signer_identity_data` and account_email in your requests. In this case,  the system checks first if there is a Skribble account with the specified e-mail address.  If one is found the existing Skribble user will be invited to sign the document. Otherwise, the  specified user in `signer_identity_data` will be invited to sign.
-                > Good to know We recommend this approach of combining `signer_identity_data` and `account_email` if you are unsure  whether the user has a Skribble account. The benefit is that an existing Skribble user will afterwards find the SignatureRequest in the  To sign section of their account on my.skribble.com. Conversely, if you invite them using only signer_identity_data, the document will not appear in their Skribble account, even if they have an existing Skribble account. Instead, they will have to access the document using the specific link provided in their signature invitation email. 
-                When the user visits the URL provided in the field `signing_url` inside the signature element, he will be forwarded to a special preview page of the PDF document and can start the signature process as usual.
-                Missing fields like first name and last name can easily be adjusted by the signer through the Skribble web client.
+
+                It is possible to create a SignatureRequest where one or more invited participants won't need a 
+                Skribble account to sign the SignatureRequest. Those signers are called No-Account-Signers (NAS).
+
+                To create a SignatureRequest for a user without an account, omit the signatures array entry for
+                this user and provide the necessary data using the `signer_identity_data` element instead.
+
+                Each entry in the signatures array will be treated as a distinct identity. This means two entries 
+                with the same `signer_identity_data` are treated as two different identities and require that this 
+                person signs the document twice.
+
+                Optionally you can combine `signer_identity_data` and account_email in your requests. In this case, 
+                the system checks first if there is a Skribble account with the specified e-mail address. 
+                If one is found the existing Skribble user will be invited to sign the document. Otherwise, the 
+                specified user in `signer_identity_data` will be invited to sign.
+
+                > Good to know
+                We recommend this approach of combining `signer_identity_data` and `account_email` if you are unsure 
+                whether the user has a Skribble account.
+                The benefit is that an existing Skribble user will afterwards find the SignatureRequest in the 
+                To sign section of their account on my.skribble.com.
+                Conversely, if you invite them using only signer_identity_data, the document will not appear in
+                their Skribble account, even if they have an existing Skribble account. Instead, they will have to
+                access the document using the specific link provided in their signature invitation email. 
+
+                When the user visits the URL provided in the field `signing_url` inside the signature element, he
+                will be forwarded to a special preview page of the PDF document and can start the signature process
+                as usual.
+
+                Missing fields like first name and last name can easily be adjusted by the signer through the
+                Skribble web client.
               items:
                 $ref: '#/components/schemas/SignatureRecipient'
         cc_email_addresses:
@@ -2185,7 +2214,9 @@ components:
               title: No observers
             - type: array
               title: Observers
-              description: Observer email addresses of users who are granted read access and to whom notifications are sent. The given observers need to have a valid Skribble account. Otherwise the email address will not be accepted as valid observer.
+              description: |-
+                Observer email addresses of users who are granted read access and to whom notifications are sent.
+                The given observers need to have a valid Skribble account. Otherwise the email address will not be accepted as valid observer.
               items:
                 type: string
                 format: email
@@ -2232,7 +2263,9 @@ components:
               title: No other writer
             - type: array
               title: Additional writer
-              description: Give existing users full write access to this signature request.  The given observers need to have a valid Skribble account. Otherwise the email address will not be accepted as valid observer.
+              description: |-
+                Give existing users full write access to this signature request. 
+                The given observers need to have a valid Skribble account. Otherwise the email address will not be accepted as valid observer.
               items:
                 type: string
                 format: email
@@ -2244,6 +2277,7 @@ components:
       type: string
       description: |-
         Overall signing status of the document.
+
         Possible values:
           - **OPEN** At least one user has not signed or declined their signature yet.
           - **DECLINED** At least one user declined to sign. The signature request failed.
@@ -2405,6 +2439,7 @@ components:
       type: string
       description: |-
         The type of this callback. 
+
         Possible values:
           - **SUCCESS** Is triggered when the document has been successfully signed by all parties involved.
           - **UPDATE** Is triggered on changes on the `SignatureRequest` object like when one person of all involved parties has signed.
@@ -2425,6 +2460,7 @@ components:
       type: string
       description: |-
         The state of the callback.
+
         Possible values:
           - **OPEN** The callback request will be executed in the next execution cycle.
           - **COMPLETED** The callback request was executed successfully. The API received an HTTP 2xx success code in response.
@@ -2628,7 +2664,7 @@ components:
       properties:
         page:
           type: string
-          description: "Page number (0-indexed) where the field appears.\nThis is a String and not a number!\t\n"
+          description: "Page number (0-indexed) where the field appears.\nThis is a String and not a number!\t"
           example: '0'
         height:
           type: number
@@ -2648,7 +2684,7 @@ components:
           example: 240
         rotation:
           type: number
-          description: |
+          description: |-
             Defines a rotation of the field content. 
             If used in context with a form field, then only the values 0, 90, 180, 270 are legal.
             Otherwise every value is legal. The rotation is applied counter clockwise.

@@ -2,7 +2,9 @@ openapi: 3.1.0
 info:
   title: Validation and Conversion Service API
   version: 1.1.5
-  description: This API documentation describes the publicly available Validation and Conversion Service of Skribble.
+  description: |-
+    This API documentation describes the publicly available Validation and
+    Conversion Service of Skribble.
   license:
     name: Apache 2.0
     identifier: Apache-2.0
@@ -76,7 +78,13 @@ paths:
       tags:
         - Validation
       summary: Validate a digitally signed content
-      description: Validate signatures in digitally signed content, such as a PDF or XML file. A validation ID {id} is returned that can be used to call additional endpoints. The content to be validated is provided in the request body and is not retained within our service. The maximum request or file size is 50MB. Request parameters can be used to set optional parameters to control the validation
+      description: |-
+        Validate signatures in digitally signed content, such as a PDF or XML file.
+        A validation ID {id} is returned that can be used to call additional
+        endpoints. The content to be validated is provided in the request body and
+        is not retained within our service. The maximum request or file size is
+        50MB. Request parameters can be used to set optional parameters to control
+        the validation
       security:
         - bearerAuth: []
       parameters:
@@ -145,7 +153,12 @@ paths:
       tags:
         - Validation
       summary: Validate a digital signature
-      description: Validate digital signatures such as CMS and CAdES without providing the associated signed content. A validation ID {id} is returned that can be used to call additional endpoints. The signature to be validated is provided in the request body. Query parameters can be used to set optional parameters to control the validation.
+      description: |-
+        Validate digital signatures such as CMS and CAdES without providing the
+        associated signed content. A validation ID {id} is returned that can be used
+        to call additional endpoints. The signature to be validated is provided in
+        the request body. Query parameters can be used to set optional parameters to
+        control the validation.
       security:
         - bearerAuth: []
       parameters:
@@ -208,7 +221,10 @@ paths:
       tags:
         - Validation
       summary: Validate a digital certificate [ROADMAP]
-      description: Validate a digital certificate outside of its use within signatures. A validation ID {id} is returned that can be used to call additional endpoints. The content to be validated is provided in the request body.
+      description: |-
+        Validate a digital certificate outside of its use within signatures. A
+        validation ID {id} is returned that can be used to call additional
+        endpoints. The content to be validated is provided in the request body.
       security:
         - bearerAuth: []
       requestBody:
@@ -261,7 +277,10 @@ paths:
       tags:
         - Validation
       summary: Deletes the validation
-      description: Deletes the corresponding resource identified by {id}, universal for all validation resources. Any resource that is not manually deleted will be automatically deleted after 10 minutes.
+      description: |-
+        Deletes the corresponding resource identified by {id}, universal for all
+        validation resources. Any resource that is not manually deleted will be
+        automatically deleted after 10 minutes.
       security:
         - bearerAuth: []
       parameters:
@@ -316,7 +335,9 @@ paths:
       tags:
         - Additional Information
       summary: Get additional information about the signers of a validation
-      description: Additional information about the people who signed the document. The query parameter is the id from the validation endpoint.
+      description: |-
+        Additional information about the people who signed the document. The query
+        parameter is the id from the validation endpoint.
       security:
         - bearerAuth: []
       parameters:
@@ -445,7 +466,11 @@ paths:
       tags:
         - Tooling
       summary: Upload document for processing
-      description: Upload a document to be used in the tooling process. A process ID {id} is returned which can be used to call additional endpoints. If not already a PDF, the uploaded document will be converted into one. The maximum request or file size is 50MB.
+      description: |-
+        Upload a document to be used in the tooling process. A process ID {id} is
+        returned which can be used to call additional endpoints. If not already a
+        PDF, the uploaded document will be converted into one. The maximum request
+        or file size is 50MB.
       security:
         - bearerAuth: []
       requestBody:
@@ -502,7 +527,12 @@ paths:
       tags:
         - Tooling
       summary: Check document PDF conformance
-      description: Checks the document against a specific set of PDF conformance criteria and guidelines. Can be called multiple times to get current status and results; if relevant changes have been made to the document with other tools, it will process the document again. If the status '423 Locked' is returned it can be recalled with some delay.
+      description: |-
+        Checks the document against a specific set of PDF conformance criteria and
+        guidelines. Can be called multiple times to get current status and results;
+        if relevant changes have been made to the document with other tools, it will
+        process the document again. If the status '423 Locked' is returned it can be
+        recalled with some delay.
       security:
         - bearerAuth: []
       parameters:
@@ -540,7 +570,12 @@ paths:
       tags:
         - Tooling
       summary: Conform document
-      description: Convert the document to a specific PDF conformance. Can be called multiple times to get current status and results; if relevant changes have been made to the document with other tools, it will process the document again. If the process status is 'pending', '423 Locked' is returned and it can be recalled with some delay.
+      description: |-
+        Convert the document to a specific PDF conformance. Can be called multiple
+        times to get current status and results; if relevant changes have been made
+        to the document with other tools, it will process the document again. If the
+        process status is 'pending', '423 Locked' is returned and it can be recalled
+        with some delay.
       security:
         - bearerAuth: []
       parameters:
@@ -582,7 +617,12 @@ paths:
       tags:
         - Tooling
       summary: Compress document
-      description: Compress the document for a specific purpose. For best size and compliance, this should be done before any /convert. Can be called multiple times to get current status and results; if relevant changes have been made to the document with other tools, it will process the document again. If '423 Locked' is returned it can be recalled with some delay.
+      description: |-
+        Compress the document for a specific purpose. For best size and compliance,
+        this should be done before any /convert. Can be called multiple times to get
+        current status and results; if relevant changes have been made to the
+        document with other tools, it will process the document again. If '423
+        Locked' is returned it can be recalled with some delay.
       security:
         - bearerAuth: []
       parameters:
@@ -621,7 +661,14 @@ paths:
       tags:
         - Tooling
       summary: Spot document for signature relevant elements
-      description: Spots and detects document elements such as fields, signatures, and positions using tags and artificial intelligence. After detection, the document is updated and fields and tags are removed while maintaining current PDF compliance. Can be called multiple times to get current status and results; if relevant changes have been made to the document with other tools, it will process the document again. If the process status is 'pending', '423 Locked' is returned and it can be recalled with some delay.
+      description: |-
+        Spots and detects document elements such as fields, signatures, and
+        positions using tags and artificial intelligence. After detection, the
+        document is updated and fields and tags are removed while maintaining
+        current PDF compliance. Can be called multiple times to get current status
+        and results; if relevant changes have been made to the document with other
+        tools, it will process the document again. If the process status is
+        'pending', '423 Locked' is returned and it can be recalled with some delay.
       security:
         - bearerAuth: []
       parameters:
@@ -662,7 +709,10 @@ paths:
       tags:
         - Tooling
       summary: Download processed document
-      description: Download the processed document with the changes and enhancements made according to the specified processing steps. If the status '423 Locked' is returned it can be recalled with some delay.
+      description: |-
+        Download the processed document with the changes and enhancements made
+        according to the specified processing steps. If the status '423 Locked' is
+        returned it can be recalled with some delay.
       security:
         - bearerAuth: []
       parameters:
@@ -692,7 +742,10 @@ paths:
       tags:
         - Tooling
       summary: Delete processed document
-      description: Terminates all running processes on the document and deletes all associated content. This action occurs automatically after 10 minutes if not explicitly invoked.
+      description: |-
+        Terminates all running processes on the document and deletes all associated
+        content. This action occurs automatically after 10 minutes if not explicitly
+        invoked.
       security:
         - {}
         - bearerAuth: []
@@ -771,7 +824,9 @@ paths:
       tags:
         - Billing and Credits
       summary: Invoiced credit details
-      description: Get invoiced credit details for the most recent billing period or a specified time period
+      description: |-
+        Get invoiced credit details for the most recent billing period or a
+        specified time period
       security:
         - bearerAuth: []
       parameters:
@@ -779,7 +834,9 @@ paths:
           name: period
           schema:
             type: string
-          description: Format YYYY, YYYYMM, YYYYMMDD is supported. If not specified the last invoiced period is used by default
+          description: |-
+            Format YYYY, YYYYMM, YYYYMMDD is supported. If not specified the last
+            invoiced period is used by default
           required: false
       responses:
         '200':
@@ -1339,7 +1396,9 @@ components:
       name: quality
       required: false
       in: query
-      description: Optional flag specifying the minimum signature quality required (SES, AES, QES).
+      description: |-
+        Optional flag specifying the minimum signature quality required (SES, AES,
+        QES).
       schema:
         type: string
         enum:
@@ -1357,7 +1416,9 @@ components:
       name: legislation
       in: query
       required: false
-      description: Optional flag specifying the legislation to comply with (WORLD, CH, EU, CH_EU).
+      description: |-
+        Optional flag specifying the legislation to comply with (WORLD, CH, EU,
+        CH_EU).
       schema:
         type: string
         enum:
@@ -1369,7 +1430,9 @@ components:
       name: infos
       in: query
       required: false
-      description: Optional flag to request additional information, such as validation, format, or signer details.
+      description: |-
+        Optional flag to request additional information, such as validation, format,
+        or signer details.
       schema:
         type: array
         items:
@@ -1382,14 +1445,20 @@ components:
       name: rejectVisualDifferences
       in: query
       required: false
-      description: Optional flag to specify if visual differences should be rejected. If 'true', validation will fail due to visual differences; if 'false' or not provided, visual differences will not cause validation to fail.
+      description: |-
+        Optional flag to specify if visual differences should be rejected. If 'true',
+        validation will fail due to visual differences; if 'false' or not provided,
+        visual differences will not cause validation to fail.
       schema:
         type: boolean
     rejectUndefinedChanges:
       name: rejectUndefinedChanges
       in: query
       required: false
-      description: Optional flag to specify if undefined changes should be rejected. If 'true', validation will fail due to undefined changes; if 'false' or not provided, undefined changes will not cause validation to fail.
+      description: |-
+        Optional flag to specify if undefined changes should be rejected. If 'true',
+        validation will fail due to undefined changes; if 'false' or not provided,
+        undefined changes will not cause validation to fail.
       schema:
         type: boolean
     validateid:

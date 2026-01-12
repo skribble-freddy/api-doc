@@ -97,7 +97,6 @@ properties:
       - type: "null"
         title: No attachment when signed
       - $ref: ./AttachOnSuccess.yaml
-        title: Attachment when signed
   creator:
     oneOf:
       - type: "null"

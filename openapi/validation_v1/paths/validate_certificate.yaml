@@ -3,7 +3,7 @@ post:
   tags:
     - Validation
   summary: Validate a digital certificate [ROADMAP]
-  description: >-
+  description: |
     Validate a digital certificate outside of its use within signatures. A
     validation ID {id} is returned that can be used to call additional
     endpoints. The content to be validated is provided in the request body.

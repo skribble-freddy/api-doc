@@ -3,7 +3,7 @@ post:
   tags:
     - Tooling
   summary: Check document PDF conformance
-  description: >-
+  description: |
     Checks the document against a specific set of PDF conformance criteria and
     guidelines. Can be called multiple times to get current status and results;
     if relevant changes have been made to the document with other tools, it will

@@ -139,7 +139,7 @@ put:
     corresponding entry from the `signatures` array.
         
 
-    > ⚠️ **IMPORTANT NOTE** 
+    > **IMPORTANT NOTE** 
       
 
     - Please be aware that if you want to add one or more new signers, you MUST

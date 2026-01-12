@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Skribble API v2
   version: 2.1.0
-  description: >-
+  description: |
     The Skribble API v2 documentation describes the publicly available Skribble
     API version 2. The API allows businesses and teams of any size to integrate
     the e-signing solution of Skribble with internal systems, software, or SaaS
@@ -95,32 +95,32 @@ components:
 security: []
 tags:
   - name: Access
-    description: >-
+    description: |
       Endpoints for authentication, authorization, and user access management
   - name: Document
-    description: >-
+    description: |
       Endpoints for Documents
   - name: Signature
-    description: >-
+    description: |
       Endpoints related to creating and managing signature requests
   - name: Signature Attachment
-    description: >-
+    description: |
       Endpoints for Attachments
   - name: Signature Tracking
-    description: >-
+    description: |
       Endpoints related to tracking signature requests
   - name: Seal
-    description: >-
+    description: |
       Endpoints for Seals
   - name: SendTo
-    description: >-
+    description: |
       Endpoints for Send-To
   - name: User
-    description: >-
+    description: |
       Endpoints for Users
   - name: Report
-    description: >-
+    description: |
       Endpoints for Reporting
   - name: Monitoring
-    description: >-
+    description: |
       Endpoints for Monitoring

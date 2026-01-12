@@ -3,7 +3,7 @@ get:
   tags:
     - Tooling
   summary: Download processed document
-  description: >-
+  description: |
     Download the processed document with the changes and enhancements made
     according to the specified processing steps. If the status '423 Locked' is
     returned it can be recalled with some delay.
@@ -36,7 +36,7 @@ delete:
   tags:
     - Tooling
   summary: Delete processed document
-  description: >-
+  description: |
     Terminates all running processes on the document and deletes all associated
     content. This action occurs automatically after 10 minutes if not explicitly
     invoked.

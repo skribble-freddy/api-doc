@@ -3,7 +3,7 @@ get:
   tags:
     - Additional Information
   summary: Get additional information about the signers of a validation
-  description: >-
+  description: |
     Additional information about the people who signed the document. The query
     parameter is the id from the validation endpoint.
   security:

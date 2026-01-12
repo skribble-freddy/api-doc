@@ -3,7 +3,7 @@ post:
   tags:
     - Validation
   summary: Validate a digitally signed content
-  description: >-
+  description: |
     Validate signatures in digitally signed content, such as a PDF or XML file.
     A validation ID {id} is returned that can be used to call additional
     endpoints. The content to be validated is provided in the request body and

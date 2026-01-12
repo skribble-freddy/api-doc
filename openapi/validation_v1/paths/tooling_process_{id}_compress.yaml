@@ -3,7 +3,7 @@ post:
   tags:
     - Tooling
   summary: Compress document
-  description: >-
+  description: |
     Compress the document for a specific purpose. For best size and compliance,
     this should be done before any /convert. Can be called multiple times to get
     current status and results; if relevant changes have been made to the

@@ -1,7 +1,7 @@
 name: infos
 in: query
 required: false
-description: >-
+description: |
   Optional flag to request additional information, such as validation, format,
   or signer details.
 schema:

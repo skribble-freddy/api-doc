@@ -3,7 +3,7 @@ delete:
   tags:
     - Validation
   summary: Deletes the validation
-  description: >-
+  description: |
     Deletes the corresponding resource identified by {id}, universal for all
     validation resources. Any resource that is not manually deleted will be
     automatically deleted after 10 minutes.

@@ -1,6 +1,6 @@
 title: Signature Status Overall
 type: string
-description: >-
+description: |
   Overall signing status of the document.
 
   Possible values:

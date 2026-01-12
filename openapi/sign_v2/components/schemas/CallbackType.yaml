@@ -1,6 +1,6 @@
 title: Callback Type
 type: string
-description: >-
+description: |-
   The type of this callback. 
 
   Possible values:

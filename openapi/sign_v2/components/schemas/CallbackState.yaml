@@ -1,6 +1,6 @@
 title: Callback State
 type: string
-description: >-
+description: |-
   The state of the callback.
 
   Possible values:

@@ -1,7 +1,7 @@
 name: quality
 required: false
 in: query
-description: >-
+description: |-
   Optional flag specifying the minimum signature quality required (SES, AES,
   QES).
 schema:

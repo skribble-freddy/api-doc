@@ -3,7 +3,7 @@ type: object
 properties:
   page:
     type: string
-    description: |
+    description: |-
       Page number (0-indexed) where the signature appears.
       This is a String and not a number!	
     example: "0"
@@ -25,7 +25,7 @@ properties:
     example: 240
   rotation:
     type: number
-    description: |
+    description: |-
       Defines a rotation of the field content. 
       If used in context with a form field, then only the values 0, 90, 180, 270 are legal.
       Otherwise every value is legal. The rotation is applied counter clockwise.

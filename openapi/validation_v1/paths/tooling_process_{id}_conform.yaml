@@ -3,7 +3,7 @@ post:
   tags:
     - Tooling
   summary: Conform document
-  description: >-
+  description: |-
     Convert the document to a specific PDF conformance. Can be called multiple
     times to get current status and results; if relevant changes have been made
     to the document with other tools, it will process the document again. If the

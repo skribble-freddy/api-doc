@@ -2,7 +2,7 @@ get:
   tags:
     - Signature
   summary: Get Signature Request Report
-  description: |
+  description: |-
     Provides the signature report for a specific signature request in a
     human-readable, digitally signed PDF format.
 

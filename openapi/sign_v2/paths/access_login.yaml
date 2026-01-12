@@ -2,7 +2,7 @@ post:
   tags:
     - Access
   summary: Authentication
-  description: |
+  description: |-
     In order to use the API of Skribble, you first need to obtain an API key
     with an API user. Both can be accessed inside the API key page inside your
     business profile. From here, you can create and manage your API keys.

@@ -2,7 +2,7 @@ post:
   tags:
     - Document
   summary: Upload document
-  description: |
+  description: |-
     Upload using a **Base64 encoded** file as `content`.
   operationId: uploadDocument
   security:
@@ -40,7 +40,7 @@ get:
   tags:
     - Document
   summary: List all accessible documents
-  description: |
+  description: |-
     This request returns an array of all accessible `Documents` objects.
   operationId: getDocuments
   security:

@@ -3,7 +3,7 @@ get:
   tags:
     - Billing and Credits
   summary: Invoiced credit details
-  description: >-
+  description: |-
     Get invoiced credit details for the most recent billing period or a
     specified time period
   security:
@@ -13,7 +13,7 @@ get:
       name: period
       schema:
         type: string
-      description: >-
+      description: |-
         Format YYYY, YYYYMM, YYYYMMDD is supported. If not specified the last
         invoiced period is used by default
       required: false

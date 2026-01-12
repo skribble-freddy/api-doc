@@ -29,7 +29,7 @@ properties:
     example: Internal-ID-012345
   identification_require_evidence:
     type: boolean
-    description: |
+    description: |-
       Optional. If set, even if the signer is already identified, a new identification process is started to get fresh evidence records.
       If the business hasn't enabled Express QES, the request is rejected.
     example: true

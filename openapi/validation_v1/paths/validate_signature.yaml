@@ -3,7 +3,7 @@ post:
   tags:
     - Validation
   summary: Validate a digital signature
-  description: >-
+  description: |-
     Validate digital signatures such as CMS and CAdES without providing the
     associated signed content. A validation ID {id} is returned that can be used
     to call additional endpoints. The signature to be validated is provided in

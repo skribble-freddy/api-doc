@@ -1,6 +1,6 @@
 title: Attachment when signed
 type: array
-description: >-
+description: |-
   When a SignatureRequest has been signed by all signers, all signers and all observers are notified by email.
   Skribble provides the option to attach two types of attachments automatically to this email:
     - the signed document and

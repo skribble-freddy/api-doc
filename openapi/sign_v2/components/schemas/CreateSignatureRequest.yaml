@@ -22,7 +22,7 @@ properties:
       - type: array
         title: Signers
         # TODO Check description
-        description: >-
+        description: |-
           List of recipients required to sign the document.
     
           It is possible to create a SignatureRequest where one or more invited participants won't need a 
@@ -64,7 +64,7 @@ properties:
       - type: array
         title: Observers
         # TODO: Check if the given observers need to have a valid Skribble account
-        description: >-
+        description: |-
           Observer email addresses of users who are granted read access and to whom notifications are sent.
           The given observers need to have a valid Skribble account. Otherwise the email address will not be accepted as valid observer.
         items:
@@ -104,7 +104,7 @@ properties:
         title: No owner
       - type: string
         title: Specific owner
-        description: >-
+        description: |-
           Set a business member as owner of this signature request in addition to the API User. 
         format: email
         example: some-member-of@your-buiness.com
@@ -114,7 +114,7 @@ properties:
         title: No other writer
       - type: array
         title: Additional writer
-        description: >-
+        description: |-
           Give existing users full write access to this signature request. 
           The given observers need to have a valid Skribble account. Otherwise the email address will not be accepted as valid observer.
         items:

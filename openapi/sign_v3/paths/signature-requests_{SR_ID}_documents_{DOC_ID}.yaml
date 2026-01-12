@@ -2,7 +2,7 @@ delete:
   tags:
     - Signature
   summary: Remove an document
-  description: |
+  description: |-
     Delete the document with the `DOC_ID` from the `SignatureRequest`
     with the ID `SR_ID`
   operationId: deleteDocumentInSignatureRequest

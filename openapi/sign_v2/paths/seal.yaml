@@ -2,7 +2,7 @@ post:
   tags:
     - Seal
   summary: Seal a document with a legal entity signature
-  description: |
+  description: |-
     Uploading and affixing an electronic seal to a document takes just one call.
 
 

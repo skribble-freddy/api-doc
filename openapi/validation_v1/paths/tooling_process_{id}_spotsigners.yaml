@@ -3,7 +3,7 @@ post:
   tags:
     - Tooling
   summary: Spot document for signature relevant elements
-  description: |
+  description: |-
     Spots and detects document elements such as fields, signatures, and
     positions using tags and artificial intelligence. After detection, the
     document is updated and fields and tags are removed while maintaining

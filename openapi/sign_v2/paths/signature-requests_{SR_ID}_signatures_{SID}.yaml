@@ -2,7 +2,7 @@ delete:
   tags:
     - Signature
   summary: Remove an individual signer
-  description: |
+  description: |-
     To remove an individual signer, provide the SignatureRequest ID `{{SR_ID}}`
     and the Signature ID `{{SID}}` of the signer you want to remove.
   operationId: removeSignatureSigner

@@ -2,7 +2,7 @@ delete:
   tags:
     - Signature Attachment
   summary: Remove an attachment from a signature request
-  description: |
+  description: |-
     Delete the attachment with the `ATTACHMENT_ID` from the `SignatureRequest`
     with the ID `SR_ID`
   operationId: deleteSignatureAttachment

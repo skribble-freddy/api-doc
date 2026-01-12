@@ -3,7 +3,7 @@ post:
   tags:
     - Tooling
   summary: Upload document for processing
-  description: |
+  description: |-
     Upload a document to be used in the tooling process. A process ID {id} is
     returned which can be used to call additional endpoints. If not already a
     PDF, the uploaded document will be converted into one. The maximum request

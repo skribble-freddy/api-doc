@@ -2,7 +2,7 @@ get:
   tags:
     - Monitoring
   summary: System health
-  description: |
+  description: |-
     Get details about system health
 
     If you need to monitor the responsiveness of the Skribble API, you may want to

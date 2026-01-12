@@ -3,7 +3,7 @@ get:
     - Signature
     - Signature Tracking
   summary: Get a Signature Request
-  description: |
+  description: |-
     By using the signature request ID you can fetch a `SignatureRequest`. 
   operationId: getSignatureRequestDetails
   security:
@@ -38,7 +38,7 @@ delete:
   tags:
     - Signature
   summary: Delete a Signature Request
-  description: |
+  description: |-
     By using the signature request ID you can delete a `SignatureRequest`.  
      
     **Important:** A `SignatureRequest` can only be deleted using the API, if:

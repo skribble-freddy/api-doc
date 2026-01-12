@@ -2,7 +2,7 @@ post:
   tags:
     - Signature
   summary: Add an individual signer
-  description: |
+  description: |-
     To add an individual signer, use the same parameters as when creating a
     SignatureRequest. The process is the same. By using `account_email`, you can
     add a signer who has a Skribble account. By using `signer_identity_data`,

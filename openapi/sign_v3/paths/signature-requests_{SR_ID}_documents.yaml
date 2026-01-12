@@ -2,7 +2,7 @@ post:
   tags:
     - Signature
   summary: Add an additional document
-  description: |
+  description: |-
     To add an additional document while the `SignatureRequest` is still in `DRAFT`.
   operationId: addDocumentInSignatureRequest
   security:

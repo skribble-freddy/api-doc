@@ -78,7 +78,7 @@ get:
 
     | `id` | The ID of the signature `activity`. |
 
-    | `action` | The action type of a signature activity. 
+    | `action` | The action type of a signature activity.
     Can be `signed` or `sealed`. |
 
     | `timestamp` | The timestamp of the signature activity. |
@@ -88,7 +88,7 @@ get:
     | `business_id_paid_by` | The ID of the business that paid for the signature
     activity. |
 
-    | `cost_center` | The cost center of the signature paying party. 
+    | `cost_center` | The cost center of the signature paying party.
     This information might not necessarily be present. |
 
     | `initiator` | The initiator `user` of the signature `activity`. See the

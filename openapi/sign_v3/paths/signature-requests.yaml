@@ -2,7 +2,7 @@ post:
   tags:
     - Signature
   summary: Create a Signature Request
-  description: |
+  description: |-
     The `SignatureRequest` object is the primary object of the Skribble API .
     It describes who signs what and how. It gives an overview of the current state 
     of the single Signatures and allows to control user rights or callback functionality.
@@ -67,7 +67,7 @@ get:
   tags:
     - Signature
   summary: List and find Signature Requests
-  description: |
+  description: |-
     Using this `GET` request, you can list all the `SignatureRequest` provided
     that the current user has sufficient access rights to.
 
@@ -135,7 +135,7 @@ put:
   tags:
     - Signature
   summary: Update a Signature Request
-  description: |
+  description: |-
     Modifications on existing `SignatureRequest` should be handled with care.
     We recommend creating the `SignatureRequest` with all necessary information. 
 

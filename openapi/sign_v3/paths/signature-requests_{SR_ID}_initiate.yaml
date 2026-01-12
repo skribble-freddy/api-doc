@@ -2,7 +2,7 @@ post:
   tags:
     - Signature
   summary: Invite signers and start signing process
-  description: |
+  description: |-
     To start the signing process as usual, simply call the initiate endpoint.
 
     This action sends out the invitation emails and changes the status_overall from `DRAFT` to `OPEN`.

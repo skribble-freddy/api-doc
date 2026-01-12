@@ -2,7 +2,7 @@ post:
   tags:
     - Signature
   summary: Withdraw a signature request
-  description: |
+  description: |-
     Sometimes, signing a document may become unnecessary, or errors might occur
     during the invitation process. As the inviter of such a `SignatureRequest`,
     you can _explicitely_ `withdraw` the `SignatureRequest`. Withdraw removes

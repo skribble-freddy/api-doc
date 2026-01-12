@@ -2,7 +2,7 @@ get:
   tags:
     - SendTo
   summary: Track Send-To
-  description: |
+  description: |-
     To call the `track` endpoint, you must include the value of the
     `access_code` field—received when creating the `Send-To` object—in the
     request header `X-Accesscode`.

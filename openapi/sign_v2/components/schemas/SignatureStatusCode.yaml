@@ -1,6 +1,6 @@
 title: Signature Status Code
 type: string
-description: |
+description: |-
   The state of a signature.
 
   Possible values:

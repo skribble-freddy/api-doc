@@ -2,7 +2,7 @@ get:
   tags:
     - User
   summary: Get signature qualities details for a user
-  description: |
+  description: |-
     The result of this query will tell you what final signature `quality` will be
     used for the given user `username` to sign a document.  
 

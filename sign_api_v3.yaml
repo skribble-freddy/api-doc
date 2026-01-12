@@ -2110,7 +2110,6 @@ components:
             - type: 'null'
               title: No update
             - $ref: '#/components/schemas/AttachOnSuccess'
-              title: Attachment when signed
         read_access:
           oneOf:
             - type: 'null'
@@ -2247,7 +2246,6 @@ components:
             - type: 'null'
               title: No attachment when signed
             - $ref: '#/components/schemas/AttachOnSuccess'
-              title: Attachment when signed
         creator:
           oneOf:
             - type: 'null'
@@ -2646,7 +2644,6 @@ components:
             - type: 'null'
               title: No visual signature
             - $ref: '#/components/schemas/VisualSignature'
-              title: Visual signature
     CreateSealResponse:
       title: Create Seal Response
       type: object

@@ -68,7 +68,6 @@ properties:
       - type: "null"
         title: No update
       - $ref: ../../../sign_v2/components/schemas/AttachOnSuccess.yaml
-        title: Attachment when signed
   read_access:
     oneOf:
       - type: "null"

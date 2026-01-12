@@ -67,7 +67,6 @@ properties:
       - type: "null"
         title: No update
       - $ref: ./AttachOnSuccess.yaml
-        title: Attachment when signed
   read_access:
     oneOf:
       - type: "null"

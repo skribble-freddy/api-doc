@@ -349,6 +349,38 @@ paths:
           $ref: '#/components/responses/ServerError'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
+  /signature-requests/{SR_ID}/initiate:
+    post:
+      tags:
+        - Signature
+      summary: Invite signers and start signing process
+      description: |-
+        To start the signing process as usual, simply call the initiate endpoint.
+
+        This action sends out the invitation emails and changes the status_overall from `DRAFT` to `OPEN`.
+
+        As a result, the `SignatureRequest` will no longer appear in the Drafts section. Instead, users 
+        will find it in the appropriate section, such as Pending.
+      operationId: initiateSignatureRequest
+      security:
+        - bearer: []
+      parameters:
+        - $ref: '#/components/parameters/SignatureIDPath'
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
   /signature-requests/{SR_ID}:
     get:
       tags:
@@ -434,38 +466,6 @@ paths:
         `SignatureRequest` and the related `document` will be completely removed
         from the system.
       operationId: deleteSignatureRequest
-      security:
-        - bearer: []
-      parameters:
-        - $ref: '#/components/parameters/SignatureIDPath'
-      responses:
-        '200':
-          description: OK
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-        '500':
-          $ref: '#/components/responses/ServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
-  /signature-requests/{SR_ID}/initiate:
-    post:
-      tags:
-        - Signature
-      summary: Invite signers and start signing process
-      description: |-
-        To start the signing process as usual, simply call the initiate endpoint.
-
-        This action sends out the invitation emails and changes the status_overall from `DRAFT` to `OPEN`.
-
-        As a result, the `SignatureRequest` will no longer appear in the Drafts section. Instead, users 
-        will find it in the appropriate section, such as Pending.
-      operationId: initiateSignatureRequest
       security:
         - bearer: []
       parameters:

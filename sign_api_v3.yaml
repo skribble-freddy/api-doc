@@ -2164,6 +2164,7 @@ components:
           $ref: '#/components/schemas/SignatureQuality'
         documents:
           type: array
+          description: List of documents to be signed (Maximum 50).
           items:
             $ref: '#/components/schemas/DocumentInSignature'
         signatures:

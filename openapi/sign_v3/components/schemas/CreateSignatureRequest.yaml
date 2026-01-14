@@ -18,6 +18,7 @@ properties:
     $ref: ../../../sign_v2/components/schemas/SignatureQuality.yaml
   documents:
     type: array
+    description: List of documents to be signed (Maximum 50).
     items: 
       $ref: ./DocumentInSignature.yaml
   signatures:

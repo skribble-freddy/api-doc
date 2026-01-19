@@ -4,9 +4,9 @@ This repository hosts the Skribble APIs as OpenAPI specs,
 prepared for use with [Redocly](https://redocly.com/).
 
 ## APIs included
-- **Validation API** – v1 (`validation_v1`)
 - **Signing API** – v2 (`sign_v2`)
 - **Signing API** – v3 (`sign_v3`)
+- **Validation API** – v1 (`validation_v1`)
 
 ## How to use
 
@@ -35,8 +35,8 @@ npm run bundle
 ```bash
 npm run build 
 
-npm run build:validation_v1
-npm run preview:validation_v1
+npm run build:sign_v2
+npm run preview:sign_v2
 ```
 
 ## GitHub Pages (Temporary)

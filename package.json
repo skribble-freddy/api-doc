@@ -19,12 +19,11 @@
     "bundle:sign_v3": "redocly bundle sign@v3 --output=dist/sign_api_v3.yaml",
     "bundle:validation_v1": "redocly bundle validation@v1 --output=dist/validation_api_v1.yaml",
     "bundle": "npm run bundle:sign_v2 && npm run bundle:sign_v3 && npm run bundle:validation_v1"
-
   },
   "devDependencies": {
     "@redocly/cli": "2.14.5"
   },
   "dependencies": {
-    "@redocly/redoc": "0.129.1"
+    "@redocly/redoc": "0.129.2"
   }
 }

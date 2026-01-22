@@ -8,16 +8,19 @@ properties:
       signatureRequestID:
         type: string
       skribbleLogo:
-        type: string
-        description: Base64-encoded logo SVG
+        oneOf:
+          - type: string
+          - type: "null"
       title:
         type: string
       status:
         type: string
       signatureCount:
         type: integer
+        minimum: 0
       signatureCountSigned:
         type: integer
+        minimum: 0
       attachmentNames:
         type: string
   userList:
@@ -25,7 +28,11 @@ properties:
     description: List of users involved in the signature process
     items:
       type: object
+      required:
+        - id
       properties:
+        id:
+          type: string
         firstname:
           type: string
         lastname:
@@ -33,36 +40,53 @@ properties:
         groupName:
           type: string
         email:
-          type: string
+          oneOf:
+            - type: string
+            - type: "null"
         mobile:
           type: string
         businessName:
-          type: string
-        userId:
           type: string
         userActions:
           type: array
           items:
             type: object
+            required:
+              - name
+              - time
             properties:
               name:
                 type: string
               ip:
-                type: string
+                oneOf:
+                  - type: string
+                  - type: "null"
               time:
                 type: string
               quality:
-                type: string
+                oneOf:
+                  - type: string
+                  - type: "null"
               legislation:
-                type: string
+                oneOf:
+                  - type: string
+                  - type: "null"
               documentId:
-                type: string
+                oneOf:
+                  - type: string
+                  - type: "null"
               documentSha256:
-                type: string
+                oneOf:
+                  - type: string
+                  - type: "null"
               documentPageCount:
                 type: integer
+                minimum: 0
+                default: 0
               documentSize:
                 type: integer
+                minimum: 0
+                default: 0
               documents:
                 type: array
                 items:
@@ -72,36 +96,78 @@ properties:
                       type: string
                     documentSha256:
                       type: string
+                  required:
+                    - documentId
+                    - documentSha256
+                default: []
               message:
-                type: string
+                oneOf:
+                  - type: string
+                  - type: "null"
               signatureId:
-                type: string
+                oneOf:
+                  - type: string
+                  - type: "null"
               signersAdded:
-                type: string
+                type: array
+                items:
+                  type: string
+                default: []
               signersRemoved:
-                type: string
+                type: array
+                items:
+                  type: string
+                default: []
               observersAdded:
-                type: string
+                type: array
+                items:
+                  type: string
+                default: []
               observersRemoved:
-                type: string
+                type: array
+                items:
+                  type: string
+                default: []
               delegatees:
-                type: string
+                type: array
+                items:
+                  type: string
+                default: []
               delegatedSignatureId:
-                type: string
+                oneOf:
+                  - type: string
+                  - type: "null"
               newSignatureIds:
-                type: string
+                type: array
+                items:
+                  type: string
+                default: []
               certificateSubject:
-                type: string
+                oneOf:
+                  - type: string
+                  - type: "null"
               certificateSerial:
-                type: string
+                oneOf:
+                  - type: string
+                  - type: "null"
               certificateIssuer:
-                type: string
+                oneOf:
+                  - type: string
+                  - type: "null"
               signatureImage:
-                type: string
+                oneOf:
+                  - type: string
+                  - type: "null"
               signerGroupsAdded:
-                type: string
+                type: array
+                items:
+                  type: string
+                default: []
               signerGroupsRemoved:
-                type: string
+                type: array
+                items:
+                  type: string
+                default: []
               signerGroupName:
                 oneOf:
                   - type: string
@@ -111,5 +177,6 @@ properties:
                   - type: string
                   - type: "null"
   error:
-    type: string
-    description: Error message if the report generation failed
+    oneOf:
+      - type: string
+      - type: "null"

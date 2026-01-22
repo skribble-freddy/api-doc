@@ -9,7 +9,8 @@ value:
     signatureCountSigned: 0
     attachmentNames: ""
   userList:
-    - firstname: Skribble AG
+    - id: api_production_skribbleag_42b4_8
+      firstname: Skribble AG
       lastname: ""
       groupName: ""
       email: ""
@@ -17,7 +18,7 @@ value:
       businessName: Skribble AG
       userActions:
         - name: CREATED
-          ip: 104.28.233.251
+          ip: "104.28.233.251"
           time: "2025-04-08 09:31:31 GMT"
           quality: ""
           legislation: ""
@@ -30,23 +31,23 @@ value:
               documentSha256: c49fac90f9120515528982a0150acb930b4c33921512c260fc6506ce8602ce10
           message: ""
           signatureId: ""
-          signersAdded: ""
-          signersRemoved: ""
-          observersAdded: ""
-          observersRemoved: ""
-          delegatees: ""
-          delegatedSignatureId: ""
-          newSignatureIds: ""
-          certificateSubject: ""
-          certificateSerial: ""
-          certificateIssuer: ""
-          signatureImage: ""
-          signerGroupsAdded: ""
-          signerGroupsRemoved: ""
+          signersAdded: []
+          signersRemoved: []
+          observersAdded: []
+          observersRemoved: []
+          delegatees: []
+          delegatedSignatureId: null
+          newSignatureIds: []
+          certificateSubject: null
+          certificateSerial: null
+          certificateIssuer: null
+          signatureImage: null
+          signerGroupsAdded: []
+          signerGroupsRemoved: []
           signerGroupName: null
           mabEvidenceId: null
         - name: REPORT_CREATED
-          ip: 104.28.233.251
+          ip: "104.28.233.251"
           time: "2026-01-22 07:46:39 GMT"
           quality: ""
           legislation: ""
@@ -57,101 +58,19 @@ value:
           documents: []
           message: ""
           signatureId: ""
-          signersAdded: ""
-          signersRemoved: ""
-          observersAdded: ""
-          observersRemoved: ""
-          delegatees: ""
-          delegatedSignatureId: ""
-          newSignatureIds: ""
-          certificateSubject: ""
-          certificateSerial: ""
-          certificateIssuer: ""
-          signatureImage: ""
-          signerGroupsAdded: ""
-          signerGroupsRemoved: ""
+          signersAdded: []
+          signersRemoved: []
+          observersAdded: []
+          observersRemoved: []
+          delegatees: []
+          delegatedSignatureId: null
+          newSignatureIds: []
+          certificateSubject: null
+          certificateSerial: null
+          certificateIssuer: null
+          signatureImage: null
+          signerGroupsAdded: []
+          signerGroupsRemoved: []
           signerGroupName: null
           mabEvidenceId: null
-        - name: REPORT_CREATED
-          ip: 104.28.233.251
-          time: "2026-01-22 07:46:56 GMT"
-          quality: ""
-          legislation: ""
-          documentId: ""
-          documentSha256: ""
-          documentPageCount: 0
-          documentSize: 0
-          documents: []
-          message: ""
-          signatureId: ""
-          signersAdded: ""
-          signersRemoved: ""
-          observersAdded: ""
-          observersRemoved: ""
-          delegatees: ""
-          delegatedSignatureId: ""
-          newSignatureIds: ""
-          certificateSubject: ""
-          certificateSerial: ""
-          certificateIssuer: ""
-          signatureImage: ""
-          signerGroupsAdded: ""
-          signerGroupsRemoved: ""
-          signerGroupName: null
-          mabEvidenceId: null
-        - name: REPORT_CREATED
-          ip: 104.28.233.251
-          time: "2026-01-22 07:47:11 GMT"
-          quality: ""
-          legislation: ""
-          documentId: ""
-          documentSha256: ""
-          documentPageCount: 0
-          documentSize: 0
-          documents: []
-          message: ""
-          signatureId: ""
-          signersAdded: ""
-          signersRemoved: ""
-          observersAdded: ""
-          observersRemoved: ""
-          delegatees: ""
-          delegatedSignatureId: ""
-          newSignatureIds: ""
-          certificateSubject: ""
-          certificateSerial: ""
-          certificateIssuer: ""
-          signatureImage: ""
-          signerGroupsAdded: ""
-          signerGroupsRemoved: ""
-          signerGroupName: null
-          mabEvidenceId: null
-        - name: REPORT_CREATED
-          ip: 54.86.50.139
-          time: "2026-01-22 07:47:35 GMT"
-          quality: ""
-          legislation: ""
-          documentId: ""
-          documentSha256: ""
-          documentPageCount: 0
-          documentSize: 0
-          documents: []
-          message: ""
-          signatureId: ""
-          signersAdded: ""
-          signersRemoved: ""
-          observersAdded: ""
-          observersRemoved: ""
-          delegatees: ""
-          delegatedSignatureId: ""
-          newSignatureIds: ""
-          certificateSubject: ""
-          certificateSerial: ""
-          certificateIssuer: ""
-          signatureImage: ""
-          signerGroupsAdded: ""
-          signerGroupsRemoved: ""
-          signerGroupName: null
-          mabEvidenceId: null
-      userId: api_production_skribbleag_42b4_8
-  error: ""
+  error: null

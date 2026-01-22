@@ -1,0 +1,115 @@
+title: Signature Report
+type: object
+properties:
+  header:
+    type: object
+    description: Metadata and status information about the signature request
+    properties:
+      signatureRequestID:
+        type: string
+      skribbleLogo:
+        type: string
+        description: Base64-encoded logo SVG
+      title:
+        type: string
+      status:
+        type: string
+      signatureCount:
+        type: integer
+      signatureCountSigned:
+        type: integer
+      attachmentNames:
+        type: string
+  userList:
+    type: array
+    description: List of users involved in the signature process
+    items:
+      type: object
+      properties:
+        firstname:
+          type: string
+        lastname:
+          type: string
+        groupName:
+          type: string
+        email:
+          type: string
+        mobile:
+          type: string
+        businessName:
+          type: string
+        userId:
+          type: string
+        userActions:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              ip:
+                type: string
+              time:
+                type: string
+              quality:
+                type: string
+              legislation:
+                type: string
+              documentId:
+                type: string
+              documentSha256:
+                type: string
+              documentPageCount:
+                type: integer
+              documentSize:
+                type: integer
+              documents:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    documentId:
+                      type: string
+                    documentSha256:
+                      type: string
+              message:
+                type: string
+              signatureId:
+                type: string
+              signersAdded:
+                type: string
+              signersRemoved:
+                type: string
+              observersAdded:
+                type: string
+              observersRemoved:
+                type: string
+              delegatees:
+                type: string
+              delegatedSignatureId:
+                type: string
+              newSignatureIds:
+                type: string
+              certificateSubject:
+                type: string
+              certificateSerial:
+                type: string
+              certificateIssuer:
+                type: string
+              signatureImage:
+                type: string
+              signerGroupsAdded:
+                type: string
+              signerGroupsRemoved:
+                type: string
+              signerGroupName:
+                oneOf:
+                  - type: string
+                  - type: "null"
+              mabEvidenceId:
+                oneOf:
+                  - type: string
+                  - type: "null"
+  error:
+    type: string
+    description: Error message if the report generation failed

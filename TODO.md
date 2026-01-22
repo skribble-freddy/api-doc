@@ -32,6 +32,9 @@ Reconsider offering this with specific update actions like
 - Model unique URLs (Read, Write)
 
 
+# Ideas
+
+Integrate LLM Button
 
 # Tools
 

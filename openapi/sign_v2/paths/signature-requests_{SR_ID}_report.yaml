@@ -3,8 +3,11 @@ get:
     - Signature
   summary: Get Signature Request Report
   description: |-
-    Provides the signature report for a specific signature request in a
-    human-readable, digitally signed PDF format.
+    Provides the signature report for a specific signature request.
+
+    By default, the report is returned as a human-readable, digitally signed
+    PDF document. Optionally, the report format can be changed using the
+    `type` query parameter (e.g. JSON or HTML).
 
     The report contains all relevant information about the signature process,
     including signatories, timestamps, and verification details. It serves as
@@ -15,6 +18,7 @@ get:
     - bearer: []
   parameters:
     - $ref: ../components/parameters/SignatureIDPath.yaml
+    - $ref: ../components/parameters/ReportType.yaml
   responses:
     200:
       description: OK
@@ -23,6 +27,15 @@ get:
           schema:
             type: string
             format: binary
+        application/json:
+          schema:
+            $ref: ../components/schemas/SignatureReport.yaml
+          examples:
+            default:
+              $ref: ../components/examples/SignatureReportResponse.yaml
+        text/html:
+          schema:
+            type: string
     400:
       $ref: ../components/responses/BadRequest.yaml
     401:

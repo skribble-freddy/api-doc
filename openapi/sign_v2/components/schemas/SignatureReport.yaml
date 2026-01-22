@@ -1,0 +1,182 @@
+title: Signature Report
+type: object
+properties:
+  header:
+    type: object
+    description: Metadata and status information about the signature request
+    properties:
+      signatureRequestID:
+        type: string
+      skribbleLogo:
+        oneOf:
+          - type: string
+          - type: "null"
+      title:
+        type: string
+      status:
+        type: string
+      signatureCount:
+        type: integer
+        minimum: 0
+      signatureCountSigned:
+        type: integer
+        minimum: 0
+      attachmentNames:
+        type: string
+  userList:
+    type: array
+    description: List of users involved in the signature process
+    items:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        groupName:
+          type: string
+        email:
+          oneOf:
+            - type: string
+            - type: "null"
+        mobile:
+          type: string
+        businessName:
+          type: string
+        userActions:
+          type: array
+          items:
+            type: object
+            required:
+              - name
+              - time
+            properties:
+              name:
+                type: string
+              ip:
+                oneOf:
+                  - type: string
+                  - type: "null"
+              time:
+                type: string
+              quality:
+                oneOf:
+                  - type: string
+                  - type: "null"
+              legislation:
+                oneOf:
+                  - type: string
+                  - type: "null"
+              documentId:
+                oneOf:
+                  - type: string
+                  - type: "null"
+              documentSha256:
+                oneOf:
+                  - type: string
+                  - type: "null"
+              documentPageCount:
+                type: integer
+                minimum: 0
+                default: 0
+              documentSize:
+                type: integer
+                minimum: 0
+                default: 0
+              documents:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    documentId:
+                      type: string
+                    documentSha256:
+                      type: string
+                  required:
+                    - documentId
+                    - documentSha256
+                default: []
+              message:
+                oneOf:
+                  - type: string
+                  - type: "null"
+              signatureId:
+                oneOf:
+                  - type: string
+                  - type: "null"
+              signersAdded:
+                type: array
+                items:
+                  type: string
+                default: []
+              signersRemoved:
+                type: array
+                items:
+                  type: string
+                default: []
+              observersAdded:
+                type: array
+                items:
+                  type: string
+                default: []
+              observersRemoved:
+                type: array
+                items:
+                  type: string
+                default: []
+              delegatees:
+                type: array
+                items:
+                  type: string
+                default: []
+              delegatedSignatureId:
+                oneOf:
+                  - type: string
+                  - type: "null"
+              newSignatureIds:
+                type: array
+                items:
+                  type: string
+                default: []
+              certificateSubject:
+                oneOf:
+                  - type: string
+                  - type: "null"
+              certificateSerial:
+                oneOf:
+                  - type: string
+                  - type: "null"
+              certificateIssuer:
+                oneOf:
+                  - type: string
+                  - type: "null"
+              signatureImage:
+                oneOf:
+                  - type: string
+                  - type: "null"
+              signerGroupsAdded:
+                type: array
+                items:
+                  type: string
+                default: []
+              signerGroupsRemoved:
+                type: array
+                items:
+                  type: string
+                default: []
+              signerGroupName:
+                oneOf:
+                  - type: string
+                  - type: "null"
+              mabEvidenceId:
+                oneOf:
+                  - type: string
+                  - type: "null"
+  error:
+    oneOf:
+      - type: string
+      - type: "null"

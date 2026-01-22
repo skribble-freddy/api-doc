@@ -1,0 +1,11 @@
+name: type
+in: query
+description: Format of the Report.
+required: false
+schema:
+  type: string
+  enum:
+    - PDF
+    - JSON
+    - HTML
+  default: PDF

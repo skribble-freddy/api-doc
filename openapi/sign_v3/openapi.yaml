@@ -38,7 +38,7 @@ paths:
   /signature-requests/{SR_ID}/initiate:
     $ref: ./paths/signature-requests_{SR_ID}_initiate.yaml
   /signature-requests/{SR_ID}:
-    $ref: ../sign_v2/paths/signature-requests_{SR_ID}.yaml
+    $ref: ./paths/signature-requests_{SR_ID}.yaml
   /signature-requests/{SR_ID}/withdraw:
     $ref: ../sign_v2/paths/signature-requests_{SR_ID}_withdraw.yaml
   /signature-requests/{SR_ID}/remind:

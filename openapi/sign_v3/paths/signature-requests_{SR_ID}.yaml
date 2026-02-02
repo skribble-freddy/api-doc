@@ -1,0 +1,104 @@
+get:
+  tags:
+    - Signature
+    - Signature Tracking
+  summary: Get a Signature Request
+  description: |-
+    By using the signature request ID you can fetch a `SignatureRequest`. 
+  operationId: getSignatureRequestDetails
+  security:
+    - bearer: []
+  parameters:
+    - $ref: ../../sign_v2/components/parameters/SignatureIDPath.yaml
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/SignatureResponse_v3.yaml
+          examples:
+            SampleSimple:
+              $ref: ../components/examples/SignatureResponses.yaml#/SampleSimple
+            SampleObservers:
+              $ref: ../components/examples/SignatureResponses.yaml#/SampleObservers
+    400:
+      $ref: ../../sign_v2/components/responses/BadRequest.yaml
+    401:
+      $ref: ../../sign_v2/components/responses/Unauthorized.yaml
+    404:
+      $ref: ../../sign_v2/components/responses/NotFound.yaml
+    429:
+      $ref: ../../sign_v2/components/responses/TooManyRequests.yaml
+    500:
+      $ref: ../../sign_v2/components/responses/ServerError.yaml
+    503:
+      $ref: ../../sign_v2/components/responses/ServiceUnavailable.yaml
+delete:
+  tags:
+    - Signature
+  summary: Delete a Signature Request
+  description: |-
+    By using the signature request ID you can delete a `SignatureRequest`.  
+     
+    **Important:** A `SignatureRequest` can only be deleted using the API, if:
+
+    1. the `SignatureRequest` is in the `status_overall=OPEN` and
+
+    2. the API user has sufficient rights on the `SignatureRequest`, eg. when it
+    was created by the API user. 
+      
+    Deleting a `SignatureRequest` does not necessarily remove the
+    `SignatureRequest` from the system. 
+     
+    **WITHDRAWN**  
+
+    When the API user is the **owner** of the `SignatureRequest` and the
+    `SignatureRequest` is still in the `status_overall=OPEN` then the
+    `SignatureRequest` will be **WITHDRAWN**.  
+
+    This means that the `SignatureRequest` will get `status_overall=WITHDRAWN`
+    and all the invited signatures will be marked with `status_code=WITHDRAWN`.
+    Sign and read rights for the signers will be removed from the
+    `SignatureRequest`, so that the invited signers can neither read nor sign
+    the `SignatureRequest` any more. 
+
+
+    **REMOVE AS PARTICIPANT**  
+
+    When the API user is NOT the owner of the document but a participant of the
+    `SignatureRequest`, then the `DELETE` request will only remove the current
+    API user as participant from the signature request. 
+
+    In this case the system will remove the objects the `SignatureRequest` and
+    the related `document` as soon as the last remaining user deletes the
+    `SignatureRequest` using the [Skribble web
+    application](https://my.skribble.com) 
+
+
+    **DELETING**  
+
+    When the API user is the last user with access rights to the
+    `SignatureRequest` e.g. after a **WITHDRAW** request, then the
+    `SignatureRequest` and the related `document` will be completely removed
+    from the system.
+  operationId: deleteSignatureRequest
+  security:
+    - bearer: []
+  parameters:
+    - $ref: ../../sign_v2/components/parameters/SignatureIDPath.yaml
+  responses:
+    200:
+      description: OK
+    400:
+      $ref: ../../sign_v2/components/responses/BadRequest.yaml
+    401:
+      $ref: ../../sign_v2/components/responses/Unauthorized.yaml
+    403:
+      $ref: ../../sign_v2/components/responses/Forbidden.yaml
+    429:
+      $ref: ../../sign_v2/components/responses/TooManyRequests.yaml
+    500:
+      $ref: ../../sign_v2/components/responses/ServerError.yaml
+    503:
+      $ref: ../../sign_v2/components/responses/ServiceUnavailable.yaml

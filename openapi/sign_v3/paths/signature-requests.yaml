@@ -118,7 +118,7 @@ get:
               $ref: ../components/schemas/SignatureResponse_v3.yaml
           examples:
             default:
-              $ref: ../components/examples/CreateSignatureResponse.yaml#/SampleArray
+              $ref: ../components/examples/SignatureResponses.yaml#/SampleArray
     400:
       $ref: ../../sign_v2/components/responses/BadRequest.yaml
     401:

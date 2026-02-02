@@ -37,8 +37,7 @@ properties:
   observers:
     type: array
     items:
-      type: string
-      format: email
+      $ref: ./SignatureObserverResponse.yaml
     example: []
   expiration_date:
     type: string

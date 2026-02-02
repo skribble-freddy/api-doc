@@ -1,0 +1,41 @@
+SampleUserObserver:
+  summary: Sample single USER observer
+  value:
+    id: ob_123
+    type: USER
+    invited_at: 2026-02-02T12:34:56Z
+    invited_by: admin@example.com
+    user_info:
+      id: "123"
+      email: ana@skribble.com
+
+SampleGroupObserver:
+  summary: Sample single GROUP observer
+  value:
+    id: ob_124
+    type: GROUP
+    invited_at: 2026-02-02T12:40:00Z
+    invited_by: admin@example.com
+    group_info:
+      id: gr_456
+      name: Group 1
+      version_id: gv_12
+
+SampleObserverArray:
+  summary: Sample array of observers
+  value:
+    - id: ob_123
+      type: USER
+      invited_at: 2026-02-02T12:34:56Z
+      invited_by: admin@example.com
+      user_info:
+        id: "123"
+        email: ana@skribble.com
+    - id: ob_124
+      type: GROUP
+      invited_at: 2026-02-02T12:40:00Z
+      invited_by: admin@example.com
+      group_info:
+        id: gr_456
+        name: Group 1
+        version_id: gv_12

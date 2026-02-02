@@ -1,0 +1,7 @@
+name: OBSERVER_ID
+in: path
+description: Unique ID returned when the Signature Observer is created.
+required: true
+schema:
+  type: string
+example: ob_123

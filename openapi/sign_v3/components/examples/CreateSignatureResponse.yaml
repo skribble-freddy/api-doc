@@ -86,7 +86,12 @@ Sample2:
         invited_by: api_demo_example
     origin: API
     observers:
-      - legal@examplecorp.com
+      - id: ob_789
+        type: USER
+        user_info:
+          email: legal@examplecorp.com
+        invited_at: "2025-10-15T08:15:22.115Z"
+        invited_by: api_demo_example
     owner: api_demo_example
     read_access:
       - alice@example.com
@@ -180,7 +185,12 @@ SampleArray:
           invited_by: api_demo_example
       origin: API
       observers:
-        - legal@examplecorp.com
+        - id: ob_789
+          type: USER
+          user_info:
+            email: legal@examplecorp.com
+          invited_at: "2025-10-15T08:15:22.115Z"
+          invited_by: api_demo_example
       owner: api_demo_example
       read_access:
         - alice@example.com

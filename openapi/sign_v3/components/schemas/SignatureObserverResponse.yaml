@@ -1,44 +1,35 @@
-title: Create Signature Observer Response
-type: object
 description: |-
   Response object representing an observer that has been added to a signature request.
 
   Depending on the type, either user_info or group_info is present.
-required:
-  - id
-  - type
-  - invited_at
-  - invited_by
-properties:
-  id:
-    type: string
-    description: Unique observer identifier.
-    example: ob_123
-  type:
-    type: string
-    description: Observer type.
-    enum:
-      - USER
-      - GROUP
-    example: USER
-  invited_at:
-    type: string
-    format: date-time
-    description: Timestamp when the observer was invited.
-    example: "2026-02-02T12:34:56Z"
-  invited_by:
-    type: string
-    description: Identifier of the user or API key that invited the observer.
-    example: api_demo_example
 oneOf:
   - title: User Observer Response
     type: object
     required:
+      - id
       - type
+      - invited_at
+      - invited_by
       - user_info
     properties:
+      id:
+        type: string
+        description: Unique observer identifier.
+        example: ob_123
       type:
+        type: string
+        description: Observer type.
         const: USER
+        example: USER
+      invited_at:
+        type: string
+        format: date-time
+        description: Timestamp when the observer was invited.
+        example: "2026-02-02T12:34:56Z"
+      invited_by:
+        type: string
+        description: Identifier of the user or API key that invited the observer.
+        example: api_demo_example
       user_info:
         type: object
         description: Information about the user observer.
@@ -55,11 +46,30 @@ oneOf:
   - title: Group Observer Response
     type: object
     required:
+      - id
       - type
+      - invited_at
+      - invited_by
       - group_info
     properties:
+      id:
+        type: string
+        description: Unique observer identifier.
+        example: ob_456
       type:
+        type: string
+        description: Observer type.
         const: GROUP
+        example: GROUP
+      invited_at:
+        type: string
+        format: date-time
+        description: Timestamp when the observer was invited.
+        example: "2026-02-02T12:34:56Z"
+      invited_by:
+        type: string
+        description: Identifier of the user or API key that invited the observer.
+        example: api_demo_example
       group_info:
         type: object
         description: Information about the group observer.
@@ -80,3 +90,8 @@ oneOf:
             type: string
             description: Group version identifier.
             example: gv_12
+discriminator:
+  propertyName: type
+  mapping:
+    USER: "#/oneOf/0"
+    GROUP: "#/oneOf/1"

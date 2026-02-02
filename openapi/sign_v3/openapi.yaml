@@ -38,7 +38,7 @@ paths:
   /signature-requests/{SR_ID}/initiate:
     $ref: ./paths/signature-requests_{SR_ID}_initiate.yaml
   /signature-requests/{SR_ID}:
-    $ref: ../sign_v2/paths/signature-requests_{SR_ID}.yaml
+    $ref: ./paths/signature-requests_{SR_ID}.yaml
   /signature-requests/{SR_ID}/withdraw:
     $ref: ../sign_v2/paths/signature-requests_{SR_ID}_withdraw.yaml
   /signature-requests/{SR_ID}/remind:
@@ -61,6 +61,10 @@ paths:
     $ref: ./paths/signature-requests_{SR_ID}_documents.yaml
   /signature-requests/{SR_ID}/documents/{DOC_ID}:
     $ref: ./paths/signature-requests_{SR_ID}_documents_{DOC_ID}.yaml
+  /signature-requests/{SR_ID}/observers:
+    $ref: ./paths/signature-requests_{SR_ID}_observers.yaml
+  /signature-requests/{SR_ID}/observers/{OBSERVER_ID}:
+    $ref: ./paths/signature-requests_{SR_ID}_observers_{OBSERVER_ID}.yaml
   /seal:
     $ref: ../sign_v2/paths/seal.yaml
   /documents:
@@ -101,6 +105,12 @@ tags:
   - name: Signature
     description: |-
       Endpoints related to creating and managing signature requests
+  - name: Signature Signer
+    description: |-
+      Endpoints for Signers
+  - name: Signature Observer
+    description: |-
+      Endpoints for Observers
   - name: Signature Attachment
     description: |-
       Endpoints for Attachments

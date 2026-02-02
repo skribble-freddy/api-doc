@@ -1,6 +1,6 @@
 post:
   tags:
-    - Signature
+    - Signature Signer
   summary: Add an individual signer
   description: |-
     To add an individual signer, use the same parameters as when creating a

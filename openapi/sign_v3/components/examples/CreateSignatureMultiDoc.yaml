@@ -5,7 +5,7 @@ OneSignerOneDoc:
     message: Please sign this document!
     quality: DEMO
     documents:
-      - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+      - id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
     signatures:
       - account_email: you@example.info
 
@@ -16,15 +16,15 @@ OneSignerMultiDoc:
     message: Please sign this documents!
     quality: DEMO
     documents:
-      - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
-      - document_id: 14f65d46-6653-c33c-81a8-260bd5aba3c5
+      - id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+      - id: 14f65d46-6653-c33c-81a8-260bd5aba3c5
     signatures:
       - account_email: you@example.info
         document_signatures:
           - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
-            visual_signatures:
-              - positions:
-                  x: 120.0
+            visual_signature:
+              positions:
+                - x: 120.0
                   y: 780.0
                   width: 150.0
                   height: 70.0
@@ -38,8 +38,8 @@ MultiSignerMultiDoc:
     message: Please sign this documents!
     quality: DEMO
     documents:
-      - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
-      - document_id: 14f65d46-6653-c33c-81a8-260bd5aba3c5
+      - id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+      - id: 14f65d46-6653-c33c-81a8-260bd5aba3c5
     signatures:
       - account_email: you@example.info
         sequence: 1
@@ -62,7 +62,7 @@ NASfirst:
     message: Please sign this document!
     quality: SES
     documents:
-      - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+      - id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
     signatures:
       - account_email: signer@skribble.com
         signer_identity_data:
@@ -75,7 +75,7 @@ SignerGroup:
     message: Please sign this document!
     quality: SES
     documents:
-      - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+      - id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
     signatures:
       - account_email: signer@skribble.com
         sequence: 1
@@ -88,7 +88,7 @@ Callbacks:
     title: Example contract
     message: Please sign this document!
     documents:
-      - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+      - id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
     signatures:
       - account_email: you@example.info
     callback_success_url: >-

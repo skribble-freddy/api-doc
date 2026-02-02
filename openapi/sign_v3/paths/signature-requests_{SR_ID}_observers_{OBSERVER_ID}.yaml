@@ -1,0 +1,64 @@
+get:
+  tags:
+    - Signature Observer
+  summary: Get an observer of a signature request
+  description: |-
+    Returns the observer with the `OBSERVER_ID` from the `SignatureRequest`
+    with the ID `SR_ID`.
+  operationId: getSignatureObserver
+  security:
+    - bearer: []
+  parameters:
+    - $ref: ../../sign_v2/components/parameters/SignatureIDPath.yaml
+    - $ref: ../components/parameters/ObserverIDPath.yaml
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/SignatureObserverResponse.yaml
+          examples:
+            User:
+              $ref: ../components/examples/ObserverResponses.yaml#/SampleUserObserver
+            Group:
+              $ref: ../components/examples/ObserverResponses.yaml#/SampleGroupObserver
+    401:
+      $ref: ../../sign_v2/components/responses/Unauthorized.yaml
+    404:
+      $ref: ../../sign_v2/components/responses/NotFound.yaml
+    429:
+      $ref: ../../sign_v2/components/responses/TooManyRequests.yaml
+    500:
+      $ref: ../../sign_v2/components/responses/ServerError.yaml
+    503:
+      $ref: ../../sign_v2/components/responses/ServiceUnavailable.yaml
+
+delete:
+  tags:
+    - Signature Observer
+  summary: Remove an observer from a signature request
+  description: |-
+    Delete the observer with the `OBSERVER_ID` from the `SignatureRequest`
+    with the ID `SR_ID`
+  operationId: deleteSignatureObserver
+  security:
+    - bearer: []
+  parameters:
+    - $ref: ../../sign_v2/components/parameters/SignatureIDPath.yaml
+    - $ref: ../components/parameters/ObserverIDPath.yaml
+  responses:
+    200:
+      description: OK
+    400:
+      $ref: ../../sign_v2/components/responses/BadRequest.yaml
+    401:
+      $ref: ../../sign_v2/components/responses/Unauthorized.yaml
+    404:
+      $ref: ../../sign_v2/components/responses/NotFound.yaml
+    429:
+      $ref: ../../sign_v2/components/responses/TooManyRequests.yaml
+    500:
+      $ref: ../../sign_v2/components/responses/ServerError.yaml
+    503:
+      $ref: ../../sign_v2/components/responses/ServiceUnavailable.yaml

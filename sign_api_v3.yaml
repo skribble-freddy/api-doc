@@ -2420,19 +2420,6 @@ components:
               description: List of recipients required to sign the document.
               items:
                 $ref: '#/components/schemas/SignatureRecipient'
-        cc_email_addresses:
-          oneOf:
-            - type: 'null'
-              title: No update
-            - type: array
-              title: Update in Observers
-              description: Observer email addresses of users who are granted read access and to whom notifications are sent.
-              items:
-                type: string
-                format: email
-              example:
-                - backoffice@company.com
-                - info@company.com
         callback_success_url:
           type: string
           description: Callback-URL which is called on overall success.

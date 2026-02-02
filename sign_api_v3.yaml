@@ -38,6 +38,10 @@ tags:
     description: Endpoints for Documents
   - name: Signature
     description: Endpoints related to creating and managing signature requests
+  - name: Signature Signer
+    description: Endpoints for Signers
+  - name: Signature Observer
+    description: Endpoints for Observers
   - name: Signature Attachment
     description: Endpoints for Attachments
   - name: Signature Tracking
@@ -399,12 +403,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SignatureResponse'
+                $ref: '#/components/schemas/SignatureResponse_v3'
               examples:
-                Sample1:
-                  $ref: '#/components/examples/CreateSignatureResponse_Sample1'
-                Sample2:
-                  $ref: '#/components/examples/CreateSignatureResponse_Sample2'
+                SampleSimple:
+                  $ref: '#/components/examples/SampleSimple'
+                SampleObservers:
+                  $ref: '#/components/examples/SampleObservers'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -839,7 +843,7 @@ paths:
   /signature-requests/{SR_ID}/signatures:
     post:
       tags:
-        - Signature
+        - Signature Signer
       summary: Add an individual signer
       description: |-
         To add an individual signer, use the same parameters as when creating a
@@ -894,7 +898,7 @@ paths:
   /signature-requests/{SR_ID}/signatures/{SID}:
     delete:
       tags:
-        - Signature
+        - Signature Signer
       summary: Remove an individual signer
       description: |-
         To remove an individual signer, provide the SignatureRequest ID `{{SR_ID}}`
@@ -967,6 +971,150 @@ paths:
       parameters:
         - $ref: '#/components/parameters/SignatureIDPath'
         - $ref: '#/components/parameters/DocumentIDPath'
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /signature-requests/{SR_ID}/observers:
+    post:
+      tags:
+        - Signature Observer
+      summary: Add an observer to a signature request
+      description: |-
+        Use this endpoint to add an observer to a signature request.
+
+        Observers are informed about the signature progress by e-mail.
+        They can view documents but not sign them.
+      operationId: addSignatureObserver
+      security:
+        - bearer: []
+      parameters:
+        - $ref: '#/components/parameters/SignatureIDPath'
+      requestBody:
+        description: Request body to create a SignatureObserver object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSignatureObserverRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignatureObserverResponse'
+              examples:
+                User:
+                  $ref: '#/components/examples/SampleUserObserver'
+                Group:
+                  $ref: '#/components/examples/SampleGroupObserver'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+    get:
+      tags:
+        - Signature Observer
+      summary: List observers of a signature request
+      description: |-
+        Returns all observers that have been added to the signature request
+        with the ID `SR_ID`.
+      operationId: listSignatureObservers
+      security:
+        - bearer: []
+      parameters:
+        - $ref: '#/components/parameters/SignatureIDPath'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SignatureObserverResponse'
+              examples:
+                Observers:
+                  $ref: '#/components/examples/SampleObserverArray'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /signature-requests/{SR_ID}/observers/{OBSERVER_ID}:
+    get:
+      tags:
+        - Signature Observer
+      summary: Get an observer of a signature request
+      description: |-
+        Returns the observer with the `OBSERVER_ID` from the `SignatureRequest`
+        with the ID `SR_ID`.
+      operationId: getSignatureObserver
+      security:
+        - bearer: []
+      parameters:
+        - $ref: '#/components/parameters/SignatureIDPath'
+        - $ref: '#/components/parameters/ObserverIDPath'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignatureObserverResponse'
+              examples:
+                User:
+                  $ref: '#/components/examples/SampleUserObserver'
+                Group:
+                  $ref: '#/components/examples/SampleGroupObserver'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+    delete:
+      tags:
+        - Signature Observer
+      summary: Remove an observer from a signature request
+      description: |-
+        Delete the observer with the `OBSERVER_ID` from the `SignatureRequest`
+        with the ID `SR_ID`
+      operationId: deleteSignatureObserver
+      security:
+        - bearer: []
+      parameters:
+        - $ref: '#/components/parameters/SignatureIDPath'
+        - $ref: '#/components/parameters/ObserverIDPath'
       responses:
         '200':
           description: OK
@@ -1591,6 +1739,95 @@ components:
       type: http
       scheme: bearer
   schemas:
+    '0':
+      title: User Observer Response
+      type: object
+      required:
+        - id
+        - type
+        - invited_at
+        - invited_by
+        - user_info
+      properties:
+        id:
+          type: string
+          description: Unique observer identifier.
+          example: ob_123
+        type:
+          type: string
+          description: Observer type.
+          const: USER
+          example: USER
+        invited_at:
+          type: string
+          format: date-time
+          description: Timestamp when the observer was invited.
+          example: '2026-02-02T12:34:56Z'
+        invited_by:
+          type: string
+          description: Identifier of the user or API key that invited the observer.
+          example: api_demo_example
+        user_info:
+          type: object
+          description: Information about the user observer.
+          properties:
+            id:
+              type: string
+              description: User ID.
+              example: '123'
+            email:
+              type: string
+              format: email
+              description: User email address.
+              example: you@example.info
+    '1':
+      title: Group Observer Response
+      type: object
+      required:
+        - id
+        - type
+        - invited_at
+        - invited_by
+        - group_info
+      properties:
+        id:
+          type: string
+          description: Unique observer identifier.
+          example: ob_456
+        type:
+          type: string
+          description: Observer type.
+          const: GROUP
+          example: GROUP
+        invited_at:
+          type: string
+          format: date-time
+          description: Timestamp when the observer was invited.
+          example: '2026-02-02T12:34:56Z'
+        invited_by:
+          type: string
+          description: Identifier of the user or API key that invited the observer.
+          example: api_demo_example
+        group_info:
+          type: object
+          description: Information about the group observer.
+          required:
+            - id
+            - name
+            - version_id
+          properties:
+            id:
+              type: string
+              description: Group ID.
+              example: gr_456
+            name:
+              type: string
+              description: Group name.
+              example: Group 1
+            version_id:
+              type: string
+              description: Group version identifier.
+              example: gv_12
     LoginRequest:
       type: object
       required:
@@ -1866,6 +2103,104 @@ components:
         invited_by:
           type: string
           example: api_demo_example
+    SignatureObserverResponse:
+      description: |-
+        Response object representing an observer that has been added to a signature request.
+
+        Depending on the type, either user_info or group_info is present.
+      oneOf:
+        - title: User Observer Response
+          type: object
+          required:
+            - id
+            - type
+            - invited_at
+            - invited_by
+            - user_info
+          properties:
+            id:
+              type: string
+              description: Unique observer identifier.
+              example: ob_123
+            type:
+              type: string
+              description: Observer type.
+              const: USER
+              example: USER
+            invited_at:
+              type: string
+              format: date-time
+              description: Timestamp when the observer was invited.
+              example: '2026-02-02T12:34:56Z'
+            invited_by:
+              type: string
+              description: Identifier of the user or API key that invited the observer.
+              example: api_demo_example
+            user_info:
+              type: object
+              description: Information about the user observer.
+              properties:
+                id:
+                  type: string
+                  description: User ID.
+                  example: '123'
+                email:
+                  type: string
+                  format: email
+                  description: User email address.
+                  example: you@example.info
+        - title: Group Observer Response
+          type: object
+          required:
+            - id
+            - type
+            - invited_at
+            - invited_by
+            - group_info
+          properties:
+            id:
+              type: string
+              description: Unique observer identifier.
+              example: ob_456
+            type:
+              type: string
+              description: Observer type.
+              const: GROUP
+              example: GROUP
+            invited_at:
+              type: string
+              format: date-time
+              description: Timestamp when the observer was invited.
+              example: '2026-02-02T12:34:56Z'
+            invited_by:
+              type: string
+              description: Identifier of the user or API key that invited the observer.
+              example: api_demo_example
+            group_info:
+              type: object
+              description: Information about the group observer.
+              required:
+                - id
+                - name
+                - version_id
+              properties:
+                id:
+                  type: string
+                  description: Group ID.
+                  example: gr_456
+                name:
+                  type: string
+                  description: Group name.
+                  example: Group 1
+                version_id:
+                  type: string
+                  description: Group version identifier.
+                  example: gv_12
+      discriminator:
+        propertyName: type
+        mapping:
+          USER: '#/components/schemas/0'
+          GROUP: '#/components/schemas/1'
     SignatureAttachment:
       title: Signature Attachment
       type: object
@@ -1938,8 +2273,7 @@ components:
         observers:
           type: array
           items:
-            type: string
-            format: email
+            $ref: '#/components/schemas/SignatureObserverResponse'
           example: []
         expiration_date:
           type: string
@@ -2221,21 +2555,6 @@ components:
                 Skribble web client.
               items:
                 $ref: '#/components/schemas/SignatureRecipient'
-        cc_email_addresses:
-          oneOf:
-            - type: 'null'
-              title: No observers
-            - type: array
-              title: Observers
-              description: |-
-                Observer email addresses of users who are granted read access and to whom notifications are sent.
-                The given observers need to have a valid Skribble account. Otherwise the email address will not be accepted as valid observer.
-              items:
-                type: string
-                format: email
-              example:
-                - backoffice@company.com
-                - info@company.com
         callback_success_url:
           type: string
           description: Callback-URL which is called on overall success.
@@ -2275,15 +2594,23 @@ components:
               title: No other writer
             - type: array
               title: Additional writer
-              description: |-
-                Give existing users full write access to this signature request. 
-                The given observers need to have a valid Skribble account. Otherwise the email address will not be accepted as valid observer.
+              description: 'Give existing users full write access to this signature request. '
               items:
                 type: string
                 format: email
               example:
                 - john.doe@skriobble.com
                 - jane.doe@skribble.com
+    WithdrawSignatureRequest:
+      title: Withdraw Signature Request
+      type: object
+      properties:
+        message:
+          type: string
+          description: Withdraw message.
+          minLength: 0
+          maxLength: 2048
+          example: The reason for withdrawing the signature.
     SignatureStatusOverall:
       title: Signature Status Overall
       type: string
@@ -2436,16 +2763,6 @@ components:
           type: string
           format: uri
           example: https://mybiz.com/call/success
-    WithdrawSignatureRequest:
-      title: Withdraw Signature Request
-      type: object
-      properties:
-        message:
-          type: string
-          description: Withdraw message.
-          minLength: 0
-          maxLength: 2048
-          example: The reason for withdrawing the signature.
     SignatureReport:
       title: Signature Report
       type: object
@@ -2760,6 +3077,58 @@ components:
           format: byte
           description: Base64 encoded bytes of the document.
           example: U29tZUJhc2U2NEVuY29kZWRJbWFnZQ==
+    CreateSignatureObserverRequest:
+      title: Signature Observer
+      type: object
+      description: |-
+        Defines an observer target which can either be a USER or a GROUP.
+
+        - For type USER, either email or user_id must be provided (but not both).
+        - For type GROUP, group_id must be provided and no user fields are allowed.
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          description: Type of observer target.
+          enum:
+            - USER
+            - GROUP
+          example: USER
+      oneOf:
+        - title: User Observer
+          type: object
+          required:
+            - type
+          properties:
+            type:
+              const: USER
+            email:
+              type: string
+              format: email
+              description: Email address of the user.
+              example: you@example.info
+            user_id:
+              type: string
+              description: Unique user identifier.
+              example: '123'
+          oneOf:
+            - required:
+                - email
+            - required:
+                - user_id
+        - title: Group Observer
+          type: object
+          required:
+            - type
+            - group_id
+          properties:
+            type:
+              const: GROUP
+            group_id:
+              type: string
+              description: Unique group identifier.
+              example: gr_456
     VisualSignature:
       title: Visual Signature
       type: object
@@ -3363,6 +3732,14 @@ components:
         type: string
         format: uuid
       example: f1e2d3c4-7b8a-4e6f-9d3b-123456789abc
+    ObserverIDPath:
+      name: OBSERVER_ID
+      in: path
+      description: Unique ID returned when the Signature Observer is created.
+      required: true
+      schema:
+        type: string
+      example: ob_123
     PageIDPath:
       name: PAGE_ID
       in: path
@@ -3459,6 +3836,7 @@ components:
         example: desc
   examples:
     SampleArray:
+      summary: Sample array of signature responses
       value:
         - id: 4f43614a-de50-bfe1-2df3-4c881fc7840e
           title: Sample document
@@ -3540,7 +3918,12 @@ components:
               invited_by: api_demo_example
           origin: API
           observers:
-            - legal@examplecorp.com
+            - id: ob_789
+              type: USER
+              user_info:
+                email: legal@examplecorp.com
+              invited_at: '2025-10-15T08:15:22.115Z'
+              invited_by: api_demo_example
           owner: api_demo_example
           read_access:
             - alice@example.com
@@ -3558,7 +3941,7 @@ components:
         message: Please sign this document!
         quality: DEMO
         documents:
-          - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+          - id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
         signatures:
           - account_email: you@example.info
     OneSignerMultiDoc:
@@ -3568,15 +3951,15 @@ components:
         message: Please sign this documents!
         quality: DEMO
         documents:
-          - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
-          - document_id: 14f65d46-6653-c33c-81a8-260bd5aba3c5
+          - id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+          - id: 14f65d46-6653-c33c-81a8-260bd5aba3c5
         signatures:
           - account_email: you@example.info
             document_signatures:
               - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
-                visual_signatures:
-                  - positions:
-                      x: 120
+                visual_signature:
+                  positions:
+                    - x: 120
                       'y': 780
                       width: 150
                       height: 70
@@ -3589,8 +3972,8 @@ components:
         message: Please sign this documents!
         quality: DEMO
         documents:
-          - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
-          - document_id: 14f65d46-6653-c33c-81a8-260bd5aba3c5
+          - id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+          - id: 14f65d46-6653-c33c-81a8-260bd5aba3c5
         signatures:
           - account_email: you@example.info
             sequence: 1
@@ -3612,7 +3995,7 @@ components:
         message: Please sign this document!
         quality: SES
         documents:
-          - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+          - id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
         signatures:
           - account_email: signer@skribble.com
             signer_identity_data:
@@ -3624,7 +4007,7 @@ components:
         message: Please sign this document!
         quality: SES
         documents:
-          - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+          - id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
         signatures:
           - account_email: signer@skribble.com
             sequence: 1
@@ -3636,7 +4019,7 @@ components:
         title: Example contract
         message: Please sign this document!
         documents:
-          - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+          - id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
         signatures:
           - account_email: you@example.info
         callback_success_url: https://myapp.com/some/path/SKRIBBLE_SIGNATURE_REQUEST_ID/success?document_id=SKRIBBLE_DOCUMENT_ID&token=12345678
@@ -3727,37 +4110,43 @@ components:
             notify: true
             invited_by: api_demo_example
         origin: API
-        observers:
-          - legal@examplecorp.com
+        observers: []
         owner: api_demo_example
         read_access:
           - alice@example.com
           - hr@examplecorp.com
-          - legal@examplecorp.com
           - api_demo_example
         write_access:
           - api_demo_example
         created_at: '2025-10-15T08:15:22.115Z'
         updated_at: '2025-10-15T08:15:22.115Z'
-    CreateSignatureResponse_Sample1:
-      summary: Sample one signer waiting for signature
+    SampleSimple:
+      summary: Sample signature response with one signer
       value:
         id: 4f43614a-de50-bfe1-2df3-4c881fc7840e
         title: Sample document
         message: Please sign this document.
-        document_id: 1ff0cf91-6b54-f3bd-bffb-8fcd5e799764
+        documents:
+          - id: a84f5085-67e5-e106-71c7-69b3d4b7c632
+            name: Filename1.pdf
+            version_id: a84f5085-67e5-e106-71c7-69b3d4b7c632
         legislation: ZERTES
         quality: QES
         signing_url: https://my.skribble.com/view/4f43614a-de50-bfe1-2df3-4c881fc7840e
         status_overall: OPEN
-        business: biz-5a2aea44ddea4f0531ebcdcbcedf873c
+        business_id: biz-5a2aea44ddea4f0531ebcdcbcedf873c
         signatures:
           - sid: e5ab7fba-e815-0f65-f437-7c78953a0b7d
             account_email: you@example.info
+            document_signatures:
+              - document_id: a84f5085-67e5-e106-71c7-69b3d4b7c632
+                visual_signature: null
             sequence: -1
             status_code: OPEN
             notify: true
-        cc_email_addresses: []
+            invited_by: api_demo_example
+        origin: API
+        observers: []
         attachments: []
         owner: api_demo_example
         read_access:
@@ -3767,61 +4156,62 @@ components:
           - api_demo_example
         created_at: '2025-10-15T07:47:01.223Z'
         updated_at: '2025-10-15T07:47:01.223Z'
-    CreateSignatureResponse_Sample2:
-      summary: Sample multiple signers with visual signatures where one has signed
+    SampleObservers:
+      summary: Sample signature response with multiple signers and observer
       value:
         id: 8c73215f-bf33-d8a9-90e5-1a5cd0b9273a
         title: Employment Contract
         message: Please review and sign your employment contract.
-        document_id: 2aa9b2e7-3c21-4d7a-bf9c-6a1f6f5fcb98
+        documents:
+          - id: a84f5085-67e5-e106-71c7-69b3d4b7c632
+            name: Filename1.pdf
+            version_id: a84f5085-67e5-e106-71c7-69b3d4b7c632
         legislation: EIDAS
         quality: AES
         signing_url: https://my.skribble.com/view/8c73215f-bf33-d8a9-90e5-1a5cd0b9273a
         status_overall: OPEN
-        business: biz-87c4d39afc6d471da7bcbf4f2e8ef931
+        business_id: biz-87c4d39afc6d471da7bcbf4f2e8ef931
         signatures:
           - sid: 5ad9f2c1-6a81-42af-9a6a-7c5adcb54e23
             account_email: alice@example.com
+            document_signatures:
+              - document_id: a84f5085-67e5-e106-71c7-69b3d4b7c632
+                visual_signature:
+                  positions:
+                    - x: 120
+                      'y': 490
+                      width: 150
+                      height: 70
+                      page: '2'
+                      rotation: 0
             sequence: 1
             status_code: SIGNED
             notify: true
-            visual_signature:
-              position:
-                x: 120
-                'y': 490
-                width: 150
-                height: 70
-                page: '2'
-                rotation: 0
-              positions:
-                - x: 120
-                  'y': 490
-                  width: 150
-                  height: 70
-                  page: '2'
-                  rotation: 0
+            invited_by: api_demo_example
           - sid: 19de3b41-9d65-4cb7-90ff-239b7a0eac12
             account_email: hr@examplecorp.com
+            document_signatures:
+              - document_id: a84f5085-67e5-e106-71c7-69b3d4b7c632
+                visual_signature:
+                  positions:
+                    - x: 130
+                      'y': 420
+                      width: 155
+                      height: 72
+                      page: '2'
+                      rotation: 0
             sequence: 2
             status_code: OPEN
             notify: true
-            visual_signature:
-              position:
-                x: 130
-                'y': 420
-                width: 155
-                height: 72
-                page: '2'
-                rotation: 0
-              positions:
-                - x: 130
-                  'y': 420
-                  width: 155
-                  height: 72
-                  page: '2'
-                  rotation: 0
-        cc_email_addresses:
-          - legal@examplecorp.com
+            invited_by: api_demo_example
+        origin: API
+        observers:
+          - id: ob_789
+            type: USER
+            user_info:
+              email: legal@examplecorp.com
+            invited_at: '2025-10-15T08:15:22.115Z'
+            invited_by: api_demo_example
         owner: api_demo_example
         read_access:
           - alice@example.com
@@ -3954,6 +4344,45 @@ components:
           email_address: single-signer@skribble.com
         document_signatures:
           - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+    SampleObserverArray:
+      summary: Sample array of observers
+      value:
+        - id: ob_123
+          type: USER
+          invited_at: '2026-02-02T12:34:56Z'
+          invited_by: admin@example.com
+          user_info:
+            id: '123'
+            email: ana@skribble.com
+        - id: ob_124
+          type: GROUP
+          invited_at: '2026-02-02T12:40:00Z'
+          invited_by: admin@example.com
+          group_info:
+            id: gr_456
+            name: Group 1
+            version_id: gv_12
+    SampleUserObserver:
+      summary: Sample single USER observer
+      value:
+        id: ob_123
+        type: USER
+        invited_at: '2026-02-02T12:34:56Z'
+        invited_by: admin@example.com
+        user_info:
+          id: '123'
+          email: ana@skribble.com
+    SampleGroupObserver:
+      summary: Sample single GROUP observer
+      value:
+        id: ob_124
+        type: GROUP
+        invited_at: '2026-02-02T12:40:00Z'
+        invited_by: admin@example.com
+        group_info:
+          id: gr_456
+          name: Group 1
+          version_id: gv_12
     SealDoc:
       summary: Seal document
       value:

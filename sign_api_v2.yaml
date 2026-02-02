@@ -46,6 +46,8 @@ tags:
     description: Endpoints for Documents
   - name: Signature
     description: Endpoints related to creating and managing signature requests
+  - name: Signature Signer
+    description: Endpoints for Signers
   - name: Signature Attachment
     description: Endpoints for Attachments
   - name: Signature Tracking
@@ -803,7 +805,7 @@ paths:
   /signature-requests/{SR_ID}/signatures:
     post:
       tags:
-        - Signature
+        - Signature Signer
       summary: Add an individual signer
       description: |-
         To add an individual signer, use the same parameters as when creating a
@@ -858,7 +860,7 @@ paths:
   /signature-requests/{SR_ID}/signatures/{SID}:
     delete:
       tags:
-        - Signature
+        - Signature Signer
       summary: Remove an individual signer
       description: |-
         To remove an individual signer, provide the SignatureRequest ID `{{SR_ID}}`

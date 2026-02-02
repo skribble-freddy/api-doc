@@ -108,6 +108,9 @@ tags:
   - name: Signature Attachment
     description: |-
       Endpoints for Attachments
+  - name: Signature Observer
+    description: |-
+      Endpoints for Observers
   - name: Signature Tracking
     description: |-
       Endpoints related to tracking signature requests

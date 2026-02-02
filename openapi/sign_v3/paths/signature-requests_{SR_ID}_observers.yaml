@@ -1,6 +1,6 @@
 post:
   tags:
-    - Signature Observers
+    - Signature Observer
   summary: Add an observer to a signature request
   description: |-
     Use this endpoint to add an observer to a signature request.
@@ -33,6 +33,41 @@ post:
               $ref: ../components/examples/ObserverResponses.yaml#/SampleGroupObserver
     400:
       $ref: ../../sign_v2/components/responses/BadRequest.yaml
+    401:
+      $ref: ../../sign_v2/components/responses/Unauthorized.yaml
+    404:
+      $ref: ../../sign_v2/components/responses/NotFound.yaml
+    429:
+      $ref: ../../sign_v2/components/responses/TooManyRequests.yaml
+    500:
+      $ref: ../../sign_v2/components/responses/ServerError.yaml
+    503:
+      $ref: ../../sign_v2/components/responses/ServiceUnavailable.yaml
+
+get:
+  tags:
+    - Signature Observer
+  summary: List observers of a signature request
+  description: |-
+    Returns all observers that have been added to the signature request
+    with the ID `SR_ID`.
+  operationId: listSignatureObservers
+  security:
+    - bearer: []
+  parameters:
+    - $ref: ../../sign_v2/components/parameters/SignatureIDPath.yaml
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../components/schemas/SignatureObserverResponse.yaml
+          examples:
+            Observers:
+              $ref: ../components/examples/ObserverResponses.yaml#/SampleObserverArray
     401:
       $ref: ../../sign_v2/components/responses/Unauthorized.yaml
     404:

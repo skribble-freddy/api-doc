@@ -1,6 +1,5 @@
-# TODO ADJUST FOR V3
 Sample1:
-  summary: Sample one signer waiting for signature
+  summary: Sample signature response with one signer
   value:
     id: 4f43614a-de50-bfe1-2df3-4c881fc7840e
     title: Sample document
@@ -37,7 +36,7 @@ Sample1:
     updated_at: 2025-10-15T07:47:01.223Z
 
 Sample2:
-  summary: Sample multiple signers with visual signatures where one has signed
+  summary: Sample signature response with multiple signers and observer
   value:
     id: 8c73215f-bf33-d8a9-90e5-1a5cd0b9273a
     title: Employment Contract
@@ -85,11 +84,18 @@ Sample2:
         notify: true
         invited_by: api_demo_example
     origin: API
-    observers: []
+    observers:
+      - id: ob_789
+        type: USER
+        user_info:
+          email: legal@examplecorp.com
+        invited_at: "2025-10-15T08:15:22.115Z"
+        invited_by: api_demo_example
     owner: api_demo_example
     read_access:
       - alice@example.com
       - hr@examplecorp.com
+      - legal@examplecorp.com
       - api_demo_example
     write_access:
       - api_demo_example
@@ -97,6 +103,7 @@ Sample2:
     updated_at: 2025-10-15T08:15:22.115Z
 
 SampleArray:
+  summary: Sample array of signature responses
   value:
     - id: 4f43614a-de50-bfe1-2df3-4c881fc7840e
       title: Sample document
@@ -177,11 +184,18 @@ SampleArray:
           notify: true
           invited_by: api_demo_example
       origin: API
-      observers: []
+      observers:
+        - id: ob_789
+          type: USER
+          user_info:
+            email: legal@examplecorp.com
+          invited_at: "2025-10-15T08:15:22.115Z"
+          invited_by: api_demo_example
       owner: api_demo_example
       read_access:
         - alice@example.com
         - hr@examplecorp.com
+        - legal@examplecorp.com
         - api_demo_example
       write_access:
         - api_demo_example

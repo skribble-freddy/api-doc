@@ -105,12 +105,15 @@ tags:
   - name: Signature
     description: |-
       Endpoints related to creating and managing signature requests
-  - name: Signature Attachment
+  - name: Signature Signer
     description: |-
-      Endpoints for Attachments
+      Endpoints for Signers
   - name: Signature Observer
     description: |-
       Endpoints for Observers
+  - name: Signature Attachment
+    description: |-
+      Endpoints for Attachments
   - name: Signature Tracking
     description: |-
       Endpoints related to tracking signature requests

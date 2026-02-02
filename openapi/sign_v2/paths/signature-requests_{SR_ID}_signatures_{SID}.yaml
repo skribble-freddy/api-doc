@@ -1,6 +1,6 @@
 delete:
   tags:
-    - Signature
+    - Signature Signer
   summary: Remove an individual signer
   description: |-
     To remove an individual signer, provide the SignatureRequest ID `{{SR_ID}}`

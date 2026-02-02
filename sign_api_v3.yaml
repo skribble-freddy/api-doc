@@ -3112,11 +3112,6 @@ components:
               type: string
               description: Unique user identifier.
               example: '123'
-          oneOf:
-            - required:
-                - email
-            - required:
-                - user_id
         - title: Group Observer
           type: object
           required:

@@ -19,6 +19,13 @@ post:
       application/json:
         schema:
           $ref: ../components/schemas/CreateSignatureObserverRequest.yaml
+        examples:
+          UserById:
+            $ref: ../components/examples/ObserverRequests.yaml#/CreateUserByIdObserver
+          UserByMail:
+            $ref: ../components/examples/ObserverRequests.yaml#/CreateUserByMailObserver
+          Group:
+            $ref: ../components/examples/ObserverRequests.yaml#/CreateGroupObserver
   responses:
     200:
       description: OK

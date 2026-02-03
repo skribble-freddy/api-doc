@@ -1,4 +1,4 @@
-title: Signature Receipient
+title: Signature Recipient
 type: object
 properties:
   account_email:

@@ -1,7 +1,15 @@
-summary: Add Individual Signer
-value:
-  account_email: single-signer@skribble.com
-  signer_identity_data:
-    email_address: single-signer@skribble.com
-  document_signatures:
+UserSigner:
+  summary: Add User Signer
+  value:
+    account_email: single-signer@skribble.com
+    signer_identity_data:
+      email_address: single-signer@skribble.com
+    document_signatures:
+      - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+
+GroupSigner:
+  summary: Add Group Signer
+  value:
+    signer_group_id: gr_9feb51ba97444c539261b64294f33225
+    document_signatures:
       - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b

@@ -1008,6 +1008,13 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateSignatureObserverRequest'
+            examples:
+              UserById:
+                $ref: '#/components/examples/CreateUserByIdObserver'
+              UserByMail:
+                $ref: '#/components/examples/CreateUserByMailObserver'
+              Group:
+                $ref: '#/components/examples/CreateGroupObserver'
       responses:
         '200':
           description: OK
@@ -3070,7 +3077,7 @@ components:
       description: |-
         Defines an observer target which can either be a USER or a GROUP.
 
-        - For type USER, either email or user_id must be provided (but not both).
+        - For type USER, either email or user_id must be provided (but not both). When using email, a user will be automatically created if not present and returned.
         - For type GROUP, group_id must be provided and no user fields are allowed.
       required:
         - type
@@ -3090,15 +3097,24 @@ components:
           properties:
             type:
               const: USER
-            email:
-              type: string
-              format: email
-              description: Email address of the user.
-              example: you@example.info
-            user_id:
-              type: string
-              description: Unique user identifier.
-              example: '123'
+          oneOf:
+            - title: User by Email
+              required:
+                - email
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: Email address of the user.
+                  example: observer@example.info
+            - title: User by ID
+              required:
+                - user_id
+              properties:
+                user_id:
+                  type: string
+                  description: Unique user identifier.
+                  example: usr_123
         - title: Group Observer
           type: object
           required:
@@ -4327,15 +4343,15 @@ components:
         document_signatures:
           - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
     SampleObserverArray:
-      summary: Sample array of observers
+      summary: List
       value:
         - id: ob_123
           type: USER
           invited_at: '2026-02-02T12:34:56Z'
           invited_by: admin@example.com
           user_info:
-            id: '123'
-            email: ana@skribble.com
+            id: usr_123
+            email: observer@example.info
         - id: ob_124
           type: GROUP
           invited_at: '2026-02-02T12:40:00Z'
@@ -4344,18 +4360,33 @@ components:
             id: gr_456
             name: Group 1
             version_id: gv_12
+    CreateUserByIdObserver:
+      summary: User by ID Observer
+      value:
+        type: USER
+        user_id: '123'
+    CreateUserByMailObserver:
+      summary: User by Mail Observer
+      value:
+        type: USER
+        email: observer@example.info
+    CreateGroupObserver:
+      summary: Group Observer
+      value:
+        type: GROUP
+        group_id: gr_456
     SampleUserObserver:
-      summary: Sample single USER observer
+      summary: User by ID or Mail
       value:
         id: ob_123
         type: USER
         invited_at: '2026-02-02T12:34:56Z'
         invited_by: admin@example.com
         user_info:
-          id: '123'
-          email: ana@skribble.com
+          id: usr_123
+          email: observer@example.info
     SampleGroupObserver:
-      summary: Sample single GROUP observer
+      summary: Group
       value:
         id: ob_124
         type: GROUP

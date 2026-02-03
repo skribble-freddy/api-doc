@@ -35,8 +35,10 @@ post:
         schema:
           $ref: ../components/schemas/SignatureRecipient.yaml
         examples:
-          default:
-            $ref: ../components/examples/AddSignatureSigner.yaml
+          UserSigner:
+            $ref: ../components/examples/AddSignatureSigner.yaml#/UserSigner
+          GroupSigner:
+            $ref: ../components/examples/AddSignatureSigner.yaml#/GroupSigner
   responses:
     200:
       description: OK

@@ -1,0 +1,17 @@
+CreateUserByIdObserver:
+  summary: User by ID Observer
+  value:
+    type: USER
+    user_id: "123"
+
+CreateUserByMailObserver:
+  summary: User by Mail Observer
+  value:
+    type: USER
+    email: observer@example.info
+
+CreateGroupObserver:
+  summary: Group Observer
+  value:
+    type: GROUP
+    group_id: gr_456

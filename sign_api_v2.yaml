@@ -1923,7 +1923,7 @@ components:
               description: Must not be provided when form_field is used.
               readOnly: true
     SignatureRecipient:
-      title: Signature Receipient
+      title: Signature Recipient
       type: object
       properties:
         account_email:
@@ -2430,7 +2430,7 @@ components:
         - RESIGNATED
       example: COMPLETED
     SignatureCallbacksResponse:
-      title: Signature Receipient in Response
+      title: Signature Callbacks in Response
       type: array
       items:
         type: object

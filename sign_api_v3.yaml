@@ -878,8 +878,10 @@ paths:
             schema:
               $ref: '#/components/schemas/SignatureRecipient'
             examples:
-              default:
-                $ref: '#/components/examples/AddSignatureSigner'
+              UserSigner:
+                $ref: '#/components/examples/UserSigner'
+              GroupSigner:
+                $ref: '#/components/examples/GroupSigner'
       responses:
         '200':
           description: OK
@@ -2365,36 +2367,66 @@ components:
             If the business hasn't enabled Express QES, the request is rejected.
           example: true
     SignatureRecipient:
-      title: Signature Receipient
-      type: object
-      properties:
-        account_email:
-          type: string
-          description: Optional signer account eMail.
-          format: email
-          example: you@example.info
-        signer_group_id:
-          type: string
-          description: Optional signer group ID.
-          example: gr_9feb51ba97444c539261b64294f33225
-        sequence:
-          type: number
-          description: Optional signer sequence.
-          format: int32
-          default: -1
-          example: 1
-        notify:
-          type: boolean
-          description: Whether to send a notification to this signer.
-          default: true
-          example: false
-        signer_identity_data:
-          $ref: '#/components/schemas/SignerIdentityData'
-        document_signatures:
-          type: array
-          description: Visual Signatures
-          items:
-            $ref: '#/components/schemas/SignatureDocument'
+      title: Signature Recipient
+      description: |-
+        Defines a signature recipient which can either be an individual signer or a group signer.
+
+        - For individual signers, account_email and/or signer_identity_data can optionally be provided.
+        - For group signers, signer_group_id must be provided and account_email/signer_identity_data must not be used.
+      oneOf:
+        - title: User Signer
+          type: object
+          additionalProperties: false
+          properties:
+            sequence:
+              type: number
+              description: Optional signer sequence.
+              format: int32
+              default: -1
+              example: 1
+            notify:
+              type: boolean
+              description: Whether to send a notification to this signer.
+              default: true
+              example: false
+            document_signatures:
+              type: array
+              description: Visual Signatures
+              items:
+                $ref: '#/components/schemas/SignatureDocument'
+            account_email:
+              type: string
+              description: Optional signer account eMail.
+              format: email
+              example: you@example.info
+            signer_identity_data:
+              $ref: '#/components/schemas/SignerIdentityData'
+        - title: Group Signer
+          type: object
+          additionalProperties: false
+          required:
+            - signer_group_id
+          properties:
+            sequence:
+              type: number
+              description: Optional signer sequence.
+              format: int32
+              default: -1
+              example: 1
+            notify:
+              type: boolean
+              description: Whether to send a notification to this signer.
+              default: true
+              example: false
+            document_signatures:
+              type: array
+              description: Visual Signatures
+              items:
+                $ref: '#/components/schemas/SignatureDocument'
+            signer_group_id:
+              type: string
+              description: Signer group ID.
+              example: gr_9feb51ba97444c539261b64294f33225
     UpdateSignatureRequest:
       title: Update Signature Request
       type: object
@@ -2977,7 +3009,7 @@ components:
         - RESIGNATED
       example: COMPLETED
     SignatureCallbacksResponse:
-      title: Signature Receipient in Response
+      title: Signature Callbacks in Response
       type: array
       items:
         type: object
@@ -4334,12 +4366,18 @@ components:
         attachments:
           - attachment_id: 8ed33046-3798-8c54-0b13-0820d0d6e121
             filename: Attachment.pdf
-    AddSignatureSigner:
-      summary: Add Individual Signer
+    UserSigner:
+      summary: Add User Signer
       value:
         account_email: single-signer@skribble.com
         signer_identity_data:
           email_address: single-signer@skribble.com
+        document_signatures:
+          - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
+    GroupSigner:
+      summary: Add Group Signer
+      value:
+        signer_group_id: gr_9feb51ba97444c539261b64294f33225
         document_signatures:
           - document_id: 3648f61d-4194-455c-a0bc-1c438d2cd11b
     SampleObserverArray:

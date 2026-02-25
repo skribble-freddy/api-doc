@@ -30,6 +30,9 @@ Reconsider offering this with specific update actions like
 - Add / Remove Permissions
 ..
 
+006. Document undocumented /sign endpoint(s)
+
+
 ### New stuff
 
 - Model unique URLs (Read, Write)
